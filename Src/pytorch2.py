@@ -39,11 +39,19 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 mnist_datatransform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
 mnist_training_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/training/', transform = mnist_datatransform)
+#mnist_training_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/training/', transform = mnist_datatransform)
 mnist_testing_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/testing/', transform = mnist_datatransform)
+#mnist_testing_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/testing/', transform = mnist_datatransform)
 train_loader = torch.utils.data.DataLoader(mnist_training_dataset, batch_size = args.batch_size, shuffle = True, **kwargs)
 test_loader = torch.utils.data.DataLoader(mnist_testing_dataset, batch_size = args.test_batch_size, shuffle=True, **kwargs)
 
 
+#datasets.MNIST('../data', train=True,
+#               download = True,
+#               transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
+#               )
+#
+#
 #train_loader = torch.utils.data.DataLoader(
 #                                           datasets.MNIST('../data', train=True,
 #                                                          download = True,
@@ -70,7 +78,7 @@ class Net(nn.Module):
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
         x = x.view(-1, 320)
         x = F.relu(self.fc1(x))
-        x = F.dropout(x, training=self.training)
+        x = F.dropout(x, training = self.training)
         x = self.fc2(x)
         return F.log_softmax(x)
 

@@ -2,3 +2,4 @@ Conda downloaded.
 Virtual environment is created with conda (nonlinarSE).
 Pytorch is installed to virtual environment.
 Pytorch/MNIST digit example is tested in VE. (0.98/1 Accuracy)
+http://cs231n.github.io/convolutional-networks/ (read)
