@@ -38,8 +38,8 @@ train_loader.train_data = pixel_tensor
 
 
 (NOTE: The method used in pytorch2.py to read MNIST data must be optimized because it holds all
-data in RAM.)
+data in RAM..)
 
 
 Next thing to do must be creating an dataset class that is inherited from pytorch "dataset class",
-documentations says that, __getitem__ and __len__ methods are only requierments. 
+documentations says that, __getitem__ and __len__ methods are only requierments.
