@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation xmds-version="2">
+  <name>xgp1d</name>
+  <author>Joe Hope</author>
+  <description>
+    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
+    This is done by evolving it in imaginary time while re-normalising each timestep.
+  </description>
+
+  <features>
+    <auto_vectorise />
+    <benchmark />
+    <diagnostics />
+    <bing />
+    <fftw plan="exhaustive" />
+    <globals>
+      <![CDATA[
+        const real Uint = 10.0;
+        const real Omega = 0.9;
+        const real Nparticles = 100.0;
+      ]]>
+    </globals>
+  </features>
+
+  <geometry>
+    <propagation_dimension> t </propagation_dimension>
+    <transverse_dimensions>
+      <dimension name="x" lattice="128"  domain="(-10.0, 10.0)" />
+    </transverse_dimensions>
+  </geometry>
+
+  <vector name="potential" initial_basis="x" type="real">
+    <components> V1 </components>
+    <initialisation>
+      <![CDATA[
+        V1  = 0.5*x*x;
+      ]]>
+    </initialisation>
+  </vector>
+
+  <vector name="wavefunction" initial_basis="x" type="complex">
+    <components> phi </components>
+    <initialisation>
+      <![CDATA[
+	      phi = exp(-(x*x)/10);
+      ]]>
+    </initialisation>
+  </vector>
+
+  <computed_vector name="gradphi" dimensions="x" type="complex">
+    <components> dphix </components>
+    <evaluation>
+      <dependencies basis="kx">wavefunction</dependencies>
+      <![CDATA[
+        dphix=i*kx*phi;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <computed_vector name="normalisation" dimensions="" type="real">
+    <components> Ncalc </components>
+    <evaluation>
+      <dependencies basis="x">wavefunction </dependencies>
+      <![CDATA[
+        // Calculate the current normalisation of the wave function.
+        Ncalc = mod2(phi);
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <sequence>
+      <filter>
+        <![CDATA[
+          printf("Hello world from a filter segment!\n");
+        ]]>
+      </filter>
+
+    <filter>
+        <dependencies>normalisation wavefunction</dependencies>
+      <![CDATA[
+        phi *= sqrt(Nparticles/Ncalc);
+      ]]>
+    </filter>
+
+    <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
+      <samples>25 25</samples>
+      <filters where="step end">
+        <filter>
+          <dependencies>wavefunction normalisation</dependencies>
+          <![CDATA[
+            // Correct normalisation of the wavefunction
+            phi *= sqrt(Nparticles/Ncalc);
+          ]]>
+        </filter>
+      </filters>
+      <operators>
+        <operator kind="ex" dimensions="x">
+          <operator_names>T2</operator_names>
+          <![CDATA[
+            T2 = -0.5*kx*kx;
+          ]]>
+        </operator>
+        <integration_vectors>wavefunction</integration_vectors>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+        dphi_dt = T2[phi] - (V1 + Uint*mod2(phi) )*phi;
+        ]]>
+      </operators>
+    </integrate>
+
+  </sequence>
+
+  <output filename="gp1d.xsil">
+      <sampling_group basis="x" initial_sample="yes">
+        <moments>dens phiR phiI</moments>
+        <dependencies>wavefunction normalisation</dependencies>
+        <![CDATA[
+          dens = mod2(phi);
+          _SAMPLE_COMPLEX(phi);
+        ]]>
+      </sampling_group>
+      <sampling_group basis="" initial_sample="yes">
+        <moments>norm</moments>
+        <dependencies>normalisation</dependencies>
+        <![CDATA[
+          norm = Ncalc;
+        ]]>
+      </sampling_group>
+  </output>
+</simulation>
