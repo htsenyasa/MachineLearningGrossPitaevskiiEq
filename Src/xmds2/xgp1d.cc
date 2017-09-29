@@ -158,12 +158,12 @@ inline void *xmds_malloc(size_t size);
 
 // ********************************************************
 //   Geometry defines
-#define _lattice_x ((int)128)
-#define _min_x     ((real)-10.0)
-#define _max_x     ((real)10.0)
+#define _lattice_x ((int)256)
+#define _min_x     ((real)-20.0)
+#define _max_x     ((real)20.0)
 #define _dx        ((real)((_max_x - _min_x)/_lattice_x))
 
-#define _lattice_kx ((int)128)
+#define _lattice_kx ((int)256)
 #define _dkx        (2.0*M_PI/(_max_x - _min_x))
 #define _min_kx     (-(_lattice_kx/2) * _dkx)
 #define _max_kx     ((_lattice_kx - 1)/2 * _dkx)
@@ -502,8 +502,8 @@ int main(int argc, char **argv)
   _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
-  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
   _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
   _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t) * _mg1_output_raw_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
   
@@ -920,7 +920,7 @@ void _x_wavefunction_initialise()
     // ********** Initialisation code ***************
     #line 44 "gp1d.xmds"
     
-    phi = exp(-(x*x)/10);
+    phi = exp(-(x*x)/2);
     
     #line 926 "xgp1d.cc"
     // **********************************************
@@ -1980,7 +1980,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  <geometry>\n");
   fprintf(fp, "    <propagation_dimension> t </propagation_dimension>\n");
   fprintf(fp, "    <transverse_dimensions>\n");
-  fprintf(fp, "      <dimension domain=\"(-10.0, 10.0)\" lattice=\"128\" name=\"x\"/>\n");
+  fprintf(fp, "      <dimension domain=\"(-20.0, 20.0)\" lattice=\"256\" name=\"x\"/>\n");
   fprintf(fp, "    </transverse_dimensions>\n");
   fprintf(fp, "  </geometry>\n");
   fprintf(fp, "\n");
@@ -1997,7 +1997,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <components> phi </components>\n");
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "              phi = exp(-(x*x)/10);\n");
+  fprintf(fp, "              phi = exp(-(x*x)/2);\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");

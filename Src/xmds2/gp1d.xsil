@@ -24,7 +24,7 @@
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension domain="(-10.0, 10.0)" lattice="128" name="x"/>
+      <dimension domain="(-20.0, 20.0)" lattice="256" name="x"/>
     </transverse_dimensions>
   </geometry>
 
@@ -41,7 +41,7 @@
     <components> phi </components>
     <initialisation>
       <![CDATA[
-              phi = exp(-(x*x)/10);
+              phi = exp(-(x*x)/2);
       ]]>
     </initialisation>
   </vector>
@@ -142,7 +142,7 @@ t x dens phiR phiI
   </Array>
   <Array Name="data" Type="double">
     <Dim>26</Dim>
-    <Dim>128</Dim>
+    <Dim>256</Dim>
     <Dim>5</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
 gp1d.h5

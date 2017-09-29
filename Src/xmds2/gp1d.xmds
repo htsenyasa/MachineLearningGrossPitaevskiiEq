@@ -16,7 +16,6 @@
     <globals>
       <![CDATA[
         const real Uint = 10.0;
-        const real Omega = 0.9;
         const real Nparticles = 100.0;
       ]]>
     </globals>
@@ -25,7 +24,7 @@
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension name="x" lattice="128"  domain="(-10.0, 10.0)" />
+      <dimension name="x" lattice="256"  domain="(-20.0, 20.0)" />
     </transverse_dimensions>
   </geometry>
 
@@ -42,7 +41,7 @@
     <components> phi </components>
     <initialisation>
       <![CDATA[
-	      phi = exp(-(x*x)/10);
+	      phi = exp(-(x*x)/2);
       ]]>
     </initialisation>
   </vector>
