@@ -23,7 +23,7 @@
       INTEGER I, K, OPTION
 ! DX : Space step and DT : Time step
        DATA DX/0.0025D0/, DT/0.00002D0/
-       DATA G0/62.742D0/ ! Final nonlinearity
+       DATA G0/20.000D0/ ! Final nonlinearity
 ! Subroutine INTIALIZE() used to initialize the space mesh X(I), 
 ! potential V(I) and the initial wave function. Subroutine COEF() used to
 ! generate the coefficients for the Crank-Nicholson Scheme. The routine

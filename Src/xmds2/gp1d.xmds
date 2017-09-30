@@ -15,8 +15,8 @@
     <fftw plan="exhaustive" />
     <globals>
       <![CDATA[
-        const real Uint = 10.0;
-        const real Nparticles = 100.0;
+        const real Uint = 20.0;
+        const real Nparticles = 1.0;
       ]]>
     </globals>
   </features>
@@ -24,7 +24,7 @@
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension name="x" lattice="256"  domain="(-20.0, 20.0)" />
+      <dimension name="x" lattice="1024"  domain="(-10.0, 10.0)" />
     </transverse_dimensions>
   </geometry>
 
@@ -32,7 +32,8 @@
     <components> V1 </components>
     <initialisation>
       <![CDATA[
-        V1  = 0.5*x*x;
+        //V1  = 0.5*x*x;
+        V1  = 0.5*(x-1)*(x-1);
       ]]>
     </initialisation>
   </vector>
@@ -57,12 +58,13 @@
   </computed_vector>
 
   <computed_vector name="normalisation" dimensions="" type="real">
-    <components> Ncalc </components>
+    <components> Ncalc EN</components>
     <evaluation>
-      <dependencies basis="x">wavefunction </dependencies>
+      <dependencies basis="x">wavefunction gradphi potential</dependencies>
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
+	EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
       ]]>
     </evaluation>
   </computed_vector>
@@ -82,7 +84,7 @@
     </filter>
 
     <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
-      <samples>25 25</samples>
+      <samples>25 25 1</samples>
       <filters where="step end">
         <filter>
           <dependencies>wavefunction normalisation</dependencies>
@@ -119,10 +121,18 @@
         ]]>
       </sampling_group>
       <sampling_group basis="" initial_sample="yes">
-        <moments>norm</moments>
+        <moments>norm e1</moments>
         <dependencies>normalisation</dependencies>
         <![CDATA[
           norm = Ncalc;
+	  e1 = EN;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x" initial_sample="no">
+        <moments>v1</moments>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+	  v1 = V1;
         ]]>
       </sampling_group>
   </output>
