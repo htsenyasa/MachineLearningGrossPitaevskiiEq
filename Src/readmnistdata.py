@@ -7,7 +7,7 @@ Loosely inspired by http://abel.ee.ucla.edu/cvxopt/_downloads/mnist.py
 which is GPL licensed.
 """
 
-def read(dataset = "training", path = "../data/MNIST/"):
+def read(dataset = "training", path = "../data/MNIST/", matrix = True):
     """
     Python function for importing the MNIST data set.  It returns an iterator
     of 2-tuples with the first element being the label and the second element
@@ -30,7 +30,11 @@ def read(dataset = "training", path = "../data/MNIST/"):
 
     with open(fname_img, 'rb') as fimg:
         magic, num, rows, cols = struct.unpack(">IIII", fimg.read(16))
-        img = np.fromfile(fimg, dtype=np.uint8).reshape(len(lbl), rows, cols)
+        if matrix:
+            img = np.fromfile(fimg, dtype=np.uint8).reshape(len(lbl), rows, cols)
+        else:
+            img = np.fromfile(fimg, dtype=np.uint8).reshape(len(lbl), 1, 28 * 28)
+
 
 #    get_img = lambda idx: (lbl[idx], img[idx])
     get_img = lambda idx: (img[idx], lbl[idx])

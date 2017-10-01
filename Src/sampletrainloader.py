@@ -36,3 +36,47 @@ class nonlinearSE(object):
             return (self.train_data_tensor, self.train_label_tensor)
         else:
             return (self.test_data_tensor, self.test_label_tensor)
+
+class nonlinear1D(object):
+    def __init__(self, root = "../data"):
+        self.train_len = 50000
+        self.test_len = 10000
+
+        data = list(rm.read(matrix = False))
+        self.train_data = np.zeros([self.train_len, 784])
+        self.train_label = np.zeros([self.train_len, 10], dtype = 'int')
+
+        self.test_data = np.zeros([self.test_len, 784])
+        self.test_label = np.zeros([self.test_len, 10], dtype = 'int')
+
+        for i in range(self.train_len):
+            x, y = data[i]
+            self.train_data[i], self.train_label[i] = x, vectorized_result(y)
+
+        for i in range(self.test_len):
+            x, y = data[i + self.train_len]
+            self.test_data[i], self.test_label[i] = x, vectorized_result(y)
+
+        self.train_data_tensor = torch.from_numpy(self.train_data).float()
+        self.train_label_tensor = torch.from_numpy(self.train_label).float()
+#        self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
+
+        self.test_data_tensor = torch.from_numpy(self.test_data).float()
+        self.test_label_tensor = torch.from_numpy(self.test_label).float()
+#        self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
+
+
+    def get_data(self, train = True):
+        if train:
+            return (self.train_data_tensor, self.train_label_tensor)
+        else:
+            return (self.test_data_tensor, self.test_label_tensor)
+
+def vectorized_result(j):
+    """Return a 10-dimensional unit vector with a 1.0 in the jth
+    position and zeroes elsewhere.  This is used to convert a digit
+    (0...9) into a corresponding desired output from the neural
+    network."""
+    e = np.zeros((10))
+    e[j] = 1.0
+    return e
