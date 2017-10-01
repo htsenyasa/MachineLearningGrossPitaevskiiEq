@@ -1,0 +1,21 @@
+In pytorch MNIST/CNN example network requires 4D-Tensor as input.
+For example
+[N, C, H, W] or [N, C, W, H] where W:Weight and H:Height C:Channel
+
+in sampletrainloader.py "nonlinearSE()" class
+
+First "__init__" reads the MNIST data with readmnistdata module, it also transforms it to 28x28 matrix form.
+
+After that it divides it into two subgrups which are train and test and initiliaze them with read data.
+
+In this step we must convert our numpy.ndarray to pytorch tensors I don't know why but direct transformation doesn't work.
+
+Training data tensor must be float, and label tensor must be long.
+
+Now, our tensor is 3D, [60000, 28, 28] but it must be 4D,
+
+In line 31,
+
+self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
+
+expression expands one column. (index 1) This column refers to "C" channel.
