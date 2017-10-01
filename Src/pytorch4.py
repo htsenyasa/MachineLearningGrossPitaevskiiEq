@@ -8,12 +8,9 @@ import torch.utils.data as data_utils
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 
-import sampletrainloader as tl
 import numpy as np
 import readmnistdata as rm
-
-
-
+import sampletrainloader as tl
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -43,16 +40,16 @@ if args.cuda:
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
+N = 60000
+pixels = np.zeros([N, 784])
+labels = np.zeros([N])
 
-transforms = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-train_dataset = tl.nonlinearSE()
-test_dataset =  datasets.MNIST('../data', train = False, transform = transforms)
+pixel_tensor = torch.from_numpy(pixels).float()
+label_tensor = torch.from_numpy(labels).long()
+pixel_tensor = pixel_tensor.unsqueeze(2)
 
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size = args.batch_size, shuffle = True, **kwargs)
-test_loader = torch.utils.data.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=True, **kwargs)
-
-
-
+train = data_utils.TensorDataset(pixel_tensor, label_tensor)
+train_loader = data_utils.DataLoader(train, batch_size = args.batch_size, shuffle=True, **kwargs)
 
 class Net(nn.Module):
     def __init__(self):
@@ -83,6 +80,7 @@ def train(epoch):
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
+        #data, target = Variable(data).float(), Variable(target).long()
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
         output = model(data)
@@ -115,4 +113,4 @@ def test():
 
 for epoch in range(1, args.epochs + 1):
     train(epoch)
-    test()
+    #test()
