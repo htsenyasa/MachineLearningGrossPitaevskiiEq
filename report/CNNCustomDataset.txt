@@ -19,3 +19,5 @@ In line 31,
 self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
 expression expands one column. (index 1) This column refers to "C" channel.
+
+You can look pytorch3.py for usage of this class. 
