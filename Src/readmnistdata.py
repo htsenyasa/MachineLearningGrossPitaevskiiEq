@@ -37,7 +37,7 @@ def read(dataset = "training", path = "../data/MNIST/"):
 
     # Create an iterator which returns each image in turn
     #N = len(lbl)
-    N = 1000
+    N = 60000
     for i in range(N):
         yield get_img(i)
 

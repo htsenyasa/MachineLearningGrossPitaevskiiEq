@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import torch.utils.data as data_utils
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 
@@ -45,14 +46,16 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 data = list(rm.read())
 pixels = np.zeros([60000, 28, 28])
-labels = np.zeros([60000, 1])
+labels = np.zeros([60000])
 
-#for i in range(len(data)):
-#    pixels[i], labels[i] = data[i]
+for i in range(len(data)):
+    pixels[i], labels[i] = data[i]
 
 
 pixel_tensor = torch.from_numpy(pixels)
 label_tensor = torch.from_numpy(labels)
+pixel_tensor.type('torch.ByteTensor')
+label_tensor.type('torch.ByteTensor')
 
 
 #mnist_datatransform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
@@ -61,22 +64,15 @@ label_tensor = torch.from_numpy(labels)
 #train_loader = torch.utils.data.DataLoader(mnist_training_dataset, batch_size = args.batch_size, shuffle = True, **kwargs)
 #test_loader = torch.utils.data.DataLoader(mnist_testing_dataset, batch_size = args.test_batch_size, shuffle=True, **kwargs)
 
-train_loader = torch.utils.data.DataLoader(
-                                           datasets.MNIST('../data', train=True,
-                                                          download = True,
-                                                          transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-                                                          ),
-                                           batch_size = args.batch_size, shuffle = True, **kwargs
-                                          )
+transforms = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
+train_dataset = datasets.MNIST('../data', train =True, download = True, transform = transforms)
+test_dataset =  datasets.MNIST('../data', train = False, transform = transforms)
 
-
-test_loader = torch.utils.data.DataLoader(
-                                          datasets.MNIST('../data', train = False, transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])),
-                                          batch_size = args.test_batch_size, shuffle=True, **kwargs
-                                          )
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size = args.batch_size, shuffle = True, **kwargs)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=True, **kwargs)
 
 train_loader.dataset.train_data = pixel_tensor
-train_loader.train_data = pixel_tensor
+train_loader.dataset.train_labels = label_tensor
 
 
 

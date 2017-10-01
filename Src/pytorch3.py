@@ -10,6 +10,7 @@ from torch.autograd import Variable
 
 import numpy as np
 import readmnistdata as rm
+import sampletrainloader as tl
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -39,47 +40,28 @@ if args.cuda:
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
+#N = 60000
+#data = list(rm.read())
+#pixels = np.zeros([N, 28, 28])
+#labels = np.zeros([N])
+#
+#for i in range(len(data)):
+#    pixels[i], labels[i] = data[i]
+#
+#
+#pixel_tensor = torch.from_numpy(pixels).float()
+#label_tensor = torch.from_numpy(labels).long()
+#pixel_tensor = pixel_tensor.unsqueeze(1)
 
-data = list(rm.read())
-pixels = np.zeros([1000, 28, 28])
-labels = np.zeros([1000, 1])
+t = tl.nonlinearSE()
+pixel_tensor, label_tensor = t.get_data()
+test_tensor, test_label_tensor = t.get_data(train = False)
 
-for i in range(len(data)):
-    pixels[i], labels[i] = data[i]
+train = data_utils.TensorDataset(pixel_tensor, label_tensor)
+test = data_utils.TensorDataset(test_tensor, test_label_tensor)
 
-
-pixel_tensor = torch.from_numpy(pixels)
-label_tensor = torch.from_numpy(labels)
-
-train = data_utils.TensorDataset(pixels, labels)
-train_loader = data_utils.DataLoader(train, batch_size = args.test_batch_size, shuffle=True, **kwargs)
-
-
-"""
-mnist_datatransform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-mnist_training_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/training/', transform = mnist_datatransform)
-#mnist_training_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/training/', transform = mnist_datatransform)
-mnist_testing_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/testing/', transform = mnist_datatransform)
-#mnist_testing_dataset = datasets.ImageFolder(root = '../data/MNIST/PNGFORMAT/testing/', transform = mnist_datatransform)
-train_loader = torch.utils.data.DataLoader(mnist_training_dataset, batch_size = args.batch_size, shuffle = True, **kwargs)
-test_loader = torch.utils.data.DataLoader(mnist_testing_dataset, batch_size = args.test_batch_size, shuffle=True, **kwargs)
-
-
-train = data_utils.TensorDataset(features, targets)
-train_loader = data_utils.DataLoader(train, batch_size=50, shuffle=True)
-
-train_loader = torch.utils.data.DataLoader(
-                                           datasets.MNIST('../data', train=True,
-                                                          download = True,
-                                                          transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-                                                          ),
-                                           batch_size = args.batch_size, shuffle = True, **kwargs
-                                          )
-
-test_loader = torch.utils.data.DataLoader(
-                                          datasets.MNIST('../data', train = False, transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])),
-                                          batch_size = args.test_batch_size, shuffle=True, **kwargs
-                                          )
+train_loader = data_utils.DataLoader(train, batch_size = args.batch_size, shuffle=True, **kwargs)
+test_loader = data_utils.DataLoader(test, batch_size = args.test_batch_size, shuffle=True, **kwargs)
 
 class Net(nn.Module):
     def __init__(self):
@@ -110,6 +92,7 @@ def train(epoch):
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
+        #data, target = Variable(data).float(), Variable(target).long()
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
         output = model(data)
@@ -143,4 +126,3 @@ def test():
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     test()
-"""
