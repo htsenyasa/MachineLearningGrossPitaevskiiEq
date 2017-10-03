@@ -64,12 +64,12 @@ class TwoLayerNet(torch.nn.Module):
 
 N, D_in, H, D_out = args.batch_size, 784, 100, 10
 model = TwoLayerNet(D_in, H, D_out)
-criterion =  torch.nn.MSELoss(size_average=False)
+criterion =  torch.nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
 #optimizer = torch.optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
 
 def train(epoch):
-    model.train()
+    #model.train() train and eval has no effect on this arch.
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
@@ -87,7 +87,7 @@ def train(epoch):
 
 
 def test():
-    model.eval()
+    #model.eval()
     test_loss = 0
     correct = 0
     for data, target in test_loader:
