@@ -60,12 +60,12 @@ class TwoLayerNet(torch.nn.Module):
   def forward(self, x):
     h_relu = self.linear1(x).clamp(min=0)
     y_pred = self.linear2(h_relu)
-    return y_pred
+    return F.log_softmax(y_pred)
 
-N, D_in, H, D_out = args.batch_size, 784, 30, 10
+N, D_in, H, D_out = args.batch_size, 784, 100, 10
 model = TwoLayerNet(D_in, H, D_out)
 criterion =  torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
+optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 #optimizer = torch.optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
 
 def train(epoch):
