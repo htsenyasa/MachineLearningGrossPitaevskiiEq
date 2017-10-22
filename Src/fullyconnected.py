@@ -48,7 +48,7 @@ train = data_utils.TensorDataset(pixel_tensor, label_tensor)
 test = data_utils.TensorDataset(test_tensor, test_label_tensor)
 
 train_loader = data_utils.DataLoader(train, batch_size = args.batch_size, shuffle=True, **kwargs)
-test_loader = data_utils.DataLoader(test, batch_size = args.test_batch_size, shuffle=True, **kwargs)
+test_loader = data_utils.DataLoader(test, batch_size = args.test_batch_size, shuffle=False, **kwargs)
 
 
 class TwoLayerNet(torch.nn.Module):
@@ -58,14 +58,14 @@ class TwoLayerNet(torch.nn.Module):
     self.linear2 = torch.nn.Linear(H, D_out)
 
   def forward(self, x):
-    h_relu = self.linear1(x).clamp(min=0)
-    y_pred = self.linear2(h_relu)
+    h_relu = F.relu(self.linear1(x).clamp(min=0))
+    y_pred = F.relu(self.linear2(h_relu))
     return y_pred
 
 N, D_in, H, D_out = args.batch_size, 784, 30, 10
 model = TwoLayerNet(D_in, H, D_out)
 criterion =  torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
+optimizer = torch.optim.SGD(model.parameters(), lr=1e-2)
 #optimizer = torch.optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
 
 def train(epoch):

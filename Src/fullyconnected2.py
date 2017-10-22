@@ -14,7 +14,7 @@ import sampletrainloader as tl
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
-parser.add_argument('--batch-size', type=int, default=64, metavar='N',
+parser.add_argument('--batch-size', type=int, default=100, metavar='N',
                     help = 'input batch size for training (default: 64)')
 parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                     help = 'input batch size for testing (default: 1000)')
@@ -40,73 +40,76 @@ if args.cuda:
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
+
+# Hyper Parameters
+input_size = 784
+hidden_size = 30
+num_classes = 10
+num_epochs = 5
+batch_size = 100
+learning_rate = 0.001
+
+
 t = tl.nonlinear1D()
 pixel_tensor, label_tensor = t.get_data()
 test_tensor, test_label_tensor = t.get_data(train = False)
 
-train = data_utils.TensorDataset(pixel_tensor, label_tensor)
-test = data_utils.TensorDataset(test_tensor, test_label_tensor)
+train_dataset = data_utils.TensorDataset(pixel_tensor, label_tensor)
+test_dataset = data_utils.TensorDataset(test_tensor, test_label_tensor)
 
-train_loader = data_utils.DataLoader(train, batch_size = args.batch_size, shuffle=True, **kwargs)
-test_loader = data_utils.DataLoader(test, batch_size = args.test_batch_size, shuffle=True, **kwargs)
+train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
+test_loader = data_utils.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=False, **kwargs)
+
+# Neural Network Model (1 hidden layer)
+class Net(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Linear(hidden_size, num_classes)
+
+    def forward(self, x):
+        out = self.fc1(x)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
+
+net = Net(input_size, hidden_size, num_classes)
 
 
-class TwoLayerNet(torch.nn.Module):
-  def __init__(self, D_in, H, D_out):
-    super(TwoLayerNet, self).__init__()
-    self.linear1 = torch.nn.Linear(D_in, H)
-    self.linear2 = torch.nn.Linear(H, D_out)
+# Loss and Optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
-  def forward(self, x):
-    h_relu = self.linear1(x).clamp(min=0)
-    y_pred = self.linear2(h_relu)
-    return F.log_softmax(y_pred)
+# Train the Model
+for epoch in range(num_epochs):
+    for i, (images, labels) in enumerate(train_loader):
+        # Convert torch tensor to Variable
+        images = Variable(images)
+        labels = Variable(labels)
 
-N, D_in, H, D_out = args.batch_size, 784, 100, 10
-model = TwoLayerNet(D_in, H, D_out)
-criterion =  torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
-#optimizer = torch.optim.SGD(model.parameters(), lr = args.lr, momentum = args.momentum)
-
-def train(epoch):
-    #model.train() train and eval has no effect on this arch.
-    for batch_idx, (data, target) in enumerate(train_loader):
-        if args.cuda:
-            data, target = data.cuda(), target.cuda()
-        #data, target = Variable(data).float(), Variable(target).long()
-        data, target = Variable(data).float(), Variable(target, requires_grad = False).float()
-        y_pred = model(data)
-        optimizer.zero_grad()
-        loss = criterion(y_pred, target)
+        # Forward + Backward + Optimize
+        optimizer.zero_grad()  # zero the gradient buffer
+        outputs = net(images)
+        loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
-        if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data[0]))
 
+        if (i+1) % 100 == 0:
+            print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f'
+                   %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0]))
 
-def test():
-    #model.eval()
-    test_loss = 0
-    correct = 0
-    for data, target in test_loader:
-        if args.cuda:
-            data, target = data.cuda(), target.cuda()
-        data, target = Variable(data, volatile = True), Variable(target)
-        output = model(data)
-        test_loss += criterion(output, target).data[0] # sum up batch loss
-        pred = output.data.max(1, keepdim = True)[1] # get the index of the max log-probability
-        #correct += pred.eq(target.data.view_as(pred)).cpu().sum()
+# Test the Model
+correct = 0
+total = 0
+for images, labels in test_loader:
+    images = Variable(images.view(-1, 28*28))
+    outputs = net(images)
+    _, predicted = torch.max(outputs.data, 1)
+    total += labels.size(0)
+    correct += (predicted == labels).sum()
 
-    test_loss /= len(test_loader.dataset)
-    print("Test Loss : ")
-    print(test_loss)
-    #print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-    #    test_loss, correct, len(test_loader.dataset),
-    #    100. * correct / len(test_loader.dataset)))
+print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
 
-
-for epoch in range(1, args.epochs + 1):
-    train(epoch)
-    #test()
+# Save the Model
+torch.save(net.state_dict(), 'model.pkl')
