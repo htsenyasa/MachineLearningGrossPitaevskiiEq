@@ -529,16 +529,16 @@ int main(int argc, char **argv)
     
     
   
-  _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_kx) * _x_wavefunction_ncomponents);
-  _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_x) * _x_wavefunction_ncomponents);
-  _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
-  _x_potential_alloc_size = MAX(_x_potential_alloc_size, (_lattice_x) * _x_potential_ncomponents);
-  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
-  _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
-  _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
+  _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
   _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
   _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
-  _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
+  _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_kx) * _x_wavefunction_ncomponents);
+  _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_x) * _x_wavefunction_ncomponents);
+  _x_potential_alloc_size = MAX(_x_potential_alloc_size, (_lattice_x) * _x_potential_ncomponents);
+  _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
+  _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
+  _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
+  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t) * _mg1_output_raw_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
   
@@ -1172,7 +1172,7 @@ void _dimensionless_normalisation_evaluate()
     
     // Calculate the current normalisation of the wave function.
     Ncalc = mod2(phi);
-    EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
+        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
     
     #line 1178 "xgp1d.cc"
     // **********************************************
@@ -2183,7 +2183,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        // Calculate the current normalisation of the wave function.\n");
   fprintf(fp, "        Ncalc = mod2(phi);\n");
-  fprintf(fp, "        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);\n");
+  fprintf(fp, "            EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </evaluation>\n");
   fprintf(fp, "  </computed_vector>\n");
@@ -2244,7 +2244,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        <dependencies>normalisation</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
   fprintf(fp, "          norm = Ncalc;\n");
-  fprintf(fp, "          e1 = EN;\n");
+  fprintf(fp, "              e1 = EN;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"x\" initial_sample=\"no\">\n");
@@ -2533,7 +2533,7 @@ void _mg1_sample()
   #line 126 "gp1d.xmds"
   
   norm = Ncalc;
-  e1 = EN;
+      e1 = EN;
   
   #line 2539 "xgp1d.cc"
   // **********************************************

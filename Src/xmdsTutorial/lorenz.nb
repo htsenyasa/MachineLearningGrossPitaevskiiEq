@@ -1,0 +1,8 @@
+SetDirectory[NotebookDirectory[]];
+t1 = Import["lorenz.h5", {"Datasets", "/1/t"}];
+xR1 = Import["lorenz.h5", {"Datasets", "/1/xR"}];
+yR1 = Import["lorenz.h5", {"Datasets", "/1/yR"}];
+zR1 = Import["lorenz.h5", {"Datasets", "/1/zR"}];
+ResetDirectory[];
+
+declaredVariables={"t1", "xR1", "yR1", "zR1"}

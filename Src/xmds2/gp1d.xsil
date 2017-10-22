@@ -63,7 +63,7 @@
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
-        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
+            EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
       ]]>
     </evaluation>
   </computed_vector>
@@ -124,7 +124,7 @@
         <dependencies>normalisation</dependencies>
         <![CDATA[
           norm = Ncalc;
-          e1 = EN;
+              e1 = EN;
         ]]>
       </sampling_group>
       <sampling_group basis="x" initial_sample="no">
