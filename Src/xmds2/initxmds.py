@@ -8,22 +8,26 @@ freq = 1.5  # corresponds to omega in xmds file and it will change between [0, 1
 shift = 0   # shift [-10, 10]
 
 rnd.seed()
-shift = rnd.random() * rnd.randint(-10, 10)
-freq = rnd.uniform(0.5, 2)
 
-print(freq)
-print(shift)
+#print(freq)
+#print(shift)
+
+for i in range(10):
+
+    shift = rnd.random() * rnd.randint(-10, 10)
+    freq = rnd.uniform(0.5, 2)
+
+    cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
+    args = shlex.split(cmdline)
+    p = subprocess.Popen(args)
+    p.wait()
+
+    cmdline = "python2.7 gp1d.py"
+    args = shlex.split(cmdline)
+    p = subprocess.Popen(args)
+    p.wait()
 
 
-cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
-args = shlex.split(cmdline)
-p = subprocess.Popen(args)
-p.wait()
-
-cmdline = "python2.7 gp1d.py"
-args = shlex.split(cmdline)
-p = subprocess.Popen(args)
-p.wait()
 
 
 #cmdline = "./xgp1d"
