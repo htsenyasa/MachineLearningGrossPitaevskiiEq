@@ -26,10 +26,11 @@ x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independent
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
 
-f = open("potentials.dat", "a")
-f2 = open("energies.dat", "a")
-np.savetxt(f, v1_3)
-np.savetxt(f2, e1_2[-2:-1])
+#f = open("potential.dat", "a")
+#f2 = open("energy.dat", "a")
+#np.savetxt(f, v1_3)
+#np.savetxt(f2, e1_2[-2:-1])
+
 
 
 #np.savetxt(f, np.concatenate((v1_3, e1_2[-2:-1])).reshape(1, np.size(v1_3)+1))
