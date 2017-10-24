@@ -42,15 +42,15 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 
 # Hyper Parameters
-input_size = 784
+input_size = 256
 hidden_size = 30
-num_classes = 10
+num_classes = 1
 num_epochs = 30
 batch_size = args.batch_size
 learning_rate = 0.01
 
 
-t = tl.nonlinear1D()
+t = tl.nonlinear1D(800, 200)
 pixel_tensor, label_tensor = t.get_data()
 test_tensor, test_label_tensor = t.get_data(train = False)
 

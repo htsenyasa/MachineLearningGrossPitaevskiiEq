@@ -3,6 +3,7 @@ import torch
 import torch
 import numpy as np
 import readmnistdata as rm
+import readdata as rd
 
 class nonlinearSE(object):
     def __init__(self, root = "../data"):
@@ -37,7 +38,7 @@ class nonlinearSE(object):
         else:
             return (self.test_data_tensor, self.test_label_tensor)
 
-class nonlinear1D(object):
+class nonlinear1D__(object):
     def __init__(self, root = "../data", label_vectorize = False):
         self.train_len = 50000
         self.test_len = 10000
@@ -71,6 +72,28 @@ class nonlinear1D(object):
         self.test_label_tensor = torch.from_numpy(self.test_label).long()
 #        self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
+
+    def get_data(self, train = True):
+        if train:
+            return (self.train_data_tensor, self.train_label_tensor)
+        else:
+            return (self.test_data_tensor, self.test_label_tensor)
+
+class nonlinear1D(object):
+    def __init__(self, train_len, test_len, root = "../data", label_vectorize = False):
+        self.train_len = train_len
+        self.test_len = test_len
+
+        self.train_data, self.train_label = rd.get_data(train=True)
+        self.test_data, self.test_label = rd.get_data(train=False)
+
+        self.train_data_tensor = torch.from_numpy(self.train_data).float()
+        self.train_label_tensor = torch.from_numpy(self.train_label).float()
+#        self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
+
+        self.test_data_tensor = torch.from_numpy(self.test_data).float()
+        self.test_label_tensor = torch.from_numpy(self.test_label).float()
+#        self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
     def get_data(self, train = True):
         if train:

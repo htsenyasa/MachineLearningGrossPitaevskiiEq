@@ -1,10 +1,10 @@
 import shlex, subprocess, time
 import random as rnd
-
+import time as time
 
 inter_param = 0
 num_particles = 1
-freq = 1.5  # corresponds to omega in xmds file and it will change between [0, 1.7]
+freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
 rnd.seed()
@@ -12,7 +12,9 @@ rnd.seed()
 #print(freq)
 #print(shift)
 
-for i in range(10):
+start = time.time()
+
+for i in range(1000):
 
     shift = rnd.random() * rnd.randint(-10, 10)
     freq = rnd.uniform(0.5, 2)
@@ -27,7 +29,7 @@ for i in range(10):
     p = subprocess.Popen(args)
     p.wait()
 
-
+print("Total Time = {}".format(time.time() - start))
 
 
 #cmdline = "./xgp1d"

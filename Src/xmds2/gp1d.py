@@ -25,7 +25,7 @@ e1_2 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[1].dependentV
 x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "x")
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
-
+v1_3 = v1_3.reshape(1, len(v1_3))
 f = open("potential.dat", "a")
 f2 = open("energy.dat", "a")
 np.savetxt(f, v1_3)
@@ -42,6 +42,6 @@ np.savetxt(f2, e1_2[-2:-1])
 #ax[0].plot(x_1,dens_1[-1,:],'b.-', x_1, v1_3[:]/100., 'k-')
 
 #plt.show()
-print e1_2[-2:-1]
+#print e1_2[-2:-1]
 #print len(v1_3)
 #print v1_3
