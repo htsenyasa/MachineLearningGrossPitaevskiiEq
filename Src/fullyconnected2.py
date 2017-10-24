@@ -14,7 +14,7 @@ import sampletrainloader as tl
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
-parser.add_argument('--batch-size', type=int, default=600, metavar='N',
+parser.add_argument('--batch-size', type=int, default=100, metavar='N',
                     help = 'input batch size for training (default: 64)')
 parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                     help = 'input batch size for testing (default: 1000)')
@@ -43,11 +43,11 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 # Hyper Parameters
 input_size = 256
-hidden_size = 30
+hidden_size = 50
 num_classes = 1
-num_epochs = 30
+num_epochs = 20
 batch_size = args.batch_size
-learning_rate = 0.01
+learning_rate = 0.001
 
 
 t = tl.nonlinear1D(800, 200)
@@ -76,9 +76,8 @@ class Net(nn.Module):
 
 net = Net(input_size, hidden_size, num_classes)
 
-
 # Loss and Optimizer
-criterion = nn.CrossEntropyLoss()
+criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 
 # Train the Model
@@ -86,7 +85,7 @@ for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         # Convert torch tensor to Variable
         images = Variable(images)
-        labels = Variable(labels)
+        labels = Variable(labels).float()
 
         # Forward + Backward + Optimize
         optimizer.zero_grad()  # zero the gradient buffer
@@ -95,21 +94,24 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-        if (i+1) % 100 == 0:
-            print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f'
-                   %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0]))
+        if (i+1) % batch_size == 0:
+            print('Epoch [%d/%d], Step [%d/%d], Loss: %.4f' %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0]))
 
-# Test the Model
+
+#Test the Model
 correct = 0
 total = 0
 for images, labels in test_loader:
-    images = Variable(images.view(-1, 28*28))
+    images = Variable(images)
     outputs = net(images)
+    #print(outputs)
     _, predicted = torch.max(outputs.data, 1)
-    total += labels.size(0)
-    correct += (predicted == labels).sum()
+#    print(predicted)
 
-print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
+    #total += labels.size(0)
+    #correct += (predicted == labels).sum()
+
+#print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
 
 # Save the Model
-torch.save(net.state_dict(), 'model.pkl')
+#torch.save(net.state_dict(), 'model.pkl')
