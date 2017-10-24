@@ -14,11 +14,11 @@ import sampletrainloader as tl
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
-parser.add_argument('--batch-size', type=int, default=100, metavar='N',
+parser.add_argument('--batch-size', type=int, default=600, metavar='N',
                     help = 'input batch size for training (default: 64)')
 parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                     help = 'input batch size for testing (default: 1000)')
-parser.add_argument('--epochs', type=int, default=10, metavar='N',
+parser.add_argument('--epochs', type=int, default=30, metavar='N',
                     help = 'number of epochs to train (default: 10)')
 parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
                     help = 'learning rate (default: 0.01)')
@@ -45,8 +45,8 @@ kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 input_size = 784
 hidden_size = 30
 num_classes = 10
-num_epochs = 5
-batch_size = 100
+num_epochs = 30
+batch_size = args.batch_size
 learning_rate = 0.01
 
 

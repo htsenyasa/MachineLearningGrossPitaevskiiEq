@@ -14,16 +14,36 @@
     <fftw plan="exhaustive"/>
     <globals>
       <![CDATA[
-        const real Uint = 20.0;
-        const real Nparticles = 1.0;
+        real Uint; // interaction parameter
+        real Nparticles;
+        real omega;
+        real x0; //shift
       ]]>
     </globals>
-  </features>
+    <arguments>
+      <argument default_value="0" name="interaction_param" type="real"/>
+      <![CDATA[
+      Uint = interaction_param;
+      ]]>
+      <argument default_value="1" name="num_particles" type="real"/>
+      <![CDATA[
+      Nparticles = num_particles;
+      ]]>
+      <argument default_value="1" name="freq" type="real"/>
+      <![CDATA[
+      omega = freq;
+      ]]>
+      <argument default_value="0" name="shift" type="real"/>
+      <![CDATA[
+      x0 = shift;
+      ]]>
+    </arguments>    
+ </features>
 
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension domain="(-10.0, 10.0)" lattice="1024" name="x"/>
+      <dimension domain="(-20.0, 20.0)" lattice="256" name="x"/>
     </transverse_dimensions>
   </geometry>
 
@@ -32,7 +52,7 @@
     <initialisation>
       <![CDATA[
         //V1  = 0.5*x*x;
-        V1  = 0.5*(x-1)*(x-1);
+        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega 
       ]]>
     </initialisation>
   </vector>
@@ -103,7 +123,7 @@
         <integration_vectors>wavefunction</integration_vectors>
         <dependencies>potential</dependencies>
         <![CDATA[
-        dphi_dt = T2[phi] - (V1 + Uint*mod2(phi) )*phi;
+        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi) )*phi;
         ]]>
       </operators>
     </integrate>
@@ -131,7 +151,7 @@
         <moments>v1</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
-          v1 = V1;
+                  v1 = V1;
         ]]>
       </sampling_group>
   </output>
@@ -139,6 +159,12 @@
 <info>
 Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
+
+Variables that can be specified on the command line:
+  Command line argument interaction_param = 0.000000e+00
+  Command line argument num_particles = 1.000000e+00
+  Command line argument freq = -5.000000e-01
+  Command line argument shift = 1.000000e+01
 </info>
 
 <XSIL Name="moment_group_1">
@@ -151,7 +177,7 @@ t x dens phiR phiI
   </Array>
   <Array Name="data" Type="double">
     <Dim>26</Dim>
-    <Dim>1024</Dim>
+    <Dim>256</Dim>
     <Dim>5</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
 gp1d.h5
@@ -185,7 +211,7 @@ x v1
     </Stream>
   </Array>
   <Array Name="data" Type="double">
-    <Dim>1024</Dim>
+    <Dim>256</Dim>
     <Dim>2</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/3"/>
 gp1d.h5

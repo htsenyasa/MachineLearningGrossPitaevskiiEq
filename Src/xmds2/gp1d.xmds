@@ -15,16 +15,36 @@
     <fftw plan="exhaustive" />
     <globals>
       <![CDATA[
-        const real Uint = 20.0;
-        const real Nparticles = 1.0;
+        real Uint; // interaction parameter
+        real Nparticles;
+        real omega;
+        real x0; //shift
       ]]>
     </globals>
-  </features>
+    <arguments>
+      <argument name="interaction_param" type="real" default_value="0"/>
+      <![CDATA[
+      Uint = interaction_param;
+      ]]>
+      <argument name="num_particles" type="real" default_value="1"/>
+      <![CDATA[
+      Nparticles = num_particles;
+      ]]>
+      <argument name="freq" type="real" default_value="1"/>
+      <![CDATA[
+      omega = freq;
+      ]]>
+      <argument name="shift" type="real" default_value="0"/>
+      <![CDATA[
+      x0 = shift;
+      ]]>
+    </arguments>    
+ </features>
 
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension name="x" lattice="1024"  domain="(-10.0, 10.0)" />
+      <dimension name="x" lattice="256"  domain="(-20.0, 20.0)" />
     </transverse_dimensions>
   </geometry>
 
@@ -33,7 +53,7 @@
     <initialisation>
       <![CDATA[
         //V1  = 0.5*x*x;
-        V1  = 0.5*(x-1)*(x-1);
+        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega 
       ]]>
     </initialisation>
   </vector>
@@ -104,7 +124,7 @@
         <integration_vectors>wavefunction</integration_vectors>
         <dependencies>potential</dependencies>
         <![CDATA[
-        dphi_dt = T2[phi] - (V1 + Uint*mod2(phi) )*phi;
+        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi) )*phi;
         ]]>
       </operators>
     </integrate>
@@ -132,7 +152,7 @@
         <moments>v1</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
-	  v1 = V1;
+		  v1 = V1;
         ]]>
       </sampling_group>
   </output>

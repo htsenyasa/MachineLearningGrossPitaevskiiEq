@@ -1,4 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
+
+import sys
+sys.path.insert(0, "/home/user/Desktop/Study/xmds/xmds-2.2.3/xpdeint")
+import matplotlib.pyplot as plt
+
 from xpdeint.XSILFile import XSILFile
 
 xsilFile = XSILFile("gp1d.xsil")
@@ -19,6 +24,18 @@ e1_2 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[1].dependentV
 x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "x")
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
+
+#plt.plot(x_1, dens_1[-1,:], '.')
+#plt.plot(x_1, v1_3)
+
+fig, ax = plt.subplots(1,2,figsize=(18,6))
+ax[0].plot(x_1,dens_1[-1,:],'b.-', x_1, v1_3[:]/100., 'k-')
+
+plt.show()
+print e1_2
+print len(v1_3)
+#print v1_3
+
+
 # Write your plotting commands here.
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
-
