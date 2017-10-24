@@ -35,7 +35,3 @@ plt.show()
 print e1_2
 print len(v1_3)
 #print v1_3
-
-
-# Write your plotting commands here.
-# You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
