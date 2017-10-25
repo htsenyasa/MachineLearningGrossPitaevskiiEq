@@ -8,6 +8,7 @@ import torch.utils.data as data_utils
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 
+import matplotlib.pyplot as plt
 import numpy as np
 import readmnistdata as rm
 import sampletrainloader as tl
@@ -104,8 +105,8 @@ total = 0
 for images, labels in test_loader:
     images = Variable(images)
     outputs = net(images)
-    #print(outputs)
-    _, predicted = torch.max(outputs.data, 1)
+    print(outputs)
+    predicted = outputs.data
 #    print(predicted)
 
     #total += labels.size(0)
@@ -115,3 +116,6 @@ for images, labels in test_loader:
 
 # Save the Model
 #torch.save(net.state_dict(), 'model.pkl')
+
+
+a = predicted.numpy()
