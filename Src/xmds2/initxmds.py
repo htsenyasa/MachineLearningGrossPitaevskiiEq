@@ -7,6 +7,8 @@ num_particles = 1
 freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
+N_of_examples = 2000
+
 rnd.seed()
 
 #print(freq)
@@ -14,7 +16,7 @@ rnd.seed()
 
 start = time.time()
 
-for i in range(1000):
+for i in range(N_of_examples):
 
     shift = rnd.random() * rnd.randint(-10, 10)
     freq = rnd.uniform(0.5, 2)

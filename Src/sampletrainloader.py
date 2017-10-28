@@ -84,8 +84,8 @@ class nonlinear1D(object):
         self.train_len = train_len
         self.test_len = test_len
 
-        self.train_data, self.train_label = rd.get_data(train=True)
-        self.test_data, self.test_label = rd.get_data(train=False)
+        self.train_data, self.train_label = rd.get_data(train=True, train_len = self.train_len, test_len = self.test_len)
+        self.test_data, self.test_label = rd.get_data(train=False, train_len = self.train_len, test_len = self.test_len)
 
         self.train_data_tensor = torch.from_numpy(self.train_data).float()
         self.train_label_tensor = torch.from_numpy(self.train_label).float()
@@ -95,7 +95,7 @@ class nonlinear1D(object):
         self.test_label_tensor = torch.from_numpy(self.test_label).float()
 #        self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
-    def get_data(self, train = True):
+    def get_data(self, train = True, train_len = 800):
         if train:
             return (self.train_data_tensor, self.train_label_tensor)
         else:
