@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 
-def get_data(train = True, path = "./xmds2/", train_len=800, test_len=200):
+def read_data(path = "../data/nonlinearSE/", train_len=800, test_len=200):
 
     data_file = os.path.join(path, "potential.dat")
     label_file = os.path.join(path, "energy.dat")
@@ -20,10 +20,7 @@ def get_data(train = True, path = "./xmds2/", train_len=800, test_len=200):
     test_data = data[train_len:total_len]
     test_label = label[train_len:total_len]
 
-    if train:
-        return train_data, train_label
-    else:
-        return test_data, test_label
+    return train_data, train_label, test_data, test_label
 
 
 #train_data, train_label = get_data(train=False)

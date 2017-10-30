@@ -161,10 +161,10 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 0.000000e+00
+  Command line argument interaction_param = 1.000000e+00
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 6.927409e-01
-  Command line argument shift = -6.593559e-01
+  Command line argument freq = 1.537325e+00
+  Command line argument shift = -4.707672e+00
 </info>
 
 <XSIL Name="moment_group_1">

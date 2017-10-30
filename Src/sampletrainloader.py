@@ -1,6 +1,7 @@
 from __future__ import print_function
 import torch
 import torch
+import torch.utils.data as data_utils
 import numpy as np
 import readmnistdata as rm
 import readdata as rd
@@ -80,26 +81,35 @@ class nonlinear1D__(object):
             return (self.test_data_tensor, self.test_label_tensor)
 
 class nonlinear1D(object):
-    def __init__(self, train_len, test_len, root = "../data", label_vectorize = False):
+    def __init__(self, train_len, test_len, root = "../data", label_vectorize = False, cnn = False):
         self.train_len = train_len
         self.test_len = test_len
 
-        self.train_data, self.train_label = rd.get_data(train=True, train_len = self.train_len, test_len = self.test_len)
-        self.test_data, self.test_label = rd.get_data(train=False, train_len = self.train_len, test_len = self.test_len)
-
+        self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(train_len = self.train_len, test_len = self.test_len)
         self.train_data_tensor = torch.from_numpy(self.train_data).float()
         self.train_label_tensor = torch.from_numpy(self.train_label).float()
-#        self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
+        if cnn == True: self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
 
         self.test_data_tensor = torch.from_numpy(self.test_data).float()
         self.test_label_tensor = torch.from_numpy(self.test_label).float()
-#        self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
+        if cnn == True: self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
     def get_data(self, train = True, train_len = 800):
         if train:
             return (self.train_data_tensor, self.train_label_tensor)
         else:
             return (self.test_data_tensor, self.test_label_tensor)
+
+    def init_tensor_dataset(self):
+        target_tensor, label_tensor = self.get_data()
+        test_tensor, test_label_tensor = self.get_data(train = False)
+        train_dataset = data_utils.TensorDataset(target_tensor, label_tensor)
+        test_dataset = data_utils.TensorDataset(test_tensor, test_label_tensor)
+        return train_dataset, test_dataset
+
+
+
+
 
 def get_label(j, label_vectorize):
     if not label_vectorize:
