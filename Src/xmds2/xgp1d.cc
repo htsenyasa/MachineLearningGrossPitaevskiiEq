@@ -190,7 +190,7 @@ inline void *xmds_malloc(size_t size);
 
 
 // vector normalisation defines
-#define _dimensionless_normalisation_ncomponents 2
+#define _dimensionless_normalisation_ncomponents 7
 
 // ********************************************************
 //   segment 3 (RK45 adaptive-step integrator) defines
@@ -231,7 +231,7 @@ inline void *xmds_malloc(size_t size);
 #define _mg1_output_dt        (_mg1_output_t[_index_t+1]-_mg1_output_t[_index_t])
 
 // vector raw defines
-#define _mg1_output_raw_ncomponents 2
+#define _mg1_output_raw_ncomponents 7
 
 // ********************************************************
 //   field mg2_sampling defines
@@ -314,7 +314,7 @@ const char *_basis_identifiers[] = {
 // ********************************************************
 //   'Globals' element globals
 
-#line 17 "gp1d.xmds"
+#line 18 "gp1d.xmds"
 
 real Uint; // interaction parameter
 real Nparticles;
@@ -600,7 +600,7 @@ int main(int argc, char **argv)
     _print_usage(); // This causes the simulation to exit.
   
   // ******** Argument post-processing code *******
-  #line 26 "gp1d.xmds"
+  #line 27 "gp1d.xmds"
   
   Uint = interaction_param;
   
@@ -1063,7 +1063,7 @@ void _x_gradphi_evaluate()
   
   for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
     // ************* Evaluation code ****************
-    #line 74 "gp1d.xmds"
+    #line 75 "gp1d.xmds"
     
     dphix=i*kx*phi;
     
@@ -1149,9 +1149,9 @@ void _x_wavefunction_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 64 "gp1d.xmds"
+    #line 65 "gp1d.xmds"
     
-    phi = exp(-(x*x)/2);
+    phi = 1; //exp(-(x*x)/2);
     
     #line 1157 "xgp1d.cc"
     // **********************************************
@@ -1227,7 +1227,7 @@ void _x_potential_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 54 "gp1d.xmds"
+    #line 55 "gp1d.xmds"
     
     //V1  = 0.5*x*x;
     V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega 
@@ -1265,22 +1265,37 @@ void _dimensionless_normalisation_evaluate()
   long _dimensionless_normalisation_index_pointer = 0;
   real Ncalc;
   real EN;
+  real Ekin;
+  real Epot;
+  real Eint;
+  real Virial;
+  real mu;
   #define x _x[_index_x + 0]
   #define dx (_dx * (1.0))
   
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     // ************* Evaluation code ****************
-    #line 84 "gp1d.xmds"
+    #line 85 "gp1d.xmds"
     
     // Calculate the current normalisation of the wave function.
     Ncalc = mod2(phi);
-        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
+    EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
+    Ekin = 0.5*mod2(dphix);
+    Epot = V1*mod2(phi);
+    Eint = 0.5*Uint*mod2(phi)*mod2(phi);
+    Virial = Ekin - Epot + Eint;
+    mu = Ekin + Epot + 2*Ekin;
     
-    #line 1280 "xgp1d.cc"
+    #line 1290 "xgp1d.cc"
     // **********************************************
     
     _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0] += Ncalc * dx;
     _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 1] += EN * dx;
+    _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 2] += Ekin * dx;
+    _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 3] += Epot * dx;
+    _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 4] += Eint * dx;
+    _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 5] += Virial * dx;
+    _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 6] += mu * dx;
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_gradphi_index_pointer += 1 * _x_gradphi_ncomponents;
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -1316,11 +1331,11 @@ void _segment1__evaluate_operator0()
 {
   
   // ************** Filter code *****************
-  #line 94 "gp1d.xmds"
+  #line 100 "gp1d.xmds"
   
   printf("Hello world from a filter segment!\n");
   
-  #line 1324 "xgp1d.cc"
+  #line 1339 "xgp1d.cc"
   // **********************************************
 }
 
@@ -1344,6 +1359,11 @@ void _segment2__evaluate_operator0()
   long _dimensionless_normalisation_index_pointer = 0;
   #define Ncalc _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0]
   #define EN _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 1]
+  #define Ekin _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 2]
+  #define Epot _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 3]
+  #define Eint _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 4]
+  #define Virial _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 5]
+  #define mu _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 6]
   long _x_wavefunction_index_pointer = 0;
   #define phi _active_x_wavefunction[_x_wavefunction_index_pointer + 0]
   #define x _x[_index_x + 0]
@@ -1352,11 +1372,11 @@ void _segment2__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 101 "gp1d.xmds"
+    #line 107 "gp1d.xmds"
     
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 1360 "xgp1d.cc"
+    #line 1380 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -1366,6 +1386,11 @@ void _segment2__evaluate_operator0()
   #undef dx
   #undef Ncalc
   #undef EN
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef Virial
+  #undef mu
   #undef phi
 }
 
@@ -2015,11 +2040,11 @@ void _segment3_x_operators_evaluate_operator0()
     
     
     // ************** Operator code *****************
-    #line 120 "gp1d.xmds"
+    #line 126 "gp1d.xmds"
     
     T2 = -0.5*kx*kx;
     
-    #line 2023 "xgp1d.cc"
+    #line 2048 "xgp1d.cc"
     // **********************************************
     
     // T2[phi]
@@ -2102,11 +2127,11 @@ void _segment3_x_operators_evaluate_operator1(real _step)
     #define dt _step
     
     // ************* Propagation code ***************
-    #line 126 "gp1d.xmds"
+    #line 132 "gp1d.xmds"
     
     dphi_dt = _T2_phi - (V1 + Uint * mod2(phi) )*phi;
     
-    #line 2110 "xgp1d.cc"
+    #line 2135 "xgp1d.cc"
     // **********************************************
     
     #undef dt
@@ -2137,6 +2162,11 @@ void _segment3__evaluate_operator0()
   long _dimensionless_normalisation_index_pointer = 0;
   #define Ncalc _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0]
   #define EN _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 1]
+  #define Ekin _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 2]
+  #define Epot _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 3]
+  #define Eint _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 4]
+  #define Virial _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 5]
+  #define mu _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 6]
   long _x_wavefunction_index_pointer = 0;
   #define phi _active_x_wavefunction[_x_wavefunction_index_pointer + 0]
   #define x _x[_index_x + 0]
@@ -2145,12 +2175,12 @@ void _segment3__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 111 "gp1d.xmds"
+    #line 117 "gp1d.xmds"
     
     // Correct normalisation of the wavefunction
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 2154 "xgp1d.cc"
+    #line 2184 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -2160,6 +2190,11 @@ void _segment3__evaluate_operator0()
   #undef dx
   #undef Ncalc
   #undef EN
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef Virial
+  #undef mu
   #undef phi
 }
 
@@ -2226,6 +2261,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  <description>\n");
   fprintf(fp, "    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.\n");
   fprintf(fp, "    This is done by evolving it in imaginary time while re-normalising each timestep.\n");
+  fprintf(fp, "    Adapted from xmds2 examples.\n");
   fprintf(fp, "  </description>\n");
   fprintf(fp, "\n");
   fprintf(fp, "  <features>\n");
@@ -2283,7 +2319,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <components> phi </components>\n");
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "              phi = exp(-(x*x)/2);\n");
+  fprintf(fp, "      phi = 1; //exp(-(x*x)/2);\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");
@@ -2299,13 +2335,18 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  </computed_vector>\n");
   fprintf(fp, "\n");
   fprintf(fp, "  <computed_vector dimensions=\"\" name=\"normalisation\" type=\"real\">\n");
-  fprintf(fp, "    <components> Ncalc EN</components>\n");
+  fprintf(fp, "    <components>Ncalc EN Ekin Epot Eint Virial mu</components>\n");
   fprintf(fp, "    <evaluation>\n");
   fprintf(fp, "      <dependencies basis=\"x\">wavefunction gradphi potential</dependencies>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        // Calculate the current normalisation of the wave function.\n");
   fprintf(fp, "        Ncalc = mod2(phi);\n");
-  fprintf(fp, "            EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);\n");
+  fprintf(fp, "        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);\n");
+  fprintf(fp, "        Ekin = 0.5*mod2(dphix);\n");
+  fprintf(fp, "        Epot = V1*mod2(phi);\n");
+  fprintf(fp, "        Eint = 0.5*Uint*mod2(phi)*mod2(phi);\n");
+  fprintf(fp, "        Virial = Ekin - Epot + Eint;\n");
+  fprintf(fp, "        mu = Ekin + Epot + 2*Ekin;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </evaluation>\n");
   fprintf(fp, "  </computed_vector>\n");
@@ -2362,11 +2403,16 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"\" initial_sample=\"yes\">\n");
-  fprintf(fp, "        <moments>norm e1</moments>\n");
+  fprintf(fp, "        <moments>norm e1 e1kin e1pot e1int vir1 mu1</moments>\n");
   fprintf(fp, "        <dependencies>normalisation</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
   fprintf(fp, "          norm = Ncalc;\n");
-  fprintf(fp, "              e1 = EN;\n");
+  fprintf(fp, "          e1 = EN;\n");
+  fprintf(fp, "          e1kin = Ekin;\n");
+  fprintf(fp, "          e1pot = Epot;\n");
+  fprintf(fp, "          e1int = Eint;\n");
+  fprintf(fp, "          vir1  = Virial;\n");
+  fprintf(fp, "          mu1   = mu;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"x\" initial_sample=\"no\">\n");
@@ -2379,7 +2425,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  </output>\n");
   
   fprintf(fp, "\n<info>\n");
-  fprintf(fp, "Script compiled with XMDS2 version 2.2.3 \"It came from the deep\" (r2989)\n");
+  fprintf(fp, "Script compiled with XMDS2 version 2.2.0 \"Out of cheese error\" (Debian package 2.2.0+dfsg1-1)\n");
   fprintf(fp, "See http://www.xmds.org for more information.\n");
   fprintf(fp, "\nVariables that can be specified on the command line:\n");
   
@@ -2416,6 +2462,11 @@ void _mg0_sample()
   long _dimensionless_normalisation_index_pointer = 0;
   #define Ncalc _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0]
   #define EN _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 1]
+  #define Ekin _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 2]
+  #define Epot _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 3]
+  #define Eint _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 4]
+  #define Virial _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 5]
+  #define mu _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 6]
   long _x_wavefunction_index_pointer = 0;
   #define phi _active_x_wavefunction[_x_wavefunction_index_pointer + 0]
   long _mg0_output_raw_index_pointer = 0;
@@ -2434,12 +2485,12 @@ void _mg0_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 138 "gp1d.xmds"
+    #line 144 "gp1d.xmds"
     
     dens = mod2(phi);
     _SAMPLE_COMPLEX(phi);
     
-    #line 2443 "xgp1d.cc"
+    #line 2494 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
@@ -2451,6 +2502,11 @@ void _mg0_sample()
   #undef dx
   #undef Ncalc
   #undef EN
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef Virial
+  #undef mu
   #undef phi
   #undef dens
   #undef phiR
@@ -2651,9 +2707,19 @@ void _mg1_sample()
   long _dimensionless_normalisation_index_pointer = 0;
   #define Ncalc _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0]
   #define EN _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 1]
+  #define Ekin _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 2]
+  #define Epot _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 3]
+  #define Eint _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 4]
+  #define Virial _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 5]
+  #define mu _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 6]
   long _mg1_output_raw_index_pointer = 0;
   #define norm _active_mg1_output_raw[_mg1_output_raw_index_pointer + 0]
   #define e1 _active_mg1_output_raw[_mg1_output_raw_index_pointer + 1]
+  #define e1kin _active_mg1_output_raw[_mg1_output_raw_index_pointer + 2]
+  #define e1pot _active_mg1_output_raw[_mg1_output_raw_index_pointer + 3]
+  #define e1int _active_mg1_output_raw[_mg1_output_raw_index_pointer + 4]
+  #define vir1 _active_mg1_output_raw[_mg1_output_raw_index_pointer + 5]
+  #define mu1 _active_mg1_output_raw[_mg1_output_raw_index_pointer + 6]
   // Set index pointers explicitly for (some) vectors
   _mg1_output_raw_index_pointer = ( 0
      + _mg1_output_index_t  * 1 ) * _mg1_output_raw_ncomponents;
@@ -2661,19 +2727,34 @@ void _mg1_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 146 "gp1d.xmds"
+  #line 152 "gp1d.xmds"
   
   norm = Ncalc;
-      e1 = EN;
+  e1 = EN;
+  e1kin = Ekin;
+  e1pot = Epot;
+  e1int = Eint;
+  vir1  = Virial;
+  mu1   = mu;
   
-  #line 2670 "xgp1d.cc"
+  #line 2741 "xgp1d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
   #undef Ncalc
   #undef EN
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef Virial
+  #undef mu
   #undef norm
   #undef e1
+  #undef e1kin
+  #undef e1pot
+  #undef e1int
+  #undef vir1
+  #undef mu1
   
   _mg1_output_t[0 + _mg1_output_index_t++] = t;
   
@@ -2696,14 +2777,14 @@ void _mg1_write_out(FILE* _outfile)
     fprintf(_outfile, "<XSIL Name=\"moment_group_2\">\n");
     fprintf(_outfile, "  <Param Name=\"n_independent\">1</Param>\n");
     fprintf(_outfile, "  <Array Name=\"variables\" Type=\"Text\">\n");
-    fprintf(_outfile, "    <Dim>3</Dim>\n");
+    fprintf(_outfile, "    <Dim>8</Dim>\n");
     fprintf(_outfile, "    <Stream><Metalink Format=\"Text\" Delimiter=\" \\n\"/>\n");
-    fprintf(_outfile, "t norm e1 \n");
+    fprintf(_outfile, "t norm e1 e1kin e1pot e1int vir1 mu1 \n");
     fprintf(_outfile, "    </Stream>\n");
     fprintf(_outfile, "  </Array>\n");
     fprintf(_outfile, "  <Array Name=\"data\" Type=\"double\">\n");
     fprintf(_outfile, "    <Dim>%i</Dim>\n", _mg1_output_lattice_t);
-    fprintf(_outfile, "    <Dim>3</Dim>\n");
+    fprintf(_outfile, "    <Dim>8</Dim>\n");
   }
   
   
@@ -2769,6 +2850,46 @@ void _mg1_write_out(FILE* _outfile)
   #if defined(HAVE_HDF5_HL)
     H5DSattach_scale(dataset_e1, dataset_t, 0);
   #endif
+  hid_t dataset_e1kin;
+  if (!H5Lexists(hdf5_file, "/2/e1kin", H5P_DEFAULT))
+    dataset_e1kin = H5Dcreate(hdf5_file, "/2/e1kin", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_e1kin = H5Dopen(hdf5_file, "/2/e1kin");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_e1kin, dataset_t, 0);
+  #endif
+  hid_t dataset_e1pot;
+  if (!H5Lexists(hdf5_file, "/2/e1pot", H5P_DEFAULT))
+    dataset_e1pot = H5Dcreate(hdf5_file, "/2/e1pot", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_e1pot = H5Dopen(hdf5_file, "/2/e1pot");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_e1pot, dataset_t, 0);
+  #endif
+  hid_t dataset_e1int;
+  if (!H5Lexists(hdf5_file, "/2/e1int", H5P_DEFAULT))
+    dataset_e1int = H5Dcreate(hdf5_file, "/2/e1int", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_e1int = H5Dopen(hdf5_file, "/2/e1int");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_e1int, dataset_t, 0);
+  #endif
+  hid_t dataset_vir1;
+  if (!H5Lexists(hdf5_file, "/2/vir1", H5P_DEFAULT))
+    dataset_vir1 = H5Dcreate(hdf5_file, "/2/vir1", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_vir1 = H5Dopen(hdf5_file, "/2/vir1");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_vir1, dataset_t, 0);
+  #endif
+  hid_t dataset_mu1;
+  if (!H5Lexists(hdf5_file, "/2/mu1", H5P_DEFAULT))
+    dataset_mu1 = H5Dcreate(hdf5_file, "/2/mu1", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_mu1 = H5Dopen(hdf5_file, "/2/mu1");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_mu1, dataset_t, 0);
+  #endif
   H5Dclose(dataset_t);
   
   
@@ -2782,9 +2903,9 @@ void _mg1_write_out(FILE* _outfile)
     
     
     hid_t mem_dataspace;
-    mem_dims[1] = 2;
+    mem_dims[1] = 7;
     mem_dataspace = H5Screate_simple(2, mem_dims, NULL);
-    mem_stride[1] = 2;
+    mem_stride[1] = 7;
     
     // Select hyperslabs of memory and file data spaces for data transfer operation
     mem_start[1] = 0;
@@ -2799,6 +2920,36 @@ void _mg1_write_out(FILE* _outfile)
     
     if (dataset_e1)
       H5Dwrite(dataset_e1, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 2;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_e1kin)
+      H5Dwrite(dataset_e1kin, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 3;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_e1pot)
+      H5Dwrite(dataset_e1pot, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 4;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_e1int)
+      H5Dwrite(dataset_e1int, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 5;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_vir1)
+      H5Dwrite(dataset_vir1, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 6;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_mu1)
+      H5Dwrite(dataset_mu1, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
     
     H5Sclose(mem_dataspace);
   }
@@ -2806,6 +2957,11 @@ void _mg1_write_out(FILE* _outfile)
   
   H5Dclose(dataset_norm);
   H5Dclose(dataset_e1);
+  H5Dclose(dataset_e1kin);
+  H5Dclose(dataset_e1pot);
+  H5Dclose(dataset_e1int);
+  H5Dclose(dataset_vir1);
+  H5Dclose(dataset_mu1);
   
   H5Sclose(file_dataspace);
   H5Gclose(group);
@@ -2844,11 +3000,11 @@ void _mg2_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 154 "gp1d.xmds"
+    #line 165 "gp1d.xmds"
     
     v1 = V1;
     
-    #line 2852 "xgp1d.cc"
+    #line 3008 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
