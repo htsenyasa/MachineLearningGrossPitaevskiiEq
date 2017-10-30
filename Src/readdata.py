@@ -4,8 +4,8 @@ import numpy as np
 
 def read_data(path = "../data/nonlinearSE/", train_len=800, test_len=200):
 
-    data_file = os.path.join(path, "potential.dat")
-    label_file = os.path.join(path, "energy.dat")
+    data_file = os.path.join(path, "potential-g-1.dat")
+    label_file = os.path.join(path, "energy-g-1.dat")
 
     f_data = open(data_file, "r")
     f_label = open(label_file, "r")
