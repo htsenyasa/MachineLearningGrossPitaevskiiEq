@@ -39,13 +39,13 @@
       <![CDATA[
       x0 = shift;
       ]]>
-    </arguments>    
+    </arguments>
  </features>
 
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension name="x" lattice="256"  domain="(-20.0, 20.0)" />
+      <dimension name="x" lattice="256"  domain="(-10.0, 10.0)" />
     </transverse_dimensions>
   </geometry>
 
@@ -54,7 +54,7 @@
     <initialisation>
       <![CDATA[
         //V1  = 0.5*x*x;
-        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega 
+        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega
       ]]>
     </initialisation>
   </vector>
@@ -89,8 +89,8 @@
         Ekin = 0.5*mod2(dphix);
         Epot = V1*mod2(phi);
         Eint = 0.5*Uint*mod2(phi)*mod2(phi);
-	Virial = Ekin - Epot + Eint;
-	mu = Ekin + Epot + 2*Ekin; // This has to be adapted to 1D?
+		Virial = Ekin - Epot + Eint;
+		mu = Ekin + Epot + (2) * Eint;
       ]]>
     </evaluation>
   </computed_vector>

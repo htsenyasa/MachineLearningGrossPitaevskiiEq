@@ -12,15 +12,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import readmnistdata as rm
 import sampletrainloader as tl
-import analyze as an
+import analyzer as an
 
 # Training settings
 parser = argparse.ArgumentParser(description='CNN for nonlinearSE')
 
-parser.add_argument('--batch-size',        type=int,             default=5,                 metavar='N',    help = 'input batch size for training (default: 64)')
-parser.add_argument('--test-batch-size',   type=int,             default=500,               metavar='N',    help = 'input batch size for testing (default: 1000)')
+parser.add_argument('--batch-size',        type=int,             default=5,                  metavar='N',    help = 'input batch size for training (default: 64)')
+parser.add_argument('--test-batch-size',   type=int,             default=500,                metavar='N',    help = 'input batch size for testing (default: 1000)')
 parser.add_argument('--epochs',            type=int,             default=20,                 metavar='N',    help = 'number of epochs to train (default: 10)')
-parser.add_argument('--lr',                type=float,           default=1e-3,              metavar='LR',   help = 'learning rate (default: 0.01)')
+parser.add_argument('--lr',                type=float,           default=1e-3,               metavar='LR',   help = 'learning rate (default: 0.01)')
 parser.add_argument('--momentum',          type=float,           default=0.2,                metavar='M',    help = 'SGD momentum (default: 0.5)')
 parser.add_argument('--no-cuda',           action='store_true',  default=False,                              help = 'disables CUDA training')
 parser.add_argument('--seed',              type=int,             default=1,                  metavar='S',    help = 'random seed (default: 1)')
@@ -30,7 +30,8 @@ parser.add_argument('--training-len',      type=int,             default=3500,  
 parser.add_argument('--test-len',          type=int,             default=500,                                help = 'Test len (default: 500)')
 parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
 parser.add_argument('--show-progress',     type=bool,            default=False,                              help = 'display progress (default:False)')
-
+parser.add_argument('--data_file',         type=str,             default="potential.dat",                    help = 'data file to read (default = "potential.dat")')
+parser.add_argument('--label_file',        type=str,             default="energy.dat",                       help = 'label file to read (default = "energy.dat")')
 
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
@@ -45,8 +46,10 @@ batch_size = args.batch_size
 learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
+data_file = args.data_file
+label_file = args.label_file
 
-t = tl.nonlinear1D(training_len, test_len, cnn = True)
+t = tl.nonlinear1D(data_file, label_file, training_len, test_len, cnn = True)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
 train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
@@ -77,6 +80,9 @@ class CnnNet(nn.Module):
 model = CnnNet()
 criterion = F.mse_loss
 optimizer = optim.Adam(model.parameters(), lr = args.lr)
+res = an.analyzer(model, optimizer, args)
+
+if args.show_progress == False: print("--show-progress == False")
 
 def train(epoch):
     model.train()
@@ -87,7 +93,7 @@ def train(epoch):
         loss = criterion(output, target)
         loss.backward()
         optimizer.step()
-        if batch_idx % args.log_interval == 0:
+        if batch_idx % args.log_interval == 0 and args.show_progress == True:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
@@ -103,11 +109,13 @@ def test():
         print(test_loss)
     return output
 
-for epoch in range(1, args.epochs + 1):
+for res.cur_epoch != res.epochs + 1:
     train(epoch)
-    outputs = test()
+    res.cur_epoch +=1
+
+outputs = test()
 
 predicted = outputs.data.numpy()
 real = test_dataset.target_tensor.numpy()
-res = an.analyze(real, predicted, args)
+res.calc_error(real, predicted)
 res.display_plot()

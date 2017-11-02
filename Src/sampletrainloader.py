@@ -81,11 +81,11 @@ class nonlinear1D__(object):
             return (self.test_data_tensor, self.test_label_tensor)
 
 class nonlinear1D(object):
-    def __init__(self, train_len, test_len, root = "../data", label_vectorize = False, cnn = False):
+    def __init__(self, data_file, label_file, train_len, test_len, label_vectorize = False, cnn = False):
         self.train_len = train_len
         self.test_len = test_len
 
-        self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(train_len = self.train_len, test_len = self.test_len)
+        self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(data_file, label_file, self.train_len, self.test_len)
         self.train_data_tensor = torch.from_numpy(self.train_data).float()
         self.train_label_tensor = torch.from_numpy(self.train_label).float()
         if cnn == True: self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
@@ -94,22 +94,16 @@ class nonlinear1D(object):
         self.test_label_tensor = torch.from_numpy(self.test_label).float()
         if cnn == True: self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
-    def get_data(self, train = True, train_len = 800):
+    def get_data(self, train = True):
         if train:
             return (self.train_data_tensor, self.train_label_tensor)
         else:
             return (self.test_data_tensor, self.test_label_tensor)
 
     def init_tensor_dataset(self):
-        target_tensor, label_tensor = self.get_data()
-        test_tensor, test_label_tensor = self.get_data(train = False)
-        train_dataset = data_utils.TensorDataset(target_tensor, label_tensor)
-        test_dataset = data_utils.TensorDataset(test_tensor, test_label_tensor)
+        train_dataset = data_utils.TensorDataset(*self.get_data())
+        test_dataset = data_utils.TensorDataset(*self.get_data(train = False))
         return train_dataset, test_dataset
-
-
-
-
 
 def get_label(j, label_vectorize):
     if not label_vectorize:

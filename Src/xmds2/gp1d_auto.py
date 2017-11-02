@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from xpdeint.XSILFile import XSILFile
+import numpy as np
 
 xsilFile = XSILFile("gp1d.xsil")
 
@@ -24,26 +25,16 @@ mu1_2 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[1].dependent
 x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "x")
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
-<<<<<<< HEAD:Src/xmds2/gp1d_auto.py
-
 
 v1_3 = v1_3.reshape(1, len(v1_3))
-f = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/potential-g-1.dat", "a")
-f2 = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/energy-g-1.dat", "a")
+f = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/potential128.dat", "a")
+f2 = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/energy128.dat", "a")
+f3 = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/ekin128.dat", "a")
+f4 = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/epot128.dat", "a")
+f5 = open("/home/user/Desktop/Study/Src/APPL/data/nonlinearSE/eint128.dat", "a")
+
 np.savetxt(f, v1_3)
 np.savetxt(f2, e1_2[-2:-1])
-
-
-
-#np.savetxt(f, np.concatenate((v1_3, e1_2[-2:-1])).reshape(1, np.size(v1_3)+1))
-
-#plt.plot(x_1, dens_1[-1,:], '.')
-#plt.plot(x_1, v1_3)
-
-#fig, ax = plt.subplots(1,2,figsize=(18,6))
-#ax[0].plot(x_1,dens_1[-1,:],'b.-', x_1, v1_3[:]/100., 'k-')
-=======
-# Write your plotting commands here.
-# You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
->>>>>>> 1260355ec53faf50ce8a401f59c308c25036dc09:Src/xmds2/gp1d.py
-
+np.savetxt(f3, e1kin_2[-2:-1])
+np.savetxt(f4, e1pot_2[-2:-1])
+np.savetxt(f5, e1int_2[-2:-1])

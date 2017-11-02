@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import readmnistdata as rm
 import sampletrainloader as tl
-import analyze as an
+import analyzer as an
 
 # Training settings
 parser = argparse.ArgumentParser(description='Fully Connected FeedForwardNetwork for nonlinearSE')
@@ -26,10 +26,12 @@ parser.add_argument('--no-cuda',           action='store_true',  default=False, 
 parser.add_argument('--seed',              type=int,             default=1,                  metavar='S',    help = 'random seed (default: 1)')
 parser.add_argument('--log-interval',      type=int,             default=10,                 metavar='N',    help = 'how many batches to wait before logging training status')
 parser.add_argument('--network-arch',      type=int,             default=[256, 40, 20, 1],   nargs='+',      help = 'Network arch : (default: 256-40-20-1)')
-parser.add_argument('--training-len',      type=int,             default=3500,                               help = 'Training len (default: 3500)')
-parser.add_argument('--test-len',          type=int,             default=500,                                help = 'Test len (default: 500)')
+parser.add_argument('--training-len',      type=int,             default=800,                               help = 'Training len (default: 3500)')
+parser.add_argument('--test-len',          type=int,             default=200,                                help = 'Test len (default: 500)')
 parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
 parser.add_argument('--show-progress',     type=bool,            default=False,                              help = 'display progress (default:False)')
+parser.add_argument('--data_file',         type=str,             default="potential.dat",                    help = 'data file to read (default = "potential.dat")')
+parser.add_argument('--label_file',        type=str,             default="energy.dat",                       help = 'label file to read (default = "energy.dat")')
 
 
 args = parser.parse_args()
@@ -47,8 +49,10 @@ batch_size = args.batch_size
 learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
+data_file = args.data_file
+label_file = args.label_file
 
-t = tl.nonlinear1D(training_len, test_len)
+t = tl.nonlinear1D(data_file, label_file, training_len, test_len)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
 train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
@@ -70,40 +74,43 @@ class Net(nn.Module):
         out = self.fc3(out)
         return out
 
-net = Net(input_size, hidden_size, num_classes)
 
-# Loss and Optimizer
+
+net = Net(input_size, hidden_size, num_classes)
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
+res = an.analyzer(net, optimizer, args)
 
-# Train the Model
-for epoch in range(num_epochs):
-    for i, (images, labels) in enumerate(train_loader):
-        # Convert torch tensor to Variable
-        images = Variable(images)
+if args.show_progress == False: print("--show-progress == False")
+
+def train(epoch):
+    for i, (data, labels) in enumerate(train_loader):
+        data = Variable(data)
         labels = Variable(labels).float()
 
-        # Forward + Backward + Optimize
-        optimizer.zero_grad()  # zero the gradient buffer
-        outputs = net(images)
+        optimizer.zero_grad()
+        outputs = net(data)
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
 
-        if (i+1) % batch_size == 0 and args.show_progress == True:
-            print('Epoch [%d/%d], Step [%d/%d], Loss: %.4f' %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0]))
+        if (i) % res.batch_size == 0 and args.show_progress == True:
+            print('Epoch [%d/%d], Step [%d/%d], Loss: %.4f' %(res.cur_epoch, res.epochs, i, res.training_len // res.batch_size, loss.data[0]))
 
+    res.cur_epoch += 1
 
-#Test the Model
-for targets, labels in test_loader:
-    targets = Variable(targets)
-    outputs = net(targets)
-    predicted = outputs.data
+def test():
+    for data, labels in test_loader:
+        data = Variable(data)
+        outputs = net(data)
+        predicted = outputs.data
+    return predicted
 
+while res.cur_epoch != res.epochs + 1:
+    train(res.cur_epoch)
 
-a = predicted.numpy()
+a = test().numpy()
 b = test_dataset.target_tensor.numpy()
-res = an.analyze(b, a, args)
+b = b.reshape([test_len, 1])
+res.calc_error(b, a)
 res.display_plot()
-
-torch.save(net.state_dict(), 'model.pkl')

@@ -161,8 +161,8 @@ inline void *xmds_malloc(size_t size);
 // ********************************************************
 //   Geometry defines
 #define _lattice_x ((int)256)
-#define _min_x     ((real)-20.0)
-#define _max_x     ((real)20.0)
+#define _min_x     ((real)-10.0)
+#define _max_x     ((real)10.0)
 #define _dx        ((real)((_max_x - _min_x)/_lattice_x))
 
 #define _lattice_kx ((int)256)
@@ -615,16 +615,16 @@ int main(int argc, char **argv)
   
     
   
-  _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_kx) * _x_wavefunction_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_x) * _x_wavefunction_ncomponents);
+  _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
   _x_potential_alloc_size = MAX(_x_potential_alloc_size, (_lattice_x) * _x_potential_ncomponents);
   _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
-  _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
   _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
   _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
+  _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
   _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t) * _mg1_output_raw_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
   
@@ -1230,7 +1230,7 @@ void _x_potential_initialise()
     #line 55 "gp1d.xmds"
     
     //V1  = 0.5*x*x;
-    V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega 
+    V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega
     
     #line 1236 "xgp1d.cc"
     // **********************************************
@@ -1283,8 +1283,8 @@ void _dimensionless_normalisation_evaluate()
     Ekin = 0.5*mod2(dphix);
     Epot = V1*mod2(phi);
     Eint = 0.5*Uint*mod2(phi)*mod2(phi);
-    Virial = Ekin - Epot + Eint;
-    mu = Ekin + Epot + 2*Ekin; // This has to be adapted to 1D?
+            Virial = Ekin - Epot + Eint;
+            mu = Ekin + Epot + (2) * Eint;
     
     #line 1290 "xgp1d.cc"
     // **********************************************
@@ -2295,13 +2295,13 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      x0 = shift;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "    </arguments>    \n");
+  fprintf(fp, "    </arguments>\n");
   fprintf(fp, " </features>\n");
   fprintf(fp, "\n");
   fprintf(fp, "  <geometry>\n");
   fprintf(fp, "    <propagation_dimension> t </propagation_dimension>\n");
   fprintf(fp, "    <transverse_dimensions>\n");
-  fprintf(fp, "      <dimension domain=\"(-20.0, 20.0)\" lattice=\"256\" name=\"x\"/>\n");
+  fprintf(fp, "      <dimension domain=\"(-10.0, 10.0)\" lattice=\"256\" name=\"x\"/>\n");
   fprintf(fp, "    </transverse_dimensions>\n");
   fprintf(fp, "  </geometry>\n");
   fprintf(fp, "\n");
@@ -2310,7 +2310,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        //V1  = 0.5*x*x;\n");
-  fprintf(fp, "        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega \n");
+  fprintf(fp, "        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");
@@ -2345,8 +2345,8 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        Ekin = 0.5*mod2(dphix);\n");
   fprintf(fp, "        Epot = V1*mod2(phi);\n");
   fprintf(fp, "        Eint = 0.5*Uint*mod2(phi)*mod2(phi);\n");
-  fprintf(fp, "        Virial = Ekin - Epot + Eint;\n");
-  fprintf(fp, "        mu = Ekin + Epot + 2*Ekin; // This has to be adapted to 1D?\n");
+  fprintf(fp, "                Virial = Ekin - Epot + Eint;\n");
+  fprintf(fp, "                mu = Ekin + Epot + (2) * Eint;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </evaluation>\n");
   fprintf(fp, "  </computed_vector>\n");
