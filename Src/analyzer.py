@@ -8,7 +8,7 @@ class analyzer(object):
     testdataset = None
     predicted = None
     error = None
-    def __init__(self, model, optimizer, args):
+    def __init__(self, args):
         self.learning_rate = args.lr
         self.arch = args.network_arch
         self.training_len = args.training_len
@@ -18,8 +18,7 @@ class analyzer(object):
         self.epochs = args.epochs
         self.cur_epoch = 1
         self.runtime_count = args.runtime_count
-        self.model = model
-        self.optimizer= optimizer
+        self.loss = np.empty(0)
 
     def calc_error(self, testdataset, predicted):
         self.testdataset = testdataset
@@ -42,21 +41,30 @@ class analyzer(object):
         plt.hist(error)
         plt.show()
 
-    def save_state(self, file_name):
-        state = {'epoch': self.cur_epoch,
-                 'model_state_dict': self.model.state_dict(),
-                 'optim_state_dict': self.optimizer.state_dict() }
-        torch.save(state, file_name)
+    def step(self, loss_val):
+        #self.cur_epoch += 1
+        self.loss = np.append(self.loss, loss_val)
 
-    def load_state(self, file_name):
-        state = torch.load(file_name)
-        self.cur_epoch = state['epoch']
-        self.model.load_state_dict(state['model_state_dict'])
-        self.optimizer.load_state_dict(state['optim_state_dict'])
 
 def save_info(obj, file_name):
     f = open(file_name, "wb")
     pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
 def load_info(file_name):
     f = open(file_name, "rb")
     return pickle.load(f)
+
+def save_state(model, optimizer, epoch, file_name):
+    state = {'epoch': epoch,
+             'model_state_dict': model.state_dict(),
+             'optim_state_dict': optimizer.state_dict() }
+    torch.save(state, file_name)
+
+def load_state(file_name):
+    state = torch.load(file_name)
+    epoch = state['epoch']
+    mst = (state['model_state_dict'])
+    ost = (state['optim_state_dict'])
+
+    return epoch, mst, ost

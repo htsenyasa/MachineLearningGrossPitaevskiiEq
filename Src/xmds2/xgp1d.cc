@@ -160,12 +160,12 @@ inline void *xmds_malloc(size_t size);
 
 // ********************************************************
 //   Geometry defines
-#define _lattice_x ((int)256)
+#define _lattice_x ((int)128)
 #define _min_x     ((real)-10.0)
 #define _max_x     ((real)10.0)
 #define _dx        ((real)((_max_x - _min_x)/_lattice_x))
 
-#define _lattice_kx ((int)256)
+#define _lattice_kx ((int)128)
 #define _dkx        (2.0*M_PI/(_max_x - _min_x))
 #define _min_kx     (-(_lattice_kx/2) * _dkx)
 #define _max_kx     ((_lattice_kx - 1)/2 * _dkx)
@@ -2301,7 +2301,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  <geometry>\n");
   fprintf(fp, "    <propagation_dimension> t </propagation_dimension>\n");
   fprintf(fp, "    <transverse_dimensions>\n");
-  fprintf(fp, "      <dimension domain=\"(-10.0, 10.0)\" lattice=\"256\" name=\"x\"/>\n");
+  fprintf(fp, "      <dimension domain=\"(-10.0, 10.0)\" lattice=\"128\" name=\"x\"/>\n");
   fprintf(fp, "    </transverse_dimensions>\n");
   fprintf(fp, "  </geometry>\n");
   fprintf(fp, "\n");

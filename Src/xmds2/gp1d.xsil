@@ -44,7 +44,7 @@
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension domain="(-10.0, 10.0)" lattice="256" name="x"/>
+      <dimension domain="(-10.0, 10.0)" lattice="128" name="x"/>
     </transverse_dimensions>
   </geometry>
 
@@ -172,10 +172,10 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 0.000000e+00
+  Command line argument interaction_param = 2.000000e+01
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 1.000000e+00
-  Command line argument shift = 0.000000e+00
+  Command line argument freq = 1.155625e+00
+  Command line argument shift = 3.615793e-01
 </info>
 
 <XSIL Name="moment_group_1">
@@ -188,7 +188,7 @@ t x dens phiR phiI
   </Array>
   <Array Name="data" Type="double">
     <Dim>26</Dim>
-    <Dim>256</Dim>
+    <Dim>128</Dim>
     <Dim>5</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
 gp1d.h5
@@ -222,7 +222,7 @@ x v1
     </Stream>
   </Array>
   <Array Name="data" Type="double">
-    <Dim>256</Dim>
+    <Dim>128</Dim>
     <Dim>2</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/3"/>
 gp1d.h5
