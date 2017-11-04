@@ -1,11 +1,11 @@
 Abstract
 ----
-We train an artificial neural network to estimate the ground state energy
-of a one-dimensional Bose-Einstein condensate in arbitrary trapping potentials.
-Such a system can be described by the solution of a corresponding
-Gross-Pitaevskii equation also called a non-linear Schroedinger equation.
-We also use the method to predict the non-linearity parameter using the ground
-state density profile for any given trapping potential.
+We train an artificial neural network to estimate the ground state energy 
+of a one-dimensional Bose-Einstein condensate in arbitrary trapping potentials. 
+Such a system can be described by the solution of a corresponding 
+Gross-Pitaevskii equation also called a non-linear Schroedinger equation. 
+We also use the method to predict the non-linearity parameter using the ground 
+state density profile for any given trapping potential. 
 
 I. Introduction
 -ML tools are being applied everywhere including the solution of the SE.
@@ -42,7 +42,7 @@ IV. Problem statements and dataset generation
     a) Application of ML to estimating ground state energy and non-linearity parameter
     b) GS energy for the non-interacting system (1D version of SE paper)
     c) GS energy of the NLSE in harmonic/box/double well traps
-    d) GS energy for random potential
+    d) GS energy for random potential 
     e) Non-linearity parameter from trapping potential and density profile
 
 V. Machine Learning for NLSE
