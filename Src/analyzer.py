@@ -33,7 +33,7 @@ class analyzer(object):
         plt.ylabel("Predicted")
         plt.legend()
         plt.grid()
-        plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.epochs, self.training_len, self.test_len, self.error))
+        plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
         plt.show()
 
     def plot_error(self):
