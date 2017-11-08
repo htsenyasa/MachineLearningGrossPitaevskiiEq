@@ -30,9 +30,9 @@ while command != 'exit':
     if i == len(files) - 1:
         print("end")
         sys.exit(0)
-    if command == 'next' :
+    if command == 'n' :
         i += 1
-    elif command == 'prev':
+    elif command == 'p':
         i -= 1
     else: pass
 

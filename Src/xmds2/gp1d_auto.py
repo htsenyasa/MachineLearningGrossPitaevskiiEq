@@ -15,6 +15,7 @@ en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex
 epot_file_name = root + "epot" + file_ex
 eint_file_name = root + "eint" + file_ex
+dens_file_name = root + "dens" + file_ex
 
 
 xsilFile = XSILFile("gp1d.xsil")
@@ -47,9 +48,11 @@ f2 = open(en_file_name, "a")
 f3 = open(ekin_file_name, "a")
 f4 = open(epot_file_name, "a")
 f5 = open(eint_file_name, "a")
+f6 = open(dens_file_name, "a")
 
 np.savetxt(f, v1_3)
 np.savetxt(f2, e1_2[-2:-1])
 np.savetxt(f3, e1kin_2[-2:-1])
 np.savetxt(f4, e1pot_2[-2:-1])
 np.savetxt(f5, e1int_2[-2:-1])
+np.savetxt(f6, dens_1[-1])
