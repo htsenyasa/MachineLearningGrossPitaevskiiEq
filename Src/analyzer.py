@@ -26,7 +26,7 @@ class analyzer(object):
         self.error = np.array([(self.predicted[i] - self.testdataset[i])**2 for i in range(self.test_len)])
         self.error = float(sum(self.error/self.test_len))
 
-    def display_plot(self):
+    def display_plot(self, file_name = None):
         plt.plot(self.testdataset, self.testdataset, "--r", label="real data")
         plt.plot(self.testdataset, self.predicted, ".")
         plt.xlabel("Real")
@@ -34,7 +34,10 @@ class analyzer(object):
         plt.legend()
         plt.grid()
         plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
-        plt.show()
+        if file_name == None:
+            plt.show()
+        else:
+            plt.savefig(file_name + ".svg", format = "svg")
 
     def plot_error(self):
         error = self.testdataset - self.predicted
