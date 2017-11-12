@@ -1,5 +1,6 @@
 import glob
 import sys
+import os
 sys.path.append("../Src/")
 
 import analyzer as an
@@ -24,18 +25,23 @@ files.sort()
 
 
 
-i = 0
-command = input(">>>")
-while command != 'exit':
-    if i == len(files) - 1:
-        print("end")
-        sys.exit(0)
-    if command == 'next' :
-        i += 1
-    elif command == 'prev':
-        i -= 1
-    else: pass
+#i = 0
+#command = input(">>>")
+#while command != 'exit':
+#    if i == len(files) - 1:
+#        print("end")
+#        sys.exit(0)
+#    if command == 'next' or command == 'n' or command == '\n':
+#        i += 1
+#    elif command == 'prev's or command == 'p':
+#        i -= 1
+#    else: pass
+#
+#    plot = an.load_info(files[i])
+#    plot.display_plot()
+#    command = input()
 
+for i in range(len(files)):
     plot = an.load_info(files[i])
-    plot.display_plot()
-    command = input()
+    file = os.path.splitext(files[i])[0] + ".svg"
+    plot.display_plot(file_name = file)
