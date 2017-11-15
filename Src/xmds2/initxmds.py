@@ -13,11 +13,12 @@ import time as time
 #args = parser.parse_args()
 
 inter_param = 20
+inter_params = [1 20]
 num_particles = 1
 freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 5   # shift [-10, 10]
 
-N_of_examples = 10000   #ten thousand
+N_of_examples = 100   #ten thousand
 
 rnd.seed()
 
@@ -26,7 +27,8 @@ rnd.seed()
 
 start = time.time()
 
-for i in range(N_of_examples):
+for inter_param in inter_params:
+  for i in range(N_of_examples):
 
     shift = rnd.random() * rnd.randint(-5, 5)
     freq = rnd.uniform(0.5, 2)
