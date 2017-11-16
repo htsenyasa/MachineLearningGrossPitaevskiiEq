@@ -29,9 +29,9 @@ Lorem ipsum
 
 \subsection{Dataset and Dataset Generation}
 
-Datasets have two elements; potential vector and corresponding total energy value. Length of the potential vector is 128 which equals to grid number used in XMDS. This length also determines the number of neurons in the input layer. 
+As mentioned, we solved NLSE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test. An element of a dataset involves an array containing potential values respect to the transverse dimension and a number which is total energy value.
 
-There are four different datasets in total and each of them corresponds to one interaction parameter, thus; their total energy values are different because of solution and potential vectors are also different because of randomness. 
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; randomness of the dataset occurs in angular frequency and shift of equilibrium point. We supplied these random angular frequency and shift values to the XMDS in predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since potential must be zero at infinity. In numerical solution of the NLSE, domain of the transverse dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that potential goes to zero at infinity.
 
 
 \section{Machine Learning for NLSE}
@@ -39,12 +39,10 @@ There are four different datasets in total and each of them corresponds to one i
 We used Pytorch Framework to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. \textbf{continue}
 
 
-We implemented two different types of neural network; feed forward (FNN) and convolutional neural network (CNN). 
+We implemented two different types of neural network; feed forward (FNN) and convolutional neural network (CNN).
 
 
 \subsection{Architecture}
-
-As it is mentioned, there are two different architectures; feed forward (FNN) and convolutional neural network (CNN).  
 
 FNN involves 128 input neurons as input layer, next layer is first hidden layer with 30 neurons, the second is same as first hidden layer, the next one is last hidden layer with 10 neurons and the last layer is output layer. Totally there are 5 layers in our FFN and we will denote as $FNN[128, 30, 30, 10, 1]$. Rectified linear unit (ReLU) is used for each forward except output. No operation is applied to the output neuron. Learning rate of the FNN is fixed and it is $0.001$. Cost function is mean squared error (MSE) and optimization is done with Adam. 
 
@@ -54,7 +52,8 @@ CNN has two convolution layers, two maxpool layers and three fully connected lay
 
 \subsection{Hyperparameters}
 
-Before traning the network with all generated dataset which involves 8500 elements for training and 1500 elements for test, we used small two datasets which are 800/200 and 3500/500 (training/test). 
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain optimum learning rate. The first architecture we used had only 4 layers and it was not sufficient. \textbf{(Add result graphs of this architecture and comment about it)} Then we increased the number of layers to 5 and tried different number of neuron combination. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number}
+
 
 
 
