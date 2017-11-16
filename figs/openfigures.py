@@ -44,4 +44,5 @@ files.sort()
 for i in range(len(files)):
     plot = an.load_info(files[i])
     file = os.path.splitext(files[i])[0] + ".svg"
-    plot.display_plot(file_name = file)
+    print(file)
+    #plot.display_plot(file_name = file)

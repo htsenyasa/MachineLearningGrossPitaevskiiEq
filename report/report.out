@@ -1,5 +1,10 @@
-\BOOKMARK [1][-]{section.1}{Gross Pitaevskii Equation}{}% 1
-\BOOKMARK [1][-]{section.2}{Problem Statements and Dataset Generation}{}% 2
-\BOOKMARK [1][-]{section.3}{Machine Learning for NLSE}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Architecture}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Hyperparameters}{section.3}% 5
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Gross Pitaevskii Equation}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Types of Potentials}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Analytical Solution and Approximation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Numerical Solution and XMDS Framework}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Problem Statements and Dataset Generation}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Dataset and Dataset Generation}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Machine Learning for NLSE}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Architecture}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Hyperparameters}{section.4}% 10

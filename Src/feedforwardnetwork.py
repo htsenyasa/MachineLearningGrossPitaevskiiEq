@@ -33,7 +33,7 @@ parser.add_argument('--runtime-count',     type=int,             default=0,     
 parser.add_argument('--show-progress',     action='store_true',  default=False,                              help = 'display progress (default:False)')
 parser.add_argument('--data-file',         type=str,             default="potential-g-10-.dat",              help = 'data file to read (default = "potential.dat")')
 parser.add_argument('--label-file',        type=str,             default="energy-g-10-.dat",                 help = 'label file to read (default = "energy.dat")')
-parser.add_argument('--inter-param',       type=float,           default=0,                                  help = 'interaction parameter program uses this parameter to choose which file to open (default: 0)')
+parser.add_argument('--inter-param',       type=float,           default=0.0,                                  help = 'interaction parameter program uses this parameter to choose which file to open (default: 0)')
 
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
