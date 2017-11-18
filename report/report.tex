@@ -31,7 +31,7 @@ Lorem ipsum
 
 As mentioned, we solved NLSE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test. An element of a dataset involves an array containing potential values respect to the transverse dimension and a number which is total energy value.
 
-The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; randomness of the dataset occurs in angular frequency and shift of equilibrium point. We supplied these random angular frequency and shift values to the XMDS in predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since potential must be zero at infinity. In numerical solution of the NLSE, domain of the transverse dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that potential goes to zero at infinity.
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; \textbf{randomness} of the dataset occurs in angular frequency and shift of equilibrium point. We supplied these random angular frequency and shift values to the XMDS within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since potential must be zero at infinity. In numerical solution of the NLSE, domain of the transverse dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that potential goes to zero at infinity.
 
 
 \section{Machine Learning for NLSE}
@@ -52,10 +52,9 @@ CNN has two convolution layers, two maxpool layers and three fully connected lay
 
 \subsection{Hyperparameters}
 
-We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain optimum learning rate. The first architecture we used had only 4 layers and it was not sufficient. \textbf{(Add result graphs of this architecture and comment about it)} Then we increased the number of layers to 5 and tried different number of neuron combination. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number}
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain optimum learning rate. The first architecture we used had only 4 layers and it was not sufficient. \textbf{(Add result graphs of this architecture and comment about it)} Then we increased the number of layers to 5 and tried different number of neuron combinations. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number in hidden layers}.  Batch size is 10 and total number of epoch is 20 for this dataset. We didn't change much these hyperparameters since it is not part of this step. 
 
-
-
+After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
 
 \newpage
 
