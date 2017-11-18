@@ -41,13 +41,13 @@ class analyzer(object):
             plt.savefig(file_name + ".svg", format = "svg")
 
     def display_plot2(self, file_name = None):
-        features = ['eint', 'ekin', 'epot', 'total']
+        features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
         for i in range(len(features)):
             plt.figure(features[i])
             plt.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
             plt.plot(self.testdataset[:,i], self.predicted[:,i], ".")
-            plt.xlabel("Real")
-            plt.ylabel("Predicted")
+            plt.xlabel(features[i] + " Real")
+            plt.ylabel(features[i] + " Predicted")
             plt.legend()
             plt.grid()
             plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error[i]))
