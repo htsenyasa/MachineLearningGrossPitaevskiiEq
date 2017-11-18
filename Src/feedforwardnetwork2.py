@@ -27,8 +27,8 @@ parser.add_argument('--no-cuda',           action='store_true',  default=False, 
 parser.add_argument('--seed',              type=int,             default=1,                  metavar='S',    help = 'random seed (default: 1)')
 parser.add_argument('--log-interval',      type=int,             default=10,                 metavar='N',    help = 'how many batches to wait before logging training status')
 parser.add_argument('--network-arch',      type=int,             default=[128, 30, 30, 10, 4],   nargs='+',  help = 'Network arch : (default: 128-30-30-10-4)')
-parser.add_argument('--training-len',      type=int,             default=3500,                               help = 'Training len (default: 3500)')
-parser.add_argument('--test-len',          type=int,             default=500,                                help = 'Test len (default: 500)')
+parser.add_argument('--training-len',      type=int,             default=8500,                               help = 'Training len (default: 3500)')
+parser.add_argument('--test-len',          type=int,             default=1500,                                help = 'Test len (default: 500)')
 parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
 parser.add_argument('--show-progress',     action='store_true',  default=False,                              help = 'display progress (default:False)')
 parser.add_argument('--data-file',         type=str,             default="potential-g-10-.dat",              help = 'data file to read (default = "potential.dat")')
@@ -57,6 +57,9 @@ label_file = args.label_file
 if (args.inter_param).is_integer():
     args.inter_param = int(args.inter_param)
 print("FFN running, Interaction param: {}".format(args.inter_param))
+
+data_file = "potential-g-{}-.dat".format(args.inter_param)
+label_file = "mergeddata/eint_kin_pot_energy-g-{}-.dat".format(args.inter_param)
 
 t = tl.nonlinear1D(data_file, label_file, training_len, test_len)
 train_dataset, test_dataset = t.init_tensor_dataset()
@@ -124,7 +127,7 @@ def test():
         real = test_dataset.target_tensor.numpy()
         real = real.reshape([test_len, num_classes])
         res.calc_error(real, predicted)
-        #res.display_plot()
+        res.display_plot2()
 
         #global info_file_name
         #file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
@@ -134,8 +137,9 @@ def test():
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-    if res.cur_epoch % (res.epochs / 3) == 0:
-        test()
+    #if res.cur_epoch % (res.epochs / 3) == 0:
+    #    test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs
+test()
