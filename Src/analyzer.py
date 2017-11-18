@@ -23,8 +23,9 @@ class analyzer(object):
     def calc_error(self, testdataset, predicted):
         self.testdataset = testdataset
         self.predicted = predicted
-        self.error = np.array([(self.predicted[i] - self.testdataset[i])**2 for i in range(self.test_len)])
-        self.error = float(sum(self.error/self.test_len))
+        #self.error = np.array([(self.predicted[i] - self.testdataset[i])**2 for i in range(self.test_len)])
+        self.error = sum((self.predicted - self.testdataset)**2)
+        self.error = (self.error/self.test_len)
 
     def display_plot(self, file_name = None):
         plt.plot(self.testdataset, self.testdataset, "--r", label="real data")
@@ -38,6 +39,23 @@ class analyzer(object):
             plt.show()
         else:
             plt.savefig(file_name + ".svg", format = "svg")
+
+    def display_plot2(self, file_name = None):
+        features = ['eint', 'ekin', 'epot', 'total']
+        for i in range(len(features)):
+            plt.figure(features[i])
+            plt.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
+            plt.plot(self.testdataset[:,i], self.predicted[:,i], ".")
+            plt.xlabel("Real")
+            plt.ylabel("Predicted")
+            plt.legend()
+            plt.grid()
+            plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error[i]))
+        if file_name == None:
+            plt.show()
+        else:
+            plt.savefig(file_name + ".svg", format = "svg")
+
 
     def plot_error(self):
         error = self.testdataset - self.predicted

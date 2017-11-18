@@ -18,21 +18,21 @@ import os.path
 # Training settings
 parser = argparse.ArgumentParser(description='Fully Connected FeedForwardNetwork for nonlinearSE')
 
-parser.add_argument('--batch-size',        type=int,             default=30,                 metavar='N',    help = 'input batch size for training (default: 64)')
-parser.add_argument('--test-batch-size',   type=int,             default=2000,               metavar='N',    help = 'input batch size for testing (default: 1000)')
+parser.add_argument('--batch-size',        type=int,             default=30,                 metavar='N',    help = 'input batch size for training (default: 30)')
+parser.add_argument('--test-batch-size',   type=int,             default=2000,               metavar='N',    help = 'input batch size for testing (default: 2000)')
 parser.add_argument('--epochs',            type=int,             default=50,                 metavar='N',    help = 'number of epochs to train (default: 10)')
 parser.add_argument('--lr',                type=float,           default=0.001,              metavar='LR',   help = 'learning rate (default: 0.01)')
 parser.add_argument('--momentum',          type=float,           default=0.5,                metavar='M',    help = 'SGD momentum (default: 0.5)')
 parser.add_argument('--no-cuda',           action='store_true',  default=False,                              help = 'disables CUDA training')
 parser.add_argument('--seed',              type=int,             default=1,                  metavar='S',    help = 'random seed (default: 1)')
 parser.add_argument('--log-interval',      type=int,             default=10,                 metavar='N',    help = 'how many batches to wait before logging training status')
-parser.add_argument('--network-arch',      type=int,             default=[128, 30, 30, 10, 1],   nargs='+',  help = 'Network arch : (default: 256-40-20-1)')
-parser.add_argument('--training-len',      type=int,             default=8500,                               help = 'Training len (default: 3500)')
-parser.add_argument('--test-len',          type=int,             default=1500,                               help = 'Test len (default: 500)')
+parser.add_argument('--network-arch',      type=int,             default=[128, 30, 30, 10, 4],   nargs='+',  help = 'Network arch : (default: 128-30-30-10-4)')
+parser.add_argument('--training-len',      type=int,             default=3500,                               help = 'Training len (default: 3500)')
+parser.add_argument('--test-len',          type=int,             default=500,                                help = 'Test len (default: 500)')
 parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
 parser.add_argument('--show-progress',     action='store_true',  default=False,                              help = 'display progress (default:False)')
 parser.add_argument('--data-file',         type=str,             default="potential-g-10-.dat",              help = 'data file to read (default = "potential.dat")')
-parser.add_argument('--label-file',        type=str,             default="energy-g-10-.dat",                 help = 'label file to read (default = "energy.dat")')
+parser.add_argument('--label-file',        type=str,             default="mergeddata/eint_kin_pot_energy-g-10-.dat",                 help = 'label file to read (default = "energy.dat")')
 parser.add_argument('--inter-param',       type=float,           default=0.0,                                  help = 'interaction parameter program uses this parameter to choose which file to open (default: 0)')
 
 args = parser.parse_args()
@@ -57,9 +57,6 @@ label_file = args.label_file
 if (args.inter_param).is_integer():
     args.inter_param = int(args.inter_param)
 print("FFN running, Interaction param: {}".format(args.inter_param))
-
-data_file = "potential-g-{}-.dat".format(args.inter_param)
-label_file = "energy-g-{}-.dat".format(args.inter_param)
 
 t = tl.nonlinear1D(data_file, label_file, training_len, test_len)
 train_dataset, test_dataset = t.init_tensor_dataset()
@@ -116,7 +113,7 @@ def train(epoch):
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/FFN/" + os.path.splitext(data_file)[0]
+info_file_name = "../figs/FFN/" + "merged" + os.path.splitext(data_file)[0]
 
 
 def test():
@@ -125,9 +122,9 @@ def test():
         outputs = net(data)
         predicted = outputs.data.numpy()
         real = test_dataset.target_tensor.numpy()
-        real = real.reshape([test_len, 1])
+        real = real.reshape([test_len, num_classes])
         res.calc_error(real, predicted)
-        res.display_plot()
+        #res.display_plot()
 
         #global info_file_name
         #file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
@@ -137,8 +134,8 @@ def test():
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-    #if res.cur_epoch % (res.epochs / 3) == 0:
-    #    test()
+    if res.cur_epoch % (res.epochs / 3) == 0:
+        test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs
