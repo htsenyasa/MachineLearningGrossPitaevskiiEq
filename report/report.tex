@@ -1,8 +1,10 @@
 \documentclass[a4paper,times,12pt]{article}
 \usepackage{amsmath}
-\usepackage{graphicx}
+%\usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage{svg}
+\usepackage{subcaption}
 \onehalfspacing
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{hyperref}
@@ -10,6 +12,8 @@
 \title{}%\textbf{Interaction Effects in Quantum Random Walk with atomic BEC}}
 
 \date{}
+
+\svgpath{path = {"../figs/archtestresults/"}}
 
 \begin{document}
 
@@ -22,6 +26,11 @@
 Lorem ipsum
 \section{Introduction}
 \section{Gross Pitaevskii Equation}
+
+
+
+
+
 \subsection{Types of Potentials}
 \subsection{Analytical Solution and Approximation}
 \subsection{Numerical Solution and XMDS Framework}
@@ -29,32 +38,110 @@ Lorem ipsum
 
 \subsection{Dataset and Dataset Generation}
 
-As mentioned, we solved NLSE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test. An element of a dataset involves an array containing potential values respect to the transverse dimension and a number which is total energy value.
+As mentioned, we solved NLSE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test. An element of a dataset involves an array containing potential values respect to the position and an another array containing interaction, kinetic, potential and total energy values respectively. 
 
-The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; \textbf{randomness} of the dataset occurs in angular frequency and shift of equilibrium point. We supplied these random angular frequency and shift values to the XMDS within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since potential must be zero at infinity. In numerical solution of the NLSE, domain of the transverse dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that potential goes to zero at infinity.
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; \textbf{randomness} of the dataset occurs in angular frequency and shift of equilibrium point. We supplied these random angular frequency and shift values to the XMDS within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the NLSE, domain of the \textbf{transverse dimension} is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity.
 
 
 \section{Machine Learning for NLSE}
 
 We used Pytorch Framework to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. \textbf{continue}
 
-
 We implemented two different types of neural network; feed forward (FNN) and convolutional neural network (CNN).
 
 
 \subsection{Architecture}
 
-FNN involves 128 input neurons as input layer, next layer is first hidden layer with 30 neurons, the second is same as first hidden layer, the next one is last hidden layer with 10 neurons and the last layer is output layer. Totally there are 5 layers in our FFN and we will denote as $FNN[128, 30, 30, 10, 1]$. Rectified linear unit (ReLU) is used for each forward except output. No operation is applied to the output neuron. Learning rate of the FNN is fixed and it is $0.001$. Cost function is mean squared error (MSE) and optimization is done with Adam. 
+FNN involves 128 input neurons as input layer, next layer is first hidden layer with 30 neurons, the second is same as first hidden layer, the next one is last hidden layer with 10 neurons and the last layer is output layer. Totally there are 5 layers in our FFN and it will be denoted as $FNN[128, 30, 30, 10, 4]$. Rectified linear unit (ReLU) is used for each forward except output. No operation is applied to the output neuron. Learning rate of the FNN is fixed and it is $0.001$. Cost function is mean squared error (MSE) and optimization is done with Adam. 
 
 
-CNN has two convolution layers, two maxpool layers and three fully connected layer and last layer of the fully connected part is output layer which is a single neuron. Maxpooling is applied to output of the first and second convolution layers. ReLu is also applied each forward except output neuron same as in the FNN. Fully connected part of the CNN is $FNN[310, 100, 20, 1]$. Learning rate, cost function and optimizer of the CNN is same as FNN which are $0.001$, MSE and Adam respectively.
+CNN has two convolution layers, two maxpool layers and three fully connected layer and last layer of the fully connected part is output layer. Maxpooling is applied to output of the first and second convolution layers. ReLu is also applied each forward except output neuron same as in the FNN. Fully connected part of the CNN is $FNN[310, 100, 20, 1]$. Learning rate, cost function and optimizer of the CNN is same as FNN which are $0.001$, MSE and Adam respectively.
 
 
 \subsection{Hyperparameters}
 
-We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain optimum learning rate. The first architecture we used had only 4 layers and it was not sufficient. \textbf{(Add result graphs of this architecture and comment about it)} Then we increased the number of layers to 5 and tried different number of neuron combinations. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number in hidden layers}.  Batch size is 10 and total number of epoch is 20 for this dataset. We didn't change much these hyperparameters since it is not part of this step. 
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+           \centering
+            \includesvg[width=8cm]{{"fourlayer-g0-lr0_003-800"}}
+            \caption{FNN[128, 40, 40, 1], lr = 0.003}
+            \label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+            \centering
+             \includesvg[width=8cm]{{"fourlayer-g0-lr0_001-800"}}
+            \caption{FNN[128, 40, 40, 1], lr = 0.001}
+            \label{fig:b}
+    \end{subfigure}
+    \caption{In this example interaction parameter g, is set to zero. Even learning rate 0.001 seems more accurate, it is trivial to expect that change in interaction parameter will change the result. }
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+           \centering
+            \includesvg[width=8cm]{{"fourlayer-g10-lr0_003-800"}}
+            \caption{FNN[128, 40, 40, 1], lr = 0.003}
+            \label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+            \centering
+             \includesvg[width=8cm]{{"fourlayer-g10-lr0_001-800"}}
+            \caption{FNN[128, 40, 40, 1], lr = 0.001}
+            \label{fig:b}
+    \end{subfigure}
+    \caption{Here, interaction parameter g, is set to 10. Predictions of the network with learning rate 0.003 more accurate than 0.001. }
+\end{figure}
+
+\textbf{comment about range of the learning rate ?}
+
+First architecture we used had only 4 layers and it was not sufficient.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+           \centering
+            \includesvg[width=8cm]{fivelayer-g10-800}
+            \caption{FNN[128, 30, 30, 10, 1]}
+            \label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+            \centering
+             \includesvg[width=8cm]{fourlayer-g10-800}
+            \caption{FNN[128, 40, 40, 1]}
+            \label{fig:b}
+    \end{subfigure}
+    \caption{Here interaction paramater g, is again set to 10. }
+\end{figure}
+
+
+Then we increased the number of layers to 5 and tried different number of neuron combinations. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number in hidden layers}.  Batch size is 10 and total number of epoch is 20 for this dataset. 
 
 After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{fivelayer-g10-3500}
+        \caption{FNN[128, 30, 30, 10, 1]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{fourlayer-g10-3500}
+        \caption{FNN[128, 40, 40, 1]}
+		\label{fig:b}
+    \end{subfigure}
+    \caption{3500/500}
+\end{figure}
+
+
+
 
 \newpage
 
