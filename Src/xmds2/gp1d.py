@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from xpdeint.XSILFile import XSILFile
+import matplotlib.pyplot as plt
 
 xsilFile = XSILFile("gp1d.xsil")
 
@@ -27,3 +28,10 @@ v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentV
 # Write your plotting commands here.
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
 
+plt.figure("density func")
+plt.plot(x_1, dens_1[-1,:])
+plt.figure("density func, imag part")
+plt.plot(x_1, phiR_1[-1,:])
+plt.figure("density func, real part")
+plt.plot(x_1, phiI_1[-1,:])
+plt.show()

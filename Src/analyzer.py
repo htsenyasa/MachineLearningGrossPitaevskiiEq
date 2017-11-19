@@ -26,15 +26,16 @@ class analyzer(object):
         #self.error = np.array([(self.predicted[i] - self.testdataset[i])**2 for i in range(self.test_len)])
         self.error = sum((self.predicted - self.testdataset)**2)
         self.error = (self.error/self.test_len)
+        self.relative_error = sum(np.abs(self.predicted - self.testdataset)/sum(self.testdataset))
 
     def display_plot(self, file_name = None):
         plt.plot(self.testdataset, self.testdataset, "--r", label="real data")
-        plt.plot(self.testdataset, self.predicted, ".")
+        plt.plot(self.testdataset, self.predicted, ".", label = "predicted")
         plt.xlabel("Real")
         plt.ylabel("Predicted")
         plt.legend()
         plt.grid()
-        plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
+        #plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
         if file_name == None:
             plt.show()
         else:
@@ -50,7 +51,7 @@ class analyzer(object):
             plt.ylabel(features[i] + " Predicted")
             plt.legend()
             plt.grid()
-            plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error[i]))
+            plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.relative_error[i]))
         if file_name == None:
             plt.show()
         else:

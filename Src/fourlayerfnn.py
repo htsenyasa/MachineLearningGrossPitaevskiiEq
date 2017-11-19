@@ -18,17 +18,17 @@ import os.path
 # Training settings
 parser = argparse.ArgumentParser(description='Fully Connected FeedForwardNetwork for nonlinearSE')
 
-parser.add_argument('--batch-size',        type=int,             default=30,                 metavar='N',    help = 'input batch size for training (default: 64)')
+parser.add_argument('--batch-size',        type=int,             default=10,                 metavar='N',    help = 'input batch size for training (default: 64)')
 parser.add_argument('--test-batch-size',   type=int,             default=2000,               metavar='N',    help = 'input batch size for testing (default: 1000)')
-parser.add_argument('--epochs',            type=int,             default=60,                 metavar='N',    help = 'number of epochs to train (default: 10)')
+parser.add_argument('--epochs',            type=int,             default=20,                 metavar='N',    help = 'number of epochs to train (default: 10)')
 parser.add_argument('--lr',                type=float,           default=0.001,              metavar='LR',   help = 'learning rate (default: 0.01)')
 parser.add_argument('--momentum',          type=float,           default=0.5,                metavar='M',    help = 'SGD momentum (default: 0.5)')
 parser.add_argument('--no-cuda',           action='store_true',  default=False,                              help = 'disables CUDA training')
 parser.add_argument('--seed',              type=int,             default=1,                  metavar='S',    help = 'random seed (default: 1)')
 parser.add_argument('--log-interval',      type=int,             default=10,                 metavar='N',    help = 'how many batches to wait before logging training status')
-parser.add_argument('--network-arch',      type=int,             default=[128, 40, 40, 10, 1],   nargs='+',  help = 'Network arch : (default: 256-40-20-1)')
-parser.add_argument('--training-len',      type=int,             default=8500,                               help = 'Training len (default: 3500)')
-parser.add_argument('--test-len',          type=int,             default=1500,                               help = 'Test len (default: 500)')
+parser.add_argument('--network-arch',      type=int,             default=[128, 40, 40, 1],   nargs='+',  help = 'Network arch : (default: 256-40-20-1)')
+parser.add_argument('--training-len',      type=int,             default=800,                               help = 'Training len (default: 3500)')
+parser.add_argument('--test-len',          type=int,             default=200,                               help = 'Test len (default: 500)')
 parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
 parser.add_argument('--show-progress',     action='store_true',  default=False,                              help = 'display progress (default:False)')
 parser.add_argument('--data-file',         type=str,             default="potential-g-10-.dat",              help = 'data file to read (default = "potential.dat")')
@@ -45,7 +45,7 @@ if args.cuda:
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 #input_size, hidden_size, hidden2_size, num_classes = args.network_arch
-input_size, hidden_size, hidden2_size, hidden3_size, num_classes = args.network_arch
+input_size, hidden_size, hidden2_size, num_classes = args.network_arch
 num_epochs = args.epochs
 batch_size = args.batch_size
 learning_rate = args.lr
@@ -73,8 +73,7 @@ class Net(nn.Module):
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(hidden_size, hidden2_size)
-        self.fc3 = nn.Linear(hidden2_size, hidden3_size)
-        self.fc4 = nn.Linear(hidden3_size, num_classes)
+        self.fc3 = nn.Linear(hidden2_size, num_classes)
 
 
     def forward(self, x):
@@ -83,8 +82,6 @@ class Net(nn.Module):
         out = self.fc2(out)
         out = self.relu(out)
         out = self.fc3(out)
-        out = self.relu(out)
-        out = self.fc4(out)
         return out
 
 
@@ -142,4 +139,3 @@ while res.cur_epoch != res.epochs + 1:
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs
-test()
