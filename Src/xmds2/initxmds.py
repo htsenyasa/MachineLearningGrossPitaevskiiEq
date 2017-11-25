@@ -18,7 +18,7 @@ num_particles = 1
 freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_examples = 1000
+N_of_examples = 2000
 
 rnd.seed()
 
@@ -31,7 +31,7 @@ start = time.time()
 for inter_param in inter_params:
 
     #shift = rnd.random() * rnd.randint(-5, 5)
-    #freq = rnd.uniform(0.5, 2)
+    freq = rnd.uniform(0.5, 2)
 
     cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
     args = shlex.split(cmdline)
