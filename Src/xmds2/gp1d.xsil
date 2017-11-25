@@ -172,9 +172,9 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 1.021414e+00
+  Command line argument interaction_param = 9.335389e-01
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 1.397787e+00
+  Command line argument freq = 1.810675e+00
   Command line argument shift = 0.000000e+00
 </info>
 
