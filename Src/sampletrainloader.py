@@ -81,18 +81,18 @@ class nonlinear1D__(object):
             return (self.test_data_tensor, self.test_label_tensor)
 
 class nonlinear1D(object):
-    def __init__(self, data_file, label_file, train_len, test_len, label_vectorize = False, cnn = False):
+    def __init__(self, data_file, label_file, train_len, test_len, label_vectorize = False, unsqueeze = False):
         self.train_len = train_len
         self.test_len = test_len
 
         self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(data_file, label_file, self.train_len, self.test_len)
         self.train_data_tensor = torch.from_numpy(self.train_data).float()
         self.train_label_tensor = torch.from_numpy(self.train_label).float()
-        if cnn == True: self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
+        if unsqueeze == True: self.train_data_tensor = self.train_data_tensor.unsqueeze(1)
 
         self.test_data_tensor = torch.from_numpy(self.test_data).float()
         self.test_label_tensor = torch.from_numpy(self.test_label).float()
-        if cnn == True: self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
+        if unsqueeze == True: self.test_data_tensor = self.test_data_tensor.unsqueeze(1)
 
     def get_data(self, train = True):
         if train:

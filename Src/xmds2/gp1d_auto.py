@@ -2,6 +2,7 @@
 from xpdeint.XSILFile import XSILFile
 import numpy as np
 import argparse
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser(description='xmds data')
 parser.add_argument('--pos-file-ex',         type=str,             default="-test.dat",                    help = 'target file ex')
@@ -9,7 +10,7 @@ parser.add_argument('--pos-file-ex',         type=str,             default="-tes
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
-root = "../../data/nonlinearSE/"
+root = "../../data/nonlinearSE/interaction/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex
@@ -43,16 +44,19 @@ v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentV
 
 
 v1_3 = v1_3.reshape(1, len(v1_3))
+dens = dens_1[-1].T
+dens = dens.reshape(1, len(dens))
+
 f = open(pot_file_name, "a")
 f2 = open(en_file_name, "a")
-f3 = open(ekin_file_name, "a")
-f4 = open(epot_file_name, "a")
-f5 = open(eint_file_name, "a")
+#f3 = open(ekin_file_name, "a")
+#f4 = open(epot_file_name, "a")
+#f5 = open(eint_file_name, "a")
 f6 = open(dens_file_name, "a")
 
 np.savetxt(f, v1_3)
 np.savetxt(f2, e1_2[-2:-1])
-np.savetxt(f3, e1kin_2[-2:-1])
-np.savetxt(f4, e1pot_2[-2:-1])
-np.savetxt(f5, e1int_2[-2:-1])
-np.savetxt(f6, dens_1[-1])
+#np.savetxt(f3, e1kin_2[-2:-1])
+#np.savetxt(f4, e1pot_2[-2:-1])
+#np.savetxt(f5, e1int_2[-2:-1])
+np.savetxt(f6, dens)
