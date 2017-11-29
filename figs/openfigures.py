@@ -25,24 +25,24 @@ files.sort()
 
 
 
-#i = 0
-#command = input(">>>")
-#while command != 'exit':
-#    if i == len(files) - 1:
-#        print("end")
-#        sys.exit(0)
-#    if command == 'next' or command == 'n' or command == '\n':
-#        i += 1
-#    elif command == 'prev's or command == 'p':
-#        i -= 1
-#    else: pass
-#
-#    plot = an.load_info(files[i])
-#    plot.display_plot()
-#    command = input()
+i = 0
+command = input(">>>")
+while command != 'exit':
+    if i == len(files) - 1:
+        print("end")
+        sys.exit(0)
+    if command == 'next' or command == 'n' or command == '\n':
+        i += 1
+    elif command == 'prev' or command == 'p':
+        i -= 1
+    else: pass
 
-for i in range(len(files)):
     plot = an.load_info(files[i])
-    file = os.path.splitext(files[i])[0] + ".svg"
-    print(file)
-    plot.display_plot(file_name = file)
+    plot.display_plot()
+    command = input()
+
+#for i in range(len(files)):
+#    plot = an.load_info(files[i])
+#    file = os.path.splitext(files[i])[0] + ".svg"
+#    print(file)
+#    plot.display_plot(file_name = file)
