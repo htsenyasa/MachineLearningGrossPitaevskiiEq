@@ -15,3 +15,4 @@ files.sort()
 for file in files:
     plt = an.load_info(file + ".inf")
     plt.display_plot(file)
+    
