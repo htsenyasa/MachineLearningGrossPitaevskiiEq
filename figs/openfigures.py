@@ -8,8 +8,6 @@ import analyzer as an
 files = []
 
 
-
-
 command = input(">>> FFN or CNN :")
 if command == 'FFN':
     file_path = "./FFN/*.inf"
@@ -22,8 +20,6 @@ else:
 for file in glob.glob(file_path):
     files.append(file)
 files.sort()
-
-
 
 i = 0
 command = input(">>>")
