@@ -147,25 +147,6 @@ Then we increased the number of layers to 5 and tried different number of neuron
 
 After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
 
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		\centering
-        \includesvg[width=8cm]{fivelayer-g10-3500}
-        \caption{FNN[128, 30, 30, 10, 1]}
-		\label{fig:a}
-    \end{subfigure}\hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includesvg[width=8cm]{fourlayer-g10-3500}
-        \caption{FNN[128, 40, 40, 1]}
-		\label{fig:b}
-    \end{subfigure}
-    \caption{3500/500}
-\end{figure}
-
-
-%\inputminted{../Src/feedforwardnetwork.py}
 
 
 \newpage

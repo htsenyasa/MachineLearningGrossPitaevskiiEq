@@ -116,7 +116,7 @@ def train(epoch):
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/FFN/" + os.path.splitext(data_file)[0]
+info_file_name = "../figs/FFNTEST/" + os.path.splitext(data_file)[0]
 
 
 def test():
@@ -127,18 +127,18 @@ def test():
         real = test_dataset.target_tensor.numpy()
         real = real.reshape([test_len, 1])
         res.calc_error(real, predicted)
-        res.display_plot()
+#        res.display_plot()
 
-        #global info_file_name
-        #file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
-        #an.save_info(res, file_name)
+        global info_file_name
+        file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
+        an.save_info(res, file_name)
 
     return predicted
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-    #if res.cur_epoch % (res.epochs / 3) == 0:
-    #    test()
+    if res.cur_epoch % (res.epochs / 3) == 0:
+        test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs

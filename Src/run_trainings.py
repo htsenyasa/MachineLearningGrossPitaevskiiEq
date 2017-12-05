@@ -20,10 +20,9 @@ for i in range(len(inter_params)):
     p = subprocess.Popen(args)
     p.wait()
 
-
-    cmdline = "python {} {}".format(net_cnn, arguments)
-    args = shlex.split(cmdline)
-    p = subprocess.Popen(args)
-    p.wait()
+#    cmdline = "python {} {}".format(net_cnn, arguments)
+#    args = shlex.split(cmdline)
+#    p = subprocess.Popen(args)
+#    p.wait()
 
 print("Total Time = {}".format(time.time() - start))

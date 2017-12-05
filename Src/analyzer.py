@@ -53,23 +53,27 @@ class analyzer(object):
 
     def display_plot(self, file_name = None):
         fig, ax1 = plt.subplots()
-        left, bottom, width, height = [0.65, 0.20, .1, .1]
+        left, bottom, width, height = [0.65, 0.20, .2, .2]
         inset = fig.add_axes([left, bottom, width, height])
         ax1.plot(self.testdataset, self.testdataset, "--r", label="real data")
         ax1.plot(self.testdataset, self.predicted, ".", label = "predicted")
+        ax1.set_title("FNN{}".format(self.arch))
         ax1.set_xlabel("Real")
         ax1.set_ylabel("Predicted")
         ax1.legend()
         ax1.grid()
         #plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
         err = self.testdataset - self.predicted
-        inset.hist(err)
+
+        inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
         inset.set_title("Error")
 
         if file_name == None:
             plt.show()
         else:
-            plt.savefig(file_name + ".svg", format = "svg")
+            figure = plt.gcf()
+            figure.set_size_inches(8,6)
+            plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
 
 
     def display_plot2(self, file_name = None):
