@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import argparse
 import pickle
 import torch
+from scipy.optimize import curve_fit
 
 class analyzer(object):
     testdataset = None
@@ -28,18 +29,48 @@ class analyzer(object):
         self.error = (self.error/self.test_len)
         self.relative_error = sum(np.abs(self.predicted - self.testdataset)/sum(self.testdataset))
 
+
+#    def display_plot(self, file_name = None):
+#        plt.plot(self.testdataset, self.testdataset, "--r", label="real data")
+#        plt.plot(self.testdataset, self.predicted, ".", label = "predicted")
+#        plt.xlabel("Real")
+#        plt.ylabel("Predicted")
+#        plt.legend()
+#        plt.grid()
+#        #plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
+#        pos = [0.65, 0.15, .2, .2]
+#        inset = plt.axes(pos)
+#        err = self.testdataset - self.predicted
+#        plt.hist(err)
+#        plt.title("Error")
+#        plt.xticks([])
+#        plt.yticks([])
+#
+#        if file_name == None:
+#            plt.show()
+#        else:
+#            plt.savefig(file_name + ".svg", format = "svg")
+
     def display_plot(self, file_name = None):
-        plt.plot(self.testdataset, self.testdataset, "--r", label="real data")
-        plt.plot(self.testdataset, self.predicted, ".", label = "predicted")
-        plt.xlabel("Real")
-        plt.ylabel("Predicted")
-        plt.legend()
-        plt.grid()
+        fig, ax1 = plt.subplots()
+        left, bottom, width, height = [0.65, 0.20, .1, .1]
+        inset = fig.add_axes([left, bottom, width, height])
+        ax1.plot(self.testdataset, self.testdataset, "--r", label="real data")
+        ax1.plot(self.testdataset, self.predicted, ".", label = "predicted")
+        ax1.set_xlabel("Real")
+        ax1.set_ylabel("Predicted")
+        ax1.legend()
+        ax1.grid()
         #plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
+        err = self.testdataset - self.predicted
+        inset.hist(err)
+        inset.set_title("Error")
+
         if file_name == None:
             plt.show()
         else:
             plt.savefig(file_name + ".svg", format = "svg")
+
 
     def display_plot2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
@@ -67,6 +98,20 @@ class analyzer(object):
         #self.cur_epoch += 1
         self.loss = np.append(self.loss, loss_val)
 
+#    def gauss(x, a, x0, sigma):
+#        return a * np.exp(-(x-x0)**2 / (2*sigma**2))
+#
+#    def gaussian_dist():
+#        err = self.testdataset - self.predicted)
+#        x_r = np.amax(np.abs(err))
+#        x = np.linspace(-x_r, x_r, self.test_len)
+#        mean = np.mean(err)
+#        sigma = np.std(err)
+#        popt,pcov = curve_fit(gauss, x, err, p0 = [1,mean,sigma])
+#        plt.hist(err)
+#        plt.plot(x, gauss(x, *popt))
+#        plt.show()
+
 
 def save_info(obj, file_name):
     f = open(file_name, "wb")
@@ -77,16 +122,17 @@ def load_info(file_name):
     f = open(file_name, "rb")
     return pickle.load(f)
 
+
 def save_state(model, optimizer, epoch, file_name):
     state = {'epoch': epoch,
              'model_state_dict': model.state_dict(),
              'optim_state_dict': optimizer.state_dict() }
     torch.save(state, file_name)
 
+
 def load_state(file_name):
     state = torch.load(file_name)
     epoch = state['epoch']
     mst = (state['model_state_dict'])
     ost = (state['optim_state_dict'])
-
     return epoch, mst, ost

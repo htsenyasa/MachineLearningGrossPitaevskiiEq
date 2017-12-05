@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  19 NOV 2017 18:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  5 DEC 2017 19:18
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -693,7 +693,7 @@ pdf): PDF inclusion: multiple pdfs with page group included in a single page
 Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-800_svg-tex.pdf' i
 s 1 on input line 110.
  (./svg-inkscape/fivelayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=183, page=1, pagebox=cropbox,
+<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=243, page=1, pagebox=cropbox,
  462.52798pt x 346.89601pt>
 File: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, page 1>
@@ -709,7 +709,7 @@ Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--111
 Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-800_svg-tex.pdf' i
 s 1 on input line 116.
 (./svg-inkscape/fourlayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=185, page=1, pagebox=cropbox,
+<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=245, page=1, pagebox=cropbox,
  462.52798pt x 346.89601pt>
 File: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, page 1>
@@ -725,7 +725,7 @@ Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--117
 Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf' 
 is 1 on input line 130.
 (./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=187, page=1, pagebox=cropbox
+<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=247, page=1, pagebox=cropbox
 , 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, page 1>
@@ -741,7 +741,7 @@ Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--131
 Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf' 
 is 1 on input line 136.
 (./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=189, page=1, pagebox=cropbox
+<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=249, page=1, pagebox=cropbox
 , 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, page 1>
@@ -796,37 +796,6 @@ Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--161
  [][] 
  []
 
-runsystem(pygmentize -S default -f latex -P commandprefix=PYG > _minted-report/
-default-pyg-prefix.pygstyle)...executed.
-
-(./_minted-report/default-pyg-prefix.pygstyle)
-runsystem(pygmentize -S default -f latex -P commandprefix=PYGdefault > _minted-
-report/default.pygstyle)...executed.
-
-
-(./_minted-report/default.pygstyle)
-runsystem(pygmentize -l ../Src/feedforwardnetwork.py -f latex -P commandprefix=
-PYG -F tokenmerge -o _minted-report/EA31861F7B87B60266C1D5BD1D93CA3E.pygtex \pa
-r )...executed.
-
-
-
-! Package minted Error: Missing Pygments output; \inputminted was
-probably given a file that does not exist--otherwise, you may need 
-the outputdir package option, or may be using an incompatible build tool,
-or may be using frozencache with a missing file.
-
-See the minted package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.169 
-      
-This could be caused by using -output-directory or -aux-directory 
-without setting minted's outputdir, or by using a build tool that 
-changes paths in ways minted cannot detect, 
-or using frozencache with a missing file.
-
 [4 <./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf> <./svg-inkscape/fourlayer-g1
 0-3500_svg-tex.pdf
 
@@ -846,10 +815,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 11565 strings out of 492985
- 194980 string characters out of 6138637
+ 11350 strings out of 492985
+ 191743 string characters out of 6138637
  350329 words of memory out of 5000000
- 14905 multiletter control sequences out of 15000+600000
+ 14700 multiletter control sequences out of 15000+600000
  8868 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,10n,52p,821b,598s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -858,10 +827,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb>
-Output written on report.pdf (4 pages, 552954 bytes).
+Output written on report.pdf (4 pages, 601078 bytes).
 PDF statistics:
- 580 PDF objects out of 1000 (max. 8388607)
- 391 compressed objects within 4 object streams
+ 813 PDF objects out of 1000 (max. 8388607)
+ 545 compressed objects within 6 object streams
  21 named destinations out of 1000 (max. 500000)
  171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

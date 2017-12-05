@@ -30,7 +30,7 @@ start = time.time()
 
 for inter_param in inter_params:
 
-    #shift = rnd.random() * rnd.randint(-5, 5)
+    shift = rnd.random() * rnd.randint(-5, 5)
     freq = rnd.uniform(0.5, 2)
 
     cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)

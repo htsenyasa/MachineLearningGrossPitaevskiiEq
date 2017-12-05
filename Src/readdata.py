@@ -8,8 +8,8 @@ def read_data(data_file, label_file, train_len=800, test_len=200):
     data_file = os.path.join("../data/nonlinearSE/", data_file)
     label_file = os.path.join("../data/nonlinearSE/", label_file)
 
-    data = np.load(data_file)
-    #data = np.loadtxt(f_data)
+    #data = np.load(data_file)
+    data = np.loadtxt(data_file)
     label = np.loadtxt(label_file)
 
     total_len = train_len + test_len
