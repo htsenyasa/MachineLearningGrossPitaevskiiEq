@@ -20,7 +20,7 @@ parser = argparse.ArgumentParser(description='Fully Connected FeedForwardNetwork
 
 parser.add_argument('--batch-size',        type=int,             default=30,                 metavar='N',    help = 'input batch size for training (default: 30)')
 parser.add_argument('--test-batch-size',   type=int,             default=2000,               metavar='N',    help = 'input batch size for testing (default: 2000)')
-parser.add_argument('--epochs',            type=int,             default=50,                 metavar='N',    help = 'number of epochs to train (default: 10)')
+parser.add_argument('--epochs',            type=int,             default=60,                 metavar='N',    help = 'number of epochs to train (default: 10)')
 parser.add_argument('--lr',                type=float,           default=0.001,              metavar='LR',   help = 'learning rate (default: 0.01)')
 parser.add_argument('--momentum',          type=float,           default=0.5,                metavar='M',    help = 'SGD momentum (default: 0.5)')
 parser.add_argument('--no-cuda',           action='store_true',  default=False,                              help = 'disables CUDA training')
@@ -116,7 +116,7 @@ def train(epoch):
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/FFN/" + "merged" + os.path.splitext(data_file)[0]
+info_file_name = "../figs/FFNMERGED/" + os.path.splitext(data_file)[0]
 
 
 def test():
@@ -127,18 +127,18 @@ def test():
         real = test_dataset.target_tensor.numpy()
         real = real.reshape([test_len, num_classes])
         res.calc_error(real, predicted)
-        res.display_plot2()
+        #res.display_plot2()
 
-        #global info_file_name
-        #file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
-        #an.save_info(res, file_name)
+        global info_file_name
+        file_name = info_file_name + "epoch-{}-.inf".format(res.cur_epoch)
+        an.save_info(res, file_name)
 
     return predicted
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-    #if res.cur_epoch % (res.epochs / 3) == 0:
-    #    test()
+#    if res.cur_epoch % (res.epochs / 3) == 0:
+#        test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs

@@ -7,7 +7,7 @@ inter_params = [0, 0.1, 1, 10, 20]
 epoch = 60
 
 net_cnn = "cnnnetwork1d.py"
-net_ffn = "feedforwardnetwork.py"
+net_ffn = "feedforwardnetwork2.py"
 
 
 start = time.time()

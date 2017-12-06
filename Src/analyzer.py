@@ -3,7 +3,10 @@ import matplotlib.pyplot as plt
 import argparse
 import pickle
 import torch
+
 from scipy.optimize import curve_fit
+from decimal import Decimal
+
 
 class analyzer(object):
     testdataset = None
@@ -27,7 +30,7 @@ class analyzer(object):
         #self.error = np.array([(self.predicted[i] - self.testdataset[i])**2 for i in range(self.test_len)])
         self.error = sum((self.predicted - self.testdataset)**2)
         self.error = (self.error/self.test_len)
-        self.relative_error = sum(np.abs(self.predicted - self.testdataset)/sum(self.testdataset))
+        self.relative_error = sum(np.abs(self.predicted - self.testdataset) / sum(self.testdataset))
 
 
 #    def display_plot(self, file_name = None):
@@ -52,6 +55,8 @@ class analyzer(object):
 #            plt.savefig(file_name + ".svg", format = "svg")
 
     def display_plot(self, file_name = None):
+
+        err = self.testdataset - self.predicted
         fig, ax1 = plt.subplots()
         left, bottom, width, height = [0.65, 0.20, .2, .2]
         inset = fig.add_axes([left, bottom, width, height])
@@ -62,8 +67,10 @@ class analyzer(object):
         ax1.set_ylabel("Predicted")
         ax1.legend()
         ax1.grid()
-        #plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
-        err = self.testdataset - self.predicted
+        props = dict(boxstyle='square', facecolor='white', alpha=0.5)
+        textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error)), self.training_len, self.cur_epoch, self.batch_size)
+        ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+        #ax1.text(, , "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
 
         inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
         inset.set_title("Error")
@@ -76,21 +83,51 @@ class analyzer(object):
             plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
 
 
+#    def display_plot2(self, file_name = None):
+#        features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
+#        for i in range(len(features)):
+#            plt.figure(features[i])
+#            plt.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
+#            plt.plot(self.testdataset[:,i], self.predicted[:,i], ".")
+#            plt.xlabel(features[i] + " Real")
+#            plt.ylabel(features[i] + " Predicted")
+#            plt.legend()
+#            plt.grid()
+#            plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.relative_error[i]))
+#        if file_name == None:
+#            plt.show()
+#        else:
+#            plt.savefig(file_name + ".svg", format = "svg")
+
+
     def display_plot2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
+        err = []
         for i in range(len(features)):
-            plt.figure(features[i])
-            plt.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
-            plt.plot(self.testdataset[:,i], self.predicted[:,i], ".")
-            plt.xlabel(features[i] + " Real")
-            plt.ylabel(features[i] + " Predicted")
-            plt.legend()
-            plt.grid()
-            plt.figtext(0.6, 0.2, "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.relative_error[i]))
+            err.append(self.testdataset[:,i] - self.predicted[:,i])
+            fig, ax1 = plt.subplots(num=features[i])
+            left, bottom, width, height = [0.65, 0.20, .2, .2]
+            inset = fig.add_axes([left, bottom, width, height])
+            ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
+            ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", label = "predicted")
+            ax1.set_title("FNN{}".format(self.arch))
+            ax1.set_xlabel(features[i] + " Real")
+            ax1.set_ylabel(features[i] + " Predicted")
+            ax1.legend()
+            ax1.grid()
+            props = dict(boxstyle='square', facecolor='white', alpha=0.5)
+            textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error[i])), self.training_len, self.cur_epoch, self.batch_size)
+            ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+            inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
+            inset.set_title("Error")
+
+            if file_name != None:
+                fig.savefig(file_name + "{}-".format(features[i]) + ".svg", format = "svg")
+                fig.clf()
+
         if file_name == None:
             plt.show()
-        else:
-            plt.savefig(file_name + ".svg", format = "svg")
+
 
 
     def plot_error(self):
