@@ -117,11 +117,12 @@ First architecture we used had only 4 layers and it was not sufficient.
             \caption{FNN[128, 40, 40, 1]}
             \label{fig:b}
     \end{subfigure}
-    \caption{Here interaction paramater g, is again set to 10. }
+    \caption{Here interaction paramater g, is again set to 10. Batch size is 10 and total number of epoch is 20 for this dataset. }
 \end{figure}
 
 
-Then we increased the number of layers to 5 and tried different number of neuron combinations. \textbf{Add results of FNN[128 40 40 10 1] and comment about decrement of the total neuron number in hidden layers}.  Batch size is 10 and total number of epoch is 20 for this dataset. 
+Then we increased the number of layers to 5 and tried different number of neuron combinations. Each of these tried network behaved different for different g values. For example, MSE of the FNN[128, 40, 40, 20, 1] for g = 10 is $5.11 x 10^{-3}$ but for g = 0 it is $2.00 x 10^{-3}$
+
 
 \begin{figure}[H]
     \centering
@@ -141,12 +142,48 @@ Then we increased the number of layers to 5 and tried different number of neuron
 \end{figure}
 
 
-
-
-
-
 After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
 
+\svgpath{path = {"../figs/FFN/"}}
+
+
+\subsection{Training Results}
+\subsubsection{Non-interacting System}
+
+In non-interacting system, GPE reduces to SE which does not involve non-linear term. 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-epoch-20-}
+        \caption{FNN[128, 30, 30, 10, 1]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-epoch-40-}
+        \caption{FNN[128, 30, 30, 10, 1]}
+		\label{fig:a}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0-epoch-60-}
+        \caption{FNN[128, 40, 40, 1]}
+		\label{fig:b}
+    \end{subfigure}
+    \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). Supplying 20 more epochs nearly does not effect the prediction accuracy.  }
+
+asdasd
+asda
+
+\subsubsection{Interacting Systems}
+
+
+
+    
+
+\end{figure}
 
 
 \newpage
