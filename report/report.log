@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  7 DEC 2017 18:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  8 DEC 2017 20:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -621,11 +621,15 @@ LaTeX Info: Redefining \nameref on input line 20.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-t
-ex.pdf' is 1 on input line 83.
 
-(./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=74, page=1, pagebox=
+LaTeX Warning: Reference `NT_Quadratic_min' on page iii undefined on input line
+ 97.
+
+[3]
+Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-t
+ex.pdf' is 1 on input line 150.
+ (./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf_tex
+<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=90, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -635,14 +639,14 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--84
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--151
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-t
-ex.pdf' is 1 on input line 89.
+ex.pdf' is 1 on input line 156.
 (./svg-inkscape/fourlayer-g0-lr0_001-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=76, page=1, pagebox=
+<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=92, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -652,14 +656,15 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--90
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--157
  [][] 
  []
 
+[4]
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-
-tex.pdf' is 1 on input line 101.
-(./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf, id=78, page=1, pagebox
+tex.pdf' is 1 on input line 168.
+ (./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf_tex
+<./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf, id=98, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf Graphic file (type
  pdf)
@@ -669,15 +674,15 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--102
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--169
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-
-tex.pdf' is 1 on input line 107.
+tex.pdf' is 1 on input line 174.
 (./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf, id=80, page=1, pagebox
-=cropbox, 578.16pt x 433.62pt>
+<./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf, id=100, page=1, pagebo
+x=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf Graphic file (type
  pdf)
 <use ./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf, page 1>
@@ -686,15 +691,15 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--108
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--175
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-800_svg-tex.pdf' i
-s 1 on input line 122.
+s 1 on input line 189.
 (./svg-inkscape/fivelayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=82, page=1, pagebox=cropbox, 
-578.16pt x 433.62pt>
+<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=102, page=1, pagebox=cropbox,
+ 578.16pt x 433.62pt>
 File: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf , page1 u
@@ -702,15 +707,15 @@ sed on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--123
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--190
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-800_svg-tex.pdf' i
-s 1 on input line 128.
+s 1 on input line 195.
 (./svg-inkscape/fourlayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=84, page=1, pagebox=cropbox, 
-578.16pt x 433.62pt>
+<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=104, page=1, pagebox=cropbox,
+ 578.16pt x 433.62pt>
 File: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf , page1 u
@@ -718,11 +723,11 @@ sed on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--129
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--196
  [][] 
  []
 
-[3 <./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf> <./svg-inkscape/fourla
+[5 <./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf> <./svg-inkscape/fourla
 yer-g0-lr0_001-800_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g0-lr0_001-800_svg-tex.
@@ -737,9 +742,9 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex
 .pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf' 
-is 1 on input line 143.
+is 1 on input line 210.
  (./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=535, page=1, pagebox=cropbox
+<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=555, page=1, pagebox=cropbox
 , 578.16pt x 433.62pt>
 File: ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, page 1>
@@ -748,14 +753,14 @@ used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--144
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--211
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf' 
-is 1 on input line 149.
+is 1 on input line 216.
 (./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=537, page=1, pagebox=cropbox
+<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=557, page=1, pagebox=cropbox
 , 578.16pt x 433.62pt>
 File: ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, page 1>
@@ -764,14 +769,14 @@ used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--150
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--217
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-20-_svg-tex.
-pdf' is 1 on input line 171.
+pdf' is 1 on input line 238.
 (./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf, id=539, page=1, pagebox=cr
+<./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf, id=559, page=1, pagebox=cr
 opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf Graphic file (type pdf
 )
@@ -781,14 +786,14 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--172
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--239
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-40-_svg-tex.
-pdf' is 1 on input line 177.
+pdf' is 1 on input line 244.
 (./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf, id=541, page=1, pagebox=cr
+<./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf, id=561, page=1, pagebox=cr
 opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf Graphic file (type pdf
 )
@@ -798,14 +803,14 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--178
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--245
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-_svg-tex.
-pdf' is 1 on input line 183.
+pdf' is 1 on input line 250.
 (./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf, id=543, page=1, pagebox=cr
+<./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf, id=563, page=1, pagebox=cr
 opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf Graphic file (type pdf
 )
@@ -815,11 +820,11 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--184
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--251
  [][] 
  []
 
-[4 <./svg-inkscape/fivelayer-g10-800_svg-tex.pdf> <./svg-inkscape/fourlayer-g10
+[6 <./svg-inkscape/fivelayer-g10-800_svg-tex.pdf> <./svg-inkscape/fourlayer-g10
 -800_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf): P
@@ -832,7 +837,7 @@ PDF inclusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf): 
 PDF inclusion: multiple pdfs with page group included in a single page
->] [5 <./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf> <./svg-inkscape/pote
+>] [7 <./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf> <./svg-inkscape/pote
 ntial-g-0-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0-epoch-40-_svg-tex.p
@@ -842,38 +847,43 @@ df): PDF inclusion: multiple pdfs with page group included in a single page
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0-epoch-60-_svg-tex.p
 df): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 203.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 203.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 203.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 203.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: AD243F31C62498EC3E7886409DDA2197;915.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 11391 strings out of 492985
- 193519 string characters out of 6138637
- 351325 words of memory out of 5000000
- 14726 multiletter control sequences out of 15000+600000
- 9489 words of font info for 34 fonts, out of 8000000 for 9000
+ 11422 strings out of 492985
+ 193937 string characters out of 6138637
+ 351882 words of memory out of 5000000
+ 14741 multiletter control sequences out of 15000+600000
+ 11330 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,10n,52p,821b,598s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (5 pages, 1491019 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on report.pdf (7 pages, 1522928 bytes).
 PDF statistics:
- 1378 PDF objects out of 1440 (max. 8388607)
- 914 compressed objects within 10 object streams
- 25 named destinations out of 1000 (max. 500000)
+ 1410 PDF objects out of 1440 (max. 8388607)
+ 941 compressed objects within 10 object streams
+ 35 named destinations out of 1000 (max. 500000)
  215 words of extra memory for PDF output out of 10000 (max. 10000000)
 
