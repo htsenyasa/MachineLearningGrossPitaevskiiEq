@@ -22,7 +22,7 @@
 
 %\maketitle
 \setcounter{page}{1}
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \section*{Summary}
 
@@ -55,13 +55,18 @@ Let $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ be input of the neuron and $f$ 
 f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n x_i\omega_i + b
 \end{equation}
 
-Here, $\omega_i$ is weight and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}
+Here, $\omega_i$ is weight and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. 
 
+If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, then, connection between two neuron will be;
+
+\begin{equation}
+\label{eq:NU_neuron_connection}
+f_s^{l+1}(f_j^{l}(\boldsymbol{x}, \boldsymbol{\omega}, b), \boldsymbol{\omega}, b) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
+\end{equation}
 
 
 \begin{equation}
 \label{eq:NU_neuron_nonlinear}
-f_2(f_1(\boldsymbol{x}, \boldsymbol{\omega}, b)) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
 \end{equation}
 
 
@@ -112,10 +117,10 @@ In this case, Eq.~\ref{eq:NT_Quadratic_min_gradient_form} becomes;
 
 \begin{equation}
 \label{eq:NT_Displacement}
-\Delta{C} = -\eta ||\boldsymbol{\nabla{C}}||^2
+\Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-where $\eta$ is positive definite number and it is called as learning rate.
+where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, one can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} If there is no enough example to iterate gradient descent, cost function may be lower than its first condition but it will not be minimized. {\textbf{It may even retain its first condition ex:lr=0.05}}. 
 
 \subsection{Dataset and Dataset Generation}
 
