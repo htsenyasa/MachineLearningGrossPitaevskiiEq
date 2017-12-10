@@ -6,6 +6,7 @@
 \usepackage{svg}
 \usepackage{subcaption}
 \usepackage{minted}
+\usepackage[multidot]{grffile}
 
 \onehalfspacing
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
@@ -63,13 +64,7 @@ If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, then, connectio
 \label{eq:NU_neuron_connection}
 f_s^{l+1}(f_j^{l}(\boldsymbol{x}, \boldsymbol{\omega}, b), \boldsymbol{\omega}, b) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
 \end{equation}
-
-
-\begin{equation}
-\label{eq:NU_neuron_nonlinear}
-\end{equation}
-
-
+\textbf{Eq requires correction}
 
 Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of a neuron in next layer. Such a networks are called Fully Connected Networks. \textbf{REF}. If result of one layer directly is sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network. \textbf{REF}
 
@@ -82,7 +77,7 @@ Quadratic cost function is defined as;
 C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{a} - f_L(\boldsymbol{x}) ||{^2} 
 \end{equation}
 
-where $\omega$, $b$ are weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{a}$ is real value of the quantity. To minimize C, we can take the derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous. \textbf{REF}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
+where $\omega$, $b$ are weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{a}$ is real value of the quantity. To minimize $C$, we can take the derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous. \textbf{REF}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
 
 A small displacement in arbitrary direction which corresponds to small change in weight or bias or both can be written as;
 \begin{equation}
@@ -99,14 +94,14 @@ We can define gradient operator as;
 \boldsymbol{\nabla}{C} = \left(\frac{\partial{C}}{\partial{\omega}},\frac{\partial{C}}{\partial{b}} \right)^T
 \end{equation}
 
-In this case, Eq.~\ref{NT_Quadratic_min} can be written as;
+In this case, Eq.~\ref{eq:NT_Quadratic_min} can be written as;
 
 \begin{equation}
 \label{eq:NT_Quadratic_min_gradient_form}
 \Delta{C} = \boldsymbol{\nabla}{C} \boldsymbol{.} \Delta \boldsymbol{l}
 \end{equation}
 
-where $\boldsymbol{l} = (\omega, b)^T$. What we want is again minimize cost function, thus; in each iteration value of the C must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
+where $\boldsymbol{l} = (\omega, b)^T$. What we want again is to minimize cost function, thus; in each iteration value of the C must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
 
 \begin{equation}
 \label{eq:NT_learning_rate}
@@ -120,7 +115,7 @@ In this case, Eq.~\ref{eq:NT_Quadratic_min_gradient_form} becomes;
 \Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, one can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} If there is no enough example to iterate gradient descent, cost function may be lower than its first condition but it will not be minimized. {\textbf{It may even retain its first condition ex:lr=0.05}}. 
+where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, one can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} If there is no enough example to iterate gradient descent, cost function may be lower than its first condition but it will not be minimized. \textbf{It may even retain its first condition ex:lr=0.05}. 
 
 \subsection{Dataset and Dataset Generation}
 
@@ -146,7 +141,7 @@ CNN has two convolution layers, two maxpool layers and three fully connected lay
 
 \subsection{Hyperparameters}
 
-We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate.
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate. The size of this dataset is \textbf{very small} but it can be give an idea about the range of learning rate since stochastic gradient descent is an statistical approach. \textbf{REF}. We first set learning rate 3 and decrease it, until 0.01 prediction of the network extremely poor.
 
 \begin{figure}[H]
     \centering
@@ -228,15 +223,15 @@ Then we increased the number of layers to 5 and tried different number of neuron
 
 After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
 
-\svgpath{path = {"../figs/FFN/"}}
-
 
 \subsection{Training Results}
 \subsubsection{Non-interacting System}
 
 In non-interacting system, GPE reduces to SE which does not involve non-linear term. 
 
+\svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
+\label{fig:FFN-g-0}
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
@@ -248,26 +243,422 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
 		\centering
         \includesvg[width=8cm]{potential-g-0-epoch-40-}
         \caption{FNN[128, 30, 30, 10, 1]}
-		\label{fig:a}
+		\label{fig:b}
     \end{subfigure}\hfill    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=8cm]{potential-g-0-epoch-60-}
         \caption{FNN[128, 40, 40, 1]}
-		\label{fig:b}
+		\label{fig:c}
     \end{subfigure}
-    \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). Supplying 20 more epochs nearly does not effect the prediction accuracy.  }
+    \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.}
+\end{figure}
 
-asdasd
-asda
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-20-}
+        \caption{Conv1D}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-40-}
+        \caption{Conv1D}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}
+    \caption{CNN}
+\end{figure}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-epoch-60-E_int-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0-epoch-60-E_pot-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0-epoch-60-E_kin-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0-epoch-60-E_Total-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{Only number of neurons in the output layer increased to 4, and still network predicts total energy of the system within same sensitivity as former network.}
+\end{figure}
 
 \subsubsection{Interacting Systems}
 
+\textbf{G = 0.1}
 
-
-    
-
+\svgpath{path = {"../figs/FFN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-20-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-40-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 0.1}
 \end{figure}
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-20-}
+        \caption{Conv1D}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-40-}
+        \caption{Conv1D}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 0.1}
+\end{figure}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_int-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_pot-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_kin-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_Total-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{Separate prediction  g=0.1}
+\end{figure}
+
+\textbf{G = 1}
+
+\svgpath{path = {"../figs/FFN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-epoch-20-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-epoch-40-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 1}
+\end{figure}
+
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-20-}
+        \caption{Conv1D}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-40-}
+        \caption{Conv1D}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 1}
+\end{figure}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-E_int-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-E_pot-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-E_kin-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-E_Total-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{Separate prediction  g=1}
+\end{figure}
+
+\textbf{G=10}
+
+\svgpath{path = {"../figs/FFN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-epoch-20-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-epoch-40-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 10}
+\end{figure}
+
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-20-}
+        \caption{Conv1D}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-40-}
+        \caption{Conv1D}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 10}
+\end{figure}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-E_int-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-E_pot-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-E_kin-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-E_Total-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{Separate prediction  g=10}
+\end{figure}
+
+\textbf{G = 20}
+
+\svgpath{path = {"../figs/FFN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-epoch-20-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-epoch-40-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 20}
+\end{figure}
+
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-20-}
+        \caption{Conv1D}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-40-}
+        \caption{Conv1D}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{g = 20}
+\end{figure}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-E_int-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:a}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-E_pot-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:b}
+    \end{subfigure}\hfill    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-E_kin-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-E_Total-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{Separate prediction  g=20}
+\end{figure}
+
+\subsubsection{Inverse Problem Prediction of $\boldsymbol{g}$}
+
+
+\svgpath{path = {"../figs/CNNgPrediction/"}}
+\begin{figure}[H]
+    \centering
+    \includesvg[width=8cm]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
+    \caption{Fixed potential and shift}
+	\label{fig:a}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=8cm]{various-pot_dens-g-VARY-conv1d-epoch-30-}
+    \caption{Various potential and fixed shift}
+	\label{fig:a}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=8cm]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
+    \caption{Various potential and shift}
+	\label{fig:a}
+\end{figure}
+
 
 
 \newpage
