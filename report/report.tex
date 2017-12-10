@@ -30,13 +30,49 @@
 We train an artificial neural network to estimate the ground state energy
 of a one-dimensional Bose-Einstein condensate in harmonic trapping potential.
 Such a system can be described by the solution of a corresponding
-Gross-Pitaevskii equation also called a non-linear Schroedinger equation.
+Gross-Pitaevskii equation also called a non-linear Schrodinger equation.
 We also use the method to predict the non-linearity parameter using the ground
 state density profile for a given harmonic trapping potential.
 
 
 \section{Introduction}
 \section{Gross Pitaevskii Equation}
+
+A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation. General form of GPE is given as,
+
+\begin{equation}
+\label{eq:GPE_3D}
+i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar}{2m}\nabla^2
+\Psi + V(\boldsymbol{r}, t)\Psi + g|\Psi|^2\ \Psi
+\end{equation}
+
+
+where %%
+where $\hbar$ is Planck constant, $\Psi$ is wave function, $m$ is mass, $\nabla^2$ is Laplacian, $V$ is potential, and $g$ is interaction parameter and it is defined as 
+
+\begin{equation}
+\label{eq:inter_param}
+g=\frac{4\pi\hbar^2a_s}{m}
+\end{equation}
+
+where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive. \textbf{REF}. 
+
+If the potential is only function of position $V(\boldsymbol{r})$, then separation of variables method can be applied and it can be obtained that there is stationary solution. In this case, wave function becomes,
+
+\begin{equation}
+\label{eq:GPE_time_indep_wave_func}
+\Psi(\boldsymbol{r}) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar}
+\end{equation}
+
+Here, $\mu$ is chemical potential. Time independent GPE is then,
+
+\begin{equation}
+\label{eq:GPE_time_indep}
+\mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
+\end{equation}
+
+
+
 \subsection{Types of Potentials}
 \subsection{Analytical Solution and Approximation}
 \subsection{Numerical Solution and XMDS Framework}
