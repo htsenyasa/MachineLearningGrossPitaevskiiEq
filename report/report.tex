@@ -148,16 +148,16 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
             \includesvg[width=8cm]{{"fourlayer-g0-lr0_003-800"}}
-            \caption{FNN[128, 40, 40, 1], lr = 0.003}
+            \caption{FNN[128, 40, 40, 1], $\eta$ = 0.003}
             \label{fig:a}
     \end{subfigure}\hfill
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
              \includesvg[width=8cm]{{"fourlayer-g0-lr0_001-800"}}
-            \caption{FNN[128, 40, 40, 1], lr = 0.001}
+            \caption{FNN[128, 40, 40, 1], $\eta$ = 0.001}
             \label{fig:b}
     \end{subfigure}
-    \caption{In this example interaction parameter g, is set to zero. Even learning rate 0.001 seems more accurate, it is trivial to expect that change in interaction parameter will effect the result. }
+    \caption{Here both figures represent True Energy of Ground State (unit) vs Predicted Ground State Energy (unit). Their hyperparameters are identical except learning rate. Total number of epoch is 20 and batch size is 10.  In this example interaction parameter $g$, is zero. Even learning rate 0.001 seems more precise, it is trivial to expect that change in interaction parameter will effect the result. }
 \end{figure}
 
 
@@ -175,12 +175,12 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
             \caption{FNN[128, 40, 40, 1], lr = 0.001}
             \label{fig:b}
     \end{subfigure}
-    \caption{Here, interaction parameter, g is 10. Predictions of the network with learning rate 0.003 more accurate than 0.001. }
+    \caption{Here, interaction parameter, g is 10. It is clear that precision of the network with learning rate 0.003 is higher than 0.001. Of course, dramatic increase in the training dataset length may affect them both to converge same precision but our intention here to show that small change in learning rate causes different results.}
 \end{figure}
 
-\textbf{comment about range of the learning rate ?}
+\textbf{determination of learning rate?}
 
-First architecture we used had only 4 layers and it was not sufficient.
+After determination of learning rate we added extra one hidden layer to the network and tried some different number of neurons combination in the layers.
 
 \begin{figure}[H]
     \centering
@@ -196,12 +196,9 @@ First architecture we used had only 4 layers and it was not sufficient.
             \caption{FNN[128, 40, 40, 1]}
             \label{fig:b}
     \end{subfigure}
-    \caption{Here interaction paramater g, is again set to 10. Batch size is 10 and total number of epoch is 20 for this dataset. }
+    \caption{Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.}
+\label{fig:network_layer_increment}
 \end{figure}
-
-
-Then we increased the number of layers to 5 and tried different number of neuron combinations. Each of these tried network behaved different for different g values. For example, MSE of the FNN[128, 40, 40, 20, 1] for g = 10 is $5.11 x 10^{-3}$ but for g = 0 it is $2.00 x 10^{-3}$
-
 
 \begin{figure}[H]
     \centering
@@ -217,11 +214,10 @@ Then we increased the number of layers to 5 and tried different number of neuron
         \caption{FNN[128, 40, 40, 1]}
 		\label{fig:b}
     \end{subfigure}
-    \caption{3500/500}
+    \caption{Total training dataset length is increased to 3500 and test dataset length is 500. Batch size, Learning rate are same as example given in Fig.~\ref{fig:network_layer_increment} but the epoch is 30. The bias is eliminated. Precision and accuracy of the network of 5 layers is sufficient.}
 \end{figure}
 
-
-After narrowing the number of candidate architectures with small dataset, we increased the size of the dataset to 3500/500 to get more information about distribution of the predictions and to determine other two hyperparameters; mini batch size and epoch. \textbf{Add results of this arch}.
+In conclusion, we chose learning rate $\eta$ as 0.001 and started to training process. The other two hyperparameters epoch and mini batch size determined in training process such that if increase in total number of epochs improves the results dramatically then new epoch value is this one and the mini batch size is determined with the same way. These steps are done for both FFN and CNN. The total number of epochs is 60, and mini batch size is 30. 
 
 
 \subsection{Training Results}
@@ -231,7 +227,6 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
-\label{fig:FFN-g-0}
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
@@ -252,6 +247,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
 		\label{fig:c}
     \end{subfigure}
     \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.}
+\label{fig:FFN-g-0}
 \end{figure}
 
 
@@ -276,7 +272,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
-    \caption{CNN}
+    \caption{Accuracy of the CNN is higher than FFN in first 20 epochs. In (a) there is no bias as in Fig.~\ref{fig:FFN-g-0}}
 \end{figure}
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
@@ -306,7 +302,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
-	\caption{Only number of neurons in the output layer increased to 4, and still network predicts total energy of the system within same sensitivity as former network.}
+	\caption{Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions. Only number of neurons in the output layer increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.}
 \end{figure}
 
 \subsubsection{Interacting Systems}
@@ -358,7 +354,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
-	\caption{g = 0.1}
+	\caption{Now, $g$ is 0.1 which means equation became non-linear. }
 \end{figure}
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
