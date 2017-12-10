@@ -3,8 +3,6 @@ import sys
 import os
 sys.path.append("../../Src/")
 
-import analyzer as an
-
 files = []
 file_ex = "*.svg"
 
