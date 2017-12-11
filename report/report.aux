@@ -20,170 +20,174 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Gross Pitaevskii Equation}{1}{section.2}}
 \newlabel{eq:GPE_3D}{{1}{1}{Gross Pitaevskii Equation}{equation.2.1}{}}
-\newlabel{eq:inter_param}{{2}{1}{Gross Pitaevskii Equation}{equation.2.2}{}}
-\newlabel{eq:GPE_time_indep_wave_func}{{3}{1}{Gross Pitaevskii Equation}{equation.2.3}{}}
-\newlabel{eq:GPE_time_indep}{{4}{1}{Gross Pitaevskii Equation}{equation.2.4}{}}
+\newlabel{eq:GPE_inter_param}{{2}{1}{Gross Pitaevskii Equation}{equation.2.2}{}}
+\newlabel{eq:GPE_harmonic_potential}{{3}{1}{Gross Pitaevskii Equation}{equation.2.3}{}}
+\newlabel{eq:GPE_time_indep_wave_func}{{4}{2}{Gross Pitaevskii Equation}{equation.2.4}{}}
+\newlabel{eq:GPE_time_indep}{{5}{2}{Gross Pitaevskii Equation}{equation.2.5}{}}
+\newlabel{eq:GPE_time_indep_wave_func_seperated}{{6}{2}{Gross Pitaevskii Equation}{equation.2.6}{}}
+\newlabel{eq:GPE_1D}{{7}{2}{Gross Pitaevskii Equation}{equation.2.7}{}}
+\newlabel{eq:GPE_1D_chem_inter}{{8}{2}{Gross Pitaevskii Equation}{equation.2.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Types of Potentials}{2}{subsection.2.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Analytical Solution and Approximation}{2}{subsection.2.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Numerical Solution and XMDS Framework}{2}{subsection.2.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Problem Statements and Dataset Generation}{2}{section.3}}
-\newlabel{eq:NU_neuron}{{5}{2}{Problem Statements and Dataset Generation}{equation.3.5}{}}
-\newlabel{eq:NU_neuron_connection}{{6}{3}{Problem Statements and Dataset Generation}{equation.3.6}{}}
-\newlabel{eq:NT_Quadratic}{{7}{3}{Problem Statements and Dataset Generation}{equation.3.7}{}}
-\newlabel{eq:NT_Quadratic_min}{{8}{3}{Problem Statements and Dataset Generation}{equation.3.8}{}}
-\newlabel{eq:gradient}{{9}{4}{Problem Statements and Dataset Generation}{equation.3.9}{}}
-\newlabel{eq:NT_Quadratic_min_gradient_form}{{10}{4}{Problem Statements and Dataset Generation}{equation.3.10}{}}
-\newlabel{eq:NT_learning_rate}{{11}{4}{Problem Statements and Dataset Generation}{equation.3.11}{}}
-\newlabel{eq:NT_Displacement}{{12}{4}{Problem Statements and Dataset Generation}{equation.3.12}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dataset and Dataset Generation}{4}{subsection.3.1}}
+\newlabel{eq:NU_neuron}{{9}{3}{Problem Statements and Dataset Generation}{equation.3.9}{}}
+\newlabel{eq:NU_neuron_connection}{{10}{3}{Problem Statements and Dataset Generation}{equation.3.10}{}}
+\newlabel{eq:NT_Quadratic}{{11}{4}{Problem Statements and Dataset Generation}{equation.3.11}{}}
+\newlabel{eq:NT_Quadratic_min}{{12}{4}{Problem Statements and Dataset Generation}{equation.3.12}{}}
+\newlabel{eq:gradient}{{13}{4}{Problem Statements and Dataset Generation}{equation.3.13}{}}
+\newlabel{eq:NT_Quadratic_min_gradient_form}{{14}{4}{Problem Statements and Dataset Generation}{equation.3.14}{}}
+\newlabel{eq:NT_learning_rate}{{15}{4}{Problem Statements and Dataset Generation}{equation.3.15}{}}
+\newlabel{eq:NT_Displacement}{{16}{5}{Problem Statements and Dataset Generation}{equation.3.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dataset and Dataset Generation}{5}{subsection.3.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Machine Learning for NLSE}{5}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Architecture}{5}{subsection.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Hyperparameters}{5}{subsection.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Architecture}{6}{subsection.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Hyperparameters}{6}{subsection.4.2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:a}{{1a}{6}{FNN[128, 40, 40, 1], $\eta $ = 0.003\relax }{figure.caption.2}{}}
-\newlabel{sub@fig:a}{{a}{6}{FNN[128, 40, 40, 1], $\eta $ = 0.003\relax }{figure.caption.2}{}}
-\newlabel{fig:b}{{1b}{6}{FNN[128, 40, 40, 1], $\eta $ = 0.001\relax }{figure.caption.2}{}}
-\newlabel{sub@fig:b}{{b}{6}{FNN[128, 40, 40, 1], $\eta $ = 0.001\relax }{figure.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Here both figures represent True Energy of Ground State (unit) vs Predicted Ground State Energy (unit). Their hyperparameters are identical except learning rate. Total number of epoch is 20 and batch size is 10. In this example interaction parameter $g$, is zero. Even learning rate 0.001 seems more precise, it is trivial to expect that change in interaction parameter will effect the result. \relax }}{6}{figure.caption.2}}
-\newlabel{fig:a}{{2a}{6}{FNN[128, 40, 40, 1], lr = 0.003\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:a}{{a}{6}{FNN[128, 40, 40, 1], lr = 0.003\relax }{figure.caption.3}{}}
-\newlabel{fig:b}{{2b}{6}{FNN[128, 40, 40, 1], lr = 0.001\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:b}{{b}{6}{FNN[128, 40, 40, 1], lr = 0.001\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Here, interaction parameter, g is 10. It is clear that precision of the network with learning rate 0.003 is higher than 0.001. Of course, dramatic increase in the training dataset length may affect them both to converge same precision but our intention here to show that small change in learning rate causes different results.\relax }}{6}{figure.caption.3}}
-\newlabel{fig:a}{{3a}{7}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:a}{{a}{7}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.4}{}}
-\newlabel{fig:b}{{3b}{7}{FNN[128, 40, 40, 1]\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:b}{{b}{7}{FNN[128, 40, 40, 1]\relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.\relax }}{7}{figure.caption.4}}
-\newlabel{fig:network_layer_increment}{{3}{7}{Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.\relax }{figure.caption.4}{}}
-\newlabel{fig:a}{{4a}{7}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:a}{{a}{7}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.5}{}}
-\newlabel{fig:b}{{4b}{7}{FNN[128, 40, 40, 1]\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:b}{{b}{7}{FNN[128, 40, 40, 1]\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Total training dataset length is increased to 3500 and test dataset length is 500. Batch size, Learning rate are same as example given in Fig.\nobreakspace  {}\ref  {fig:network_layer_increment} but the epoch is 30. The bias is eliminated. Precision and accuracy of the network of 5 layers is sufficient.\relax }}{7}{figure.caption.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Training Results}{8}{subsection.4.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Non-interacting System}{8}{subsubsection.4.3.1}}
-\newlabel{fig:a}{{5a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:a}{{a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
-\newlabel{fig:b}{{5b}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:b}{{b}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
-\newlabel{fig:c}{{5c}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.6}{}}
-\newlabel{sub@fig:c}{{c}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.\relax }}{8}{figure.caption.6}}
-\newlabel{fig:FFN-g-0}{{5}{8}{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.\relax }{figure.caption.6}{}}
-\newlabel{fig:a}{{6a}{9}{Conv1D\relax }{figure.caption.7}{}}
-\newlabel{sub@fig:a}{{a}{9}{Conv1D\relax }{figure.caption.7}{}}
-\newlabel{fig:b}{{6b}{9}{Conv1D\relax }{figure.caption.7}{}}
-\newlabel{sub@fig:b}{{b}{9}{Conv1D\relax }{figure.caption.7}{}}
-\newlabel{fig:c}{{6c}{9}{Conv1D\relax }{figure.caption.7}{}}
-\newlabel{sub@fig:c}{{c}{9}{Conv1D\relax }{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Accuracy of the CNN is higher than FFN in first 20 epochs. In (a) there is no bias as in Fig.\nobreakspace  {}\ref  {fig:FFN-g-0}\relax }}{9}{figure.caption.7}}
-\newlabel{fig:a}{{7a}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{sub@fig:a}{{a}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{fig:b}{{7b}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{sub@fig:b}{{b}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{fig:c}{{7c}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{sub@fig:c}{{c}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{fig:c}{{7d}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\newlabel{sub@fig:c}{{d}{10}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions. Only number of neurons in the output layer increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.\relax }}{10}{figure.caption.8}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Interacting Systems}{10}{subsubsection.4.3.2}}
-\newlabel{fig:a}{{8a}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:a}{{a}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\newlabel{fig:b}{{8b}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:b}{{b}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\newlabel{fig:c}{{8c}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\newlabel{sub@fig:c}{{c}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces g = 0.1\relax }}{11}{figure.caption.9}}
-\newlabel{fig:a}{{9a}{12}{Conv1D\relax }{figure.caption.10}{}}
-\newlabel{sub@fig:a}{{a}{12}{Conv1D\relax }{figure.caption.10}{}}
-\newlabel{fig:b}{{9b}{12}{Conv1D\relax }{figure.caption.10}{}}
-\newlabel{sub@fig:b}{{b}{12}{Conv1D\relax }{figure.caption.10}{}}
-\newlabel{fig:c}{{9c}{12}{Conv1D\relax }{figure.caption.10}{}}
-\newlabel{sub@fig:c}{{c}{12}{Conv1D\relax }{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Now, $g$ is 0.1 which means equation became non-linear. \relax }}{12}{figure.caption.10}}
-\newlabel{fig:a}{{10a}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:a}{{a}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{fig:b}{{10b}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:b}{{b}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{fig:c}{{10c}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:c}{{c}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{fig:c}{{10d}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\newlabel{sub@fig:c}{{d}{13}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Separate prediction g=0.1\relax }}{13}{figure.caption.11}}
-\newlabel{fig:a}{{11a}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\newlabel{sub@fig:a}{{a}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\newlabel{fig:b}{{11b}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\newlabel{sub@fig:b}{{b}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\newlabel{fig:c}{{11c}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\newlabel{sub@fig:c}{{c}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces g = 1\relax }}{14}{figure.caption.12}}
-\newlabel{fig:a}{{12a}{15}{Conv1D\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:a}{{a}{15}{Conv1D\relax }{figure.caption.13}{}}
-\newlabel{fig:b}{{12b}{15}{Conv1D\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:b}{{b}{15}{Conv1D\relax }{figure.caption.13}{}}
-\newlabel{fig:c}{{12c}{15}{Conv1D\relax }{figure.caption.13}{}}
-\newlabel{sub@fig:c}{{c}{15}{Conv1D\relax }{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces g = 1\relax }}{15}{figure.caption.13}}
-\newlabel{fig:a}{{13a}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:a}{{a}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{fig:b}{{13b}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:b}{{b}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{fig:c}{{13c}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:c}{{c}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{fig:c}{{13d}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\newlabel{sub@fig:c}{{d}{16}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Separate prediction g=1\relax }}{16}{figure.caption.14}}
-\newlabel{fig:a}{{14a}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\newlabel{sub@fig:a}{{a}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\newlabel{fig:b}{{14b}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\newlabel{sub@fig:b}{{b}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\newlabel{fig:c}{{14c}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\newlabel{sub@fig:c}{{c}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces g = 10\relax }}{17}{figure.caption.15}}
-\newlabel{fig:a}{{15a}{18}{Conv1D\relax }{figure.caption.16}{}}
-\newlabel{sub@fig:a}{{a}{18}{Conv1D\relax }{figure.caption.16}{}}
-\newlabel{fig:b}{{15b}{18}{Conv1D\relax }{figure.caption.16}{}}
-\newlabel{sub@fig:b}{{b}{18}{Conv1D\relax }{figure.caption.16}{}}
-\newlabel{fig:c}{{15c}{18}{Conv1D\relax }{figure.caption.16}{}}
-\newlabel{sub@fig:c}{{c}{18}{Conv1D\relax }{figure.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces g = 10\relax }}{18}{figure.caption.16}}
-\newlabel{fig:a}{{16a}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{sub@fig:a}{{a}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{fig:b}{{16b}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{sub@fig:b}{{b}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{fig:c}{{16c}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{sub@fig:c}{{c}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{fig:c}{{16d}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\newlabel{sub@fig:c}{{d}{19}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Separate prediction g=10\relax }}{19}{figure.caption.17}}
-\newlabel{fig:a}{{17a}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\newlabel{sub@fig:a}{{a}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\newlabel{fig:b}{{17b}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\newlabel{sub@fig:b}{{b}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\newlabel{fig:c}{{17c}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\newlabel{sub@fig:c}{{c}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces g = 20\relax }}{20}{figure.caption.18}}
-\newlabel{fig:a}{{18a}{21}{Conv1D\relax }{figure.caption.19}{}}
-\newlabel{sub@fig:a}{{a}{21}{Conv1D\relax }{figure.caption.19}{}}
-\newlabel{fig:b}{{18b}{21}{Conv1D\relax }{figure.caption.19}{}}
-\newlabel{sub@fig:b}{{b}{21}{Conv1D\relax }{figure.caption.19}{}}
-\newlabel{fig:c}{{18c}{21}{Conv1D\relax }{figure.caption.19}{}}
-\newlabel{sub@fig:c}{{c}{21}{Conv1D\relax }{figure.caption.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces g = 20\relax }}{21}{figure.caption.19}}
-\newlabel{fig:a}{{19a}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{sub@fig:a}{{a}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{fig:b}{{19b}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{sub@fig:b}{{b}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{fig:c}{{19c}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{sub@fig:c}{{c}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{fig:c}{{19d}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\newlabel{sub@fig:c}{{d}{22}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Separate prediction g=20\relax }}{22}{figure.caption.20}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Inverse Problem Prediction of $\boldsymbol  {g}$}{22}{subsubsection.4.3.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Fixed potential and shift\relax }}{22}{figure.caption.21}}
-\newlabel{fig:a}{{20}{22}{Fixed potential and shift\relax }{figure.caption.21}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Various potential and fixed shift\relax }}{23}{figure.caption.22}}
-\newlabel{fig:a}{{21}{23}{Various potential and fixed shift\relax }{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Various potential and shift\relax }}{23}{figure.caption.23}}
-\newlabel{fig:a}{{22}{23}{Various potential and shift\relax }{figure.caption.23}{}}
+\newlabel{fig:a}{{1a}{7}{FNN[128, 40, 40, 1], $\eta $ = 0.003\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:a}{{a}{7}{FNN[128, 40, 40, 1], $\eta $ = 0.003\relax }{figure.caption.2}{}}
+\newlabel{fig:b}{{1b}{7}{FNN[128, 40, 40, 1], $\eta $ = 0.001\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:b}{{b}{7}{FNN[128, 40, 40, 1], $\eta $ = 0.001\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Here both figures represent True Energy of Ground State (unit) vs Predicted Ground State Energy (unit). Their hyperparameters are identical except learning rate. Total number of epoch is 20 and batch size is 10. In this example interaction parameter $g$, is zero. Even learning rate 0.001 seems more precise, it is trivial to expect that change in interaction parameter will effect the result. \relax }}{7}{figure.caption.2}}
+\newlabel{fig:a}{{2a}{7}{FNN[128, 40, 40, 1], lr = 0.003\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:a}{{a}{7}{FNN[128, 40, 40, 1], lr = 0.003\relax }{figure.caption.3}{}}
+\newlabel{fig:b}{{2b}{7}{FNN[128, 40, 40, 1], lr = 0.001\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:b}{{b}{7}{FNN[128, 40, 40, 1], lr = 0.001\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Here, interaction parameter, g is 10. It is clear that precision of the network with learning rate 0.003 is higher than 0.001. Of course, dramatic increase in the training dataset length may affect them both to converge same precision but our intention here to show that small change in learning rate causes different results.\relax }}{7}{figure.caption.3}}
+\newlabel{fig:a}{{3a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:a}{{a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.4}{}}
+\newlabel{fig:b}{{3b}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:b}{{b}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.\relax }}{8}{figure.caption.4}}
+\newlabel{fig:network_layer_increment}{{3}{8}{Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.\relax }{figure.caption.4}{}}
+\newlabel{fig:a}{{4a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:a}{{a}{8}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.5}{}}
+\newlabel{fig:b}{{4b}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:b}{{b}{8}{FNN[128, 40, 40, 1]\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Total training dataset length is increased to 3500 and test dataset length is 500. Batch size, Learning rate are same as example given in Fig.\nobreakspace  {}\ref  {fig:network_layer_increment} but the epoch is 30. The bias is eliminated. Precision and accuracy of the network of 5 layers is sufficient.\relax }}{8}{figure.caption.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Training Results}{9}{subsection.4.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Non-interacting System}{9}{subsubsection.4.3.1}}
+\newlabel{fig:a}{{5a}{9}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:a}{{a}{9}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
+\newlabel{fig:b}{{5b}{9}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:b}{{b}{9}{FNN[128, 30, 30, 10, 1]\relax }{figure.caption.6}{}}
+\newlabel{fig:c}{{5c}{9}{FNN[128, 40, 40, 1]\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:c}{{c}{9}{FNN[128, 40, 40, 1]\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.\relax }}{9}{figure.caption.6}}
+\newlabel{fig:FFN-g-0}{{5}{9}{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.\relax }{figure.caption.6}{}}
+\newlabel{fig:a}{{6a}{10}{Conv1D\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:a}{{a}{10}{Conv1D\relax }{figure.caption.7}{}}
+\newlabel{fig:b}{{6b}{10}{Conv1D\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:b}{{b}{10}{Conv1D\relax }{figure.caption.7}{}}
+\newlabel{fig:c}{{6c}{10}{Conv1D\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:c}{{c}{10}{Conv1D\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Accuracy of the CNN is higher than FFN in first 20 epochs. In (a) there is no bias as in Fig.\nobreakspace  {}\ref  {fig:FFN-g-0}\relax }}{10}{figure.caption.7}}
+\newlabel{fig:a}{{7a}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{sub@fig:a}{{a}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{fig:b}{{7b}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{sub@fig:b}{{b}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{fig:c}{{7c}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{sub@fig:c}{{c}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{fig:c}{{7d}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\newlabel{sub@fig:c}{{d}{11}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions. Only number of neurons in the output layer increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.\relax }}{11}{figure.caption.8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Interacting Systems}{11}{subsubsection.4.3.2}}
+\newlabel{fig:a}{{8a}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\newlabel{sub@fig:a}{{a}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\newlabel{fig:b}{{8b}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\newlabel{sub@fig:b}{{b}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\newlabel{fig:c}{{8c}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\newlabel{sub@fig:c}{{c}{12}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces g = 0.1\relax }}{12}{figure.caption.9}}
+\newlabel{fig:a}{{9a}{13}{Conv1D\relax }{figure.caption.10}{}}
+\newlabel{sub@fig:a}{{a}{13}{Conv1D\relax }{figure.caption.10}{}}
+\newlabel{fig:b}{{9b}{13}{Conv1D\relax }{figure.caption.10}{}}
+\newlabel{sub@fig:b}{{b}{13}{Conv1D\relax }{figure.caption.10}{}}
+\newlabel{fig:c}{{9c}{13}{Conv1D\relax }{figure.caption.10}{}}
+\newlabel{sub@fig:c}{{c}{13}{Conv1D\relax }{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Now, $g$ is 0.1 which means equation became non-linear. \relax }}{13}{figure.caption.10}}
+\newlabel{fig:a}{{10a}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:a}{{a}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{fig:b}{{10b}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:b}{{b}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{fig:c}{{10c}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:c}{{c}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{fig:c}{{10d}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\newlabel{sub@fig:c}{{d}{14}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Notice that, the order of interaction energy is much smaller than the others. This may be the reason of bias in (a). \relax }}{14}{figure.caption.11}}
+\newlabel{fig:a}{{11a}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\newlabel{sub@fig:a}{{a}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\newlabel{fig:b}{{11b}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\newlabel{sub@fig:b}{{b}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\newlabel{fig:c}{{11c}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\newlabel{sub@fig:c}{{c}{15}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces g = 1\relax }}{15}{figure.caption.12}}
+\newlabel{fig:a}{{12a}{16}{Conv1D\relax }{figure.caption.13}{}}
+\newlabel{sub@fig:a}{{a}{16}{Conv1D\relax }{figure.caption.13}{}}
+\newlabel{fig:b}{{12b}{16}{Conv1D\relax }{figure.caption.13}{}}
+\newlabel{sub@fig:b}{{b}{16}{Conv1D\relax }{figure.caption.13}{}}
+\newlabel{fig:c}{{12c}{16}{Conv1D\relax }{figure.caption.13}{}}
+\newlabel{sub@fig:c}{{c}{16}{Conv1D\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces g = 1\relax }}{16}{figure.caption.13}}
+\newlabel{fig:a}{{13a}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:a}{{a}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{fig:b}{{13b}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:b}{{b}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{fig:c}{{13c}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:c}{{c}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{fig:c}{{13d}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\newlabel{sub@fig:c}{{d}{17}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Separate prediction g=1\relax }}{17}{figure.caption.14}}
+\newlabel{fig:a}{{14a}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\newlabel{sub@fig:a}{{a}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\newlabel{fig:b}{{14b}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\newlabel{sub@fig:b}{{b}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\newlabel{fig:c}{{14c}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\newlabel{sub@fig:c}{{c}{18}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces g = 10\relax }}{18}{figure.caption.15}}
+\newlabel{fig:a}{{15a}{19}{Conv1D\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:a}{{a}{19}{Conv1D\relax }{figure.caption.16}{}}
+\newlabel{fig:b}{{15b}{19}{Conv1D\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:b}{{b}{19}{Conv1D\relax }{figure.caption.16}{}}
+\newlabel{fig:c}{{15c}{19}{Conv1D\relax }{figure.caption.16}{}}
+\newlabel{sub@fig:c}{{c}{19}{Conv1D\relax }{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces g = 10\relax }}{19}{figure.caption.16}}
+\newlabel{fig:a}{{16a}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:a}{{a}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{fig:b}{{16b}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:b}{{b}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{fig:c}{{16c}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:c}{{c}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{fig:c}{{16d}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\newlabel{sub@fig:c}{{d}{20}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Separate prediction g=10\relax }}{20}{figure.caption.17}}
+\newlabel{fig:a}{{17a}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\newlabel{sub@fig:a}{{a}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\newlabel{fig:b}{{17b}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\newlabel{sub@fig:b}{{b}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\newlabel{fig:c}{{17c}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\newlabel{sub@fig:c}{{c}{21}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces g = 20\relax }}{21}{figure.caption.18}}
+\newlabel{fig:a}{{18a}{22}{Conv1D\relax }{figure.caption.19}{}}
+\newlabel{sub@fig:a}{{a}{22}{Conv1D\relax }{figure.caption.19}{}}
+\newlabel{fig:b}{{18b}{22}{Conv1D\relax }{figure.caption.19}{}}
+\newlabel{sub@fig:b}{{b}{22}{Conv1D\relax }{figure.caption.19}{}}
+\newlabel{fig:c}{{18c}{22}{Conv1D\relax }{figure.caption.19}{}}
+\newlabel{sub@fig:c}{{c}{22}{Conv1D\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces g = 20\relax }}{22}{figure.caption.19}}
+\newlabel{fig:a}{{19a}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{sub@fig:a}{{a}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{fig:b}{{19b}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{sub@fig:b}{{b}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{fig:c}{{19c}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{sub@fig:c}{{c}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{fig:c}{{19d}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\newlabel{sub@fig:c}{{d}{23}{FNN[128, 30, 30, 10, 4]\relax }{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Separate prediction g=20\relax }}{23}{figure.caption.20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Inverse Problem Prediction of $\boldsymbol  {g}$}{23}{subsubsection.4.3.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Fixed potential and shift\relax }}{23}{figure.caption.21}}
+\newlabel{fig:a}{{20}{23}{Fixed potential and shift\relax }{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Various potential and fixed shift\relax }}{24}{figure.caption.22}}
+\newlabel{fig:a}{{21}{24}{Various potential and fixed shift\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Various potential and shift\relax }}{24}{figure.caption.23}}
+\newlabel{fig:a}{{22}{24}{Various potential and shift\relax }{figure.caption.23}{}}

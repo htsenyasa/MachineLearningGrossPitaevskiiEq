@@ -48,16 +48,23 @@ i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar}{2m}\nabla^2
 
 
 where %%
-where $\hbar$ is Planck constant, $\Psi$ is wave function, $m$ is mass, $\nabla^2$ is Laplacian, $V$ is potential, and $g$ is interaction parameter and it is defined as 
+where $\hbar$ is Planck constant, $\boldsymbol{r}$ is position vector, $t$ is time, $\Psi$ is wave function, $m$ is mass, $\nabla^2$ is Laplacian, $V$ is potential, $g$ is interaction parameter and it is defined as 
 
 \begin{equation}
-\label{eq:inter_param}
+\label{eq:GPE_inter_param}
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
 where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive. \textbf{REF}. 
 
-If the potential is only function of position $V(\boldsymbol{r})$, then separation of variables method can be applied and it can be obtained that there is stationary solution. In this case, wave function becomes,
+In general, potential $V$ is harmonic trapping potential which does not depend on time \textbf{REF}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given by,
+\begin{equation}
+\label{eq:GPE_harmonic_potential}
+V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
+\end{equation}
+
+
+where $\omega$ is angular frequency. Then separation of variables can be applied and it can be obtained that there is stationary solution. In this case, wave function becomes,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func}
@@ -71,11 +78,39 @@ Here, $\mu$ is chemical potential. Time independent GPE is then,
 \mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
 \end{equation}
 
+With some manipulation in angular frequencies such as making $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $, dynamics of the system can be analyzed in one dimension with corresponding 1D GPE \textbf{REF}. To obtain 1D GPE one can rewrite wave function,
+
+\begin{equation}
+\label{eq:GPE_time_indep_wave_func_seperated}
+\psi(x, y, z, t) = \psi_z(z, t)\psi_0(x)\psi_0(y)
+\end{equation}
+
+\textbf{continue}
+
+\begin{equation}
+\label{eq:GPE_1D}
+\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + g^{\prime}|\psi_z|^2\psi_z + \frac{1}{2}m\omega_z^2 z^2\psi_z
+\end{equation}
+
+where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potential and interaction strength respectively and they are given as,
+
+\begin{equation}
+\label{eq:GPE_1D_chem_inter}
+\mu^{\prime} = \mu - \frac{\hbar}{2}(\omega_x - \omega_y), \quad g^{\prime} = \frac{g}{2\pi l_x l_y}
+\end{equation}
 
 
 \subsection{Types of Potentials}
 \subsection{Analytical Solution and Approximation}
+
+There is no general analytical solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solutios is well known.
+
+
 \subsection{Numerical Solution and XMDS Framework}
+
+
+
+
 \section{Problem Statements and Dataset Generation}
 
 GPE can be solved with briefly described methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters. For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network. \textbf{REF}. Here \textbf{REF}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
@@ -343,7 +378,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
 
 \subsubsection{Interacting Systems}
 
-\textbf{G = 0.1}
+In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20. Here, we first give FNN results, after that CNN, and lastly separate energy predictions done by FNN. 
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
@@ -420,7 +455,7 @@ In non-interacting system, GPE reduces to SE which does not involve non-linear t
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
-	\caption{Separate prediction  g=0.1}
+	\caption{Notice that, the order of interaction energy is much smaller than the others. This may be the reason of bias in (a). }
 \end{figure}
 
 \textbf{G = 1}
