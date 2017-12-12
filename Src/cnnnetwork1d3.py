@@ -126,11 +126,11 @@ def test():
         real = test_dataset.target_tensor.numpy()
         real = real.reshape([test_len, 1])
         res.calc_error(real, predicted)
-#        res.display_plot()
+        res.display_plot()
 
-        global info_file_name
-        file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
-        an.save_info(res, file_name)
+#        global info_file_name
+#        file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
+#        an.save_info(res, file_name)
 
     return predicted
 

@@ -102,11 +102,12 @@ class analyzer(object):
         fig, ax1 = plt.subplots()
         left, bottom, width, height = [0.65, 0.20, .2, .2]
         inset = fig.add_axes([left, bottom, width, height])
-        ax1.plot(self.testdataset, self.testdataset, "--r", label="real data")
-        ax1.plot(self.testdataset, self.predicted, ".", label = "predicted")
+        ax1.plot(self.testdataset, self.testdataset, "--r", label="real data", linewidth = 3)
+        ax1.plot(self.testdataset, self.predicted, ".", label = "predicted", markersize = 2)
         ax1.set_title("FNN{}".format(self.arch))
-        ax1.set_xlabel("Real $\\mu$")
-        ax1.set_ylabel("Predicted")
+        ax1.set_xlabel("Real $\\mu$", fontsize = 18)
+        ax1.set_ylabel("Predicted", fontsize = 18)
+        ax1.tick_params(labelsize = 12)
         ax1.legend()
         ax1.grid()
         props = dict(boxstyle='square', facecolor='white', alpha=0.5)
@@ -123,6 +124,7 @@ class analyzer(object):
             figure = plt.gcf()
             figure.set_size_inches(8,6)
             plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
+            plt.clf()
 
 
 #    def display_plot2(self, file_name = None):
@@ -150,11 +152,12 @@ class analyzer(object):
             fig, ax1 = plt.subplots(num=features[i])
             left, bottom, width, height = [0.65, 0.20, .2, .2]
             inset = fig.add_axes([left, bottom, width, height])
-            ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data")
-            ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", label = "predicted")
+            ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data", linewidth = 3)
+            ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", label = "predicted", markersize = 2)
             ax1.set_title("FNN{}".format(self.arch))
             ax1.set_xlabel(features[i] + u"$\\mu$")
             ax1.set_ylabel(features[i] + " Predicted")
+            ax1.tick_params(labelsize = 12)
             ax1.legend()
             ax1.grid()
             props = dict(boxstyle='square', facecolor='white', alpha=0.5)
