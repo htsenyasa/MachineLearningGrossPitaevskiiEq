@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  15 DEC 2017 17:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.18)  15 DEC 2017 20:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -971,11 +971,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-[2] [3] [4] [5] [6]
+[2] [3] [4] [5] [6] [7]
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-t
-ex.pdf' is 1 on input line 277.
- (./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=128, page=1, pagebox
+ex.pdf' is 1 on input line 289.
+
+(./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf_tex
+<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=136, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -985,14 +986,14 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--278
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--290
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-t
-ex.pdf' is 1 on input line 283.
+ex.pdf' is 1 on input line 295.
 (./svg-inkscape/fourlayer-g0-lr0_001-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=130, page=1, pagebox
+<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=138, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -1002,15 +1003,14 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--284
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--296
  [][] 
  []
 
-[7]
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-
-tex.pdf' is 1 on input line 295.
- (./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf, id=137, page=1, pagebo
+tex.pdf' is 1 on input line 307.
+(./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf_tex
+<./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf, id=140, page=1, pagebo
 x=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf Graphic file (type
  pdf)
@@ -1020,14 +1020,14 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g10-lr0_003-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--296
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--308
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-
-tex.pdf' is 1 on input line 301.
+tex.pdf' is 1 on input line 313.
 (./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf, id=139, page=1, pagebo
+<./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf, id=142, page=1, pagebo
 x=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf Graphic file (type
  pdf)
@@ -1037,39 +1037,7 @@ Package pdftex.def Info: ./svg-inkscape/"fourlayer-g10-lr0_001-800"_svg-tex.pdf
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--302
- [][] 
- []
-
-Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-800_svg-tex.pdf' i
-s 1 on input line 314.
-(./svg-inkscape/fivelayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=141, page=1, pagebox=cropbox,
- 578.16pt x 433.62pt>
-File: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf , page1 u
-sed on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
-e 52.
-)
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--315
- [][] 
- []
-
-Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-800_svg-tex.pdf' i
-s 1 on input line 320.
-(./svg-inkscape/fourlayer-g10-800_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=143, page=1, pagebox=cropbox,
- 578.16pt x 433.62pt>
-File: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf , page1 u
-sed on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
-e 52.
-)
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--321
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--314
  [][] 
  []
 
@@ -1078,19 +1046,43 @@ yer-g0-lr0_001-800_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g0-lr0_001-800_svg-tex.
 pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf
-
-pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex
-.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex.pdf
-
-pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex
-.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
+Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-800_svg-tex.pdf' i
+s 1 on input line 326.
+ (./svg-inkscape/fivelayer-g10-800_svg-tex.pdf_tex
+<./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, id=367, page=1, pagebox=cropbox,
+ 578.16pt x 433.62pt>
+File: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf , page1 u
+sed on input line 52. on input line 52.
+Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
+e 52.
+)
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--327
+ [][] 
+ []
+
+Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-800_svg-tex.pdf' i
+s 1 on input line 332.
+(./svg-inkscape/fourlayer-g10-800_svg-tex.pdf_tex
+<./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, id=369, page=1, pagebox=cropbox,
+ 578.16pt x 433.62pt>
+File: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf , page1 u
+sed on input line 52. on input line 52.
+Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
+e 52.
+)
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--333
+ [][] 
+ []
+
 Package svg Info: Last page of `./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf' 
-is 1 on input line 332.
- (./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=595, page=1, pagebox=cropbox
+is 1 on input line 344.
+(./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf_tex
+<./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, id=371, page=1, pagebox=cropbox
 , 578.16pt x 433.62pt>
 File: ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf, page 1>
@@ -1099,14 +1091,14 @@ used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--333
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--345
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf' 
-is 1 on input line 338.
+is 1 on input line 350.
 (./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf_tex
-<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=597, page=1, pagebox=cropbox
+<./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, id=373, page=1, pagebox=cropbox
 , 578.16pt x 433.62pt>
 File: ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf, page 1>
@@ -1115,29 +1107,29 @@ used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--339
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--351
  [][] 
  []
 
-[9 <./svg-inkscape/fivelayer-g10-800_svg-tex.pdf> <./svg-inkscape/fourlayer-g10
--800_svg-tex.pdf
+[9 <./svg-inkscape/fourlayer-g10-lr0_003-800_svg-tex.pdf> <./svg-inkscape/fourl
+ayer-g10-lr0_001-800_svg-tex.pdf
+
+pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-lr0_001-800_svg-tex
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fivelayer-g10-800_svg-tex.pdf
+
+pdfTeX warning: pdflatex (file ./svg-inkscape/fivelayer-g10-800_svg-tex.pdf): P
+DF inclusion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fourlayer-g10-800_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-800_svg-tex.pdf): P
 DF inclusion: multiple pdfs with page group included in a single page
-> <./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf
-
-pdfTeX warning: pdflatex (file ./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf): 
-PDF inclusion: multiple pdfs with page group included in a single page
-> <./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf
-
-pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf): 
-PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-20-_svg-tex.
-pdf' is 1 on input line 366.
+pdf' is 1 on input line 378.
  (./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf, id=1025, page=1, pagebox=c
-ropbox, 578.16pt x 433.62pt>
+<./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf, id=813, page=1, pagebox=cr
+opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf Graphic file (type pdf
 )
 <use ./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf, page 1>
@@ -1147,11 +1139,11 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.23763pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-40-_svg-tex.
-pdf' is 1 on input line 372.
+pdf' is 1 on input line 384.
 
 (./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf, id=1027, page=1, pagebox=c
-ropbox, 578.16pt x 433.62pt>
+<./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf, id=815, page=1, pagebox=cr
+opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf Graphic file (type pdf
 )
 <use ./svg-inkscape/potential-g-0-epoch-40-_svg-tex.pdf, page 1>
@@ -1161,11 +1153,11 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.23763pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-_svg-tex.
-pdf' is 1 on input line 378.
+pdf' is 1 on input line 390.
 
 (./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf, id=1029, page=1, pagebox=c
-ropbox, 578.16pt x 433.62pt>
+<./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf, id=817, page=1, pagebox=cr
+opbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf Graphic file (type pdf
 )
 <use ./svg-inkscape/potential-g-0-epoch-60-_svg-tex.pdf, page 1>
@@ -1175,11 +1167,11 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.23763pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg
--tex.pdf' is 1 on input line 384.
+-tex.pdf' is 1 on input line 396.
 
 (./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pdf, id=1031, page=1, page
-box=cropbox, 578.16pt x 433.62pt>
+<./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pdf, id=819, page=1, pageb
+ox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pdf Graphic file (typ
 e pdf)
 <use ./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pdf, page 1>
@@ -1187,12 +1179,16 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg-tex.pd
 f , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.23763pt on input lin
 e 52.
-)
-Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-20-_s
-vg-tex.pdf' is 1 on input line 398.
+) [10 <./svg-inkscape/fivelayer-g10-3500_svg-tex.pdf> <./svg-inkscape/fourlayer
+-g10-3500_svg-tex.pdf
 
-(./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf, id=1033, page=1, pa
+pdfTeX warning: pdflatex (file ./svg-inkscape/fourlayer-g10-3500_svg-tex.pdf): 
+PDF inclusion: multiple pdfs with page group included in a single page
+>]
+Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-20-_s
+vg-tex.pdf' is 1 on input line 410.
+ (./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf_tex
+<./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf, id=1041, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1202,14 +1198,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--399
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--411
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-40-_s
-vg-tex.pdf' is 1 on input line 404.
+vg-tex.pdf' is 1 on input line 416.
 (./svg-inkscape/potential-g-0-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-conv1d-epoch-40-_svg-tex.pdf, id=1035, page=1, pa
+<./svg-inkscape/potential-g-0-conv1d-epoch-40-_svg-tex.pdf, id=1043, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-conv1d-epoch-40-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1219,14 +1215,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--405
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--417
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-60-_s
-vg-tex.pdf' is 1 on input line 410.
+vg-tex.pdf' is 1 on input line 422.
 (./svg-inkscape/potential-g-0-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-conv1d-epoch-60-_svg-tex.pdf, id=1037, page=1, pa
+<./svg-inkscape/potential-g-0-conv1d-epoch-60-_svg-tex.pdf, id=1045, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-conv1d-epoch-60-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1236,14 +1232,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--411
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--423
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-60-LO
-SS-_svg-tex.pdf' is 1 on input line 416.
+SS-_svg-tex.pdf' is 1 on input line 428.
 (./svg-inkscape/potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=1039, page=
+<./svg-inkscape/potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=1047, page=
 1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic fi
 le (type pdf)
@@ -1253,11 +1249,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0-conv1d-epoch-60-LOSS-_svg
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--417
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--429
  [][] 
  []
 
-[10 <./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf> <./svg-inkscape/potent
+[11 <./svg-inkscape/potential-g-0-epoch-20-_svg-tex.pdf> <./svg-inkscape/potent
 ial-g-0-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0-epoch-40-_svg-tex.p
@@ -1273,9 +1269,9 @@ tex.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
 e
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_int-_sv
-g-tex.pdf' is 1 on input line 428.
+g-tex.pdf' is 1 on input line 440.
  (./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf, id=1462, page=1, pag
+<./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf, id=1470, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1285,7 +1281,7 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--429
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--441
  [][] 
  []
 
@@ -1299,12 +1295,12 @@ tex' is newer than
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 434.
+(svg)                `inkscape=force' on input line 446.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_pot-_sv
-g-tex.pdf' is 1 on input line 434.
+g-tex.pdf' is 1 on input line 446.
 (./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf, id=1464, page=1, pag
+<./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf, id=1472, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1314,7 +1310,7 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--435
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--447
  [][] 
  []
 
@@ -1328,12 +1324,12 @@ tex' is newer than
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 440.
+(svg)                `inkscape=force' on input line 452.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_kin-_sv
-g-tex.pdf' is 1 on input line 440.
+g-tex.pdf' is 1 on input line 452.
 (./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf, id=1466, page=1, pag
+<./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf, id=1474, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1343,14 +1339,14 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--441
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--453
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_Total-_
-svg-tex.pdf' is 1 on input line 446.
+svg-tex.pdf' is 1 on input line 458.
 (./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf, id=1468, page=1, p
+<./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf, id=1476, page=1, p
 agebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1360,11 +1356,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--447
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--459
  [][] 
  []
 
-[11 <./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscape
+[12 <./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscape
 /potential-g-0-conv1d-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0-conv1d-epoch-40-_sv
@@ -1382,9 +1378,9 @@ S-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a sin
 gle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-20-_svg-te
-x.pdf' is 1 on input line 462.
+x.pdf' is 1 on input line 474.
  (./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf, id=1886, page=1, pagebox
+<./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf, id=1894, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf Graphic file (type p
 df)
@@ -1394,14 +1390,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf ,
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--463
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--475
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-40-_svg-te
-x.pdf' is 1 on input line 468.
+x.pdf' is 1 on input line 480.
 (./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf, id=1888, page=1, pagebox
+<./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf, id=1896, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf Graphic file (type p
 df)
@@ -1411,14 +1407,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf ,
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--469
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--481
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-_svg-te
-x.pdf' is 1 on input line 474.
+x.pdf' is 1 on input line 486.
 (./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf, id=1890, page=1, pagebox
+<./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf, id=1898, page=1, pagebox
 =cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf Graphic file (type p
 df)
@@ -1428,14 +1424,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf ,
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--475
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--487
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_s
-vg-tex.pdf' is 1 on input line 480.
+vg-tex.pdf' is 1 on input line 492.
 (./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf, id=1892, page=1, pa
+<./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf, id=1900, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1445,11 +1441,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--481
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--493
  [][] 
  []
 
-[12 <./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape/
+[13 <./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape/
 potential-g-0-epoch-60-E_pot-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg
@@ -1467,9 +1463,9 @@ vg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
 page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-20-
-_svg-tex.pdf' is 1 on input line 492.
+_svg-tex.pdf' is 1 on input line 504.
  (./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf, id=2501, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf, id=2510, page=1, 
 pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1479,14 +1475,14 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--493
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--505
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-40-
-_svg-tex.pdf' is 1 on input line 498.
+_svg-tex.pdf' is 1 on input line 510.
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf, id=2503, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf, id=2512, page=1, 
 pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1496,14 +1492,14 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--499
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--511
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-60-
-_svg-tex.pdf' is 1 on input line 504.
+_svg-tex.pdf' is 1 on input line 516.
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf, id=2505, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf, id=2514, page=1, 
 pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1513,14 +1509,14 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--505
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--517
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-60-
-LOSS-_svg-tex.pdf' is 1 on input line 510.
+LOSS-_svg-tex.pdf' is 1 on input line 522.
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=2507, pag
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=2516, pag
 e=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic 
 file (type pdf)
@@ -1530,11 +1526,11 @@ vg-tex.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--511
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--523
  [][] 
  []
 
-[13 <./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf> <./svg-inkscape/pote
+[14 <./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf> <./svg-inkscape/pote
 ntial-g-0_1-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex
@@ -1550,9 +1546,9 @@ g-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single p
 age
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_int-_
-svg-tex.pdf' is 1 on input line 522.
+svg-tex.pdf' is 1 on input line 534.
  (./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf, id=2916, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf, id=2924, page=1, p
 agebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1562,14 +1558,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--523
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--535
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_
-svg-tex.pdf' is 1 on input line 528.
+svg-tex.pdf' is 1 on input line 540.
 (./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf, id=2918, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf, id=2926, page=1, p
 agebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1579,14 +1575,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--529
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--541
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_
-svg-tex.pdf' is 1 on input line 534.
+svg-tex.pdf' is 1 on input line 546.
 (./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf, id=2920, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf, id=2928, page=1, p
 agebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1596,7 +1592,7 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--535
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--547
  [][] 
  []
 
@@ -1610,12 +1606,12 @@ pdf' it's supposed that
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 540.
+(svg)                `inkscape=force' on input line 552.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_Total
--_svg-tex.pdf' is 1 on input line 540.
+-_svg-tex.pdf' is 1 on input line 552.
 (./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf, id=2922, page=1,
+<./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf, id=2930, page=1,
  pagebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf Graphic file
  (type pdf)
@@ -1625,11 +1621,11 @@ ex.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--541
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--553
  [][] 
  []
 
-[14 <./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf> <./svg-inksca
+[15 <./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf> <./svg-inksca
 pe/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_
@@ -1647,9 +1643,9 @@ OSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a s
 ingle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-20-_svg-tex.
-pdf' is 1 on input line 554.
+pdf' is 1 on input line 566.
  (./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, id=3319, page=1, pagebox=c
+<./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, id=3327, page=1, pagebox=c
 ropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1659,7 +1655,7 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--555
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--567
  [][] 
  []
 
@@ -1673,12 +1669,12 @@ supposed that
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 560.
+(svg)                `inkscape=force' on input line 572.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-40-_svg-tex.
-pdf' is 1 on input line 560.
+pdf' is 1 on input line 572.
 (./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, id=3321, page=1, pagebox=c
+<./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, id=3329, page=1, pagebox=c
 ropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1688,14 +1684,14 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--561
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--573
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-_svg-tex.
-pdf' is 1 on input line 566.
+pdf' is 1 on input line 578.
 (./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, id=3323, page=1, pagebox=c
+<./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, id=3331, page=1, pagebox=c
 ropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1705,14 +1701,14 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--567
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--579
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg
--tex.pdf' is 1 on input line 572.
+-tex.pdf' is 1 on input line 584.
 (./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, id=3325, page=1, page
+<./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, id=3333, page=1, page
 box=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf Graphic file (typ
 e pdf)
@@ -1722,11 +1718,11 @@ f , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--573
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--585
  [][] 
  []
 
-[15 <./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscap
+[16 <./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscap
 e/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_s
@@ -1744,9 +1740,9 @@ _svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-20-_s
-vg-tex.pdf' is 1 on input line 585.
+vg-tex.pdf' is 1 on input line 597.
  (./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=3880, page=1, pa
+<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=3888, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1756,14 +1752,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--586
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--598
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-40-_s
-vg-tex.pdf' is 1 on input line 591.
+vg-tex.pdf' is 1 on input line 603.
 (./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=3882, page=1, pa
+<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=3890, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1773,14 +1769,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--592
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--604
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-_s
-vg-tex.pdf' is 1 on input line 597.
+vg-tex.pdf' is 1 on input line 609.
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=3884, page=1, pa
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=3892, page=1, pa
 gebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1790,14 +1786,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--598
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--610
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-LO
-SS-_svg-tex.pdf' is 1 on input line 603.
+SS-_svg-tex.pdf' is 1 on input line 615.
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=3886, page=
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=3894, page=
 1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic fi
 le (type pdf)
@@ -1807,11 +1803,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--604
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--616
  [][] 
  []
 
-[16 <./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf> <./svg-inkscape/potent
+[17 <./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf> <./svg-inkscape/potent
 ial-g-1-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.p
@@ -1827,9 +1823,9 @@ tex.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
 e
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_int-_sv
-g-tex.pdf' is 1 on input line 615.
+g-tex.pdf' is 1 on input line 627.
  (./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=4264, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=4272, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1839,14 +1835,14 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--616
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--628
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_pot-_sv
-g-tex.pdf' is 1 on input line 621.
+g-tex.pdf' is 1 on input line 633.
 (./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=4266, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=4274, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1856,14 +1852,14 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--622
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--634
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_kin-_sv
-g-tex.pdf' is 1 on input line 627.
+g-tex.pdf' is 1 on input line 639.
 (./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=4268, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=4276, page=1, pag
 ebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1873,14 +1869,14 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--628
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--640
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_Total-_
-svg-tex.pdf' is 1 on input line 633.
+svg-tex.pdf' is 1 on input line 645.
 (./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=4270, page=1, p
+<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=4278, page=1, p
 agebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1890,11 +1886,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--634
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--646
  [][] 
  []
 
-[17 <./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscape
+[18 <./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscape
 /potential-g-1-conv1d-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-1-conv1d-epoch-40-_sv
@@ -1912,9 +1908,9 @@ S-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a sin
 gle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-20-_svg-tex
-.pdf' is 1 on input line 647.
+.pdf' is 1 on input line 659.
  (./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf, id=4621, page=1, pagebox=
+<./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf, id=4629, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf Graphic file (type pd
 f)
@@ -1924,14 +1920,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--648
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--660
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-40-_svg-tex
-.pdf' is 1 on input line 653.
+.pdf' is 1 on input line 665.
 (./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf, id=4623, page=1, pagebox=
+<./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf, id=4631, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf Graphic file (type pd
 f)
@@ -1941,14 +1937,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--654
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--666
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-_svg-tex
-.pdf' is 1 on input line 659.
+.pdf' is 1 on input line 671.
 (./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf, id=4625, page=1, pagebox=
+<./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf, id=4633, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf Graphic file (type pd
 f)
@@ -1958,14 +1954,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--660
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--672
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-LOSS-_sv
-g-tex.pdf' is 1 on input line 665.
+g-tex.pdf' is 1 on input line 677.
 (./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf, id=4627, page=1, pag
+<./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf, id=4635, page=1, pag
 ebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1975,11 +1971,11 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--666
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--678
  [][] 
  []
 
-[18 <./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape/
+[19 <./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape/
 potential-g-1-epoch-60-E_pot-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg
@@ -1997,9 +1993,9 @@ vg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
 page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-20-_
-svg-tex.pdf' is 1 on input line 678.
+svg-tex.pdf' is 1 on input line 690.
  (./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf, id=5227, page=1, p
+<./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf, id=5236, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2009,14 +2005,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--679
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--691
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-40-_
-svg-tex.pdf' is 1 on input line 684.
+svg-tex.pdf' is 1 on input line 696.
 (./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf, id=5229, page=1, p
+<./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf, id=5238, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2026,14 +2022,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--685
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--697
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-_
-svg-tex.pdf' is 1 on input line 690.
+svg-tex.pdf' is 1 on input line 702.
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf, id=5231, page=1, p
+<./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf, id=5240, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2043,14 +2039,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--691
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--703
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-L
-OSS-_svg-tex.pdf' is 1 on input line 696.
+OSS-_svg-tex.pdf' is 1 on input line 708.
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=5233, page
+<./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=5242, page
 =1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic f
 ile (type pdf)
@@ -2060,11 +2056,11 @@ g-tex.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--697
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--709
  [][] 
  []
 
-[19 <./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf> <./svg-inkscape/poten
+[20 <./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf> <./svg-inkscape/poten
 tial-g-10-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-10-epoch-40-_svg-tex.
@@ -2080,9 +2076,9 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg
 ge
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_int-_s
-vg-tex.pdf' is 1 on input line 708.
+vg-tex.pdf' is 1 on input line 720.
  (./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf, id=5667, page=1, pa
+<./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf, id=5675, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2092,14 +2088,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--709
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--721
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_pot-_s
-vg-tex.pdf' is 1 on input line 714.
+vg-tex.pdf' is 1 on input line 726.
 (./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf, id=5669, page=1, pa
+<./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf, id=5677, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2109,7 +2105,7 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--715
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--727
  [][] 
  []
 
@@ -2123,12 +2119,12 @@ _tex' is newer than
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 720.
+(svg)                `inkscape=force' on input line 732.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_kin-_s
-vg-tex.pdf' is 1 on input line 720.
+vg-tex.pdf' is 1 on input line 732.
 (./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf, id=5671, page=1, pa
+<./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf, id=5679, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2138,14 +2134,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--721
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--733
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_Total-
-_svg-tex.pdf' is 1 on input line 726.
+_svg-tex.pdf' is 1 on input line 738.
 (./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf, id=5673, page=1, 
+<./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf, id=5681, page=1, 
 pagebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -2155,11 +2151,11 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--727
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--739
  [][] 
  []
 
-[20 <./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscap
+[21 <./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscap
 e/potential-g-10-conv1d-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-10-conv1d-epoch-40-_s
@@ -2177,9 +2173,9 @@ SS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a si
 ngle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-20-_svg-tex
-.pdf' is 1 on input line 740.
+.pdf' is 1 on input line 752.
  (./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf, id=6097, page=1, pagebox=
+<./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf, id=6105, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2189,14 +2185,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--741
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--753
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-40-_svg-tex
-.pdf' is 1 on input line 746.
+.pdf' is 1 on input line 758.
 (./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf, id=6099, page=1, pagebox=
+<./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf, id=6107, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2206,14 +2202,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--747
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--759
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-_svg-tex
-.pdf' is 1 on input line 752.
+.pdf' is 1 on input line 764.
 (./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf, id=6101, page=1, pagebox=
+<./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf, id=6109, page=1, pagebox=
 cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2223,14 +2219,14 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--753
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--765
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-LOSS-_sv
-g-tex.pdf' is 1 on input line 758.
+g-tex.pdf' is 1 on input line 770.
 (./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf, id=6103, page=1, pag
+<./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf, id=6111, page=1, pag
 ebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -2240,11 +2236,11 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--759
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--771
  [][] 
  []
 
-[21 <./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape
+[22 <./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape
 /potential-g-10-epoch-60-E_pot-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-10-epoch-60-E_pot-_sv
@@ -2271,12 +2267,12 @@ f' it's supposed that
 (svg)                overwriting of this file, the Inkscape export
 (svg)                won't be done. If you want to overwrite the
 (svg)                existing file please choose the parameter
-(svg)                `inkscape=force' on input line 771.
+(svg)                `inkscape=force' on input line 783.
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-20-_
-svg-tex.pdf' is 1 on input line 771.
+svg-tex.pdf' is 1 on input line 783.
 (./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=6769, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=6777, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2286,14 +2282,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--772
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--784
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-40-_
-svg-tex.pdf' is 1 on input line 777.
+svg-tex.pdf' is 1 on input line 789.
 (./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=6771, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=6779, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2303,14 +2299,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--778
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--790
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-_
-svg-tex.pdf' is 1 on input line 783.
+svg-tex.pdf' is 1 on input line 795.
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=6773, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=6781, page=1, p
 agebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2320,14 +2316,14 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--784
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--796
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-L
-OSS-_svg-tex.pdf' is 1 on input line 789.
+OSS-_svg-tex.pdf' is 1 on input line 801.
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=6775, page
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=6783, page
 =1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic f
 ile (type pdf)
@@ -2337,11 +2333,11 @@ g-tex.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--790
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--802
  [][] 
  []
 
-[22 <./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf> <./svg-inkscape/poten
+[23 <./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf> <./svg-inkscape/poten
 tial-g-20-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-20-epoch-40-_svg-tex.
@@ -2357,9 +2353,9 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg
 ge
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_int-_s
-vg-tex.pdf' is 1 on input line 801.
+vg-tex.pdf' is 1 on input line 813.
  (./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=7151, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=7159, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2369,14 +2365,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--802
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--814
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_pot-_s
-vg-tex.pdf' is 1 on input line 807.
+vg-tex.pdf' is 1 on input line 819.
 (./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=7153, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=7161, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2386,14 +2382,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--808
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--820
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_kin-_s
-vg-tex.pdf' is 1 on input line 813.
+vg-tex.pdf' is 1 on input line 825.
 (./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=7155, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=7163, page=1, pa
 gebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2403,14 +2399,14 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--814
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--826
  [][] 
  []
 
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_Total-
-_svg-tex.pdf' is 1 on input line 819.
+_svg-tex.pdf' is 1 on input line 831.
 (./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=7157, page=1, 
+<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=7165, page=1, 
 pagebox=cropbox, 462.52798pt x 346.89601pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -2420,11 +2416,11 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71628pt on input lin
 e 52.
 )
-Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--820
+Overfull \hbox (41.96907pt too wide) in paragraph at lines 53--832
  [][] 
  []
 
-[23 <./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscap
+[24 <./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscap
 e/potential-g-20-conv1d-epoch-40-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-20-conv1d-epoch-40-_s
@@ -2443,220 +2439,220 @@ ngle page
 >]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\begingroup' on input line 826.
+(hyperref)                removing `\begingroup' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<let>-command' on input line 826.
+(hyperref)                removing `\<let>-command' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@nomath' on input line 826.
+(hyperref)                removing `\@nomath' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\begingroup' on input line 826.
+(hyperref)                removing `\begingroup' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\setbox' on input line 826.
+(hyperref)                removing `\setbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\thinmuskip' on input line 826.
+(hyperref)                removing `\thinmuskip' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\medmuskip' on input line 826.
+(hyperref)                removing `\medmuskip' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\m@ne' on input line 826.
+(hyperref)                removing `\m@ne' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\thickmuskip' on input line 826.
+(hyperref)                removing `\thickmuskip' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ne' on input line 826.
+(hyperref)                removing `\@ne' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\setbox' on input line 826.
+(hyperref)                removing `\setbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\tw@' on input line 826.
+(hyperref)                removing `\tw@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 826.
+(hyperref)                removing `\<def>-command' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@tempa' on input line 826.
+(hyperref)                removing `\@tempa' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchoice' on input line 826.
+(hyperref)                removing `\mathchoice' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\displaystyle' on input line 826.
+(hyperref)                removing `\displaystyle' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\textstyle' on input line 826.
+(hyperref)                removing `\textstyle' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\scriptstyle' on input line 826.
+(hyperref)                removing `\scriptstyle' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 826.
+(hyperref)                removing `\hbox' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 826.
+(hyperref)                removing `\mathsurround' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 826.
+(hyperref)                removing `\z@' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\scriptscriptstyle' on input line 826.
+(hyperref)                removing `\scriptscriptstyle' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\endgroup' on input line 826.
+(hyperref)                removing `\endgroup' on input line 838.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 826.
+(hyperref)                removing `math shift' on input line 838.
 
 Package svg Info: Last page of `./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epo
-ch-30-_svg-tex.pdf' is 1 on input line 832.
+ch-30-_svg-tex.pdf' is 1 on input line 844.
 (./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=7499, pa
+<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=7507, pa
 ge=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graphic
  file (type pdf)
@@ -2668,10 +2664,10 @@ Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/various-pot_dens-g-VARY-conv1d-e
-poch-30-_svg-tex.pdf' is 1 on input line 839.
+poch-30-_svg-tex.pdf' is 1 on input line 851.
 
 (./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=7501, 
+<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=7509, 
 page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graph
 ic file (type pdf)
@@ -2682,7 +2678,7 @@ Package pdftex.def Info: ./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
 )
-[24 <./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape
+[25 <./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape
 /potential-g-20-epoch-60-E_pot-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-20-epoch-60-E_pot-_sv
@@ -2705,11 +2701,11 @@ h-30-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a
 single page
 >]
 Package svg Info: Last page of `./svg-inkscape/various-shift-pot_dens-g-VARY-co
-nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 846.
+nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 858.
 
 (./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
 <./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=
-8220, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
+8229, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
  Graphic file (type pdf)
 <use ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf,
@@ -2718,18 +2714,18 @@ Package pdftex.def Info: ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-ep
 och-30-_svg-tex.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 227.62204pt x 170.71231pt on input lin
 e 52.
-) [25 <./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf> <./
+) [26 <./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf> <./
 svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/various-shift-pot_dens-g-VARY-con
 v1d-epoch-30-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group includ
 ed in a single page
 >]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 855.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 855.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 867.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 867.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 855.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 855.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 867.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 867.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 14E1F33ABDEDA3121035C1A45A767D6A;1024.
 
@@ -2738,10 +2734,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 12228 strings out of 492985
- 237268 string characters out of 6138637
- 355954 words of memory out of 5000000
- 15250 multiletter control sequences out of 15000+600000
+ 12233 strings out of 492985
+ 237344 string characters out of 6138637
+ 356092 words of memory out of 5000000
+ 15252 multiletter control sequences out of 15000+600000
  12170 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,10n,52p,851b,606s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2756,10 +2752,10 @@ pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 ></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (25 pages, 13254881 bytes).
+Output written on report.pdf (26 pages, 13257299 bytes).
 PDF statistics:
- 8477 PDF objects out of 8907 (max. 8388607)
- 5518 compressed objects within 56 object streams
- 86 named destinations out of 1000 (max. 500000)
+ 8485 PDF objects out of 8907 (max. 8388607)
+ 5525 compressed objects within 56 object streams
+ 89 named destinations out of 1000 (max. 500000)
  823 words of extra memory for PDF output out of 10000 (max. 10000000)
 

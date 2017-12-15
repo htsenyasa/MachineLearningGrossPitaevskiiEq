@@ -161,39 +161,51 @@ There is no general analytical solution of GPE for harmonic trapping potential e
 
 \subsection{Numerical Solution and XMDS Framework}
 
-Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time equation is solved with numerical techniques or approximations. In this study, we used a framework called XMDS, implemented specifically to solve differential equation systems with well optimized numerical methods. It uses XML a markup language to take information about equation system. When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
+Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time equation is solved with numerical techniques or approximations. In this study, we used a framework called XMDS, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
 
-Cross-check of the framework has done in two ways. First, there exists an analytical solution for $g = 0$ and we also used the program here \textbf{REF}, and compared few results for situation which analytical solution does not exist.  
-
+Cross-check of the framework has done in two ways. First, since there exists an analytical solution for $g = 0$, we compared the results of the XMDS with analytical ones and we also used the program here \textbf{REF}, and compared few results for situation which analytical solution does not exist.  
 
 
 \section{Problem Statements and Dataset Generation}
 
-GPE can be solved with briefly described methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters. For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network. \textbf{REF}. Here \textbf{REF}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
+GPE can be solved with stated methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters. For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network. \textbf{REF}. Here \textbf{REF}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
 
-We try to built a neural network to predict ground state energy of a BEC for a given harmonic trapping potential and interaction parameter. We also try inverse problem which is prediction of interaction parameter for a given potential and density function. 
+We try to built a artificial neural network to predict ground state energy of a BEC for a given harmonic trapping potential and interaction parameter. We also try inverse problem which is prediction of interaction parameter for a given potential and density function. 
 
-
-An artificial neural network is made of layers and these layers contains simple units called neurons. These neurons can be thought as primitive version of the neurons in the human brain. A neuron takes one or more input and generates an output. To do this, it uses its internal variables which are called weight and bias. In general, number of weights in a neuron is equal to the input size of the neuron. Input output relation of a neuron can be described with the following way. 
-
-Let $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ be input of the neuron and $f$ be the function that describes behavior of the neuron. 
+An artificial neural network is made of layers and these layers contains simple units called neurons. These neurons can be thought as primitive version of the neurons in the human brain. A neuron takes one or more input and generates an output. To do this, it uses its internal variables which are called weight and bias. In general, number of weights in a neuron is equal to the input size of the neuron and there is only one bias value per neuron. There is no restriction to range of weights and biases except computational, they can even take complex values {\textbf{REF}}. Input output relation of a neuron can be described with the following way; let $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ be input of the neuron and $f$ be the function that describes behavior of the neuron. 
 
 \begin{equation}
 \label{eq:NU_neuron}
 f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n x_i\omega_i + b
 \end{equation}
 
-Here, $\omega_i$ is weight and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. 
+Here, $\omega_i$ is weight and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. Notice that, the range of the function $f$ is infinite. There are various ways to interpret result of function $f$. The most primitive version of interpretation is sending the result of $f$ as a argument to unit step function. In this case, 
 
-If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, then, connection between two neuron will be;
+\begin{equation}
+\label{eq:NU_step_function}
+a = u_1(f(\boldsymbol{x}, \boldsymbol{\omega}, b))
+\end{equation}
+
+where $a$ is called as activation value of neuron and $u_1$ is the activation function. However, usage of the step function makes the network discontinuous and does not allow to use differentiation methods to calculate behavior of the neurons when a small change in weights or biases is applied. One of the most common activation function is sigma function and it is defined as,
+
+\begin{equation}
+\label{eq:NU_sigma_function}
+\sigma(f) = \frac{1}{1 + e^{-f}}
+\end{equation}
+
+If a neuron defined with this way such that its output given by Eq.~\ref{eq:NU_sigma_function}, then it is called as sigmoid neuron. In former case which is step function, then, the neuron is called as perceptron.
+
+If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, then, connection between two neuron in sequential layers will be;
 
 \begin{equation}
 \label{eq:NU_neuron_connection}
-f_s^{l+1}(f_j^{l}(\boldsymbol{x}, \boldsymbol{\omega}, b), \boldsymbol{\omega}, b) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
+f_s^{l+1}(\sigma(f_j^{l}(\boldsymbol{x}, \boldsymbol{\omega}, b)), \boldsymbol{\omega}, b) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
 \end{equation}
 \textbf{Eq requires correction}
 
-Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of a neuron in next layer. Such a networks are called Fully Connected Networks. \textbf{REF}. If result of one layer directly is sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network. \textbf{REF}
+Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$.  
+
+Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks. \textbf{REF}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network. \textbf{REF}
 
 We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function. \textbf{REF}. There are many cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show general mechanism and to introduce few notions that directly effects the behavior of the network. 
 
