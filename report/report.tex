@@ -56,14 +56,14 @@ g=\frac{4\pi\hbar^2a_s}{m}
 
 where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive. \textbf{REF}. 
 
-In general, potential $V$ is harmonic trapping potential which does not depend on time \textbf{REF}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given by,
+In general, potential $V$ is time independent harmonic trapping potential \textbf{REF}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given as,
 \begin{equation}
 \label{eq:GPE_harmonic_potential}
 V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \end{equation}
 
 
-where $\omega$ is angular frequency. Then separation of variables can be applied and it can be obtained that there is stationary solution. In this case, wave function becomes,
+where $\omega$ is angular frequency. Then separation of variables can be applied and it can be obtained that there is a solution in stationary form. In this case factorized wave function is,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func}
@@ -88,7 +88,7 @@ BEC system can also be studied in one dimension such that making angular frequen
 
 \begin{equation}
 \label{eq:GPE_1D}
-\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + g^{\prime}|\psi_z|^2\psi_z + \frac{1}{2}m\omega_z^2 z^2\psi_z
+\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + \frac{1}{2}m\omega_z^2 z^2\psi_z + g^{\prime}|\psi_z|^2\psi_z 
 \end{equation}
 
 where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potential and interaction strength respectively and they are given as,
@@ -99,18 +99,71 @@ where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potenti
 \end{equation}
 
 
-\subsection{Types of Potentials}
+\textbf{Dimensionless GPE}\\
 
-There are different trapping potentials used in BEC systems but harmonic trapping potential is common as it is stated.
+It is convenient to work with dimensionless quantities, to make equation dimensionless one can define $z = a_0\widetilde{z}$. In this case Eq.~\ref{eq:GPE_1D} becomes,
+
+\begin{equation}
+\label{eq:GPE_dimensionless_length}
+\mu\psi = \frac{-\hbar^2}{2ma_0^2}\frac{d^2\psi}{d\widetilde{z}^2} + \frac{1}{2}m\omega^2 a_0^2 \widetilde{z}^2\psi + g|\psi|^2\psi
+\end{equation}
+
+(Here we omit scripts). After that, setting $\hbar\omega = {\hbar^2}/{m a_0^2}$, and plugging $a_0^2$ in to the Eq.~\ref{eq:GPE_dimensionless_length},
+
+\begin{equation}
+\label{eq:GPE_dimensionless_energy}
+\mu\psi = -\frac{1}{2}m\omega^2\frac{d^2\psi}{d\widetilde{z}^2} + \frac{\hbar^2}{2m}\widetilde{z}^2\psi + g|\psi|^2\psi
+\end{equation}
+
+If we divide Eq.~\ref{eq:GPE_dimensionless_energy} to $\hbar\omega$ and define $\widetilde{\mu} = \mu/\hbar\omega$,
+
+\begin{equation}
+\label{eq:GPE_dimensionless_without_g}
+\widetilde{\mu} \psi = -\frac{1}{2\sqrt{a_0}}\frac{d^2\psi}{d\widetilde{z}^2} + \frac{1}{2\sqrt{a_0}}\widetilde{z}^2\psi + \frac{g|\psi|^2\psi}{\hbar\omega}
+\end{equation}
+
+From normalization condition,
+
+\begin{equation}
+\int |\psi|^2dz = \int |\psi|^2 a_0 d\widetilde{z} = N
+\end{equation}
+
+we can define $\widetilde{\psi} = ({\sqrt{a_0}}/{\sqrt{N}})\psi$. The third term on the right in Eq.~\ref{eq:GPE_dimensionless_without_g} becomes,
+
+\begin{equation}
+\label{eq:GPE_dimensionless_g_1}
+\frac{g|\psi|^2}{\hbar\omega} = \frac{g a_0}{N\hbar\omega}|\widetilde{\psi}|^2 
+\end{equation}
+
+Finally defining,
+
+\begin{equation}
+\label{eq:GPE_dimensionless_g_2}
+\frac{g a_0}{N\hbar\omega_z} = \widetilde{g}
+\end{equation}
+
+dimensionless GPE can be written as,
+
+\begin{equation}
+\label{eq:GPE_dimensionless}
+\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \frac{1}{2}\widetilde{z}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi}
+\end{equation}
+
+
+
+\subsection{Types of Potentials}
 
 
 \subsection{Analytical Solution and Approximation}
 
-There is no general analytical solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solutios is well known.
+There is no general analytical solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solution is well known.
 
 
 \subsection{Numerical Solution and XMDS Framework}
 
+Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time equation is solved with numerical techniques or approximations. In this study, we used a framework called XMDS, implemented specifically to solve differential equation systems with well optimized numerical methods. It uses XML a markup language to take information about equation system. When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
+
+Cross-check of the framework has done in two ways. First, there exists an analytical solution for $g = 0$ and we also used the program here \textbf{REF}, and compared few results for situation which analytical solution does not exist.  
 
 
 
@@ -296,6 +349,11 @@ In conclusion, we chose learning rate $\eta$ as 0.001 and started to training pr
 
 We give the result of total energy predictions per 20 epoch for both FFN and CNN also to show that how predictions change. Separate energy predictions are given directly. In inverse problem three different scenarios are presented. All trainings are done with same program and architectures are identical only the training and test datasets are changed. 
 
+
+
+
+
+
 \subsubsection{Non-interacting System}
 
 In non-interacting systems, GPE reduces to SE which does not involve non-linear term. 
@@ -304,22 +362,28 @@ In non-interacting systems, GPE reduces to SE which does not involve non-linear 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
-		\centering
-        \includesvg[width=8cm]{potential-g-0-epoch-20-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+		%\centering
+        \includesvg[width=\linewidth]{potential-g-0-epoch-20-}
+        %\caption{FNN[128, 30, 30, 10, 1]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
-		\centering
-        \includesvg[width=8cm]{potential-g-0-epoch-40-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+		%\centering
+        \includesvg[width=\linewidth]{potential-g-0-epoch-40-}
+        %\caption{FNN[128, 30, 30, 10, 1]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includesvg[width=8cm]{potential-g-0-epoch-60-}
-        \caption{FNN[128, 40, 40, 1]}
+        %\centering
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-}
+        %\caption{FNN[128, 40, 40, 1]}
 		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        %\centering
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-LOSS-}
+        %\caption{FNN[128, 40, 40, 1]}
+		\label{fig:d}
     \end{subfigure}
     \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.}
 \label{fig:FFN-g-0}
@@ -344,6 +408,12 @@ In non-interacting systems, GPE reduces to SE which does not involve non-linear 
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=8cm]{potential-g-0-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -404,6 +474,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
         \includesvg[width=8cm]{potential-g-0_1-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-epoch-60-LOSS-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
     \end{subfigure}
 	\caption{In first 20 epoch (a), there are relatively higher deviations in lower energies. In (b), deviations become smaller but still visible. In (c), prediction line is smoother but still deviations remains in lowest energy levels.}
 \end{figure}
@@ -426,6 +502,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -484,6 +566,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
         \includesvg[width=8cm]{potential-g-1-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-epoch-60-LOSS-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
     \end{subfigure}
 	\caption{g = 1}
 \end{figure}
@@ -507,6 +595,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=8cm]{potential-g-1-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -565,6 +659,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
         \includesvg[width=8cm]{potential-g-10-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-epoch-60-LOSS-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
     \end{subfigure}
 	\caption{g = 10}
 \end{figure}
@@ -588,6 +688,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=8cm]{potential-g-10-conv1d-epoch-60-}
+        \caption{Conv1D}
+		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -646,6 +752,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
         \includesvg[width=8cm]{potential-g-20-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-epoch-60-LOSS-}
+        \caption{FNN[128, 30, 30, 10, 4]}
+		\label{fig:c}
     \end{subfigure}
 	\caption{g = 20}
 \end{figure}
@@ -671,6 +783,12 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
         \includesvg[width=8cm]{potential-g-20-conv1d-epoch-60-}
         \caption{Conv1D}
 		\label{fig:c}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-60-LOSS-}
+        \caption{Conv1D}
+		\label{fig:d}
     \end{subfigure}
 	\caption{g = 20}
 \end{figure}
