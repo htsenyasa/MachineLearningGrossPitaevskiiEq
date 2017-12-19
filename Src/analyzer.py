@@ -66,6 +66,7 @@ class analyzer(object):
     def display_plot2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
         err = []
+
         for i in range(len(features)):
             err.append(self.testdataset[:,i] - self.predicted[:,i])
             fig, ax1 = plt.subplots(num=features[i])
@@ -82,7 +83,7 @@ class analyzer(object):
             props = dict(boxstyle='square', facecolor='white', alpha=0.5)
             textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error[i])), self.training_len, self.cur_epoch, self.batch_size)
             ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
-            inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
+            inset.hist(err[i], range=[-np.amax(np.abs(err[i])), np.amax(np.abs(err[i]))], bins=20)
             inset.set_title("Error")
 
             if file_name != None:
@@ -91,6 +92,9 @@ class analyzer(object):
 
         if file_name == None:
             plt.show()
+            plt.clf()
+
+
 
 
 
