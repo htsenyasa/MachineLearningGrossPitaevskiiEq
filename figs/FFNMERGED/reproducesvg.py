@@ -35,6 +35,6 @@ files.sort()
 
 for file in files:
     info = an.load_info(file + ".inf")
-    #info.display_plot2(file)
-    if(file.find("epoch-60") != -1):
-        plot_loss(info, file)
+    info.display_plot2()
+#    if(file.find("epoch-60") != -1):
+#        plot_loss(info, file)
