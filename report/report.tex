@@ -256,7 +256,7 @@ where $\eta$ is positive definite number and it is called as learning rate. Sinc
 
 \subsection{Dataset and Dataset Generation}
 
-As mentioned, we solved GPE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test if otherwise is specified. An element of a dataset involves an array containing potential values respect to the position and an another array containing interaction, kinetic, potential and total energy values respectively. (Representation of the energy values may vary, because we first tried to predict total energy values. In this case, the array containing all types of energy values only involves total energy.)
+As mentioned, we solved GPE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test if otherwise is specified. An element of a dataset involves an array containing potential values respect to the position and an another array containing interaction, kinetic, potential and total energy values respectively. (Representation of the energy values may vary, because we first tried to predict total energy values. In this case, the array containing all types of energy values only involves total energy).
 
 \textbf{TABLE of parameters}
 
@@ -288,13 +288,12 @@ As mentioned, we solved GPE for four different interaction parameters, therefore
         \caption{g = 10}
 		\label{fig:d}
     \end{subfigure}
-    \caption{}
+    \caption{Here histograms represents total energy distributions for different interaction parameter values.}
 \label{fig:energy_dist}
 \end{figure}
 
 
-The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity.
-
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity. In both angular frequency and shift, we used uniformly generated random numbers. Total energy distribution is given in Fig~\ref{fig:energy_dist}. Another type distribution is not required in our problem since the potential type is fixed but there are examples such as here \textbf{REF}, which different distribution is used.
 
 \section{Machine Learning for NLSE}
 
@@ -321,13 +320,13 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
-            \includesvg[width=8cm]{{"fourlayer-g0-lr0_003-800"}}
+            \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_003-800"}}
             \caption{FNN[128, 40, 40, 1], $\eta$ = 0.003}
             \label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
-             \includesvg[width=8cm]{{"fourlayer-g0-lr0_001-800"}}
+             \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_001-800"}}
             \caption{FNN[128, 40, 40, 1], $\eta$ = 0.001}
             \label{fig:b}
     \end{subfigure}
@@ -339,13 +338,13 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
-            \includesvg[width=8cm]{{"fourlayer-g10-lr0_003-800"}}
+            \includesvg[width=\linewidth]{{"fourlayer-g10-lr0_003-800"}}
             \caption{FNN[128, 40, 40, 1], lr = 0.003}
             \label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
-             \includesvg[width=8cm]{{"fourlayer-g10-lr0_001-800"}}
+             \includesvg[width=\linewidth]{{"fourlayer-g10-lr0_001-800"}}
             \caption{FNN[128, 40, 40, 1], lr = 0.001}
             \label{fig:b}
     \end{subfigure}
@@ -358,13 +357,13 @@ After determination of learning rate we added extra one hidden layer to the netw
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
-            \includesvg[width=8cm]{fivelayer-g10-800}
+            \includesvg[width=\linewidth]{fivelayer-g10-800}
             \caption{FNN[128, 30, 30, 10, 1]}
             \label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
-             \includesvg[width=8cm]{fourlayer-g10-800}
+             \includesvg[width=\linewidth]{fourlayer-g10-800}
             \caption{FNN[128, 40, 40, 1]}
             \label{fig:b}
     \end{subfigure}
@@ -376,13 +375,13 @@ After determination of learning rate we added extra one hidden layer to the netw
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{fivelayer-g10-3500}
+        \includesvg[width=\linewidth]{fivelayer-g10-3500}
         \caption{FNN[128, 30, 30, 10, 1]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{fourlayer-g10-3500}
+        \includesvg[width=\linewidth]{fourlayer-g10-3500}
         \caption{FNN[128, 40, 40, 1]}
 		\label{fig:b}
     \end{subfigure}
@@ -394,12 +393,7 @@ In conclusion, we chose learning rate $\eta$ as 0.001 and started to training pr
 
 \subsection{Training Results}
 
-We give the result of total energy predictions per 20 epoch for both FFN and CNN also to show that how predictions change. Separate energy predictions are given directly. In inverse problem three different scenarios are presented. All trainings are done with same program and architectures are identical only the training and test datasets are changed. 
-
-
-
-
-
+We give the result of total energy predictions per 20 epochs for both FFN and CNN also to show that how predictions change. Separate energy predictions are given directly. In inverse problem three different scenarios are presented. All trainings are done with same program and the architectures are identical, only the training and test datasets are changed. 
 
 \subsubsection{Non-interacting System}
 
@@ -411,30 +405,32 @@ In non-interacting systems, GPE reduces to SE which does not involve non-linear 
     \begin{subfigure}[t]{0.45\textwidth}
 		%\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-20-}
-        %\caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		%\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-40-}
-        %\caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         %\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-}
-        %\caption{FNN[128, 40, 40, 1]}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         %\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-LOSS-}
-        %\caption{FNN[128, 40, 40, 1]}
+        \caption{Loss}
 		\label{fig:d}
     \end{subfigure}
-    \caption{Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In (a) it is obvious network requires more training example and it reaches a satisfactory level in (b). After that, supplying 20 more epochs nearly does not effect the prediction accuracy.}
+    \caption{In figures, $x$ axis represents true dimensionless total energy values, and $y$ is predicted energy by trained network.}
 \label{fig:FFN-g-0}
 \end{figure}
+
+Since the system has no interaction parameter, problem is relatively easy when it is compared to systems that involve interaction. In Fig.~\ref{fig:FFN-g-0}(a) it is obvious network requires more training example and it reaches a satisfactory level in Fig.~\ref{fig:FFN-g-0}(b). Supplying another 20 more epochs nearly does not effect the prediction accuracy.
 
 
 \svgpath{path = {"../figs/CNN/"}}
@@ -442,55 +438,61 @@ In non-interacting systems, GPE reduces to SE which does not involve non-linear 
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-20-}
-        \caption{Conv1D}
+        \includesvg[width=\linewidth]{potential-g-0-conv1d-epoch-20-}
+        \caption{Epoch = 20}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-40-}
-        \caption{Conv1D}
+        \includesvg[width=\linewidth]{potential-g-0-conv1d-epoch-40-}
+        \caption{Epoch = 40}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-60-}
-        \caption{Conv1D}
-		\label{fig:c}
-    \end{subfigure}\hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includesvg[width=8cm]{potential-g-0-conv1d-epoch-60-LOSS-}
-        \caption{Conv1D}
+        \includesvg[width=\linewidth]{potential-g-0-conv1d-epoch-60-}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
-    \caption{Accuracy of the CNN is higher than FFN in first 20 epochs. In (a) there is no bias as in Fig.~\ref{fig:FFN-g-0}}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{potential-g-0-conv1d-epoch-60-LOSS-}
+        \caption{Loss}
+		\label{fig:c}
+    \end{subfigure}
+    \caption{CNN results. }
+\label{fig:CNN-g-0}
 \end{figure}
+
+The bias in Fig.~\ref{fig:FFN-g-0}(a) does not appear in Fig.~\ref{fig:CNN-g-0}(a). The reason why there is less or no bias in CNN predictions is because CNN's have the ability to handle translations in dataset. In our dataset, translation corresponds to shift of equilibrium point. 
+
+Accuracy of the CNN is higher than FFN in first 20 epochs. In (a) there is no bias as in Fig.~\ref{fig:FFN-g-0}
+
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0-epoch-60-E_int-}
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_int-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0-epoch-60-E_pot-}
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_pot-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0-epoch-60-E_kin-}
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_kin-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0-epoch-60-E_Total-}
+        \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_Total-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -506,25 +508,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-20-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-40-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-LOSS-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -536,25 +538,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-20-}
         \caption{Conv1D}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-40-}
         \caption{Conv1D}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-60-}
         \caption{Conv1D}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-conv1d-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -566,25 +568,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_int-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_int-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_pot-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_pot-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_kin-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_kin-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-0_1-epoch-60-E_Total-}
+        \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_Total-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -598,25 +600,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-20-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-40-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-LOSS-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -629,25 +631,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-20-}
         \caption{Conv1D}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-40-}
         \caption{Conv1D}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-60-}
         \caption{Conv1D}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-conv1d-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -659,25 +661,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-E_int-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_int-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-E_pot-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_pot-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-E_kin-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_kin-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-1-epoch-60-E_Total-}
+        \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_Total-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -691,25 +693,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-20-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-40-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-LOSS-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -722,25 +724,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-20-}
         \caption{Conv1D}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-40-}
         \caption{Conv1D}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-60-}
         \caption{Conv1D}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-conv1d-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
@@ -752,25 +754,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-E_int-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_int-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-E_pot-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_pot-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-E_kin-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_kin-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-10-epoch-60-E_Total-}
+        \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_Total-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -784,25 +786,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-20-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-40-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-LOSS-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -815,25 +817,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-20-}
+        \includesvg[width=\linewidth]{potential-g-20-conv1d-epoch-20-}
         \caption{Conv1D}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-40-}
+        \includesvg[width=\linewidth]{potential-g-20-conv1d-epoch-40-}
         \caption{Conv1D}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-60-}
+        \includesvg[width=\linewidth]{potential-g-20-conv1d-epoch-60-}
         \caption{Conv1D}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-conv1d-epoch-60-LOSS-}
+        \includesvg[width=\linewidth]{potential-g-20-conv1d-epoch-60-LOSS-}
         \caption{Conv1D}
 		\label{fig:d}
     \end{subfigure}
@@ -845,25 +847,25 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-E_int-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_int-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:a}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-E_pot-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_pot-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:b}
-    \end{subfigure}\hfill    
+    \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-E_kin-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_kin-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
-    \end{subfigure}\hfill
+    \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=8cm]{potential-g-20-epoch-60-E_Total-}
+        \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_Total-}
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
@@ -876,21 +878,21 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
 \svgpath{path = {"../figs/CNNgPrediction/"}}
 \begin{figure}[H]
     \centering
-    \includesvg[width=8cm]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
+    \includesvg[width=\linewidth]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
     \caption{Fixed potential and shift}
 	\label{fig:a}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includesvg[width=8cm]{various-pot_dens-g-VARY-conv1d-epoch-30-}
+    \includesvg[width=\linewidth]{various-pot_dens-g-VARY-conv1d-epoch-30-}
     \caption{Various potential and fixed shift}
 	\label{fig:a}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includesvg[width=8cm]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
+    \includesvg[width=\linewidth]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
     \caption{Various potential and shift}
 	\label{fig:a}
 \end{figure}

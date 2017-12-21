@@ -65,7 +65,7 @@ class analyzer(object):
     def display_plot(self, file_name = None):
 
         err = self.testdataset - self.predicted
-        relative_err = ((self.testdataset - self.predicted) / sum(self.testdataset)) * 100
+        relative_err = ((self.testdataset - self.predicted) / (self.testdataset)) * 100
         fig, ax1 = plt.subplots()
         left, bottom, width, height = [0.65, 0.20, .2, .2]
         inset = fig.add_axes([left, bottom, width, height])
@@ -76,7 +76,7 @@ class analyzer(object):
         ax1.set_title("FNN{}".format(self.arch))
         ax1.set_xlabel("Real $\\mu$", fontsize = 18)
         ax1.set_ylabel("Predicted", fontsize = 18)
-        ax1.tick_params(labelsize = 12)
+        ax1.tick_params(labelsize = 16)
         ax1.legend()
         ax1.grid()
         props = dict(boxstyle='square', facecolor='white', alpha=0.5)
