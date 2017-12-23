@@ -48,7 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.75)%
+  \begin{picture}(1,0.75044596)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{potential-g-10-epoch-40-_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%

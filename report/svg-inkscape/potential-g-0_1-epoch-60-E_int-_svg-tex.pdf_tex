@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{460.79999236bp}%
+    \setlength{\unitlength}{497.09561676bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,7 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.75)%
+  \begin{picture}(1,0.71599328)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{potential-g-0_1-epoch-60-E_int-_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%
