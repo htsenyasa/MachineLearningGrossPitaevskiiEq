@@ -694,6 +694,7 @@ Even the loss of the CNN decreases slower than FNN Fig.~\ref{fig:FNN-g-1}(d) and
 		\label{fig:c}
     \end{subfigure}
 	\caption{FNN[128, 30, 30, 10, 4], Separate energy predictions for $g = 1$.}
+\label{fig:FFN-g-1-S}
 \end{figure}
 
 This is the worst case in our training results. In first sight, it can be thought that a proper normalization may reduce the error and increase the accuracy but the difference between energy values are not as higher as in the case $g = 0.1$, so the problem is not due to normalization. Here, contribution of interaction parameter to Eq.~\ref{eq:GPE_dimensionless} is in same order with other terms. So, it can be said that the degree of freedom of the network is not enough to handle such a situation.
@@ -731,7 +732,7 @@ This is the worst case in our training results. In first sight, it can be though
 \label{fig:FFN-g-10}
 \end{figure}
 
-In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies as in before results.
+In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies as in previous results. Loss of the network decreases rapidly but order of it greater than the case of which $g = 1$
 
 
 \svgpath{path = {"../figs/CNN/"}}
@@ -761,8 +762,11 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
-	\caption{g = 10}
+	\caption{CNN results for $g = 10$}
+\label{fig:CNN-g-10}
 \end{figure}
+
+Accuracy and precision of the CNN are greater than FFN's, both relative error and MSE are smaller than FNN predictions. Also unlike FFN, there is no bias in first 20 epochs. Another important subject is that last 20 epochs increases MSE but reduces relative error slightly. 
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
@@ -792,7 +796,11 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
 		\label{fig:c}
     \end{subfigure}
 	\caption{Separate prediction  g=10}
+\label{fig:FFN-g-10-S}
 \end{figure}
+
+Result of separate energy prediction for $g=10$ is not poor as $g = 1$. This also shows that dominance of a term in the equation directly affects the prediction. 
+
 
 \textbf{G = 20}
 
@@ -802,30 +810,32 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-20-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-40-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-LOSS-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{g = 20}
+	\caption{FFN[128, 30, 30, 10, 1] predictions for g = 20}
+\label{fig:FFN-g-20}
 \end{figure}
 
+In Fig.~\ref{fig:FFN-g-20}(d), the network goes into saturation before 10 epochs. This shows that how the arrangement of the dataset and initialization of the network affects the predictions. A shuffling  on both dataset and network initialization may produce different loss graph. 
 
 \svgpath{path = {"../figs/CNN/"}}
 \begin{figure}[H]
@@ -854,8 +864,11 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
         \caption{Conv1D}
 		\label{fig:d}
     \end{subfigure}
-	\caption{g = 20}
+	\caption{CNN predictions for $g = 20$}
+\label{fig:CNN-g-20}
 \end{figure}
+
+Unbiased predictions in first 20 epochs becomes biased after 40 epochs. It is because of energy distribution in the dataset. The number of examples at higher energies is greater than number of lowers. 
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
@@ -885,7 +898,10 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
 		\label{fig:c}
     \end{subfigure}
 	\caption{Separate prediction  g=20}
+\label{fig:FFN-g-20-S}
 \end{figure}
+
+The problem in Fig.~\ref{fig:FFN-g-20-S}(c) is same as in the case $g = 0.1$ which is shown in Fig.~\ref{fig:FFN-g-0.1-S}(a). The order of kinetic energy is  lower than other energies. 
 
 \subsubsection{Inverse Problem Prediction of $\boldsymbol{g}$}
 

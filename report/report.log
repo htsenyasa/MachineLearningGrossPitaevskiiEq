@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  23 DEC 2017 17:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  23 DEC 2017 18:54
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1233,19 +1233,6 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 425.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFN/potential-g-0-epoc
-h-60-LOSS-.svg" --export-pdf="potential-g-0-epoch-60-LOSS-_svg-tex.pdf" )...exe
-cuted.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/potenti
-al-g-0-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inkscape/pot
-ential-g-0-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-LOSS-_svg
 -tex.pdf' is 1 on input line 425.
 
@@ -1302,19 +1289,6 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 459.
-runsystem(inkscape -z -D --export-latex  --file="../figs/CNN/potential-g-0-conv
-1d-epoch-60-LOSS-.svg" --export-pdf="potential-g-0-conv1d-epoch-60-LOSS-_svg-te
-x.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/
-potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inksc
-ape/potential-g-0-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-conv1d-epoch-60-LO
 SS-_svg-tex.pdf' is 1 on input line 459.
 
@@ -1455,19 +1429,6 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf ,
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 528.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFN/potential-g-0_1-ep
-och-60-LOSS-.svg" --export-pdf="potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf" )..
-.executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-0_1-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-0_1-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_s
 vg-tex.pdf' is 1 on input line 528.
 
@@ -1539,19 +1500,6 @@ x.pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 561.
-runsystem(inkscape -z -D --export-latex  --file="../figs/CNN/potential-g-0_1-co
-nv1d-epoch-60-LOSS-.svg" --export-pdf="potential-g-0_1-conv1d-epoch-60-LOSS-_sv
-g-tex.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscap
-e/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-ink
-scape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-60-
 LOSS-_svg-tex.pdf' is 1 on input line 561.
 
@@ -1692,19 +1640,6 @@ age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 626.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFN/potential-g-1-epoc
-h-60-LOSS-.svg" --export-pdf="potential-g-1-epoch-60-LOSS-_svg-tex.pdf" )...exe
-cuted.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/potenti
-al-g-1-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inkscape/pot
-ential-g-1-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg
 -tex.pdf' is 1 on input line 626.
 
@@ -1776,19 +1711,6 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 659.
-runsystem(inkscape -z -D --export-latex  --file="../figs/CNN/potential-g-1-conv
-1d-epoch-60-LOSS-.svg" --export-pdf="potential-g-1-conv1d-epoch-60-LOSS-_svg-te
-x.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/
-potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inksc
-ape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-LO
 SS-_svg-tex.pdf' is 1 on input line 659.
 
@@ -1900,7 +1822,7 @@ S-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a sin
 gle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-20-_svg-tex
-.pdf' is 1 on input line 708.
+.pdf' is 1 on input line 709.
  (./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf, id=5463, page=1, pagebox=
 cropbox, 578.16pt x 433.87782pt>
@@ -1913,7 +1835,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-40-_svg-tex
-.pdf' is 1 on input line 714.
+.pdf' is 1 on input line 715.
 
 (./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf, id=5465, page=1, pagebox=
@@ -1927,7 +1849,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-_svg-tex
-.pdf' is 1 on input line 720.
+.pdf' is 1 on input line 721.
 
 (./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf, id=5467, page=1, pagebox=
@@ -1940,21 +1862,8 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 726.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFN/potential-g-10-epo
-ch-60-LOSS-.svg" --export-pdf="potential-g-10-epoch-60-LOSS-_svg-tex.pdf" )...e
-xecuted.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/potent
-ial-g-10-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inkscape/po
-tential-g-10-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-LOSS-_sv
-g-tex.pdf' is 1 on input line 726.
+g-tex.pdf' is 1 on input line 727.
 
 (./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf, id=5469, page=1, pag
@@ -1984,7 +1893,7 @@ vg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
 page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-20-_
-svg-tex.pdf' is 1 on input line 742.
+svg-tex.pdf' is 1 on input line 743.
  (./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf, id=5997, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
@@ -1997,7 +1906,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-40-_
-svg-tex.pdf' is 1 on input line 748.
+svg-tex.pdf' is 1 on input line 749.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf, id=5999, page=1, p
@@ -2011,7 +1920,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-_
-svg-tex.pdf' is 1 on input line 754.
+svg-tex.pdf' is 1 on input line 755.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf, id=6001, page=1, p
@@ -2024,21 +1933,8 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 760.
-runsystem(inkscape -z -D --export-latex  --file="../figs/CNN/potential-g-10-con
-v1d-epoch-60-LOSS-.svg" --export-pdf="potential-g-10-conv1d-epoch-60-LOSS-_svg-
-tex.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape
-/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inks
-cape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-L
-OSS-_svg-tex.pdf' is 1 on input line 760.
+OSS-_svg-tex.pdf' is 1 on input line 761.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=6003, page
@@ -2066,7 +1962,7 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg
 ge
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_int-_s
-vg-tex.pdf' is 1 on input line 772.
+vg-tex.pdf' is 1 on input line 776.
  (./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf, id=6494, page=1, pa
 gebox=cropbox, 464.4734pt x 357.2518pt>
@@ -2079,7 +1975,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 142.7946pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_pot-_s
-vg-tex.pdf' is 1 on input line 778.
+vg-tex.pdf' is 1 on input line 782.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf, id=6496, page=1, pa
@@ -2093,7 +1989,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 142.57144pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_kin-_s
-vg-tex.pdf' is 1 on input line 784.
+vg-tex.pdf' is 1 on input line 788.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf, id=6498, page=1, pa
@@ -2107,7 +2003,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.34944pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_Total-
-_svg-tex.pdf' is 1 on input line 790.
+_svg-tex.pdf' is 1 on input line 794.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf, id=6500, page=1, 
@@ -2137,7 +2033,7 @@ SS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a si
 ngle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-20-_svg-tex
-.pdf' is 1 on input line 804.
+.pdf' is 1 on input line 812.
  (./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf, id=6982, page=1, pagebox=
 cropbox, 578.16pt x 433.87782pt>
@@ -2150,7 +2046,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-40-_svg-tex
-.pdf' is 1 on input line 810.
+.pdf' is 1 on input line 818.
 
 (./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf, id=6984, page=1, pagebox=
@@ -2164,7 +2060,7 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-_svg-tex
-.pdf' is 1 on input line 816.
+.pdf' is 1 on input line 824.
 
 (./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf, id=6986, page=1, pagebox=
@@ -2177,21 +2073,8 @@ page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 822.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFN/potential-g-20-epo
-ch-60-LOSS-.svg" --export-pdf="potential-g-20-epoch-60-LOSS-_svg-tex.pdf" )...e
-xecuted.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape/potent
-ial-g-20-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inkscape/po
-tential-g-20-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-LOSS-_sv
-g-tex.pdf' is 1 on input line 822.
+g-tex.pdf' is 1 on input line 830.
 
 (./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf, id=6988, page=1, pag
@@ -2221,9 +2104,9 @@ svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
  page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-20-_
-svg-tex.pdf' is 1 on input line 835.
+svg-tex.pdf' is 1 on input line 845.
  (./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=7577, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=7578, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2234,10 +2117,10 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-40-_
-svg-tex.pdf' is 1 on input line 841.
+svg-tex.pdf' is 1 on input line 851.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=7579, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=7580, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2248,10 +2131,10 @@ Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-_
-svg-tex.pdf' is 1 on input line 847.
+svg-tex.pdf' is 1 on input line 857.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=7581, page=1, p
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=7582, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2261,24 +2144,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex
 Package pdftex.def Info: Requested size: 185.65297pt x 139.3204pt on input line
  52.
 )
-Package svg Info: Calling Inkscape on input line 853.
-runsystem(inkscape -z -D --export-latex  --file="../figs/CNN/potential-g-20-con
-v1d-epoch-60-LOSS-.svg" --export-pdf="potential-g-20-conv1d-epoch-60-LOSS-_svg-
-tex.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf" "./svg-inkscape
-/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex" "./svg-inks
-cape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-L
-OSS-_svg-tex.pdf' is 1 on input line 853.
+OSS-_svg-tex.pdf' is 1 on input line 863.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=7583, page
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=7584, page
 =1, pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic f
 ile (type pdf)
@@ -2303,9 +2173,9 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg
 ge
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_int-_s
-vg-tex.pdf' is 1 on input line 865.
+vg-tex.pdf' is 1 on input line 878.
  (./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=8071, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=8072, page=1, pa
 gebox=cropbox, 464.4734pt x 357.2518pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2316,10 +2186,10 @@ Package pdftex.def Info: Requested size: 185.65297pt x 142.7946pt on input line
  52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_pot-_s
-vg-tex.pdf' is 1 on input line 871.
+vg-tex.pdf' is 1 on input line 884.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=8073, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=8074, page=1, pa
 gebox=cropbox, 464.4734pt x 356.69347pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2330,10 +2200,10 @@ Package pdftex.def Info: Requested size: 185.65297pt x 142.57144pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_kin-_s
-vg-tex.pdf' is 1 on input line 877.
+vg-tex.pdf' is 1 on input line 890.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=8075, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=8076, page=1, pa
 gebox=cropbox, 487.4643pt x 357.2518pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2344,10 +2214,10 @@ Package pdftex.def Info: Requested size: 185.65297pt x 136.06235pt on input lin
 e 52.
 )
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_Total-
-_svg-tex.pdf' is 1 on input line 883.
+_svg-tex.pdf' is 1 on input line 896.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=8077, page=1, 
+<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=8078, page=1, 
 pagebox=cropbox, 464.4734pt x 357.2518pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -2375,220 +2245,220 @@ ngle page
 >]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\begingroup' on input line 890.
+(hyperref)                removing `\begingroup' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<let>-command' on input line 890.
+(hyperref)                removing `\<let>-command' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@nomath' on input line 890.
+(hyperref)                removing `\@nomath' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\begingroup' on input line 890.
+(hyperref)                removing `\begingroup' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\setbox' on input line 890.
+(hyperref)                removing `\setbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\thinmuskip' on input line 890.
+(hyperref)                removing `\thinmuskip' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\medmuskip' on input line 890.
+(hyperref)                removing `\medmuskip' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\m@ne' on input line 890.
+(hyperref)                removing `\m@ne' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\thickmuskip' on input line 890.
+(hyperref)                removing `\thickmuskip' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ne' on input line 890.
+(hyperref)                removing `\@ne' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\setbox' on input line 890.
+(hyperref)                removing `\setbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\tw@' on input line 890.
+(hyperref)                removing `\tw@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 890.
+(hyperref)                removing `\<def>-command' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@tempa' on input line 890.
+(hyperref)                removing `\@tempa' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchoice' on input line 890.
+(hyperref)                removing `\mathchoice' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\displaystyle' on input line 890.
+(hyperref)                removing `\displaystyle' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\textstyle' on input line 890.
+(hyperref)                removing `\textstyle' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\scriptstyle' on input line 890.
+(hyperref)                removing `\scriptstyle' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hbox' on input line 890.
+(hyperref)                removing `\hbox' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathsurround' on input line 890.
+(hyperref)                removing `\mathsurround' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 890.
+(hyperref)                removing `\z@' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\scriptscriptstyle' on input line 890.
+(hyperref)                removing `\scriptscriptstyle' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\endgroup' on input line 890.
+(hyperref)                removing `\endgroup' on input line 906.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 890.
+(hyperref)                removing `math shift' on input line 906.
 
 Package svg Info: Last page of `./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epo
-ch-30-_svg-tex.pdf' is 1 on input line 896.
+ch-30-_svg-tex.pdf' is 1 on input line 912.
 (./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=8487, pa
+<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=8490, pa
 ge=1, pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graphic
  file (type pdf)
@@ -2617,9 +2487,9 @@ svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
  page
 >]
 Package svg Info: Last page of `./svg-inkscape/various-pot_dens-g-VARY-conv1d-e
-poch-30-_svg-tex.pdf' is 1 on input line 903.
+poch-30-_svg-tex.pdf' is 1 on input line 919.
  (./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=9004, 
+<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=9007, 
 page=1, pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graph
 ic file (type pdf)
@@ -2632,11 +2502,11 @@ e 52.
 )
 [26 <./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/various-shift-pot_dens-g-VARY-co
-nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 910.
+nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 926.
 
 (./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
 <./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=
-9134, page=1, pagebox=cropbox, 578.16pt x 433.87782pt>
+9137, page=1, pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
  Graphic file (type pdf)
 <use ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf,
@@ -2652,11 +2522,11 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/various-shift-pot_dens-g-VARY-con
 v1d-epoch-30-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group includ
 ed in a single page
 >]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 919.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 919.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 935.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 935.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 919.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 919.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 935.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 935.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 14E1F33ABDEDA3121035C1A45A767D6A;1024.
 
@@ -2665,10 +2535,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 12287 strings out of 492985
- 239396 string characters out of 6138637
- 356570 words of memory out of 5000000
- 15287 multiletter control sequences out of 15000+600000
+ 12293 strings out of 492985
+ 239485 string characters out of 6138637
+ 356985 words of memory out of 5000000
+ 15293 multiletter control sequences out of 15000+600000
  12170 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,10n,52p,957b,606s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2683,10 +2553,10 @@ pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 ></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (27 pages, 12746759 bytes).
+Output written on report.pdf (27 pages, 12748664 bytes).
 PDF statistics:
- 9396 PDF objects out of 10688 (max. 8388607)
- 6188 compressed objects within 62 object streams
+ 9399 PDF objects out of 10688 (max. 8388607)
+ 6191 compressed objects within 62 object streams
  91 named destinations out of 1000 (max. 500000)
  863 words of extra memory for PDF output out of 10000 (max. 10000000)
 
