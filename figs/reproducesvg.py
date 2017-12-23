@@ -3,11 +3,13 @@ import sys
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-sys.path.append("../../Src/")
+sys.path.append("../Src/")
 from decimal import Decimal
 
 import analyzer as an
 epochs = [i+1 for i in range(60)]
+
+folders = ["CNN/", "CNNgPrediction", "FFN"]
 
 def plot_loss(info, file):
     fig, ax1 = plt.subplots()
@@ -31,16 +33,19 @@ def plot_loss(info, file):
     plt.clf()
 
 
+for folder in folders:
+    os.chdir("./" + folder)
+    files = []
+    file_ex = "*.inf"
 
-files = []
-file_ex = "*.inf"
+    for file in glob.glob(file_ex):
+        files.append(os.path.splitext(file)[0])
+        files.sort()
 
-for file in glob.glob(file_ex):
-    files.append(os.path.splitext(file)[0])
-files.sort()
+    for file in files:
+        info = an.load_info(file + ".inf")
+        #info.display_plot(file)
+        if(file.find("epoch-60") != -1):
+            plot_loss(info, file)
 
-for file in files:
-    info = an.load_info(file + ".inf")
-    #info.display_plot(file)
-    if(file.find("epoch-60") != -1):
-        plot_loss(info, file)
+    os.chdir("../")

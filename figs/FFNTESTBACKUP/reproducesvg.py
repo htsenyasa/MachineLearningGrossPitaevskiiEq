@@ -2,6 +2,7 @@ import glob
 import sys
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 sys.path.append("../../Src/")
 
 import analyzer as an
@@ -15,10 +16,10 @@ def plot_loss(info, file):
     plt.grid()
     plt.legend()
     #plt.ylim(1e-3, 1e-1)
-    #plt.show()
-    plt.tick_params(labelsize=12)
+    plt.tick_params(labelsize=18)
     figure = plt.gcf()
     figure.set_size_inches(8,6)
+    #plt.show()
     plt.savefig(file + "LOSS-" +".svg", format = "svg", dpi=1200)
     plt.clf()
 
@@ -33,6 +34,6 @@ files.sort()
 
 for file in files:
     info = an.load_info(file + ".inf")
-    #info.display_plot(file)
+    info.display_plot(file)
     if(file.find("epoch-60") != -1):
         plot_loss(info, file)

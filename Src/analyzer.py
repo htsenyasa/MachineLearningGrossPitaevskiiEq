@@ -69,26 +69,27 @@ class analyzer(object):
         fig, ax1 = plt.subplots()
         left, bottom, width, height = [0.65, 0.20, .2, .2]
         inset = fig.add_axes([left, bottom, width, height])
-        left2, bottom2, width2, height2 = [0.20, 0.65, .2, .2]
+        left2, bottom2, width2, height2 = [0.19, 0.60, .2, .2]
         inset2 = fig.add_axes([left2, bottom2, width2, height2])
-        ax1.plot(self.testdataset, self.testdataset, "--r", label="real data", linewidth = 3)
-        ax1.plot(self.testdataset, self.predicted, ".", label = "predicted", markersize = 2)
-        ax1.set_title("FNN{}".format(self.arch))
-        ax1.set_xlabel("Real $\\mu$", fontsize = 18)
-        ax1.set_ylabel("Predicted", fontsize = 18)
-        ax1.tick_params(labelsize = 16)
+        ax1.plot(self.testdataset, self.testdataset, "--r", label=None, linewidth = 3)
+        ax1.plot(self.testdataset, self.predicted, ".", label = None, markersize = 2)
+        #ax1.set_title("FNN{}".format(self.arch))
+        ax1.set_xlabel("True Energy", fontsize = 20)
+        ax1.set_ylabel("Predicted Energy", fontsize = 20)
+        ax1.tick_params(labelsize = 18)
         ax1.legend()
         ax1.grid()
-        props = dict(boxstyle='square', facecolor='white', alpha=0.5)
-        textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error)), self.training_len, self.cur_epoch, self.batch_size)
-        ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+        #props = dict(boxstyle='square', facecolor='white', alpha=0.5)
+        #textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error)), self.training_len, self.cur_epoch, self.batch_size)
+        #ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
         #ax1.text(, , "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
 
         inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
         inset2.hist(relative_err, range=[-np.amax(np.abs(relative_err)), np.amax(np.abs(relative_err))], bins=20)
-        inset.set_title("Error")
-        inset2.set_title("Relative Error")
-
+        inset.set_title("Error", fontsize = 18)
+        inset.tick_params(labelsize=12)
+        inset2.set_title("Rel.Error (%)", fontsize = 18)
+        inset2.tick_params(labelsize=12)
 
         if file_name == None:
             plt.show()
@@ -104,25 +105,36 @@ class analyzer(object):
     def display_plot2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
         err = []
+        relative_err = []
 
         for i in range(len(features)):
             err.append(self.testdataset[:,i] - self.predicted[:,i])
+            relative_err.append(((self.testdataset[:,i] - self.predicted[:,i]) / (self.testdataset[:,i])) * 100)
             fig, ax1 = plt.subplots(num=features[i])
             left, bottom, width, height = [0.65, 0.20, .2, .2]
             inset = fig.add_axes([left, bottom, width, height])
-            ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", label="real data", linewidth = 3)
-            ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", label = "predicted", markersize = 2)
-            ax1.set_title("FNN{}".format(self.arch))
-            ax1.set_xlabel(features[i] + u"$\\mu$")
-            ax1.set_ylabel(features[i] + " Predicted")
-            ax1.tick_params(labelsize = 12)
+            left2, bottom2, width2, height2 = [0.19, 0.60, .2, .2]
+            inset2 = fig.add_axes([left2, bottom2, width2, height2])
+            ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", linewidth = 3)
+            ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", markersize = 2)
+            #ax1.set_title("FNN{}".format(self.arch))
+            ax1.set_xlabel("True " + features[i], fontsize = 20)
+            ax1.set_ylabel("Predicted " + features[i], fontsize = 20)
+            ax1.tick_params(labelsize = 18)
             ax1.legend()
             ax1.grid()
-            props = dict(boxstyle='square', facecolor='white', alpha=0.5)
-            textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error[i])), self.training_len, self.cur_epoch, self.batch_size)
-            ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+            #props = dict(boxstyle='square', facecolor='white', alpha=0.5)
+            #textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error[i])), self.training_len, self.cur_epoch, self.batch_size)
+            #ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+
+
             inset.hist(err[i], range=[-np.amax(np.abs(err[i])), np.amax(np.abs(err[i]))], bins=20)
+            inset2.hist(relative_err[i], range=[-np.amax(np.abs(relative_err[i])), np.amax(np.abs(relative_err[i]))], bins=20)
             inset.set_title("Error")
+            inset.tick_params(labelsize=12)
+            inset2.set_title("Rel.Error (%)", fontsize = 18)
+            inset2.tick_params(labelsize=12)
+
 
             if file_name != None:
                 fig.savefig(file_name + "{}-".format(features[i]) + ".svg", format = "svg")
