@@ -1,0 +1,42 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+
+
+\PYG{k}{def} \PYG{n+nf}{read\PYGZus{}data}\PYG{p}{(}\PYG{n}{data\PYGZus{}file}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{,} \PYG{n}{train\PYGZus{}len}\PYG{o}{=}\PYG{l+m+mi}{800}\PYG{p}{,} \PYG{n}{test\PYGZus{}len}\PYG{o}{=}\PYG{l+m+mi}{200}\PYG{p}{):}
+
+
+    \PYG{n}{data\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../data/nonlinearSE/\PYGZdq{}}\PYG{p}{,} \PYG{n}{data\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{label\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../data/nonlinearSE/\PYGZdq{}}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{}data = np.load(data\PYGZus{}file)}
+    \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{n}{data\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{n}{label\PYGZus{}file}\PYG{p}{)}
+
+    \PYG{n}{total\PYGZus{}len} \PYG{o}{=} \PYG{n}{train\PYGZus{}len} \PYG{o}{+} \PYG{n}{test\PYGZus{}len}
+    \PYG{n}{train\PYGZus{}data} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+    \PYG{n}{train\PYGZus{}label} \PYG{o}{=} \PYG{n}{label}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+
+    \PYG{n}{test\PYGZus{}data} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{train\PYGZus{}len}\PYG{p}{:}\PYG{n}{total\PYGZus{}len}\PYG{p}{]}
+    \PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{label}\PYG{p}{[}\PYG{n}{train\PYGZus{}len}\PYG{p}{:}\PYG{n}{total\PYGZus{}len}\PYG{p}{]}
+
+    \PYG{k}{return} \PYG{n}{train\PYGZus{}data}\PYG{p}{,} \PYG{n}{train\PYGZus{}label}\PYG{p}{,} \PYG{n}{test\PYGZus{}data}\PYG{p}{,} \PYG{n}{test\PYGZus{}label}
+
+
+\PYG{k}{def} \PYG{n+nf}{read\PYGZus{}data2}\PYG{p}{(}\PYG{n}{data\PYGZus{}file}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{,} \PYG{n}{train\PYGZus{}len}\PYG{o}{=}\PYG{l+m+mi}{800}\PYG{p}{,} \PYG{n}{test\PYGZus{}len}\PYG{o}{=}\PYG{l+m+mi}{200}\PYG{p}{):}
+
+    \PYG{n}{data\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../data/nonlinearSE/\PYGZdq{}}\PYG{p}{,} \PYG{n}{data\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{label\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}../data/nonlinearSE/\PYGZdq{}}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{)}
+
+    \PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n}{data\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{loadtxt}\PYG{p}{(}\PYG{n}{label\PYGZus{}file}\PYG{p}{)}
+
+    \PYG{n}{total\PYGZus{}len} \PYG{o}{=} \PYG{n}{train\PYGZus{}len} \PYG{o}{+} \PYG{n}{test\PYGZus{}len}
+    \PYG{n}{train\PYGZus{}data} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+    \PYG{n}{train\PYGZus{}label} \PYG{o}{=} \PYG{n}{label}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+
+    \PYG{n}{test\PYGZus{}data} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{train\PYGZus{}len}\PYG{p}{:}\PYG{n}{total\PYGZus{}len}\PYG{p}{]}
+    \PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{label}\PYG{p}{[}\PYG{n}{train\PYGZus{}len}\PYG{p}{:}\PYG{n}{total\PYGZus{}len}\PYG{p}{]}
+
+    \PYG{k}{return} \PYG{n}{train\PYGZus{}data}\PYG{p}{,} \PYG{n}{train\PYGZus{}label}\PYG{p}{,} \PYG{n}{test\PYGZus{}data}\PYG{p}{,} \PYG{n}{test\PYGZus{}label}
+\end{Verbatim}

@@ -1,0 +1,115 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{\PYGZus{}\PYGZus{}future\PYGZus{}\PYGZus{}} \PYG{k+kn}{import} \PYG{n}{print\PYGZus{}function}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.utils.data} \PYG{k+kn}{as} \PYG{n+nn}{data\PYGZus{}utils}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{readmnistdata} \PYG{k+kn}{as} \PYG{n+nn}{rm}
+\PYG{k+kn}{import} \PYG{n+nn}{readdata} \PYG{k+kn}{as} \PYG{n+nn}{rd}
+
+\PYG{k}{class} \PYG{n+nc}{nonlinearSE}\PYG{p}{(}\PYG{n+nb}{object}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{root} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}../data\PYGZdq{}}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len} \PYG{o}{=} \PYG{l+m+mi}{50000}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len} \PYG{o}{=} \PYG{l+m+mi}{10000}
+
+        \PYG{n}{data} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{rm}\PYG{o}{.}\PYG{n}{read}\PYG{p}{())}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{28}\PYG{p}{,} \PYG{l+m+mi}{28}\PYG{p}{])}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{28}\PYG{p}{,} \PYG{l+m+mi}{28}\PYG{p}{])}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{):}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{):}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{long}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{long}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}data}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{train} \PYG{o}{=} \PYG{n+nb+bp}{True}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{train}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+
+\PYG{k}{class} \PYG{n+nc}{nonlinear1D\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb}{object}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{root} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}../data\PYGZdq{}}\PYG{p}{,} \PYG{n}{label\PYGZus{}vectorize} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len} \PYG{o}{=} \PYG{l+m+mi}{50000}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len} \PYG{o}{=} \PYG{l+m+mi}{10000}
+
+        \PYG{n}{data} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{rm}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{n}{matrix} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{))}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{784}\PYG{p}{])}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{784}\PYG{p}{])}
+
+        \PYG{k}{if} \PYG{n}{label\PYGZus{}vectorize}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{([}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{],} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{):}
+            \PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,} \PYG{n}{get\PYGZus{}label}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{label\PYGZus{}vectorize}\PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{):}
+            \PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{]}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,} \PYG{n}{get\PYGZus{}label}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{label\PYGZus{}vectorize}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{long}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{}        self.train\PYGZus{}data\PYGZus{}tensor = self.train\PYGZus{}data\PYGZus{}tensor.unsqueeze(1)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{long}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{}        self.test\PYGZus{}data\PYGZus{}tensor = self.test\PYGZus{}data\PYGZus{}tensor.unsqueeze(1)}
+
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}data}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{train} \PYG{o}{=} \PYG{n+nb+bp}{True}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{train}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+
+\PYG{k}{class} \PYG{n+nc}{nonlinear1D}\PYG{p}{(}\PYG{n+nb}{object}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data\PYGZus{}file}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{,} \PYG{n}{train\PYGZus{}len}\PYG{p}{,} \PYG{n}{test\PYGZus{}len}\PYG{p}{,} \PYG{n}{label\PYGZus{}vectorize} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{,} \PYG{n}{unsqueeze} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len} \PYG{o}{=} \PYG{n}{train\PYGZus{}len}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len} \PYG{o}{=} \PYG{n}{test\PYGZus{}len}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label} \PYG{o}{=} \PYG{n}{rd}\PYG{o}{.}\PYG{n}{read\PYGZus{}data}\PYG{p}{(}\PYG{n}{data\PYGZus{}file}\PYG{p}{,} \PYG{n}{label\PYGZus{}file}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}len}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{k}{if} \PYG{n}{unsqueeze} \PYG{o}{==} \PYG{n+nb+bp}{True}\PYG{p}{:} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{from\PYGZus{}numpy}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label}\PYG{p}{)}\PYG{o}{.}\PYG{n}{float}\PYG{p}{()}
+        \PYG{k}{if} \PYG{n}{unsqueeze} \PYG{o}{==} \PYG{n+nb+bp}{True}\PYG{p}{:} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor}\PYG{o}{.}\PYG{n}{unsqueeze}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}data}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{train} \PYG{o}{=} \PYG{n+nb+bp}{True}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{train}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{train\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{return} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}data\PYGZus{}tensor}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}label\PYGZus{}tensor}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{init\PYGZus{}tensor\PYGZus{}dataset}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{train\PYGZus{}dataset} \PYG{o}{=} \PYG{n}{data\PYGZus{}utils}\PYG{o}{.}\PYG{n}{TensorDataset}\PYG{p}{(}\PYG{o}{*}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{get\PYGZus{}data}\PYG{p}{())}
+        \PYG{n}{test\PYGZus{}dataset} \PYG{o}{=} \PYG{n}{data\PYGZus{}utils}\PYG{o}{.}\PYG{n}{TensorDataset}\PYG{p}{(}\PYG{o}{*}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{get\PYGZus{}data}\PYG{p}{(}\PYG{n}{train} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{))}
+        \PYG{k}{return} \PYG{n}{train\PYGZus{}dataset}\PYG{p}{,} \PYG{n}{test\PYGZus{}dataset}
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}label}\PYG{p}{(}\PYG{n}{j}\PYG{p}{,} \PYG{n}{label\PYGZus{}vectorize}\PYG{p}{):}
+    \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{label\PYGZus{}vectorize}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{j}
+    \PYG{n}{e} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{((}\PYG{l+m+mi}{10}\PYG{p}{))}
+    \PYG{n}{e}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{1.0}
+    \PYG{k}{return} \PYG{n}{e}
+\end{Verbatim}

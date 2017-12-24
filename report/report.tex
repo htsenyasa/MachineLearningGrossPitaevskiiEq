@@ -426,7 +426,7 @@ In non-interacting systems, GPE reduces to SE which does not involve non-linear 
         \caption{Loss}
 		\label{fig:d}
     \end{subfigure}
-    \caption{In figures, $x$ axis represents true dimensionless total energy values, and $y$ is predicted energy by trained network.}
+    \caption{In figures, $x$ axis represents true dimensionless total energy values, and $y$ is predicted energy by trained network. Inset histogram at the left upper corner is relative error given as percentage and the inset histogram at the right corner is difference error.}
 \label{fig:FFN-g-0}
 \end{figure}
 
@@ -493,14 +493,16 @@ The bias in Fig.~\ref{fig:FFN-g-0}(a) does not appear in Fig.~\ref{fig:CNN-g-0}(
         \caption{FNN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
-	\caption{Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions. Only number of neurons in the output layer is increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.}
+	\caption{FNN[128, 30, 30, 10, 4] results for $g = 0$. Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions.}
+\label{fig:FFN-g-0-S}
 \end{figure}
 
+Only number of neurons in the output layer is increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.
 
 
 \subsubsection{Interacting Systems}
 
-In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 and the results are given in this order. 
+In interacting systems, values of interaction parameter $g$ are 0.1, 1, 10, 20 and the results are given in this order. Values of the interaction parameter $g$ do not have special meanings. It can be thought directly as a coefficient of a nonlinear partial differential equation. In $g =1$ scenario, contribution of interaction parameter to Eq.~\ref{eq:GPE_dimensionless} will be more vivid. (We do not take into account the attractive interaction case which is represented by negative $g$. In such a situation, BEC collapses. \textbf{REF})
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
@@ -508,30 +510,32 @@ In interacting systems values of interaction parameter $g$ are 0.1, 1, 10, 20 an
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-20-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-40-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-LOSS-}
-        \caption{FNN[128, 30, 30, 10, 1]}
+        \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{In first 20 epoch (a), there are relatively higher deviations in lower energies. In (b), deviations become smaller but still visible. In (c), prediction line is smoother but still deviations remains in lower energy levels.}
+	\caption{FNN[128, 30, 30, 10, 1] results for $g = 0.1$.}
 \label{fig:FFN-g-0.1}
 \end{figure}
+
+In first 20 epoch Fig.~\ref{fig:FFN-g-0.1}(a), there are relatively higher deviations in lower energies. In Fig.~\ref{fig:FFN-g-0.1}(b), deviations become smaller but still visible. In Fig.~\ref{fig:FFN-g-0.1}(c), prediction line is smoother but still deviations remains in lower energy levels.
 
 Although the accuracy of the network is high, loss figure Fig.~\ref{fig:FFN-g-0.1}(d) still has fluctuation.
 
@@ -562,8 +566,12 @@ Although the accuracy of the network is high, loss figure Fig.~\ref{fig:FFN-g-0.
         \caption{Conv1D}
 		\label{fig:c}
     \end{subfigure}
-	\caption{In (a) deviation has nearly same characteristic with FNN in lower energies. After 60 epochs (c), there is a visible shift in higher energies but this does not occur in (b).}
+	\caption{CNN results for $g = 0.1$}
+\label{fig:CNN-g-0.1}
 \end{figure}
+
+In Fig.~\ref{fig:CNN-g-0.1}(a) deviation has nearly same characteristic with FNN in lower energies. After 60 epochs Fig.~\ref{fig:CNN-g-0.1}(c), there is a visible shift in higher energies but this does not occur in Fig.~\ref{fig:CNN-g-0.1}(b). Local peeks can be seen on Fig.~\ref{fig:CNN-g-0.1}(d) which increases error. Different techniques may be applied to recover the state at Fig.~\ref{fig:CNN-g-0.1}(b). For instance, before final test, network can check itself and compare different losses at different epochs and can select the minimum case. 
+
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
@@ -596,9 +604,9 @@ Although the accuracy of the network is high, loss figure Fig.~\ref{fig:FFN-g-0.
 \label{fig:FFN-g-0.1-S}
 \end{figure}
 
-The order of interaction energy is much smaller than the others. This may be the reason of bias in (a). Applying a proper normalization to the variables may reduce the error. \textbf{REF}
 
-\textbf{G = 1}
+Output layer of the network involves four layer and since our network is fully connected, some of the weights at previous layers are shared indirectly. The order of interaction energy is much smaller than the others. This is the reason of bias in Fig~\ref{fig:FFN-g-0.1-S}(a). Because, the order of incoming inputs are same as other energy levels and network has not enough example to reduce weights and bias values in order to increase prediction accuracy. Applying a proper normalization to the variables may reduce the error. \textbf{REF}. In this time, incoming inputs will be in the same order.
+
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
@@ -639,25 +647,25 @@ Relative error gets smaller after each 20 epoch and network goes into saturation
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-20-}
-        \caption{Conv1D}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-40-}
-        \caption{Conv1D}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-60-}
-        \caption{Conv1D}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-1-conv1d-epoch-60-LOSS-}
-        \caption{Conv1D}
+        \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
 	\caption{CNN results for $g = 1$}
@@ -699,8 +707,6 @@ Even the loss of the CNN decreases slower than FNN Fig.~\ref{fig:FNN-g-1}(d) and
 
 This is the worst case in our training results. In first sight, it can be thought that a proper normalization may reduce the error and increase the accuracy but the difference between energy values are not as higher as in the case $g = 0.1$, so the problem is not due to normalization. Here, contribution of interaction parameter to Eq.~\ref{eq:GPE_dimensionless} is in same order with other terms. So, it can be said that the degree of freedom of the network is not enough to handle such a situation.
 
-\textbf{G=10}
-
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
     \centering
@@ -741,25 +747,25 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-20-}
-        \caption{Conv1D}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-40-}
-        \caption{Conv1D}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-60-}
-        \caption{Conv1D}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-10-conv1d-epoch-60-LOSS-}
-        \caption{Conv1D}
+        \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
 	\caption{CNN results for $g = 10$}
@@ -800,9 +806,6 @@ Accuracy and precision of the CNN are greater than FFN's, both relative error an
 \end{figure}
 
 Result of separate energy prediction for $g=10$ is not poor as $g = 1$. This also shows that dominance of a term in the equation directly affects the prediction. 
-
-
-\textbf{G = 20}
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
@@ -905,30 +908,78 @@ The problem in Fig.~\ref{fig:FFN-g-20-S}(c) is same as in the case $g = 0.1$ whi
 
 \subsubsection{Inverse Problem Prediction of $\boldsymbol{g}$}
 
+In this section, we try to predict interaction parameter. Again, we accept that $g$ is positive and the value of it can vary between 0 to 10. We used modified version of CNN to predict interaction parameter. Modification only involves a change in input layer of the network. We increased the number of \textbf{channels} to 2 and one of the channels represents potential the other is density. Dataloaders also updated to handle new input representation. 
+
+There are three different cases. The first one is that both potential and shift are fixed, only the interaction parameter varies. In the second one we used random angular frequencies. In final case, we both randomized angular frequency and shift. \textbf{fix axis labels}
+
 
 \svgpath{path = {"../figs/CNNgPrediction/"}}
 \begin{figure}[H]
     \centering
-    \includesvg[width=\linewidth]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
-    \caption{Fixed potential and shift}
-	\label{fig:a}
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+    	\includesvg[width=\linewidth]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
+    	\caption{Epoch = 30}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+    	\includesvg[width=\linewidth]{various-pot_dens-g-VARY-conv1d-epoch-30-}
+    	\caption{Epoch = 30}
+		\label{fig:b}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+		\includesvg[width=\linewidth]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
+    	\caption{Epoch = 30}
+		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+		\includesvg[width=\linewidth]{FPFS-VPFS-VPVS-LOSS-}
+    	\caption{Loss}
+		\label{fig:d}
+    \end{subfigure}
+
+	\caption{In (a) is angular frequency is fixed and there is no shift (FPFS). In (b) angular frequency is randomized and no shift (VPFS). In (c) both angular frequency and shift are randomized (VPVS).}
+\label{fig:FFN-g-pred}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includesvg[width=\linewidth]{various-pot_dens-g-VARY-conv1d-epoch-30-}
-    \caption{Various potential and fixed shift}
-	\label{fig:a}
-\end{figure}
+When there is no randomization in parameters the network handles the situation easily but when angular frequency and shift starts to vary, the network produces poorer results. It is an expected situation and it does not show that the network is not capable of to predict interaction parameter. As shown in Fig.~\ref{fig:FFN-g-pred}(c), precision of the network is not good but the accuracy is. Expansion in the training dataset and increase in total number of epochs will fix the problem.
 
-\begin{figure}[H]
-    \centering
-    \includesvg[width=\linewidth]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
-    \caption{Various potential and shift}
-	\label{fig:a}
-\end{figure}
+\appendix
+\section{APPENDIX A}
+
+\subsection{Comment on Python Codes}
+
+There are two neural network codes and three utility codes. Code of FNN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py is automatize the training process. 
 
 
+The codes given below are not well optimized and involves badly chosen inconsistent naming conventions but the volume of the code is small and it is self explanatory. 
+
+\subsection{Neural Network and Utility Codes}
+
+\setminted{fontsize=\footnotesize,baselinestretch=1}
+\textbf{Feed Forward Network (FFN)}\\
+(feedforwardnetwork.py)
+\inputminted[breaklines]{python}{../Src/feedforwardnetwork.py}
+
+\noindent \textbf{Convolutional Neural Network (CNN)}\\
+(cnnnetwork1d.py) 
+\inputminted[breaklines]{python}{../Src/cnnnetwork1d.py}
+
+\noindent \textbf{Utility modules:}\\
+(analyzer.py)
+\inputminted[breaklines]{python}{../Src/analyzer.py}
+
+\noindent (readdata.py)
+\inputminted[breaklines]{python}{../Src/readdata.py}
+
+\noindent (sampletrainloader.py)
+\inputminted[breaklines]{python}{../Src/sampletrainloader.py}
+
+\noindent (run\_trainings.py)
+\inputminted[breaklines]{python}{../Src/run_trainings.py}
 
 \newpage
 

@@ -1,0 +1,222 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}
+\PYG{n}{matplotlib}\PYG{o}{.}\PYG{n}{use}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}pgf\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{argparse}
+\PYG{k+kn}{import} \PYG{n+nn}{pickle}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.optimize} \PYG{k+kn}{import} \PYG{n}{curve\PYGZus{}fit}
+\PYG{k+kn}{from} \PYG{n+nn}{decimal} \PYG{k+kn}{import} \PYG{n}{Decimal}
+
+\PYG{k}{class} \PYG{n+nc}{analyzer}\PYG{p}{(}\PYG{n+nb}{object}\PYG{p}{):}
+    \PYG{n}{testdataset} \PYG{o}{=} \PYG{n+nb+bp}{None}
+    \PYG{n}{predicted} \PYG{o}{=} \PYG{n+nb+bp}{None}
+    \PYG{n}{error} \PYG{o}{=} \PYG{n+nb+bp}{None}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{args}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{learning\PYGZus{}rate} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{lr}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{arch} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{network\PYGZus{}arch}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{training\PYGZus{}len} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{training\PYGZus{}len}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{seed} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{seed}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{batch\PYGZus{}size} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{batch\PYGZus{}size}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{epochs} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{epochs}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{cur\PYGZus{}epoch} \PYG{o}{=} \PYG{l+m+mi}{1}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{runtime\PYGZus{}count} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{runtime\PYGZus{}count}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{loss} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{calc\PYGZus{}error}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{testdataset}\PYG{p}{,} \PYG{n}{predicted}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset} \PYG{o}{=} \PYG{n}{testdataset}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted} \PYG{o}{=} \PYG{n}{predicted}
+        \PYG{c+c1}{\PYGZsh{}self.error = np.array([(self.predicted[i] \PYGZhy{} self.testdataset[i])**2 for i in range(self.test\PYGZus{}len)])}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{error} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{((}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{error} \PYG{o}{=} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{error}\PYG{o}{/}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{test\PYGZus{}len}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{relative\PYGZus{}error} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{}    def display\PYGZus{}plot(self, file\PYGZus{}name = None):}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}        err = self.testdataset \PYGZhy{} self.predicted}
+\PYG{c+c1}{\PYGZsh{}        fig, ax1 = plt.subplots()}
+\PYG{c+c1}{\PYGZsh{}        left, bottom, width, height = [0.65, 0.20, .2, .2]}
+\PYG{c+c1}{\PYGZsh{}        inset = fig.add\PYGZus{}axes([left, bottom, width, height])}
+\PYG{c+c1}{\PYGZsh{}        ax1.plot(self.testdataset, self.testdataset, \PYGZdq{}\PYGZhy{}\PYGZhy{}r\PYGZdq{}, label=\PYGZdq{}real data\PYGZdq{}, linewidth = 3)}
+\PYG{c+c1}{\PYGZsh{}        ax1.plot(self.testdataset, self.predicted, \PYGZdq{}.\PYGZdq{}, label = \PYGZdq{}predicted\PYGZdq{}, markersize = 2)}
+\PYG{c+c1}{\PYGZsh{}        ax1.set\PYGZus{}title(\PYGZdq{}FNN\PYGZob{}\PYGZcb{}\PYGZdq{}.format(self.arch))}
+\PYG{c+c1}{\PYGZsh{}        ax1.set\PYGZus{}xlabel(\PYGZdq{}Real \PYGZdl{}\PYGZbs{}\PYGZbs{}mu\PYGZdl{}\PYGZdq{}, fontsize = 18)}
+\PYG{c+c1}{\PYGZsh{}        ax1.set\PYGZus{}ylabel(\PYGZdq{}Predicted\PYGZdq{}, fontsize = 18)}
+\PYG{c+c1}{\PYGZsh{}        ax1.tick\PYGZus{}params(labelsize = 12)}
+\PYG{c+c1}{\PYGZsh{}        ax1.legend()}
+\PYG{c+c1}{\PYGZsh{}        ax1.grid()}
+\PYG{c+c1}{\PYGZsh{}        props = dict(boxstyle=\PYGZsq{}square\PYGZsq{}, facecolor=\PYGZsq{}white\PYGZsq{}, alpha=0.5)}
+\PYG{c+c1}{\PYGZsh{}        textstr = \PYGZdq{}MSE:\PYGZob{}:.4E\PYGZcb{}\PYGZbs{}nTraining Length:\PYGZob{}\PYGZcb{}\PYGZbs{}nEpoch:\PYGZob{}\PYGZcb{}\PYGZbs{}nBatch:\PYGZob{}\PYGZcb{}\PYGZdq{}.format(Decimal(float(self.error)), self.training\PYGZus{}len, self.cur\PYGZus{}epoch, self.batch\PYGZus{}size)}
+\PYG{c+c1}{\PYGZsh{}        ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment=\PYGZsq{}top\PYGZsq{}, bbox=props)}
+\PYG{c+c1}{\PYGZsh{}        \PYGZsh{}ax1.text(, , \PYGZdq{}\PYGZob{}\PYGZcb{}\PYGZbs{}nlr=\PYGZob{}\PYGZcb{}\PYGZbs{}nepoch=\PYGZob{}\PYGZcb{}\PYGZbs{}ntrain\PYGZus{}len=\PYGZob{}\PYGZcb{}\PYGZbs{}ntest\PYGZus{}len=\PYGZob{}\PYGZcb{}\PYGZbs{}nerror=\PYGZob{}\PYGZcb{}\PYGZdq{}.format(self.arch, self.learning\PYGZus{}rate, self.cur\PYGZus{}epoch, self.training\PYGZus{}len, self.test\PYGZus{}len, self.error))}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}        inset.hist(err, range=[\PYGZhy{}np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)}
+\PYG{c+c1}{\PYGZsh{}        inset.set\PYGZus{}title(\PYGZdq{}Error\PYGZdq{})}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}        if file\PYGZus{}name == None:}
+\PYG{c+c1}{\PYGZsh{}            plt.show()}
+\PYG{c+c1}{\PYGZsh{}        else:}
+\PYG{c+c1}{\PYGZsh{}            figure = plt.gcf()}
+\PYG{c+c1}{\PYGZsh{}            figure.set\PYGZus{}size\PYGZus{}inches(8,6)}
+\PYG{c+c1}{\PYGZsh{}            plt.savefig(file\PYGZus{}name + \PYGZdq{}.svg\PYGZdq{}, format = \PYGZdq{}svg\PYGZdq{}, dpi=1200)}
+\PYG{c+c1}{\PYGZsh{}            plt.clf()}
+
+    \PYG{k}{def} \PYG{n+nf}{display\PYGZus{}plot}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{file\PYGZus{}name} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{):}
+
+        \PYG{n}{err} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}
+        \PYG{n}{relative\PYGZus{}err} \PYG{o}{=} \PYG{p}{((}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{))} \PYG{o}{*} \PYG{l+m+mi}{100}
+        \PYG{n}{fig}\PYG{p}{,} \PYG{n}{ax1} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{()}
+        \PYG{n}{left}\PYG{p}{,} \PYG{n}{bottom}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.65}\PYG{p}{,} \PYG{l+m+mf}{0.20}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{]}
+        \PYG{n}{inset} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}axes}\PYG{p}{([}\PYG{n}{left}\PYG{p}{,} \PYG{n}{bottom}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height}\PYG{p}{])}
+        \PYG{n}{left2}\PYG{p}{,} \PYG{n}{bottom2}\PYG{p}{,} \PYG{n}{width2}\PYG{p}{,} \PYG{n}{height2} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.19}\PYG{p}{,} \PYG{l+m+mf}{0.60}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{]}
+        \PYG{n}{inset2} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}axes}\PYG{p}{([}\PYG{n}{left2}\PYG{p}{,} \PYG{n}{bottom2}\PYG{p}{,} \PYG{n}{width2}\PYG{p}{,} \PYG{n}{height2}\PYG{p}{])}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}r\PYGZdq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{3}\PYG{p}{)}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}.\PYGZdq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{}ax1.set\PYGZus{}title(\PYGZdq{}FNN\PYGZob{}\PYGZcb{}\PYGZdq{}.format(self.arch))}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}True Energy\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{)}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Predicted Energy\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{)}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+        \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+        \PYG{c+c1}{\PYGZsh{}props = dict(boxstyle=\PYGZsq{}square\PYGZsq{}, facecolor=\PYGZsq{}white\PYGZsq{}, alpha=0.5)}
+        \PYG{c+c1}{\PYGZsh{}textstr = \PYGZdq{}MSE:\PYGZob{}:.4E\PYGZcb{}\PYGZbs{}nTraining Length:\PYGZob{}\PYGZcb{}\PYGZbs{}nEpoch:\PYGZob{}\PYGZcb{}\PYGZbs{}nBatch:\PYGZob{}\PYGZcb{}\PYGZdq{}.format(Decimal(float(self.error)), self.training\PYGZus{}len, self.cur\PYGZus{}epoch, self.batch\PYGZus{}size)}
+        \PYG{c+c1}{\PYGZsh{}ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment=\PYGZsq{}top\PYGZsq{}, bbox=props)}
+        \PYG{c+c1}{\PYGZsh{}ax1.text(, , \PYGZdq{}\PYGZob{}\PYGZcb{}\PYGZbs{}nlr=\PYGZob{}\PYGZcb{}\PYGZbs{}nepoch=\PYGZob{}\PYGZcb{}\PYGZbs{}ntrain\PYGZus{}len=\PYGZob{}\PYGZcb{}\PYGZbs{}ntest\PYGZus{}len=\PYGZob{}\PYGZcb{}\PYGZbs{}nerror=\PYGZob{}\PYGZcb{}\PYGZdq{}.format(self.arch, self.learning\PYGZus{}rate, self.cur\PYGZus{}epoch, self.training\PYGZus{}len, self.test\PYGZus{}len, self.error))}
+
+        \PYG{n}{inset}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{err}\PYG{p}{,} \PYG{n+nb}{range}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{err}\PYG{p}{)),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{err}\PYG{p}{))],} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+        \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{,} \PYG{n+nb}{range}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{)),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{))],} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+        \PYG{n}{inset}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Error\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+        \PYG{n}{inset}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{)}
+        \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Rel.Error (\PYGZpc{})\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+        \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{)}
+
+        \PYG{k}{if} \PYG{n}{file\PYGZus{}name} \PYG{o}{==} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{figure} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{gcf}\PYG{p}{()}
+            \PYG{n}{figure}\PYG{o}{.}\PYG{n}{set\PYGZus{}size\PYGZus{}inches}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{n}{file\PYGZus{}name} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}.svg\PYGZdq{}}\PYG{p}{,} \PYG{n}{format} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}svg\PYGZdq{}}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{1200}\PYG{p}{)}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{clf}\PYG{p}{()}
+
+
+
+
+    \PYG{k}{def} \PYG{n+nf}{display\PYGZus{}plot2}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{file\PYGZus{}name} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{):}
+        \PYG{n}{features} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}E\PYGZus{}int\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}E\PYGZus{}kin\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}E\PYGZus{}pot\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}E\PYGZus{}Total\PYGZsq{}}\PYG{p}{]}
+        \PYG{n}{err} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{n}{relative\PYGZus{}err} \PYG{o}{=} \PYG{p}{[]}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{features}\PYG{p}{)):}
+            \PYG{n}{err}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{])}
+            \PYG{n}{relative\PYGZus{}err}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(((}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{])} \PYG{o}{/} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{]))} \PYG{o}{*} \PYG{l+m+mi}{100}\PYG{p}{)}
+            \PYG{n}{fig}\PYG{p}{,} \PYG{n}{ax1} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{n}{num}\PYG{o}{=}\PYG{n}{features}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+            \PYG{n}{left}\PYG{p}{,} \PYG{n}{bottom}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.65}\PYG{p}{,} \PYG{l+m+mf}{0.20}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{]}
+            \PYG{n}{inset} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}axes}\PYG{p}{([}\PYG{n}{left}\PYG{p}{,} \PYG{n}{bottom}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height}\PYG{p}{])}
+            \PYG{n}{left2}\PYG{p}{,} \PYG{n}{bottom2}\PYG{p}{,} \PYG{n}{width2}\PYG{p}{,} \PYG{n}{height2} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.19}\PYG{p}{,} \PYG{l+m+mf}{0.60}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{]}
+            \PYG{n}{inset2} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}axes}\PYG{p}{([}\PYG{n}{left2}\PYG{p}{,} \PYG{n}{bottom2}\PYG{p}{,} \PYG{n}{width2}\PYG{p}{,} \PYG{n}{height2}\PYG{p}{])}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}r\PYGZdq{}}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{3}\PYG{p}{)}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{[:,}\PYG{n}{i}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}.\PYGZdq{}}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{}ax1.set\PYGZus{}title(\PYGZdq{}FNN\PYGZob{}\PYGZcb{}\PYGZdq{}.format(self.arch))}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}True \PYGZdq{}} \PYG{o}{+} \PYG{n}{features}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{)}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Predicted \PYGZdq{}} \PYG{o}{+} \PYG{n}{features}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{)}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+            \PYG{n}{ax1}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+            \PYG{c+c1}{\PYGZsh{}props = dict(boxstyle=\PYGZsq{}square\PYGZsq{}, facecolor=\PYGZsq{}white\PYGZsq{}, alpha=0.5)}
+            \PYG{c+c1}{\PYGZsh{}textstr = \PYGZdq{}MSE:\PYGZob{}:.4E\PYGZcb{}\PYGZbs{}nTraining Length:\PYGZob{}\PYGZcb{}\PYGZbs{}nEpoch:\PYGZob{}\PYGZcb{}\PYGZbs{}nBatch:\PYGZob{}\PYGZcb{}\PYGZdq{}.format(Decimal(float(self.error[i])), self.training\PYGZus{}len, self.cur\PYGZus{}epoch, self.batch\PYGZus{}size)}
+            \PYG{c+c1}{\PYGZsh{}ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment=\PYGZsq{}top\PYGZsq{}, bbox=props)}
+
+
+            \PYG{n}{inset}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb}{range}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]))],} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+            \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n+nb}{range}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{amax}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{relative\PYGZus{}err}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]))],} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+            \PYG{n}{inset}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Error\PYGZdq{}}\PYG{p}{)}
+            \PYG{n}{inset}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{)}
+            \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Rel.Error (\PYGZpc{})\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+            \PYG{n}{inset2}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize}\PYG{o}{=}\PYG{l+m+mi}{12}\PYG{p}{)}
+
+
+            \PYG{k}{if} \PYG{n}{file\PYGZus{}name} \PYG{o}{!=} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                \PYG{n}{fig}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{n}{file\PYGZus{}name} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZob{}\PYGZcb{}\PYGZhy{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{features}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}.svg\PYGZdq{}}\PYG{p}{,} \PYG{n}{format} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}svg\PYGZdq{}}\PYG{p}{)}
+                \PYG{n}{fig}\PYG{o}{.}\PYG{n}{clf}\PYG{p}{()}
+
+        \PYG{k}{if} \PYG{n}{file\PYGZus{}name} \PYG{o}{==} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+            \PYG{n}{plt}\PYG{o}{.}\PYG{n}{clf}\PYG{p}{()}
+
+
+
+
+
+    \PYG{k}{def} \PYG{n+nf}{plot\PYGZus{}error}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{error} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{testdataset} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{predicted}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{error}\PYG{p}{)}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{step}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{loss\PYGZus{}val}\PYG{p}{):}
+        \PYG{c+c1}{\PYGZsh{}self.cur\PYGZus{}epoch += 1}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{loss} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{loss}\PYG{p}{,} \PYG{n}{loss\PYGZus{}val}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}    def gauss(x, a, x0, sigma):}
+\PYG{c+c1}{\PYGZsh{}        return a * np.exp(\PYGZhy{}(x\PYGZhy{}x0)**2 / (2*sigma**2))}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{}    def gaussian\PYGZus{}dist():}
+\PYG{c+c1}{\PYGZsh{}        err = self.testdataset \PYGZhy{} self.predicted)}
+\PYG{c+c1}{\PYGZsh{}        x\PYGZus{}r = np.amax(np.abs(err))}
+\PYG{c+c1}{\PYGZsh{}        x = np.linspace(\PYGZhy{}x\PYGZus{}r, x\PYGZus{}r, self.test\PYGZus{}len)}
+\PYG{c+c1}{\PYGZsh{}        mean = np.mean(err)}
+\PYG{c+c1}{\PYGZsh{}        sigma = np.std(err)}
+\PYG{c+c1}{\PYGZsh{}        popt,pcov = curve\PYGZus{}fit(gauss, x, err, p0 = [1,mean,sigma])}
+\PYG{c+c1}{\PYGZsh{}        plt.hist(err)}
+\PYG{c+c1}{\PYGZsh{}        plt.plot(x, gauss(x, *popt))}
+\PYG{c+c1}{\PYGZsh{}        plt.show()}
+
+
+\PYG{k}{def} \PYG{n+nf}{save\PYGZus{}info}\PYG{p}{(}\PYG{n}{obj}\PYG{p}{,} \PYG{n}{file\PYGZus{}name}\PYG{p}{):}
+    \PYG{n}{f} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{file\PYGZus{}name}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}wb\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{pickle}\PYG{o}{.}\PYG{n}{dump}\PYG{p}{(}\PYG{n}{obj}\PYG{p}{,} \PYG{n}{f}\PYG{p}{,} \PYG{n}{pickle}\PYG{o}{.}\PYG{n}{HIGHEST\PYGZus{}PROTOCOL}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{load\PYGZus{}info}\PYG{p}{(}\PYG{n}{file\PYGZus{}name}\PYG{p}{):}
+    \PYG{n}{f} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{file\PYGZus{}name}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}rb\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{pickle}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n}{f}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{save\PYGZus{}state}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{optimizer}\PYG{p}{,} \PYG{n}{epoch}\PYG{p}{,} \PYG{n}{file\PYGZus{}name}\PYG{p}{):}
+    \PYG{n}{state} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}epoch\PYGZsq{}}\PYG{p}{:} \PYG{n}{epoch}\PYG{p}{,}
+             \PYG{l+s+s1}{\PYGZsq{}model\PYGZus{}state\PYGZus{}dict\PYGZsq{}}\PYG{p}{:} \PYG{n}{model}\PYG{o}{.}\PYG{n}{state\PYGZus{}dict}\PYG{p}{(),}
+             \PYG{l+s+s1}{\PYGZsq{}optim\PYGZus{}state\PYGZus{}dict\PYGZsq{}}\PYG{p}{:} \PYG{n}{optimizer}\PYG{o}{.}\PYG{n}{state\PYGZus{}dict}\PYG{p}{()} \PYG{p}{\PYGZcb{}}
+    \PYG{n}{torch}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{n}{state}\PYG{p}{,} \PYG{n}{file\PYGZus{}name}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{load\PYGZus{}state}\PYG{p}{(}\PYG{n}{file\PYGZus{}name}\PYG{p}{):}
+    \PYG{n}{state} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n}{file\PYGZus{}name}\PYG{p}{)}
+    \PYG{n}{epoch} \PYG{o}{=} \PYG{n}{state}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}epoch\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{mst} \PYG{o}{=} \PYG{p}{(}\PYG{n}{state}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}model\PYGZus{}state\PYGZus{}dict\PYGZsq{}}\PYG{p}{])}
+    \PYG{n}{ost} \PYG{o}{=} \PYG{p}{(}\PYG{n}{state}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}optim\PYGZus{}state\PYGZus{}dict\PYGZsq{}}\PYG{p}{])}
+    \PYG{k}{return} \PYG{n}{epoch}\PYG{p}{,} \PYG{n}{mst}\PYG{p}{,} \PYG{n}{ost}
+
+
+\PYG{k}{def} \PYG{n+nf}{combine\PYGZus{}plots}\PYG{p}{(}\PYG{n}{datum}\PYG{p}{,} \PYG{n}{file\PYGZus{}name} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{):}
+    \PYG{n}{fig}\PYG{p}{,} \PYG{n}{axarr} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{datum}\PYG{p}{),} \PYG{n}{sharey}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}left, bottom, width, height = [0.65, 0.20, .2, .2]}
+
+    \PYG{n}{err} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{data} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{datum}\PYG{p}{):}
+        \PYG{n}{err}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{testdataset} \PYG{o}{\PYGZhy{}} \PYG{n}{data}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{}inset = fig.add\PYGZus{}axes([left, bottom, width, height])}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}r\PYGZdq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}real data\PYGZdq{}}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{3}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{testdataset}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{predicted}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}.\PYGZdq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}predicted\PYGZdq{}}\PYG{p}{,} \PYG{n}{markersize} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}FNN\PYGZob{}\PYGZcb{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{arch}\PYG{p}{))}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Real \PYGZdl{}}\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{mu\PYGZdl{}\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Predicted\PYGZdq{}}\PYG{p}{,} \PYG{n}{fontsize} \PYG{o}{=} \PYG{l+m+mi}{18}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{tick\PYGZus{}params}\PYG{p}{(}\PYG{n}{labelsize} \PYG{o}{=} \PYG{l+m+mi}{12}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+        \PYG{n}{props} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{boxstyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}square\PYGZsq{}}\PYG{p}{,} \PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
+        \PYG{n}{textstr} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}MSE:\PYGZob{}:.4E\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Training Length:\PYGZob{}\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Epoch:\PYGZob{}\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Batch:\PYGZob{}\PYGZcb{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{Decimal}\PYG{p}{(}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{error}\PYG{p}{)),} \PYG{n}{data}\PYG{o}{.}\PYG{n}{training\PYGZus{}len}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{cur\PYGZus{}epoch}\PYG{p}{,} \PYG{n}{data}\PYG{o}{.}\PYG{n}{batch\PYGZus{}size}\PYG{p}{)}
+        \PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{text}\PYG{p}{(}\PYG{l+m+mf}{0.03}\PYG{p}{,} \PYG{l+m+mf}{0.85}\PYG{p}{,} \PYG{n}{textstr}\PYG{p}{,} \PYG{n}{transform}\PYG{o}{=}\PYG{n}{axarr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{transAxes}\PYG{p}{,} \PYG{n}{fontsize}\PYG{o}{=}\PYG{l+m+mi}{11}\PYG{p}{,} \PYG{n}{verticalalignment}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}top\PYGZsq{}}\PYG{p}{,} \PYG{n}{bbox}\PYG{o}{=}\PYG{n}{props}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}
