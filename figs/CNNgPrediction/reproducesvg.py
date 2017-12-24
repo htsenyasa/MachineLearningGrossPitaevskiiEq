@@ -7,11 +7,24 @@ sys.path.append("../../Src/")
 from decimal import Decimal
 
 import analyzer as an
-epochs = [i+1 for i in range(60)]
+epochs = [i+1 for i in range(30)]
 
-def plot_loss(info, file):
+c = ["b", "r", "g"]
+markers = [
+    r'$\lambda$',
+    r'$\bowtie$',
+    r'$\circlearrowleft$',
+    r'$\clubsuit$',
+    r'$\checkmark$']
+
+labels = ["FPFS", "VPFS", "VPVS"]
+
+def plot_loss(infos, files):
+
     fig, ax1 = plt.subplots()
-    ax1.plot(epochs, info.loss, "--b", label = "Loss")
+
+    for i, info in enumerate(infos):
+        ax1.plot(epochs, info.loss, "--" + c[i], label = labels[i])
     ax1.set_xlabel("Epochs", fontsize=18)
     ax1.set_ylabel("Loss", fontsize=18)
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
@@ -23,10 +36,11 @@ def plot_loss(info, file):
     figure.set_size_inches(8,6)
 
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-    textstr = "MSE(20):{:.4E}\nMSE(40):{:.4E}\nMSE(60):{:.4E}".format(Decimal(float(info.loss[19])), Decimal(float(info.loss[39])), Decimal(float(info.loss[-1])))
-    ax1.text(0.75, 0.9, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
+    textstr = "MSE(FPFS):{:.4E}\nMSE(VPFS):{:.4E}\nMSE(VPVS):{:.4E}".format(Decimal(float(infos[0].loss[-1])), Decimal(float(infos[1].loss[-1])), Decimal(float(infos[2].loss[-1])))
+    ax1.text(0.713, 0.81, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
 
     #plt.show()
+    file = "FPFS-VPFS-VPVS-"
     plt.savefig(file + "LOSS-" +".svg", format = "svg", dpi=1200)
     plt.clf()
 
@@ -39,8 +53,10 @@ for file in glob.glob(file_ex):
     files.append(os.path.splitext(file)[0])
 files.sort()
 
+
+#info = [an.load_info(file + ".inf") for file in files]
+#plot_loss(info, files)
+
 for file in files:
     info = an.load_info(file + ".inf")
-    #info.display_plot(file)
-    if(file.find("epoch-60") != -1):
-        plot_loss(info, file)
+    info.display_plot(file)
