@@ -6,8 +6,6 @@
 \usepackage{svg}
 \usepackage{subcaption}
 \usepackage{minted}
-\usepackage[multidot]{grffile}
-
 \onehalfspacing
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{hyperref}
@@ -52,9 +50,10 @@ where $\hbar$ is Planck constant, $\boldsymbol{r}$ is position vector, $t$ is ti
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
-where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive. \textbf{REF}. 
+where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive \cite{barenghi2016primer}.
 
-In general, potential $V$ is time independent harmonic trapping potential \textbf{REF}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given as,
+
+In general, potential $V$ is time independent harmonic trapping potential \cite{barenghi2016primer}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given as,
 \begin{equation}
 \label{eq:GPE_harmonic_potential}
 V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
@@ -75,7 +74,7 @@ Here, $\mu$ is chemical potential. Time independent GPE is then,
 \mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
 \end{equation}
 
-BEC system can also be studied in one dimension such that making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $ enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation. \textbf{REF}. To obtain 1D GPE one can rewrite wave function,
+BEC system can also be studied in one dimension such that making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $ enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func_seperated}
@@ -159,32 +158,32 @@ There is no general analytical solution of GPE for harmonic trapping potential e
 
 \subsection{Numerical Solution and XMDS Framework}
 
-Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
+Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
 
-Cross-check of the framework has done in two ways. First, since there exists an analytical solution for $g = 0$, we compared the results of the XMDS with analytical ones, and we also used the program here \textbf{REF}, and compared few results for situations where analytical solution does not exist.  
+Cross-check of the framework has done in two ways. First, since there exists an analytical solution for $g = 0$, we compared the results of the XMDS with analytical ones, and we also used the program here \cite{muruganandam2009fortran}, and compared few results for situations where analytical solution does not exist.  
 
 
 \section{Problem Statements and Dataset Generation}
 
-\textbf{GPE can be solved with stated methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters.} For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network. \textbf{REF}. Here \textbf{REF}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
+\textbf{GPE can be solved with stated methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters.} For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network \cite{mills2017deep}. Here \cite{mills2017deep}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
 
 We try to built a artificial neural network to predict ground state energy of a BEC for a given harmonic trapping potential and interaction parameter. We also try inverse problem which is prediction of interaction parameter for a given potential and density function. 
 
-An artificial neural network is made of layers and these layers contains simple units called neurons. These neurons can be thought as primitive version of the neurons in the human brain. A neuron takes one or more input and generates an output. To do this, it uses its internal variables which are called weight and bias. In general, number of weights in a neuron is equal to the input size of the neuron and there is only one bias value per neuron. There is no restriction to range of weights and biases except computational, they can even take complex values {\textbf{REF}}. Input output relation of a neuron can be described with the following way; let $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ be input of the neuron and $f$ be the function that describes behavior of the neuron. 
+An artificial neural network is made of layers and these layers contains simple units called neurons. These neurons can be thought as primitive version of the neurons in the human brain. A neuron takes one or more input and generates an output. To do this, it uses its internal variables which are called weight and bias. In general, number of weights in a neuron is equal to the input size of the neuron and there is only one bias value per neuron. There is no restriction to range of weights and biases except computational, they can even take complex values \cite{zimmermann2011comparison}. Input output relation of a neuron can be described with the following way; let $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ be input of the neuron and $f$ be the function that describes behavior of the neuron. 
 
 \begin{equation}
 \label{eq:NU_neuron}
-f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n x_i\omega_i + b
+f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n \omega_i x_i + b
 \end{equation}
 
-Here, $\omega_i$ is weight and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. Notice that, the range of the function $f$ is infinite. There are various ways to interpret result of function $f$. The most primitive version of interpretation is sending the result of $f$ as a argument to unit step function. In this case, 
+Here, $\omega_i$ is weights and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. Notice that, the range of the function $f$ is infinite. There are various ways to interpret result of function $f$. The most primitive version of interpretation is sending the result of $f$ as a argument to unit step function to generate 0 (False) or 1 (True). In this case, 
 
 \begin{equation}
 \label{eq:NU_step_function}
-a = u_1(f(\boldsymbol{x}, \boldsymbol{\omega}, b))
+a(f) = u_1(f(\boldsymbol{x}, \boldsymbol{\omega}, b))
 \end{equation}
 
-where $a$ is called as activation value of neuron and $u_1$ is the activation function. However, usage of the step function makes the network discontinuous and does not allow to use differential methods to calculate behavior of the neurons when a small change in weights or biases is applied. One of the most common activation function is sigma function and it is defined as,
+where $a$ is called as activation function of neuron and it is the unit step function in this case. However, usage of the step function makes the network discontinuous and does not allow to use differential methods to calculate behavior of the neurons when a small change in weights or biases is applied. One of the most common activation function is sigma function which is continuous version of the step function and it is defined as,
 
 \begin{equation}
 \label{eq:NU_sigma_function}
@@ -193,30 +192,37 @@ where $a$ is called as activation value of neuron and $u_1$ is the activation fu
 
 If a neuron defined with this way such that its output given by Eq.~\ref{eq:NU_sigma_function}, then it is called as sigmoid neuron. In former case which is step function, then, the neuron is called as perceptron. 
 
-If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, and the weight from $k^{th}$ in the $(l-1)^{th}$ layer to the $j^{th}$ neuron in the layer $l^{th}$ with $\omega_{jk}^l$, finally the bias of the $j^{th}$ neuron in the $l^{th}$ layer with ${b_j^l}$, then, the connection between two neuron in sequential layers will be;
+If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, and the weight from $k^{th}$ neuron in the $(l-1)^{th}$ layer to the $j^{th}$ neuron in the layer $l^{th}$ with $\omega_{jk}^l$, finally the bias of the $j^{th}$ neuron in the $l^{th}$ layer with ${b_j^l}$, then, the output of the $j^{th}$ neuron in the $l^{th}$ layer will be;
 
 \begin{equation}
 \label{eq:NU_neuron_connection}
-f_s^{l+1}(\sigma(f_j^{l}(\boldsymbol{x}, \boldsymbol{\omega}, b)), \boldsymbol{\omega}, b) = \sum\limits_{i=1}^{n_2} \sum\limits_{j=1}^{n_1} (x_j\omega_j + b_1)\omega_i + b_2
+f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omega_{jk}^{l}\sigma(f_k^{l-1}) + b_j^l
 \end{equation}
-\textbf{Eq requires correction}
+
+\noindent and the activation of the output can be written as;
+
+\begin{equation}
+\sigma(f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b)
+\end{equation}
+
 
 Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$.  
 
-Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks. \textbf{REF}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network. \textbf{REF}
+Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks \cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
 
-We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function. \textbf{REF}. There are many cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show general mechanism and to introduce few notions that directly effects the behavior of the network. 
+We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function \cite{nielsen2015neural}. There are different kind of cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show general mechanism and to introduce few notions that directly effects the behavior of the network. 
+
 
 Quadratic cost function is defined as;
 
 \begin{equation}
 \label{eq:NT_Quadratic}
-C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{a} - f_L(\boldsymbol{x}) ||{^2} 
+C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{y} - a(f_L(\boldsymbol{x})) ||{^2} 
 \end{equation}
 
-where $\omega$, $b$ are weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{a}$ is real value of the quantity. To minimize $C$, we can take the derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous. \textbf{REF}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
+where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
 
-A small displacement in arbitrary direction which corresponds to small change in weight or bias or both can be written as;
+A small displacement in arbitrary direction which corresponds to a small change in weight or bias or both can be written as;
 \begin{equation}
 \label{eq:NT_Quadratic_min}
 \Delta{C} = \frac{\partial{C}}{\partial{\omega}}\Delta{\omega} + \frac{\partial{C}}{\partial{b}}\Delta{b}
@@ -252,7 +258,16 @@ In this case, Eq.~\ref{eq:NT_Quadratic_min_gradient_form} becomes;
 \Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, one can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} If there is no enough example to iterate gradient descent, cost function may be lower than its first condition but it will not be minimized. \textbf{It may even retain its first condition ex:lr=0.05}. 
+where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} 
+
+Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that, gradient of the $m$ randomly selected examples in the dataset is nearly equal to the gradient of the whole dataset.
+
+\begin{equation}
+\label{eq:NT_Stochastic}
+\frac{1}{m} \sum\limits_{k = 1}^{m} \nabla{C_{X_j}} \approx \frac{1}{n}\sum\limits_{x = 1}^{n} \nabla{C_{x}}
+\end{equation}
+
+where $\nabla{C_x}$ gradient of a single training input and $m$ is also called as mini-batch size.
 
 \subsection{Dataset and Dataset Generation}
 
@@ -293,11 +308,11 @@ As mentioned, we solved GPE for four different interaction parameters, therefore
 \end{figure}
 
 
-The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity. In both angular frequency and shift, we used uniformly generated random numbers. Total energy distribution is given in Fig~\ref{fig:energy_dist}. Another type distribution is not required in our problem since the potential type is fixed but there are examples such as here \textbf{REF}, which different distribution is used.
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity. In both angular frequency and shift, we used uniformly generated random numbers. Total energy distribution is given in Fig~\ref{fig:energy_dist}. Another type distribution is not required in our problem since the potential type is fixed but there are examples such as here \cite{mills2017deep}, which different distribution is used.
 
-\section{Machine Learning for NLSE}
+\section{Machine Learning for GPE}
 
-We used Pytorch Framework to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also involves forward method which is responsible for how data will be sent to the next layer. 
+We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also involves forward method which is responsible for how data will be sent to the next layer. 
 
 
 We implemented two different types of neural network; feed forward (FNN) and convolutional neural network (CNN).
@@ -313,7 +328,7 @@ CNN has two convolution layers, two maxpool layers and three fully connected lay
 
 \subsection{Hyperparameters}
 
-We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate. The size of this dataset is \textbf{very small} but it can be give an idea about the range of learning rate since stochastic gradient descent is an statistical approach. \textbf{REF}. We first set learning rate 3 and decrease it, until 0.01 prediction of the network was extremely poor. For lower values, predictions were more encouraging. In this section, we give you the effect of learning rate for two different architectures and interaction parameters. 
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate. The size of this dataset is \textbf{very small} but it can be give an idea about the range of learning rate since stochastic gradient descent is an statistical approach. We first set learning rate 3 and decrease it, until 0.01 prediction of the network was extremely poor. For lower values, predictions were more encouraging. In this section, we give you the effect of learning rate for two different architectures and interaction parameters. 
 
 \svgpath{path = {"../figs/archtestresults/"}}
 \begin{figure}[H]
@@ -502,7 +517,7 @@ Only number of neurons in the output layer is increased to 4, and still network 
 
 \subsubsection{Interacting Systems}
 
-In interacting systems, values of interaction parameter $g$ are 0.1, 1, 10, 20 and the results are given in this order. Values of the interaction parameter $g$ do not have special meanings. It can be thought directly as a coefficient of a nonlinear partial differential equation. In $g =1$ scenario, contribution of interaction parameter to Eq.~\ref{eq:GPE_dimensionless} will be more vivid. (We do not take into account the attractive interaction case which is represented by negative $g$. In such a situation, BEC collapses. \textbf{REF})
+In interacting systems, values of interaction parameter $g$ are 0.1, 1, 10, 20 and the results are given in this order. Values of the interaction parameter $g$ do not have special meanings. It can be thought directly as a coefficient of a nonlinear partial differential equation. In $g =1$ scenario, contribution of interaction parameter to Eq.~\ref{eq:GPE_dimensionless} will be more vivid. (We do not take into account the attractive interaction case which is represented by negative $g$. In such a situation, BEC collapses \cite{barenghi2016primer}.)
 
 \svgpath{path = {"../figs/FFN/"}}
 \begin{figure}[H]
@@ -946,6 +961,19 @@ There are three different cases. The first one is that both potential and shift 
 \end{figure}
 
 When there is no randomization in parameters the network handles the situation easily but when angular frequency and shift starts to vary, the network produces poorer results. It is an expected situation and it does not show that the network is not capable of to predict interaction parameter. As shown in Fig.~\ref{fig:FFN-g-pred}(c), precision of the network is not good but the accuracy is. Expansion in the training dataset and increase in total number of epochs will fix the problem.
+
+\cite{barenghi2016primer}.
+\cite{nielsen2015neural}
+\cite{mills2017deep}
+\cite{goodfellow2016deep}
+\cite{dennis2013xmds2}
+\cite{muruganandam2009fortran}
+\cite{zimmermann2011comparison}
+\cite{paszke2017automatic}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
 
 \appendix
 \section{APPENDIX A}
