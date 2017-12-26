@@ -10,12 +10,11 @@
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{hyperref}
 
-%\title{\textbf{TEST}}
-%\date{}
 
 \begin{document}
 
-
+%\title{\textbf{TEST}}
+%\date{}
 %\maketitle
 \setcounter{page}{1}
 \pagenumbering{arabic}
@@ -33,7 +32,7 @@ state density profile for a given harmonic trapping potential.
 \section{Introduction}
 \section{Gross Pitaevskii Equation}
 
-A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation. General form of GPE is given as,
+A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). General form of GPE is given as,
 
 \begin{equation}
 \label{eq:GPE_3D}
@@ -60,41 +59,52 @@ V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \end{equation}
 
 
-where $\omega$ is angular frequency. Then separation of variables can be applied and it can be obtained that there is a solution in stationary form. In this case factorized wave function is,
+\noindent where $\omega$ is angular frequency. Then separation of variables can be applied and it can be obtained that there is a solution in stationary form. In this case factorized wave function is,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func}
 \Psi(\boldsymbol{r}) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar}
 \end{equation}
 
-Here, $\mu$ is chemical potential. Time independent GPE is then,
+\noindent Here, $\mu$ is chemical potential. Time independent GPE is then,
 
 \begin{equation}
 \label{eq:GPE_time_indep}
 \mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
 \end{equation}
 
-BEC system can also be studied in one dimension such that making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $ enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
+BEC system can also be studied in one dimension by making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $ enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func_seperated}
-\psi(x, y, z, t) = \psi_z(z, t)\psi_0(x)\psi_0(y)
+\psi(x, y, z, t) = \psi_z(z, t)\psi_x(x)\psi_y(y)
 \end{equation}
 
-\textbf{continue}
+\noindent $\psi_x$ and $\psi_y$ are given as;
+
+\begin{equation}
+\begin{split}
+\label{eq:GPE_x_y_wave}
+& \psi_x(x) = \frac{1}{{(\pi l_x^2)}^{1/4}}e^{-x^2/2l_x^2} \\
+& \psi_y(y) = \frac{1}{{(\pi l_y^2)}^{1/4}}e^{-y^2/2l_y^2}
+\end{split}
+\end{equation}
+
+\noindent where $l_x = \sqrt{\hbar/m\omega_x}$ and $l_y = \sqrt{\hbar/m\omega_x}$ are harmonic oscillator lengths that related with width of density distribution of the condensate. Normalization of the both wave function $\int \psi_x(x)dx = \int \psi_y(y)dy = 1$, in this case $\int \psi_z(z, t) = N$. If we plug in factorized wave function to Eq.~\ref{eq:GPE_time_indep}, then, equation becomes;
 
 \begin{equation}
 \label{eq:GPE_1D}
 \mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + \frac{1}{2}m\omega_z^2 z^2\psi_z + g^{\prime}|\psi_z|^2\psi_z 
 \end{equation}
 
-where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potential and interaction strength respectively and they are given as,
+\noindent where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potential and interaction strength respectively and they are given as,
 
 \begin{equation}
 \label{eq:GPE_1D_chem_inter}
 \mu^{\prime} = \mu - \frac{\hbar}{2}(\omega_x - \omega_y), \quad g^{\prime} = \frac{g}{2\pi l_x l_y}
 \end{equation}
 
+\noindent From now on, if otherwise is specified GPE term refers to Eq.~\ref{eq:GPE_1D}. 
 
 \textbf{Dimensionless GPE}\\
 
@@ -221,7 +231,7 @@ f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omeg
 \end{equation}
 
 
-Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$.  
+\noindent Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$.  
 
 Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks \cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
 
@@ -235,7 +245,7 @@ Quadratic cost function is defined as;
 C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{y} - a(f_L(\boldsymbol{x})) ||{^2} 
 \end{equation}
 
-where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
+\noindent where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
 
 A small displacement in arbitrary direction which corresponds to a small change in weight or bias or both can be written as;
 \begin{equation}
@@ -243,7 +253,7 @@ A small displacement in arbitrary direction which corresponds to a small change 
 \Delta{C} = \frac{\partial{C}}{\partial{\omega}}\Delta{\omega} + \frac{\partial{C}}{\partial{b}}\Delta{b}
 \end{equation}
 
-This expression gives information about what happens when small displacement is done but it does not give any information about direction of decrement. To determine direction of decrement we can rewrite this expression in terms of gradient since it is by definition points to direction of maximum rate of increase. 
+\noindent This expression gives information about what happens when small displacement is done but it does not give any information about direction of decrement. To determine direction of decrement we can rewrite this expression in terms of gradient since it is by definition points to direction of maximum rate of increase. 
 
 We can define gradient operator as;
 
@@ -252,37 +262,54 @@ We can define gradient operator as;
 \boldsymbol{\nabla}{C} = \left(\frac{\partial{C}}{\partial{\omega}},\frac{\partial{C}}{\partial{b}} \right)^T
 \end{equation}
 
-In this case, Eq.~\ref{eq:NT_Quadratic_min} can be written as;
+\noindent In this case, Eq.~\ref{eq:NT_Quadratic_min} can be written as;
 
 \begin{equation}
 \label{eq:NT_Quadratic_min_gradient_form}
 \Delta{C} = \boldsymbol{\nabla}{C} \boldsymbol{.} \Delta \boldsymbol{l}
 \end{equation}
 
-where $\boldsymbol{l} = (\omega, b)^T$. What we want again is to minimize cost function, thus; in each iteration value of the C must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
+\noindent where $\boldsymbol{l} = (\omega, b)^T$. What we want again is to minimize cost function, thus; in each iteration value of the C must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
 
 \begin{equation}
 \label{eq:NT_learning_rate}
 \Delta{\boldsymbol{l}} = -\eta\boldsymbol{\nabla}C
 \end{equation}
 
-In this case, Eq.~\ref{eq:NT_Quadratic_min_gradient_form} becomes;
+\noindent In this case, Eq.~\ref{eq:NT_Quadratic_min_gradient_form} becomes;
 
 \begin{equation}
 \label{eq:NT_Displacement}
 \Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} 
+\noindent where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} 
 
-Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that, gradient of the $m$ randomly selected examples in the dataset is nearly equal to the gradient of the whole dataset.
+Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that, gradient of the $m$ randomly selected examples in the dataset is nearly equal to the gradient of the whole dataset and it can be expressed as;
 
 \begin{equation}
 \label{eq:NT_Stochastic}
-\frac{1}{m} \sum\limits_{k = 1}^{m} \nabla{C_{X_j}} \approx \frac{1}{n}\sum\limits_{x = 1}^{n} \nabla{C_{x}}
+\frac{1}{m} \sum\limits_{k = 1}^{m} \nabla{C_{X_j}} \approx \frac{1}{n}\sum\limits_{x = 1}^{n} \nabla{C_{x}} = \nabla{C}
 \end{equation}
 
-where $\nabla{C_x}$ gradient of a single training input and $m$ is also called as mini-batch size.
+\noindent where $\nabla{C_x}$ gradient of a single training input and $m$ is also called as mini-batch size.
+
+It is worth to noting that approaching a minimum value is proportional to the number of iteration which equals to number of example in dataset, therefore; it is a corollary that there can be two situations \textbf{footnote}. First, the algorithm cannot reach the minimum point due to lack of training examples, and secondly, the algorithm reaches a global or local minimum point and starts to oscillate. There are mechanisms to prevent especially the latter case \cite{zeiler2012adadelta}. Our problem does not require such sophisticated mechanisms since our aim is not directly building a network that makes predictions with error as minimum as possible but rather it is to show a proof of concept, thus; we are more tolerant about error.
+
+Final step in the gradient descent is updating weights and biases. We use Eq.~\ref{eq:NT_Displacement} to perform this task. If we combine Eq.~\ref{eq:NT_Displacement} with Eq.~\ref{eq:NT_Stochastic} and write it in open form, then the expression to update weight and bias can be written as;
+
+\begin{equation}
+\label{eq:NT_weight_bias_update}
+\begin{split}
+& \omega^{\prime} = \omega - \frac{\eta}{m} \sum\limits_{j = 1}^{m} \frac{\partial{C_{X_j}}}{\partial{\omega}} \\
+& b^{\prime} = b- \frac{\eta}{m} \sum\limits_{j = 1}^{m} \frac{\partial{C_{X_j}}}{\partial{b}}
+\end{split}
+\end{equation}
+
+\noindent Numerical calculation of the partial derivatives in the equation is one of the computational costliest operation in training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}
+
+We showed general concept in artificial neural networks within very narrow scope and introduced notions we are going to use in our example. 
+
 
 \subsection{Dataset and Dataset Generation}
 
