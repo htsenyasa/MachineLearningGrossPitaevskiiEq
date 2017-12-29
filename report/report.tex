@@ -38,10 +38,6 @@
 \end{titlepage}
 
 
-
-
-
-
 %\title{\textbf{TEST}}
 %\date{}
 %\maketitle
@@ -60,11 +56,16 @@ state density profile for a given harmonic trapping potential.
 
 \section{Introduction}
 
+Machine learning is a growing research area, not only its theoretical base but also its share in applications in different areas. One of the reason why machine learning is using so much today is that they can compute any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network such that satisfies the relation $|\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})| < \epsilon $. From this point of view, an event -physical or theoretical etc- can be thought as a function, and a corresponding neural network can be built that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, computational or any type of cost due to calculation steps can be bypassed and approximate value of the quantity can be determined instantly for different scenarios.
+
+In physics, many different kind of applications of machine learning is present\footnote{For a detailed list, see \cite{physicsml}}. For example, here \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problem. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than classical version \cite{biamonte1611quantum}. 
+
+In \cite{mills2017deep}, machine (deep) learning is applied to a quantum system represented by corresponding Sch{\"o}dinger Equation. Authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different two dimensional confining potentials including random potential. Their study showed that machine learning is an promising alternative in electronic structure calculation of quantum systems. In our study inspired from mentioned article above, we apply machine learning method to the nonlinear schr{\"o}dinger equation to predict ground state energy of a Bose-Einstein condensate at absolute temperature in one dimensional harmonic trapping potential.
 
 
 \section{Gross Pitaevskii Equation}
 
-A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). General form of GPE is given as,
+A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). General form of GPE in three dimension is given as,
 
 \begin{equation}
 \label{eq:GPE_3D}
@@ -117,7 +118,7 @@ V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
 \end{equation}
 
-BEC system can also be studied in one dimension by making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $. This enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
+BEC system can also be studied in one dimension by making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $. This enables us to confine the dynamics of the system in one dimension and it can be described with corresponding one dimensional GPE equation \cite{barenghi2016primer}. To obtain one dimensional GPE one can rewrite wave function,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func_seperated}
