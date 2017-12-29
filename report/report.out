@@ -1,17 +1,16 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Gross Pitaevskii Equation}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Types of Potentials}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Analytical Solution and Approximation}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Numerical Solution and XMDS Framework}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Problem Statements and Dataset Generation}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Dataset and Dataset Generation}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{Machine Learning for GPE}{}% 8
-\BOOKMARK [2][-]{subsection.4.1}{Architecture}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.2}{Hyperparameters}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.3}{Training Results}{section.4}% 11
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Non-interacting System}{subsection.4.3}% 12
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Interacting Systems}{subsection.4.3}% 13
-\BOOKMARK [3][-]{subsubsection.4.3.3}{Inverse Problem Prediction of bold0mu mumu gggggg}{subsection.4.3}% 14
-\BOOKMARK [1][-]{appendix.A}{APPENDIX A}{}% 15
-\BOOKMARK [2][-]{subsection.A.1}{Comment on Python Codes}{appendix.A}% 16
-\BOOKMARK [2][-]{subsection.A.2}{Neural Network and Utility Codes}{appendix.A}% 17
+\BOOKMARK [2][-]{subsection.2.1}{Analytic Solution}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Numerical Solution and XMDS Framework}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Problem Statement and Dataset Generation}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Dataset and Dataset Generation}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Machine Learning for GPE}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Architecture}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Hyperparameters}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Training Results}{section.4}% 10
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Non-interacting System}{subsection.4.3}% 11
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Interacting Systems}{subsection.4.3}% 12
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Inverse Problem Prediction of bold0mu mumu gggggg}{subsection.4.3}% 13
+\BOOKMARK [1][-]{appendix.A}{APPENDIX A}{}% 14
+\BOOKMARK [2][-]{subsection.A.1}{Comment on Python Codes}{appendix.A}% 15
+\BOOKMARK [2][-]{subsection.A.2}{Neural Network and Utility Codes}{appendix.A}% 16

@@ -1,6 +1,6 @@
 \documentclass[a4paper,times,12pt]{article}
 \usepackage{amsmath}
-%\usepackage{graphicx}
+\usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
 \usepackage{svg}
@@ -10,8 +10,37 @@
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{hyperref}
 
-
 \begin{document}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{1cm}
+\underline{\textbf{\Large ISTANBUL TECHNICAL UNIVERSITY}} \\[10 pt]
+
+\underline{\textbf{\large FACULTY OF SCIENCE AND LETTERS}} \\[15 pt]
+
+\textbf{\large Advanced Physics Project Report} \\
+\vspace{1.8 cm}
+\includegraphics[scale=0.2]{itu_logo.pdf} \\
+\vspace{1.8 cm}
+\textbf{\large Machine Learning and Nonlinear Sch{\"o}dinger Equation} \\[5 pt]
+\textbf{H{\"u}seyin Talha \c{S}enya\c{s}a}\\
+\vspace{1.5 cm}
+\end{center}
+\vfill
+\noindent\textbf{{Department : Physics Engineering}}\\
+    \textbf{Student ID \hspace{0.2 cm}: 090120132}\\
+    \textbf{Advisor\hspace{1.1 cm}: Assoc. Prof. A. Levent Suba\c{s}{\i}}
+\vspace{2 cm}
+
+\center\textbf{FALL 2017}
+
+\end{titlepage}
+
+
+
+
+
 
 %\title{\textbf{TEST}}
 %\date{}
@@ -30,27 +59,42 @@ state density profile for a given harmonic trapping potential.
 
 
 \section{Introduction}
+
+
+
 \section{Gross Pitaevskii Equation}
 
 A Bose-Einstein Condensate (BEC) is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). General form of GPE is given as,
 
 \begin{equation}
 \label{eq:GPE_3D}
-i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar}{2m}\nabla^2
+i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar^2}{2m}\nabla^2
 \Psi + V(\boldsymbol{r}, t)\Psi + g|\Psi|^2\ \Psi
 \end{equation}
 
-
-where %%
-where $\hbar$ is Planck constant, $\boldsymbol{r}$ is position vector, $t$ is time, $\Psi$ is wave function, $m$ is mass, $\nabla^2$ is Laplacian, $V$ is potential, $g$ is interaction parameter and it is defined as 
+\noindent where $\hbar$ is Planck constant, $\boldsymbol{r}$ is position vector, $t$ is time, $\Psi$ is wave function, $m$ is mass, $\nabla^2$ is Laplacian, $V$ is potential, $g$ is interaction parameter and it is defined as 
 
 \begin{equation}
 \label{eq:GPE_inter_param}
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
-where $a_s$ s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive \cite{barenghi2016primer}.
+\noindent here, $a_s$ is s wave scattering length. Non-linearity of GPE comes from interaction parameter. If there is no interaction GPE reduces to the Schrodinger Equation (SE) and becomes linear. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it means interaction is attractive \cite{barenghi2016primer}.
 
+In Eq.~\ref{eq:GPE_3D}, the first term on the right side is kinetic term, V is potential, and the last term is interaction of the hamiltonian, thus; expectation value of the total energy can be written as;
+
+\begin{equation}
+\label{GPE_total_energy_general}
+\langle E \rangle = \int \Psi^{*}\hat{H}\Psi d^3\boldsymbol{r}
+\end{equation}
+
+\begin{equation}
+\label{GPE_total_energy}
+E = \int \left(\frac {\hbar^2}{2m}|\nabla
+\Psi|^2 + V|\Psi|^2 + g|\Psi|^4 \right) d^3\boldsymbol{r}
+\end{equation}
+
+\noindent kinetic and interaction terms does not depend on time, only potential term determines whether hamiltonian depends on time or do not, therefore; if potential is not function of time, then, total energy of the system is conversed.
 
 In general, potential $V$ is time independent harmonic trapping potential \cite{barenghi2016primer}. In such a case, the potential is only function of position $V(\boldsymbol{r})$ and it can be given as,
 \begin{equation}
@@ -73,7 +117,7 @@ V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \mu\psi = \frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi 
 \end{equation}
 
-BEC system can also be studied in one dimension by making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $ enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
+BEC system can also be studied in one dimension by making angular frequencies $\omega_x, \omega_y \gg \omega_z$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_x \omega_y)^{1/2} \gg \mu $. This enables us to confine the dynamics of the system in one dimension and it can be described with corresponding 1D GPE equation \cite{barenghi2016primer}. To obtain 1D GPE one can rewrite wave function,
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func_seperated}
@@ -90,7 +134,7 @@ BEC system can also be studied in one dimension by making angular frequencies $\
 \end{split}
 \end{equation}
 
-\noindent where $l_x = \sqrt{\hbar/m\omega_x}$ and $l_y = \sqrt{\hbar/m\omega_x}$ are harmonic oscillator lengths that related with width of density distribution of the condensate. Normalization of the both wave function $\int \psi_x(x)dx = \int \psi_y(y)dy = 1$, in this case $\int \psi_z(z, t) = N$. If we plug in factorized wave function to Eq.~\ref{eq:GPE_time_indep}, then, equation becomes;
+\noindent where $l_x = \sqrt{\hbar/m\omega_x}$ and $l_y = \sqrt{\hbar/m\omega_x}$ are harmonic oscillator lengths that related with width of density distribution of the condensate. Normalization of the both wave function $\int \psi_x(x)dx = \int \psi_y(y)dy = 1$, in this case $\int \psi_z(z, t) = N$. If we plug in factorized wave function to Eq.~\ref{eq:GPE_time_indep}, then, the equation becomes;
 
 \begin{equation}
 \label{eq:GPE_1D}
@@ -106,8 +150,6 @@ BEC system can also be studied in one dimension by making angular frequencies $\
 
 \noindent From now on, if otherwise is specified GPE term refers to Eq.~\ref{eq:GPE_1D}. 
 
-\textbf{Dimensionless GPE}\\
-
 It is convenient to work with dimensionless quantities, to make equation dimensionless one can define $z = a_0\widetilde{z}$. In this case Eq.~\ref{eq:GPE_1D} becomes,
 
 \begin{equation}
@@ -115,41 +157,41 @@ It is convenient to work with dimensionless quantities, to make equation dimensi
 \mu\psi = \frac{-\hbar^2}{2ma_0^2}\frac{d^2\psi}{d\widetilde{z}^2} + \frac{1}{2}m\omega^2 a_0^2 \widetilde{z}^2\psi + g|\psi|^2\psi
 \end{equation}
 
-(Here we omit scripts). After that, setting $\hbar\omega = {\hbar^2}/{m a_0^2}$, and plugging $a_0^2$ in to the Eq.~\ref{eq:GPE_dimensionless_length},
+\noindent (Here we omit scripts). After that, setting $\hbar\omega = {\hbar^2}/{m a_0^2}$, and plugging $a_0^2$ in to the Eq.~\ref{eq:GPE_dimensionless_length},
 
 \begin{equation}
 \label{eq:GPE_dimensionless_energy}
 \mu\psi = -\frac{1}{2}m\omega^2\frac{d^2\psi}{d\widetilde{z}^2} + \frac{\hbar^2}{2m}\widetilde{z}^2\psi + g|\psi|^2\psi
 \end{equation}
 
-If we divide Eq.~\ref{eq:GPE_dimensionless_energy} to $\hbar\omega$ and define $\widetilde{\mu} = \mu/\hbar\omega$,
+\noindent If we divide Eq.~\ref{eq:GPE_dimensionless_energy} to $\hbar\omega$ and define $\widetilde{\mu} = \mu/\hbar\omega$,
 
 \begin{equation}
 \label{eq:GPE_dimensionless_without_g}
 \widetilde{\mu} \psi = -\frac{1}{2\sqrt{a_0}}\frac{d^2\psi}{d\widetilde{z}^2} + \frac{1}{2\sqrt{a_0}}\widetilde{z}^2\psi + \frac{g|\psi|^2\psi}{\hbar\omega}
 \end{equation}
 
-From normalization condition,
+\noindent From normalization condition,
 
 \begin{equation}
 \int |\psi|^2dz = \int |\psi|^2 a_0 d\widetilde{z} = N
 \end{equation}
 
-we can define $\widetilde{\psi} = ({\sqrt{a_0}}/{\sqrt{N}})\psi$. The third term on the right in Eq.~\ref{eq:GPE_dimensionless_without_g} becomes,
+\noindent we can define $\widetilde{\psi} = ({\sqrt{a_0}}/{\sqrt{N}})\psi$. The third term on the right in Eq.~\ref{eq:GPE_dimensionless_without_g} becomes,
 
 \begin{equation}
 \label{eq:GPE_dimensionless_g_1}
 \frac{g|\psi|^2}{\hbar\omega} = \frac{g a_0}{N\hbar\omega}|\widetilde{\psi}|^2 
 \end{equation}
 
-Finally defining,
+\noindent Finally defining,
 
 \begin{equation}
 \label{eq:GPE_dimensionless_g_2}
 \frac{g a_0}{N\hbar\omega_z} = \widetilde{g}
 \end{equation}
 
-dimensionless GPE can be written as,
+\noindent dimensionless GPE can be written as,
 
 \begin{equation}
 \label{eq:GPE_dimensionless}
@@ -157,40 +199,38 @@ dimensionless GPE can be written as,
 \end{equation}
 
 
+\subsection{Analytic Solution}
 
-\subsection{Types of Potentials}
-
-
-\subsection{Analytical Solution and Approximation}
-
-There is no general analytical solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solution is well known which is given as;
+There is no known analytic solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solution is well known which is given as;
 
 \textbf{make dimensionless}
 \begin{equation}
 \label{eq:GPE_SE}
 \end{equation}
 
-and in the ground state total energy of the system will be;
+\noindent and in the ground state total energy of the system will be;
 
 \textbf{make dimensionless}
 \begin{equation}
 \label{eq:GPE_no_inter_GSE}
-E = \frac{3}{2}N\hbar\omega
+E = \frac{1}{2}N\hbar\omega
 \end{equation}
 
-we used this relation to check our numerical solutions. 
+\noindent we used this relation to check our numerical solutions. 
 
 
 \subsection{Numerical Solution and XMDS Framework}
 
-Analytical solution of GPE is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
+In previous section we stated that there is no general analytic solution of GPE. It is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions. \textbf{Imaginary time propagation, renormalization, ark45}
+
 
 Cross-check of the framework has done in two ways. First, since there exists an analytical solution for $g = 0$, we compared the results of the XMDS with analytical ones, and we also used the program here \cite{muruganandam2009fortran}, and compared few results for situations where analytical solution does not exist.  
 
 
-\section{Problem Statements and Dataset Generation}
+\section{Problem Statement and Dataset Generation}
+\label{sec:Problem statement}
 
-\textbf{GPE can be solved with stated methods above. These methods must be applied every time when there is a change in the equation such as different trapping potential or parameters.} For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network \cite{mills2017deep}. Here \cite{mills2017deep}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
+GPE can be solved with stated methods above. These methods must be applied every time when there is a change in parameters of the equation such as applying different trapping potential or changing interaction parameter. For example, when interaction parameter is changed, if there is no analytic solution, numerical method must be reapplied. With machine learning these steps can be bypassed and information about the system can be obtained instantly with only one time cost which is training process of the network \cite{mills2017deep}. Here \cite{mills2017deep}, authors managed to apply deep learning method to the Schrodinger Equation to obtain ground state energy of the system under different potentials. 
 
 We try to built a artificial neural network to predict ground state energy of a BEC for a given harmonic trapping potential and interaction parameter. We also try inverse problem which is prediction of interaction parameter for a given potential and density function. 
 
@@ -231,9 +271,9 @@ f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omeg
 \end{equation}
 
 
-\noindent Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$.  
+\noindent Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$ or Rectified Linear Unit (ReLU).
 
-Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks \cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
+Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks (FCN) or multilayer perceptrons (MLP)\cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
 
 We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function \cite{nielsen2015neural}. There are different kind of cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show general mechanism and to introduce few notions that directly effects the behavior of the network. 
 
@@ -245,7 +285,7 @@ Quadratic cost function is defined as;
 C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{y} - a(f_L(\boldsymbol{x})) ||{^2} 
 \end{equation}
 
-\noindent where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases respectively. $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
+\noindent where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases respectively. Subscript $L$ indicates last layer which is output, so $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem is overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction to which points the decrement and moves to that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
 
 A small displacement in arbitrary direction which corresponds to a small change in weight or bias or both can be written as;
 \begin{equation}
@@ -285,7 +325,7 @@ We can define gradient operator as;
 
 \noindent where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} 
 
-Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that, gradient of the $m$ randomly selected examples in the dataset is nearly equal to the gradient of the whole dataset and it can be expressed as;
+Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that gradient of  $m$ randomly selected examples in the dataset is nearly equal to gradient of the whole dataset and it can be expressed as;
 
 \begin{equation}
 \label{eq:NT_Stochastic}
@@ -294,7 +334,7 @@ Gradient Descent algorithm has an statistical version called Stochastic Gradient
 
 \noindent where $\nabla{C_x}$ gradient of a single training input and $m$ is also called as mini-batch size.
 
-It is worth to noting that approaching a minimum value is proportional to the number of iteration which equals to number of example in dataset, therefore; it is a corollary that there can be two situations \textbf{footnote}. First, the algorithm cannot reach the minimum point due to lack of training examples, and secondly, the algorithm reaches a global or local minimum point and starts to oscillate. There are mechanisms to prevent especially the latter case \cite{zeiler2012adadelta}. Our problem does not require such sophisticated mechanisms since our aim is not directly building a network that makes predictions with error as minimum as possible but rather it is to show a proof of concept, thus; we are more tolerant about error.
+It is worth to noting that approaching a minimum value is proportional to the number of iteration which equals to number of example in dataset, therefore; it is a corollary that there can be two situations\footnote{The third case is that algorithm may diverge but we ignore this situation here.}. First, the algorithm cannot reach the minimum point due to lack of training examples, and secondly, the algorithm reaches a global or local minimum point and starts to oscillate \cite{zeiler2012adadelta}. There are mechanisms to prevent such cases and other optimization problems like direction sensitivity and they are called as adaptive learning rate \cite{mills2017deep}. In our network we used an algorithm called Adam \cite{kingma2014adam} provided by framework we used.  
 
 Final step in the gradient descent is updating weights and biases. We use Eq.~\ref{eq:NT_Displacement} to perform this task. If we combine Eq.~\ref{eq:NT_Displacement} with Eq.~\ref{eq:NT_Stochastic} and write it in open form, then the expression to update weight and bias can be written as;
 
@@ -306,17 +346,14 @@ Final step in the gradient descent is updating weights and biases. We use Eq.~\r
 \end{split}
 \end{equation}
 
-\noindent Numerical calculation of the partial derivatives in the equation is one of the computational costliest operation in training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}
+\noindent Numerical calculation of the partial derivatives in the equation is one of the computational costliest operation in training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}. However, we use Pytorch Framework in our study and it provides similar mechanism called automatic differentiation. 
 
-We showed general concept in artificial neural networks within very narrow scope and introduced notions we are going to use in our example. 
+In this section, we showed general concept in artificial neural networks within very narrow scope and introduced notions we are going to use in our example. 
 
 
 \subsection{Dataset and Dataset Generation}
 
 As mentioned, we solved GPE for four different interaction parameters, therefore; there are four different corresponding datasets and each of them contains 10.000 elements. We used 8500 of them as training examples and 1500 of them for test if otherwise is specified. An element of a dataset involves an array containing potential values respect to the position and an another array containing interaction, kinetic, potential and total energy values respectively. (Representation of the energy values may vary, because we first tried to predict total energy values. In this case, the array containing all types of energy values only involves total energy).
-
-\textbf{TABLE of parameters}
-
 
 \svgpath{path = {"../figs/dist/"}}
 \begin{figure}[H]
@@ -350,22 +387,33 @@ As mentioned, we solved GPE for four different interaction parameters, therefore
 \end{figure}
 
 
-The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density function} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity. In both angular frequency and shift, we used uniformly generated random numbers. Total energy distribution is given in Fig~\ref{fig:energy_dist}. Another type distribution is not required in our problem since the potential type is fixed but there are examples such as here \cite{mills2017deep}, which different distribution is used.
+The array containing potential energy is generated according to harmonic trap expression in XMDS, thus; we only supplied angular frequency and shift of equilibrium to the XMDS randomly within predetermined limits. Angular frequency can take values between 0.5 and 2. Shift of the equilibrium point is determined due to boundary conditions since \textbf{density} must be zero at boundaries. In numerical solution of the GPE, domain of the $z$ dimension is between -10 to 10. Taking the maximum magnitude of the shift as $\mp 5$ enough to ensure that density function goes to zero at infinity. In both angular frequency and shift, we used uniformly generated random numbers. Total energy distribution is given in Fig~\ref{fig:energy_dist}. Another type distribution is not required in our problem since the potential type is fixed but there are examples such as here \cite{mills2017deep}, which different distribution is used.
+
+\begin{table}[H]
+\centering
+\caption{CAPTION}
+\label{my-label}
+\begin{tabular}{lllll}
+$\omega$ & 0.5/2         &  &  &  \\
+Shift  & -5/+5         &  &  &  \\
+g      & 0/0.1/1/10/20 &  &  &  \\
+Grid   & 128           &  &  & 
+\end{tabular}
+\end{table}
 
 \section{Machine Learning for GPE}
 
-We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also involves forward method which is responsible for how data will be sent to the next layer. 
+We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Code have three main parts, first one is dataloaders; it reads train and test data for specified interaction parameter from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also involves forward method which is responsible for how data will be sent to the next layer. The last part is training and testing. In training part, the network iterated with training dataset and loss (result of cost function) is calculated at the end of each iteration. After that, weights and bias are updated accordingly. 
 
-
-We implemented two different types of neural network; feed forward (FNN) and convolutional neural network (CNN).
+Our aim is to show that the machine learning methods can be used to bypass GPE equation and physical features of the BEC can be determined directly. To do that, we implemented two different types of neural network; fully connected (FCN) and convolutional neural network (CNN). CNN is more complex than FCN and it is developed to handle data which have grid-like topology \cite{goodfellow2016deep}. Since our dataset involves translation, we expect that CNN can handle such a situation better than FCN.
 
 
 \subsection{Architecture}
 
-FNN involves 128 input neurons as input layer, next layer is first hidden layer with 30 neurons, the second is same as first hidden layer, the next one is last hidden layer with 10 neurons and the last layer is output layer. Totally there are 5 layers in our FFN and it will be denoted as $FNN[128, 30, 30, 10, 4]$. Rectified linear unit (ReLU) is used for each forward except output. No operation is applied to the output neuron. Learning rate of the FNN is fixed and it is $0.001$. Cost function is mean squared error (MSE) and optimization is done with Adam. 
+FCN involves 128 input neurons as input layer, next layer is first hidden layer with 30 neurons, the second is same as first hidden layer, the next one is last hidden layer with 10 neurons and the last layer is output layer. Totally there are 5 layers in our FCN and it will be denoted as $FCN[128, 30, 30, 10, 4]$. The most common activation function in feedforward networks rectified linear unit (ReLU)\cite{mills2017deep} is used for each forward except output. No operation is applied to the output neuron. Learning rate of the FCN is fixed and it is $0.001$. Cost function is mean squared error (MSE) and optimization is done with Adam. 
 
 
-CNN has two convolution layers, two maxpool layers and three fully connected layer and last layer of the fully connected part is output layer. Maxpooling is applied to output of the first and second convolution layers. ReLu is also applied each forward except output neuron same as in the FNN. Fully connected part of the CNN is $FNN[310, 100, 20, 1]$. Learning rate, cost function and optimizer of the CNN is same as FNN which are $0.001$, MSE and Adam respectively.
+CNN has two convolution layers, two maxpool layers and three fully connected layer and last layer of the fully connected part is output layer. Maxpooling is applied to output of the first and second convolution layers. ReLu is also applied each forward except output neuron same as in the FCN. Fully connected part of the CNN is $FCN[310, 100, 20, 1]$. Learning rate, cost function and optimizer of the CNN is same as FCN which are $0.001$, MSE and Adam respectively.
 
 
 \subsection{Hyperparameters}
@@ -378,13 +426,13 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
             \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_003-800"}}
-            \caption{FNN[128, 40, 40, 1], $\eta$ = 0.003}
+            \caption{FCN[128, 40, 40, 1], $\eta$ = 0.003}
             \label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
              \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_001-800"}}
-            \caption{FNN[128, 40, 40, 1], $\eta$ = 0.001}
+            \caption{FCN[128, 40, 40, 1], $\eta$ = 0.001}
             \label{fig:b}
     \end{subfigure}
     \caption{Here both figures represent True Energy of Ground State (unit) vs Predicted Ground State Energy (unit). Their hyperparameters are identical except learning rate. Total number of epoch is 20 and batch size is 10.  In this example interaction parameter $g$, is zero. Even learning rate 0.001 seems more precise, it is trivial to expect that change in interaction parameter will effect the result. }
@@ -396,13 +444,13 @@ We firstly started with smaller dataset which involves 800 elements for trainig 
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
             \includesvg[width=\linewidth]{{"fourlayer-g10-lr0_003-800"}}
-            \caption{FNN[128, 40, 40, 1], lr = 0.003}
+            \caption{FCN[128, 40, 40, 1], lr = 0.003}
             \label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
              \includesvg[width=\linewidth]{{"fourlayer-g10-lr0_001-800"}}
-            \caption{FNN[128, 40, 40, 1], lr = 0.001}
+            \caption{FCN[128, 40, 40, 1], lr = 0.001}
             \label{fig:b}
     \end{subfigure}
     \caption{Here, interaction parameter, g is 10. It is clear that precision of the network with learning rate 0.003 is higher than 0.001. Of course, dramatic increase in the training dataset length may affect them both to converge same precision but our intention here to show that small change in learning rate causes different results.}
@@ -415,13 +463,13 @@ After determination of learning rate we added extra one hidden layer to the netw
     \begin{subfigure}[t]{0.45\textwidth}
            \centering
             \includesvg[width=\linewidth]{fivelayer-g10-800}
-            \caption{FNN[128, 30, 30, 10, 1]}
+            \caption{FCN[128, 30, 30, 10, 1]}
             \label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
             \centering
              \includesvg[width=\linewidth]{fourlayer-g10-800}
-            \caption{FNN[128, 40, 40, 1]}
+            \caption{FCN[128, 40, 40, 1]}
             \label{fig:b}
     \end{subfigure}
     \caption{Here interaction paramater $g$, is again 10. Batch size is 10 and total number of epoch is 20 for this example. Precision of the network of 5 layer (a) is higher than 4 layer (b). Bias in (a) can be eliminated by increasing training dataset length.}
@@ -433,24 +481,24 @@ After determination of learning rate we added extra one hidden layer to the netw
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{fivelayer-g10-3500}
-        \caption{FNN[128, 30, 30, 10, 1]}
+        \caption{FCN[128, 30, 30, 10, 1]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{fourlayer-g10-3500}
-        \caption{FNN[128, 40, 40, 1]}
+        \caption{FCN[128, 40, 40, 1]}
 		\label{fig:b}
     \end{subfigure}
     \caption{Total training dataset length is increased to 3500 and test dataset length is 500. Batch size, Learning rate are same as example given in Fig.~\ref{fig:network_layer_increment} but the epoch is 30. The bias is eliminated. Precision and accuracy of the network of 5 layers is sufficient.}
 \end{figure}
 
-In conclusion, we chose learning rate $\eta$ as 0.001 and started to training process. The other two hyperparameters epoch and mini batch size determined in training process such that if increase in total number of epochs improves the results dramatically then new epoch value is this one and the mini batch size is determined with the same way. These steps are done for both FFN and CNN. The total number of epochs is 60, and mini batch size is 30. 
+In conclusion, we chose learning rate $\eta$ as 0.001 and started to training process. The other two hyperparameters epoch and mini batch size determined in training process such that if increase in total number of epochs improves the results dramatically then new epoch value is this one and the mini batch size is determined with the same way. These steps are done for both FCN and CNN. The total number of epochs is 60, and mini batch size is 30. 
 
 
 \subsection{Training Results}
 
-We give the result of total energy predictions per 20 epochs for both FFN and CNN also to show that how predictions change. Separate energy predictions are given directly. In inverse problem, three different scenarios are presented. All trainings are done with same programs, thus; the architectures are identical, only the training and test datasets are changed. 
+We give the result of total energy predictions per 20 epochs for both FCN and CNN also to show that how predictions change. Separate energy predictions are given directly. In inverse problem, three different scenarios are presented. All trainings are done with same programs, thus; the architectures are identical, only the training and test datasets are changed. 
 
 \subsubsection{Non-interacting System}
 
@@ -529,32 +577,32 @@ The bias in Fig.~\ref{fig:FFN-g-0}(a) does not appear in Fig.~\ref{fig:CNN-g-0}(
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_int-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_pot-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_kin-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0-epoch-60-E_Total-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FNN[128, 30, 30, 10, 4] results for $g = 0$. Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions.}
+	\caption{FCN[128, 30, 30, 10, 4] results for $g = 0$. Here (a) is interaction energy, (b) potential energy, (c) kinetic energy and (d) total energy predictions.}
 \label{fig:FFN-g-0-S}
 \end{figure}
 
-Only number of neurons in the output layer is increased to 4, and still network predicts total energy of the system within same sensitivity as former FNN network.
+Only number of neurons in the output layer is increased to 4, and still network predicts total energy of the system within same sensitivity as former FCN network.
 
 
 \subsubsection{Interacting Systems}
@@ -588,7 +636,7 @@ In interacting systems, values of interaction parameter $g$ are 0.1, 1, 10, 20 a
         \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FNN[128, 30, 30, 10, 1] results for $g = 0.1$.}
+	\caption{FCN[128, 30, 30, 10, 1] results for $g = 0.1$.}
 \label{fig:FFN-g-0.1}
 \end{figure}
 
@@ -627,7 +675,7 @@ Although the accuracy of the network is high, loss figure Fig.~\ref{fig:FFN-g-0.
 \label{fig:CNN-g-0.1}
 \end{figure}
 
-In Fig.~\ref{fig:CNN-g-0.1}(a) deviation has nearly same characteristic with FNN in lower energies. After 60 epochs Fig.~\ref{fig:CNN-g-0.1}(c), there is a visible shift in higher energies but this does not occur in Fig.~\ref{fig:CNN-g-0.1}(b). Local peeks can be seen on Fig.~\ref{fig:CNN-g-0.1}(d) which increases error. Different techniques may be applied to recover the state at Fig.~\ref{fig:CNN-g-0.1}(b). For instance, before final test, network can check itself and compare different losses at different epochs and can select the minimum case. 
+In Fig.~\ref{fig:CNN-g-0.1}(a) deviation has nearly same characteristic with FCN in lower energies. After 60 epochs Fig.~\ref{fig:CNN-g-0.1}(c), there is a visible shift in higher energies but this does not occur in Fig.~\ref{fig:CNN-g-0.1}(b). Local peeks can be seen on Fig.~\ref{fig:CNN-g-0.1}(d) which increases error. Different techniques may be applied to recover the state at Fig.~\ref{fig:CNN-g-0.1}(b). For instance, before final test, network can check itself and compare different losses at different epochs and can select the minimum case. 
 
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
@@ -636,25 +684,25 @@ In Fig.~\ref{fig:CNN-g-0.1}(a) deviation has nearly same characteristic with FNN
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_int-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_pot-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_kin-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-epoch-60-E_Total-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
 	\caption{Separate Energy Predictions for $g = 0.1$ }
@@ -692,8 +740,8 @@ Output layer of the network involves four layer and since our network is fully c
         \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FFN[128, 30, 30, 10, 1] results for $g = 1$}
-\label{fig:FNN-g-1}
+	\caption{FCN[128, 30, 30, 10, 1] results for $g = 1$}
+\label{fig:FFN-g-1}
 \end{figure}
 
 Relative error gets smaller after each 20 epoch and network goes into saturation after 40 epoch.
@@ -729,7 +777,7 @@ Relative error gets smaller after each 20 epoch and network goes into saturation
 \label{fig:CNN-g-1}
 \end{figure}
 
-Even the loss of the CNN decreases slower than FNN Fig.~\ref{fig:FNN-g-1}(d) and involves local peeks, its relative error at epoch 40 and 60 is smaller. 
+Even the loss of the CNN decreases slower than FCN Fig.~\ref{fig:FFN-g-1}(d) and involves local peeks, its relative error at epoch 40 and 60 is smaller. 
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
@@ -737,28 +785,28 @@ Even the loss of the CNN decreases slower than FNN Fig.~\ref{fig:FNN-g-1}(d) and
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_int-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_pot-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_kin-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-1-epoch-60-E_Total-}
-        \caption{FNN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FNN[128, 30, 30, 10, 4], Separate energy predictions for $g = 1$.}
+	\caption{FCN[128, 30, 30, 10, 4], Separate energy predictions for $g = 1$.}
 \label{fig:FFN-g-1-S}
 \end{figure}
 
@@ -791,7 +839,7 @@ This is the worst case in our training results. In first sight, it can be though
         \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FNN[128, 30, 30, 10, 1] predictions for $g = 10$}
+	\caption{FCN[128, 30, 30, 10, 1] predictions for $g = 10$}
 \label{fig:FFN-g-10}
 \end{figure}
 
@@ -829,7 +877,7 @@ In Fig.~\ref{fig:FFN-g-10}(a) same deviation occurs in lower and higher energies
 \label{fig:CNN-g-10}
 \end{figure}
 
-Accuracy and precision of the CNN are greater than FFN's, both relative error and MSE are smaller than FNN predictions. Also unlike FFN, there is no bias in first 20 epochs. Another important subject is that last 20 epochs increases MSE but reduces relative error slightly. 
+Accuracy and precision of the CNN are greater than FCN's, both relative error and MSE are smaller than FCN predictions. Also unlike FCN, there is no bias in first 20 epochs. Another important subject is that last 20 epochs increases MSE but reduces relative error slightly. 
 
 \svgpath{path = {"../figs/FFNMERGED/"}}
 \begin{figure}[H]
@@ -837,25 +885,25 @@ Accuracy and precision of the CNN are greater than FFN's, both relative error an
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_int-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_pot-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_kin-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-10-epoch-60-E_Total-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
 	\caption{Separate prediction  g=10}
@@ -891,7 +939,7 @@ Result of separate energy prediction for $g=10$ is not poor as $g = 1$. This als
         \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
-	\caption{FFN[128, 30, 30, 10, 1] predictions for g = 20}
+	\caption{FCN[128, 30, 30, 10, 1] predictions for g = 20}
 \label{fig:FFN-g-20}
 \end{figure}
 
@@ -936,25 +984,25 @@ Unbiased predictions in first 20 epochs becomes biased after 40 epochs. It is be
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_int-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_pot-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_kin-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-20-epoch-60-E_Total-}
-        \caption{FFN[128, 30, 30, 10, 4]}
+        \caption{FCN[128, 30, 30, 10, 4]}
 		\label{fig:c}
     \end{subfigure}
 	\caption{Separate prediction  g=20}
@@ -1022,7 +1070,7 @@ When there is no randomization in parameters the network handles the situation e
 
 \subsection{Comment on Python Codes}
 
-There are two neural network codes and three utility codes. Code of FNN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py automatizes the training process. 
+There are two neural network codes and three utility codes. Code of FCN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py automatizes the training process. 
 
 
 The codes given below are not well optimized and involves badly chosen inconsistent naming conventions but the volume of the code is small and it is self explanatory. 
@@ -1030,7 +1078,7 @@ The codes given below are not well optimized and involves badly chosen inconsist
 \subsection{Neural Network and Utility Codes}
 
 \setminted{fontsize=\footnotesize,baselinestretch=1}
-\textbf{Feed Forward Network (FFN)}\\
+\textbf{Fully Connected Network (FCN)}\\
 (feedforwardnetwork.py)
 \inputminted[breaklines]{python}{../Src/feedforwardnetwork.py}
 

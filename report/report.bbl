@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{barenghi2016primer}
 C.~F. Barenghi and N.~G. Parker, {\em A primer on quantum fluids}.
@@ -30,13 +30,17 @@ M.~A. Nielsen, ``Neural networks and deep learning,'' 2015.
 M.~D. Zeiler, ``Adadelta: an adaptive learning rate method,'' {\em arXiv
   preprint arXiv:1212.5701}, 2012.
 
-\bibitem{paszke2017automatic}
-A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
-  A.~Desmaison, L.~Antiga, and A.~Lerer, ``Automatic differentiation in
-  pytorch,'' 2017.
+\bibitem{kingma2014adam}
+D.~Kingma and J.~Ba, ``Adam: A method for stochastic optimization,'' {\em arXiv
+  preprint arXiv:1412.6980}, 2014.
 
 \bibitem{goodfellow2016deep}
 I.~Goodfellow, Y.~Bengio, and A.~Courville, {\em Deep learning}.
 \newblock MIT press, 2016.
+
+\bibitem{paszke2017automatic}
+A.~Paszke, S.~Gross, S.~Chintala, G.~Chanan, E.~Yang, Z.~DeVito, Z.~Lin,
+  A.~Desmaison, L.~Antiga, and A.~Lerer, ``Automatic differentiation in
+  pytorch,'' 2017.
 
 \end{thebibliography}
