@@ -62,6 +62,8 @@ class analyzer(object):
         inset2.tick_params(labelsize=12)
 
         if file_name == None:
+            figure = plt.gcf()
+            figure.set_size_inches(8,6)
             plt.show()
         else:
             figure = plt.gcf()
