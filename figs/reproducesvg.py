@@ -1,6 +1,8 @@
 import glob
 import sys
 import os
+import matplotlib
+matplotlib.use("pgf")
 import matplotlib.pyplot as plt
 import numpy as np
 sys.path.append("../Src/")
@@ -13,13 +15,12 @@ folders = ["CNN", "CNNgPrediction", "FFN"]
 
 def plot_loss(info, file):
     fig, ax1 = plt.subplots()
-    ax1.plot(epochs, np.log(info.loss), "--b", label = "Loss")
+    ax1.plot(epochs, info.loss, "--b", label = "Loss")
     ax1.set_xlabel("Epochs", fontsize=20)
     ax1.set_ylabel("Loss", fontsize=20)
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     ax1.grid()
     ax1.legend()
-    plt.ylim(-2e1, 0)
     ax1.tick_params(labelsize=18)
     figure = plt.gcf()
     figure.set_size_inches(8,6)
@@ -44,7 +45,7 @@ for folder in folders:
 
     for file in files:
         info = an.load_info(file + ".inf")
-        #info.display_plot(file)
+        info.display_plot(file)
         if(file.find("epoch-60") != -1):
             plot_loss(info, file)
 

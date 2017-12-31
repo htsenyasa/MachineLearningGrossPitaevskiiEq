@@ -24,7 +24,7 @@ def plot_loss(infos, files):
     fig, ax1 = plt.subplots()
 
     for i, info in enumerate(infos):
-        ax1.plot(epochs, np.log(info.loss), "--" + c[i], label = labels[i])
+    ax1.plot(epochs, np.log(info.loss), "--" + c[i], label = labels[i])
     ax1.set_xlabel("Epochs", fontsize=18)
     ax1.set_ylabel("Loss", fontsize=18)
     ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))

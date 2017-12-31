@@ -41,8 +41,8 @@ class analyzer(object):
         left2, bottom2, width2, height2 = [0.19, 0.60, .2, .2]
         inset2 = fig.add_axes([left2, bottom2, width2, height2])
         ax1.plot(self.testdataset, self.testdataset, "--r", label=None, linewidth = 1, alpha=0.5)
-        ax1.scatter(self.testdataset, self.predicted, c = np.abs(err), s = 4)
-        #ax1.plot(self.testdataset, self.predicted, ".", label = None, markersize = 2)
+        #ax1.scatter(self.testdataset, self.predicted, c = np.abs(err), s = 4)
+        ax1.plot(self.testdataset, self.predicted, ".", label = None, markersize = 2)
         #ax1.set_title("FNN{}".format(self.arch))
         ax1.set_xlabel("True Energy", fontsize = 20)
         ax1.set_ylabel("Predicted Energy", fontsize = 20)
@@ -76,6 +76,7 @@ class analyzer(object):
 
     def display_plot2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
+        features_l = ['$E_{int}$', '$E_{kin}$', '$E_{pot}$', '$E_{tot}$']
         err = []
         relative_err = []
 
@@ -90,8 +91,8 @@ class analyzer(object):
             ax1.plot(self.testdataset[:,i], self.testdataset[:,i], "--r", linewidth = 3)
             ax1.plot(self.testdataset[:,i], self.predicted[:,i], ".", markersize = 2)
             #ax1.set_title("FNN{}".format(self.arch))
-            ax1.set_xlabel("True " + features[i], fontsize = 20)
-            ax1.set_ylabel("Predicted " + features[i], fontsize = 20)
+            ax1.set_xlabel("True " + features_l[i], fontsize = 20)
+            ax1.set_ylabel("Predicted " + features_l[i], fontsize = 20)
             ax1.tick_params(labelsize = 18)
             ax1.legend()
             ax1.grid()
