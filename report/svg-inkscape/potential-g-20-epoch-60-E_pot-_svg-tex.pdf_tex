@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{462.73811733bp}%
+    \setlength{\unitlength}{464.2256173bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,7 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.76795245)%
+  \begin{picture}(1,0.76854587)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{potential-g-20-epoch-60-E_pot-_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%

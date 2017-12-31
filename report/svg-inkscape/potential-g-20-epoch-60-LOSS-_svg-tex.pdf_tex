@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{588.902187bp}%
+    \setlength{\unitlength}{576bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,7 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.73400453)%
+  \begin{picture}(1,0.75044596)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{potential-g-20-epoch-60-LOSS-_svg-tex.pdf}}%
   \end{picture}%
 \endgroup%

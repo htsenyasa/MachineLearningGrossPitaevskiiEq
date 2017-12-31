@@ -1,4 +1,5 @@
 \documentclass[a4paper,times,12pt]{article}
+\usepackage{indentfirst}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
@@ -42,7 +43,7 @@
 %\date{}
 %\maketitle
 \setcounter{page}{1}
-\pagenumbering{arabic}
+\pagenumbering{roman}
 
 \section*{Summary}
 
@@ -53,12 +54,18 @@ Gross-Pitaevskii equation also called a non-linear Schrodinger equation.
 We also use the method to predict the non-linearity parameter using the ground
 state density profile for a given harmonic trapping potential.
 
+\newpage
+\tableofcontents
 
+\newpage
+
+\pagenumbering{arabic}
 \section{Introduction}
+\label{sec:Intro}
 
 Machine learning is a growing research area, not only its theoretical base but also its share in applications in different areas. One of the reason why machine learning is using so much today is that they can compute any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network such that satisfies the relation $|\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})| < \epsilon $. From this point of view, an event -physical or theoretical etc- can be thought as a function, and a corresponding neural network can be built that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, computational or any type of cost due to calculation steps can be bypassed and approximate value of the quantity can be determined instantly for different scenarios.
 
-In physics, many different kind of applications of machine learning is present\footnote{For a detailed list, see \cite{physicsml}}. For example, here \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problem. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than classical version \cite{biamonte1611quantum}. 
+In physics, many different kind of applications of machine learning is present\footnote{For a detailed list, see \cite{physicsml}}. For example, here \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problem. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. 
 
 In \cite{mills2017deep}, machine (deep) learning is applied to a quantum system represented by corresponding Sch{\"o}dinger Equation. Authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different two dimensional confining potentials including random potential. Their study showed that machine learning is an promising alternative in electronic structure calculation of quantum systems. In our study inspired from mentioned article above, we apply machine learning method to the nonlinear schr{\"o}dinger equation to predict ground state energy of a Bose-Einstein condensate at absolute temperature in one dimensional harmonic trapping potential.
 
@@ -199,17 +206,7 @@ It is convenient to work with dimensionless quantities, to make equation dimensi
 \widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \frac{1}{2}\widetilde{z}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi}
 \end{equation}
 
-
-\subsection{Analytic Solution}
-
-There is no known analytic solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solution is well known which is given as;
-
-\textbf{make dimensionless}
-\begin{equation}
-\label{eq:GPE_SE}
-\end{equation}
-
-\noindent and in the ground state total energy of the system will be;
+There is no known analytic solution of GPE for harmonic trapping potential except the case which interaction parameter is zero. In this case, GPE reduces to the SE and solution is well known with the ground state energy;
 
 \textbf{make dimensionless}
 \begin{equation}
@@ -222,7 +219,7 @@ E = \frac{1}{2}N\hbar\omega
 
 \subsection{Numerical Solution and XMDS Framework}
 
-In previous section we stated that there is no general analytic solution of GPE. It is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions. \textbf{Imaginary time propagation, renormalization, ark45}
+In previous section we stated that there is no general analytic solution of GPE. It is known for only few cases such as uniform condensate which is $V = 0$. Most of the time GPE is solved with numerical techniques or approximations. In this study, we used a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. Equation system can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with pre-specified numerical method. In our program, XMDS takes angular frequency, shift of equilibrium point, value of interaction parameter and number of particles in the system externally. It generates trapping potential and other quantities internally with supplied expressions.
 
 
 Cross-check of the framework has done in two ways. First, since there exists an analytical solution for $g = 0$, we compared the results of the XMDS with analytical ones, and we also used the program here \cite{muruganandam2009fortran}, and compared few results for situations where analytical solution does not exist.  
@@ -242,14 +239,14 @@ An artificial neural network is made of layers and these layers contains simple 
 f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n \omega_i x_i + b
 \end{equation}
 
-Here, $\omega_i$ is weights and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or density function. \textbf{FIGURE OF NETWORK and explanation}. Notice that, the range of the function $f$ is infinite. There are various ways to interpret result of function $f$. The most primitive version of interpretation is sending the result of $f$ as a argument to unit step function to generate 0 (False) or 1 (True). In this case, 
+\noindent Here, $\omega_i$ is weights and $b$ is bias. A layer of a network involves neurons behaves like this function. In our example, $x_n$ inputs represent the potential expression respect to the position or represents density. Notice that, the range of the function $f$ is infinite. There are various ways to interpret result of function $f$. The most primitive version of interpretation is sending the result of $f$ as a argument to unit step function to generate 0 (False) or 1 (True). In this case, 
 
 \begin{equation}
 \label{eq:NU_step_function}
 a(f) = u_1(f(\boldsymbol{x}, \boldsymbol{\omega}, b))
 \end{equation}
 
-where $a$ is called as activation function of neuron and it is the unit step function in this case. However, usage of the step function makes the network discontinuous and does not allow to use differential methods to calculate behavior of the neurons when a small change in weights or biases is applied. One of the most common activation function is sigma function which is continuous version of the step function and it is defined as,
+\noindent where $a$ is called as activation function of neuron and it is the unit step function in this case. However, usage of the step function makes the network discontinuous and does not allow to use differential methods to calculate behavior of the neurons when a small change in weights or biases is applied. One of the most common activation function is sigma function which is continuous version of the step function and it is defined as,
 
 \begin{equation}
 \label{eq:NU_sigma_function}
@@ -274,7 +271,7 @@ f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omeg
 
 \noindent Here we used $\sigma$ as activation function but it can be any suitable activation function such as hyperbolic tangent $tanh(f)$ or Rectified Linear Unit (ReLU).
 
-Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such a networks are called Fully Connected Networks (FCN) or multilayer perceptrons (MLP)\cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
+Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such networks are called Fully Connected Networks (FCN) or multilayer perceptrons (MLP)\cite{nielsen2015neural}. If result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
 
 We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function \cite{nielsen2015neural}. There are different kind of cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show general mechanism and to introduce few notions that directly effects the behavior of the network. 
 
@@ -310,7 +307,7 @@ We can define gradient operator as;
 \Delta{C} = \boldsymbol{\nabla}{C} \boldsymbol{.} \Delta \boldsymbol{l}
 \end{equation}
 
-\noindent where $\boldsymbol{l} = (\omega, b)^T$. What we want again is to minimize cost function, thus; in each iteration value of the C must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
+\noindent where $\boldsymbol{l} = (\omega, b)^T$. What we want again is to minimize cost function, thus; in each iteration value of the $C$ must be smaller than previous one which is equally saying that $\Delta{C}$ must be smaller than zero, therefore; direction of displacement must be in the opposite direction of gradient. Rather than calculating the opposite direction on each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
 
 \begin{equation}
 \label{eq:NT_learning_rate}
@@ -324,7 +321,7 @@ We can define gradient operator as;
 \Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-\noindent where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. \textbf{FIGURE}. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.{\textbf{REF}} 
+\noindent where $\eta$ is positive definite number and it is called as learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\ref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.
 
 Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase speed of training process. It is assumed that gradient of  $m$ randomly selected examples in the dataset is nearly equal to gradient of the whole dataset and it can be expressed as;
 
@@ -419,7 +416,7 @@ CNN has two convolution layers, two maxpool layers and three fully connected lay
 
 \subsection{Hyperparameters}
 
-We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate. The size of this dataset is \textbf{very small} but it can be give an idea about the range of learning rate since stochastic gradient descent is an statistical approach. We first set learning rate 3 and decrease it, until 0.01 prediction of the network was extremely poor. For lower values, predictions were more encouraging. In this section, we give you the effect of learning rate for two different architectures and interaction parameters. 
+We firstly started with smaller dataset which involves 800 elements for trainig 200 for test to see response of the architecture and to obtain a range for learning rate. The size of this dataset is small but it can give an idea about the range of learning rate since stochastic gradient descent is an statistical approach. We first set learning rate 3 and start to decrease it, until 0.01 prediction of the network was extremely poor. For lower values, predictions were more encouraging. In this section, we give you the effect of learning rate for two different architectures and interaction parameters. 
 
 \svgpath{path = {"../figs/archtestresults/"}}
 \begin{figure}[H]
@@ -1012,7 +1009,7 @@ Unbiased predictions in first 20 epochs becomes biased after 40 epochs. It is be
 
 The problem in Fig.~\ref{fig:FFN-g-20-S}(c) is same as in the case $g = 0.1$ which is shown in Fig.~\ref{fig:FFN-g-0.1-S}(a). The order of kinetic energy is  lower than other energies. 
 
-\subsubsection{Inverse Problem Prediction of $\boldsymbol{g}$}
+\subsubsection{Inverse Problem Prediction of ${g}$}
 
 In this section, we try to predict interaction parameter. Again, we accept that $g$ is positive and the value of it can vary between 0 to 10. We used modified version of CNN to predict interaction parameter. Modification only involves a change in input layer of the network. We increased the number of \textbf{channels} to 2 and one of the channels represents potential the other is density. Dataloaders also updated to handle new input representation. 
 
@@ -1053,15 +1050,14 @@ There are three different cases. The first one is that both potential and shift 
 
 When there is no randomization in parameters the network handles the situation easily but when angular frequency and shift starts to vary, the network produces poorer results. It is an expected situation and it does not show that the network is not capable of to predict interaction parameter. As shown in Fig.~\ref{fig:FFN-g-pred}(c), precision of the network is not good but the accuracy is. Expansion in the training dataset and increase in total number of epochs will fix the problem.
 
-\cite{barenghi2016primer}.
-\cite{nielsen2015neural}
-\cite{mills2017deep}
-\cite{goodfellow2016deep}
-\cite{dennis2013xmds2}
-\cite{muruganandam2009fortran}
-\cite{zimmermann2011comparison}
-\cite{paszke2017automatic}
+\clearpage
+\section{Conclusion}
 
+In this study, we implemented an artificial neural network to show a proof of concept that machine learning methods can also be applied to non-linear Schr{\"o}dinger Equation. Our results show that when the harmonic trapping potential is given, ground state energy of the Bose-Einstein can be obtained instantly without using corresponding Gross-Pitaevskii Equation. We also managed to predict interaction, kinetic, potential and total energy of a system separately. Error in our results differs case to case. The worst result occurred in separate energy predictions when the interaction parameter is $1$. The relative error came out about $\%10$. However, in most cases except separate energy predictions relative error is lower than $\%2$. In inverse problem, we built another neural network to predict interaction parameter when potential and density are given. The predictions accuracy decreases when angular frequency of the trapping potential and shift of equilibrium point does not hold fix but mean of the relative error for it is $1.15$.
+
+Our work only involves time independent harmonic trapping potential and limited interaction parameters. Each trained network only accept inputs for a fixed interaction parameter. Our future work will focus on more generic situations such that the network will be able to predict ground state energy of a condensate when both potential and interaction parameter is random. It is also possible to work with two dimensional trapping potential. Our aim is first successful implementation of random interaction parameter and one dimensional random potential. After that, we will try two dimensional case. 
+
+\clearpage
 \bibliographystyle{ieeetr}
 \bibliography{references}
 
@@ -1074,7 +1070,7 @@ When there is no randomization in parameters the network handles the situation e
 There are two neural network codes and three utility codes. Code of FCN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py automatizes the training process. 
 
 
-The codes given below are not well optimized and involves badly chosen inconsistent naming conventions but the volume of the code is small and it is self explanatory. 
+Codes are not optimized and involves badly chosen inconsistent naming conventions. But volume of the code is small and it is self explanatory.
 
 \subsection{Neural Network and Utility Codes}
 
