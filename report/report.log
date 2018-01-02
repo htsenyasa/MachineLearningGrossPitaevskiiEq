@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  2 JAN 2018 10:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  2 JAN 2018 11:16
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1353,59 +1353,111 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-0-epoch-60-L
 OSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a s
 ingle page
 >]
+Package svg Info: Calling Inkscape on input line 582.
+runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
+0-epoch-60-E_int-.svg" --export-pdf="potential-g-0-epoch-60-E_int-_svg-tex.pdf"
+ )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_int-_svg-tex.pdf" "./svg-inkscape/potent
+ial-g-0-epoch-60-E_int-_svg-tex.pdf")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_int-_svg-tex.pdf_tex" "./svg-inkscape/po
+tential-g-0-epoch-60-E_int-_svg-tex.pdf_tex")...executed.
+
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_int-_sv
 g-tex.pdf' is 1 on input line 582.
  (./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf, id=6964, page=1, pag
-ebox=cropbox, 462.52798pt x 346.89601pt>
+ebox=cropbox, 490.55362pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf Graphic file (ty
 pe pdf)
 <use ./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-E_int-_svg-tex.p
 df , page1 used on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 185.65297pt x 139.2429pt on input line
- 52.
+Package pdftex.def Info: Requested size: 185.65297pt x 134.64906pt on input lin
+e 52.
 )
+Package svg Info: Calling Inkscape on input line 588.
+runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
+0-epoch-60-E_pot-.svg" --export-pdf="potential-g-0-epoch-60-E_pot-_svg-tex.pdf"
+ )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_pot-_svg-tex.pdf" "./svg-inkscape/potent
+ial-g-0-epoch-60-E_pot-_svg-tex.pdf")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_pot-_svg-tex.pdf_tex" "./svg-inkscape/po
+tential-g-0-epoch-60-E_pot-_svg-tex.pdf_tex")...executed.
+
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_pot-_sv
 g-tex.pdf' is 1 on input line 588.
 
 (./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf, id=6966, page=1, pag
-ebox=cropbox, 462.52798pt x 346.89601pt>
+ebox=cropbox, 465.96646pt x 358.11661pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf Graphic file (ty
 pe pdf)
 <use ./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-E_pot-_svg-tex.p
 df , page1 used on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 185.65297pt x 139.2429pt on input line
- 52.
+Package pdftex.def Info: Requested size: 185.65297pt x 142.68126pt on input lin
+e 52.
 )
+Package svg Info: Calling Inkscape on input line 594.
+runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
+0-epoch-60-E_kin-.svg" --export-pdf="potential-g-0-epoch-60-E_kin-_svg-tex.pdf"
+ )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_kin-_svg-tex.pdf" "./svg-inkscape/potent
+ial-g-0-epoch-60-E_kin-_svg-tex.pdf")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_kin-_svg-tex.pdf_tex" "./svg-inkscape/po
+tential-g-0-epoch-60-E_kin-_svg-tex.pdf_tex")...executed.
+
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_kin-_sv
 g-tex.pdf' is 1 on input line 594.
 
 (./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf, id=6968, page=1, pag
-ebox=cropbox, 462.52798pt x 346.89601pt>
+ebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf Graphic file (ty
 pe pdf)
 <use ./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-E_kin-_svg-tex.p
 df , page1 used on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 185.65297pt x 139.2429pt on input line
- 52.
+Package pdftex.def Info: Requested size: 185.65297pt x 142.38533pt on input lin
+e 52.
 )
+Package svg Info: Calling Inkscape on input line 600.
+runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
+0-epoch-60-E_Total-.svg" --export-pdf="potential-g-0-epoch-60-E_Total-_svg-tex.
+pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_Total-_svg-tex.pdf" "./svg-inkscape/pote
+ntial-g-0-epoch-60-E_Total-_svg-tex.pdf")...executed.
+
+runsystem(mv "potential-g-0-epoch-60-E_Total-_svg-tex.pdf_tex" "./svg-inkscape/
+potential-g-0-epoch-60-E_Total-_svg-tex.pdf_tex")...executed.
+
 Package svg Info: Last page of `./svg-inkscape/potential-g-0-epoch-60-E_Total-_
 svg-tex.pdf' is 1 on input line 600.
 
 (./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf_tex
 <./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf, id=6970, page=1, p
-agebox=cropbox, 462.52798pt x 346.89601pt>
+agebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf Graphic file (
 type pdf)
 <use ./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/potential-g-0-epoch-60-E_Total-_svg-tex
 .pdf , page1 used on input line 52. on input line 52.
-Package pdftex.def Info: Requested size: 185.65297pt x 139.2429pt on input line
+Package pdftex.def Info: Requested size: 185.65297pt x 142.4653pt on input line
  52.
 ) [15 <./svg-inkscape/potential-g-0-conv1d-epoch-20-_svg-tex.pdf> <./svg-inksca
 pe/potential-g-0-conv1d-epoch-40-_svg-tex.pdf
@@ -1510,7 +1562,7 @@ df' it's supposed that
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-20-
 _svg-tex.pdf' is 1 on input line 655.
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf, id=7909, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf, id=7923, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-20-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1524,7 +1576,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-40-
 _svg-tex.pdf' is 1 on input line 661.
 
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf, id=7911, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf, id=7925, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-40-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1538,7 +1590,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-60-
 _svg-tex.pdf' is 1 on input line 667.
 
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf, id=7913, page=1, 
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf, id=7927, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-60-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -1552,7 +1604,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-conv1d-epoch-60-
 LOSS-_svg-tex.pdf' is 1 on input line 673.
 
 (./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=7915, pag
+<./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=7929, pag
 e=1, pagebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-0_1-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic 
 file (type pdf)
@@ -1578,23 +1630,10 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-60
 -LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a
  single page
 >]
-Package svg Info: Calling Inkscape on input line 689.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-0_1-epoch-60-E_int-.svg" --export-pdf="potential-g-0_1-epoch-60-E_int-_svg-tex.
-pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_int-_svg-tex.pdf" "./svg-inkscape/pote
-ntial-g-0_1-epoch-60-E_int-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_int-_svg-tex.pdf_tex" "./svg-inkscape/
-potential-g-0_1-epoch-60-E_int-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_int-_
 svg-tex.pdf' is 1 on input line 689.
  (./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf, id=8364, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf, id=8378, page=1, p
 agebox=cropbox, 498.40451pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1604,24 +1643,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_int-_svg-tex
 Package pdftex.def Info: Requested size: 185.65297pt x 132.53177pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 695.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-0_1-epoch-60-E_pot-.svg" --export-pdf="potential-g-0_1-epoch-60-E_pot-_svg-tex.
-pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf" "./svg-inkscape/pote
-ntial-g-0_1-epoch-60-E_pot-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf_tex" "./svg-inkscape/
-potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_
 svg-tex.pdf' is 1 on input line 695.
 
 (./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf, id=8366, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf, id=8380, page=1, p
 agebox=cropbox, 465.96646pt x 358.11661pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1631,24 +1657,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_pot-_svg-tex
 Package pdftex.def Info: Requested size: 185.65297pt x 142.68126pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 701.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-0_1-epoch-60-E_kin-.svg" --export-pdf="potential-g-0_1-epoch-60-E_kin-_svg-tex.
-pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf" "./svg-inkscape/pote
-ntial-g-0_1-epoch-60-E_kin-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf_tex" "./svg-inkscape/
-potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_
 svg-tex.pdf' is 1 on input line 701.
 
 (./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf, id=8368, page=1, p
+<./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf, id=8382, page=1, p
 agebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1658,24 +1671,11 @@ Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-E_kin-_svg-tex
 Package pdftex.def Info: Requested size: 185.65297pt x 142.38533pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 707.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-0_1-epoch-60-E_Total-.svg" --export-pdf="potential-g-0_1-epoch-60-E_Total-_svg-
-tex.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf" "./svg-inkscape/po
-tential-g-0_1-epoch-60-E_Total-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf_tex" "./svg-inkscap
-e/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-E_Total
 -_svg-tex.pdf' is 1 on input line 707.
 
 (./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf, id=8370, page=1,
+<./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf, id=8384, page=1,
  pagebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-0_1-epoch-60-E_Total-_svg-tex.pdf Graphic file
  (type pdf)
@@ -1704,7 +1704,7 @@ ed in a single page
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-20-_svg-tex.
 pdf' is 1 on input line 724.
  (./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, id=13339, page=1, pagebox=
+<./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, id=13353, page=1, pagebox=
 cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1718,7 +1718,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-40-_svg-tex.
 pdf' is 1 on input line 730.
 
 (./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, id=13341, page=1, pagebox=
+<./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, id=13355, page=1, pagebox=
 cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1732,7 +1732,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-_svg-tex.
 pdf' is 1 on input line 736.
 
 (./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, id=13343, page=1, pagebox=
+<./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, id=13357, page=1, pagebox=
 cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf Graphic file (type pdf
 )
@@ -1746,7 +1746,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg
 -tex.pdf' is 1 on input line 742.
 
 (./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, id=13345, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, id=13359, page=1, pag
 ebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf Graphic file (typ
 e pdf)
@@ -1775,7 +1775,7 @@ n a single page
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-20-_s
 vg-tex.pdf' is 1 on input line 757.
  (./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=13789, page=1, p
+<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=13803, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1789,7 +1789,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-40-_s
 vg-tex.pdf' is 1 on input line 763.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=13791, page=1, p
+<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=13805, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1803,7 +1803,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-_s
 vg-tex.pdf' is 1 on input line 769.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=13793, page=1, p
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=13807, page=1, p
 agebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1817,7 +1817,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-LO
 SS-_svg-tex.pdf' is 1 on input line 775.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=13795, page
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=13809, page
 =1, pagebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic fi
 le (type pdf)
@@ -1843,23 +1843,10 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-1-epoch-60-L
 OSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a s
 ingle page
 >]
-Package svg Info: Calling Inkscape on input line 790.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-1-epoch-60-E_int-.svg" --export-pdf="potential-g-1-epoch-60-E_int-_svg-tex.pdf"
- )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_int-_svg-tex.pdf" "./svg-inkscape/potent
-ial-g-1-epoch-60-E_int-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_int-_svg-tex.pdf_tex" "./svg-inkscape/po
-tential-g-1-epoch-60-E_int-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_int-_sv
 g-tex.pdf' is 1 on input line 790.
  (./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=14261, page=1, pa
+<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=14275, page=1, pa
 gebox=cropbox, 486.90909pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1884,7 +1871,7 @@ tex' is newer than
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_pot-_sv
 g-tex.pdf' is 1 on input line 796.
 (./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=14263, page=1, pa
+<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=14277, page=1, pa
 gebox=cropbox, 464.4734pt x 356.69347pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1894,24 +1881,11 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.57144pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 802.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-1-epoch-60-E_kin-.svg" --export-pdf="potential-g-1-epoch-60-E_kin-_svg-tex.pdf"
- )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_kin-_svg-tex.pdf" "./svg-inkscape/potent
-ial-g-1-epoch-60-E_kin-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_kin-_svg-tex.pdf_tex" "./svg-inkscape/po
-tential-g-1-epoch-60-E_kin-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_kin-_sv
 g-tex.pdf' is 1 on input line 802.
 
 (./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=14265, page=1, pa
+<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=14279, page=1, pa
 gebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1921,24 +1895,11 @@ df , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.38533pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 808.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-1-epoch-60-E_Total-.svg" --export-pdf="potential-g-1-epoch-60-E_Total-_svg-tex.
-pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_Total-_svg-tex.pdf" "./svg-inkscape/pote
-ntial-g-1-epoch-60-E_Total-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-1-epoch-60-E_Total-_svg-tex.pdf_tex" "./svg-inkscape/
-potential-g-1-epoch-60-E_Total-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_Total-_
 svg-tex.pdf' is 1 on input line 808.
 
 (./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=14267, page=1, 
+<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=14281, page=1, 
 pagebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1967,7 +1928,7 @@ ch-60-LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-20-_svg-tex
 .pdf' is 1 on input line 823.
  (./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf, id=14721, page=1, pagebox
+<./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf, id=14735, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-epoch-20-_svg-tex.pdf Graphic file (type pd
 f)
@@ -1981,7 +1942,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-40-_svg-tex
 .pdf' is 1 on input line 829.
 
 (./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf, id=14723, page=1, pagebox
+<./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf, id=14737, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-epoch-40-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2006,7 +1967,7 @@ is newer than
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-_svg-tex
 .pdf' is 1 on input line 835.
 (./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf, id=14725, page=1, pagebox
+<./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf, id=14739, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2020,7 +1981,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-LOSS-_sv
 g-tex.pdf' is 1 on input line 841.
 
 (./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf, id=14727, page=1, pa
+<./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf, id=14741, page=1, pa
 gebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-LOSS-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -2049,7 +2010,7 @@ a single page
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-20-_
 svg-tex.pdf' is 1 on input line 857.
  (./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf, id=15255, page=1, 
+<./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf, id=15268, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-20-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2063,7 +2024,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-40-_
 svg-tex.pdf' is 1 on input line 863.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf, id=15257, page=1, 
+<./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf, id=15270, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-40-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2077,7 +2038,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-_
 svg-tex.pdf' is 1 on input line 869.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf, id=15259, page=1, 
+<./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf, id=15272, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-60-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2091,7 +2052,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-10-conv1d-epoch-60-L
 OSS-_svg-tex.pdf' is 1 on input line 875.
 
 (./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=15261, pag
+<./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=15274, pag
 e=1, pagebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-10-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic f
 ile (type pdf)
@@ -2117,23 +2078,10 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-10-epoch-60-
 LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a 
 single page
 >]
-Package svg Info: Calling Inkscape on input line 890.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-10-epoch-60-E_int-.svg" --export-pdf="potential-g-10-epoch-60-E_int-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_int-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-10-epoch-60-E_int-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_int-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-10-epoch-60-E_int-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_int-_s
 vg-tex.pdf' is 1 on input line 890.
  (./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf, id=20262, page=1, p
+<./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf, id=20275, page=1, p
 agebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_int-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2143,24 +2091,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.38533pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 896.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-10-epoch-60-E_pot-.svg" --export-pdf="potential-g-10-epoch-60-E_pot-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_pot-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-10-epoch-60-E_pot-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_pot-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-10-epoch-60-E_pot-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_pot-_s
 vg-tex.pdf' is 1 on input line 896.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf, id=20264, page=1, p
+<./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf, id=20277, page=1, p
 agebox=cropbox, 465.96646pt x 358.11661pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_pot-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2170,24 +2105,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.68126pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 902.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-10-epoch-60-E_kin-.svg" --export-pdf="potential-g-10-epoch-60-E_kin-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_kin-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-10-epoch-60-E_kin-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_kin-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-10-epoch-60-E_kin-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_kin-_s
 vg-tex.pdf' is 1 on input line 902.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf, id=20266, page=1, p
+<./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf, id=20279, page=1, p
 agebox=cropbox, 475.41362pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_kin-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2197,24 +2119,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 138.93794pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 908.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-10-epoch-60-E_Total-.svg" --export-pdf="potential-g-10-epoch-60-E_Total-_svg-te
-x.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_Total-_svg-tex.pdf" "./svg-inkscape/pot
-ential-g-10-epoch-60-E_Total-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-10-epoch-60-E_Total-_svg-tex.pdf_tex" "./svg-inkscape
-/potential-g-10-epoch-60-E_Total-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-10-epoch-60-E_Total-
 _svg-tex.pdf' is 1 on input line 908.
 
 (./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf, id=20268, page=1,
+<./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf, id=20281, page=1,
  pagebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-10-epoch-60-E_Total-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -2243,7 +2152,7 @@ d in a single page
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-20-_svg-tex
 .pdf' is 1 on input line 923.
  (./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf, id=20736, page=1, pagebox
+<./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf, id=20749, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-epoch-20-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2257,7 +2166,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-40-_svg-tex
 .pdf' is 1 on input line 929.
 
 (./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf, id=20738, page=1, pagebox
+<./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf, id=20751, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-epoch-40-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2271,7 +2180,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-_svg-tex
 .pdf' is 1 on input line 935.
 
 (./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf, id=20740, page=1, pagebox
+<./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf, id=20753, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-_svg-tex.pdf Graphic file (type pd
 f)
@@ -2285,7 +2194,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-LOSS-_sv
 g-tex.pdf' is 1 on input line 941.
 
 (./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf, id=20742, page=1, pa
+<./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf, id=20755, page=1, pa
 gebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-LOSS-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -2314,7 +2223,7 @@ E_Total-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-20-_
 svg-tex.pdf' is 1 on input line 956.
  (./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=21332, page=1, 
+<./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf, id=21345, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-20-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2328,7 +2237,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-40-_
 svg-tex.pdf' is 1 on input line 962.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=21334, page=1, 
+<./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf, id=21347, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-40-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2342,7 +2251,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-_
 svg-tex.pdf' is 1 on input line 968.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=21336, page=1, 
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf, id=21349, page=1, 
 pagebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-_svg-tex.pdf Graphic file (
 type pdf)
@@ -2356,7 +2265,7 @@ Package svg Info: Last page of `./svg-inkscape/potential-g-20-conv1d-epoch-60-L
 OSS-_svg-tex.pdf' is 1 on input line 974.
 
 (./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=21338, pag
+<./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=21351, pag
 e=1, pagebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-20-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic f
 ile (type pdf)
@@ -2382,23 +2291,10 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-20-epoch-60-
 LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a 
 single page
 >]
-Package svg Info: Calling Inkscape on input line 989.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-20-epoch-60-E_int-.svg" --export-pdf="potential-g-20-epoch-60-E_int-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_int-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-20-epoch-60-E_int-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_int-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-20-epoch-60-E_int-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_int-_s
 vg-tex.pdf' is 1 on input line 989.
  (./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=21818, page=1, p
+<./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf, id=21831, page=1, p
 agebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_int-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2408,24 +2304,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.38533pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 995.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-20-epoch-60-E_pot-.svg" --export-pdf="potential-g-20-epoch-60-E_pot-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_pot-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-20-epoch-60-E_pot-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_pot-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-20-epoch-60-E_pot-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_pot-_s
 vg-tex.pdf' is 1 on input line 995.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=21820, page=1, p
+<./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf, id=21833, page=1, p
 agebox=cropbox, 465.96646pt x 358.11661pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_pot-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2435,24 +2318,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 142.68126pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 1001.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-20-epoch-60-E_kin-.svg" --export-pdf="potential-g-20-epoch-60-E_kin-_svg-tex.pd
-f" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_kin-_svg-tex.pdf" "./svg-inkscape/poten
-tial-g-20-epoch-60-E_kin-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_kin-_svg-tex.pdf_tex" "./svg-inkscape/p
-otential-g-20-epoch-60-E_kin-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_kin-_s
 vg-tex.pdf' is 1 on input line 1001.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=21822, page=1, p
+<./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf, id=21835, page=1, p
 agebox=cropbox, 486.90909pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_kin-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -2462,24 +2332,11 @@ pdf , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 185.65297pt x 135.65886pt on input lin
 e 52.
 )
-Package svg Info: Calling Inkscape on input line 1007.
-runsystem(inkscape -z -D --export-latex  --file="../figs/FFNMERGED/potential-g-
-20-epoch-60-E_Total-.svg" --export-pdf="potential-g-20-epoch-60-E_Total-_svg-te
-x.pdf" )...executed.
-
-runsystem(mkdir -p "./svg-inkscape/")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_Total-_svg-tex.pdf" "./svg-inkscape/pot
-ential-g-20-epoch-60-E_Total-_svg-tex.pdf")...executed.
-
-runsystem(mv "potential-g-20-epoch-60-E_Total-_svg-tex.pdf_tex" "./svg-inkscape
-/potential-g-20-epoch-60-E_Total-_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/potential-g-20-epoch-60-E_Total-
 _svg-tex.pdf' is 1 on input line 1007.
 
 (./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=21824, page=1,
+<./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf, id=21837, page=1,
  pagebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-20-epoch-60-E_Total-_svg-tex.pdf Graphic file 
 (type pdf)
@@ -2516,7 +2373,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package svg Info: Last page of `./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epo
 ch-30-_svg-tex.pdf' is 1 on input line 1029.
 (./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=22225, p
+<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=22238, p
 age=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graphic
  file (type pdf)
@@ -2531,7 +2388,7 @@ Package svg Info: Last page of `./svg-inkscape/various-pot_dens-g-VARY-conv1d-e
 poch-30-_svg-tex.pdf' is 1 on input line 1035.
 
 (./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=22227,
+<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=22240,
  page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graph
 ic file (type pdf)
@@ -2547,7 +2404,7 @@ nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 1041.
 
 (./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
 <./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=
-22229, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
+22242, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
  Graphic file (type pdf)
 <use ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf,
@@ -2560,7 +2417,7 @@ e 52.
 Package svg Info: Last page of `./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf
 ' is 1 on input line 1047.
 (./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, id=22231, page=1, pagebox=cro
+<./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, id=22244, page=1, pagebox=cro
 pbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, page 1>
@@ -2641,10 +2498,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 2.pfb>
-Output written on report.pdf (35 pages, 15361264 bytes).
+Output written on report.pdf (35 pages, 15125922 bytes).
 PDF statistics:
- 23218 PDF objects out of 26593 (max. 8388607)
- 15377 compressed objects within 154 object streams
+ 23231 PDF objects out of 26593 (max. 8388607)
+ 15391 compressed objects within 154 object streams
  124 named destinations out of 1000 (max. 500000)
  886 words of extra memory for PDF output out of 10000 (max. 10000000)
 
