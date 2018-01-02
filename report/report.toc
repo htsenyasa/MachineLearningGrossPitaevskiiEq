@@ -1,4 +1,4 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {1}Introduction and Motivation}{1}{section.1}
 \contentsline {section}{\numberline {2}Gross Pitaevskii Equation}{1}{section.2}
 \contentsline {subsection}{\numberline {2.1}Numerical Solution and XMDS Framework}{4}{subsection.2.1}
 \contentsline {section}{\numberline {3}Problem Statement and Dataset Generation}{5}{section.3}
