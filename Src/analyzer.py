@@ -32,7 +32,7 @@ class analyzer(object):
         self.error = (self.error/self.test_len)
         self.relative_error = sum(np.abs(self.predicted - self.testdataset) / sum(self.testdataset))
 
-    def display_plot(self, file_name = None):
+    def display_plot(self, file_name = None, inter = False):
         err = self.testdataset - self.predicted
         relative_err = ((self.testdataset - self.predicted) / (self.testdataset)) * 100
         fig, ax1 = plt.subplots()
@@ -42,10 +42,17 @@ class analyzer(object):
         inset2 = fig.add_axes([left2, bottom2, width2, height2])
         ax1.plot(self.testdataset, self.testdataset, "--r", label=None, linewidth = 1, alpha=0.5)
         #ax1.scatter(self.testdataset, self.predicted, c = np.abs(err), s = 4)
-        ax1.plot(self.testdataset, self.predicted, ".", label = None, markersize = 2)
+        ax1.plot(self.testdataset, self.predicted, ".", label = None, markersize = 4)
         #ax1.set_title("FNN{}".format(self.arch))
-        ax1.set_xlabel("True Energy", fontsize = 20)
-        ax1.set_ylabel("Predicted Energy", fontsize = 20)
+        if inter == True:
+            x_label = "True Interaction Parameter"
+            y_label = "Predicted Interaction Parameter"
+        else:
+            x_label = "True Energy"
+            y_label = "Predicted Energy"
+
+        ax1.set_xlabel(x_label, fontsize = 20)
+        ax1.set_ylabel(y_label, fontsize = 20)
         ax1.tick_params(labelsize = 18)
         ax1.legend()
         ax1.grid()

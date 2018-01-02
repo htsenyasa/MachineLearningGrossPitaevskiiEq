@@ -653,25 +653,25 @@ Although the accuracy of the network is high, loss figure Fig.~\ref{fig:FFN-g-0.
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-20-}
-        \caption{Conv1D}
+        \caption{Epoch = 20}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
         \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-40-}
-        \caption{Conv1D}
+        \caption{Epoch = 40}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-60-}
-        \caption{Conv1D}
+        \caption{Epoch = 60}
 		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includesvg[width=\linewidth]{potential-g-0_1-conv1d-epoch-60-LOSS-}
-        \caption{Conv1D}
+        \caption{Loss}
 		\label{fig:c}
     \end{subfigure}
 	\caption{CNN results for $g = 0.1$}
@@ -1018,7 +1018,7 @@ The problem in Fig.~\ref{fig:FFN-g-20-S}(c) is same as in the case $g = 0.1$ whi
 
 In this section, we try to predict the interaction parameter for the density. We accept that $g$ is positive and the value of it can vary between 0 to 10. We used modified version of CNN to predict interaction parameter. Modification only involves a change in input layer of the network. We increased the number of channels to 2 and one of the channels represents potential the other is density. Dataloaders also updated to handle new input representation. 
 
-There are three different cases. The first one is that both potential and shift are fixed, only the interaction parameter varies. In the second one we used random angular frequencies. In final case, we both randomized angular frequency and shift. \textbf{fix axis labels}
+There are three different cases. The first one is that both potential and shift are fixed, only the interaction parameter varies. In the second one we used random angular frequencies. In final case, we both randomized angular frequency and shift.
 
 
 \svgpath{path = {"../figs/CNNgPrediction/"}}
@@ -1058,7 +1058,7 @@ When there is no randomization in parameters the network handles the situation e
 \clearpage
 \section{Conclusion}
 
-In this study, we implemented an artificial neural network to show a proof of concept that machine learning methods can also be applied to non-linear Schr{\"o}dinger Equation. Our results show that when the harmonic trapping potential is given, ground state energy of the Bose-Einstein can be obtained without solving the corresponding Gross-Pitaevskii Equation. We also managed to predict interaction, kinetic, potential and total energy of a system separately. Error in our results differs case to case. The worst result occurred in separate energy predictions when the interaction parameter is $1$ and the relative error came out about $\%10$. Because of the contribution of the interaction parameter to the Gross-Pitaevskii equation, all terms become same order and the degree of freedom of the network is not enough to make predictions. However, in most cases except separate energy predictions relative error is lower than $\%2$. In inverse problem, we built another neural network to predict interaction parameter when potential and density are given. The prediction accuracy decreases when angular frequency of the trapping potential and shift of equilibrium point is not fixed but mean of the relative error for it is $1.15$.
+In this study, we implemented an artificial neural network to show a proof of concept that machine learning methods can also be applied to non-linear Schr{\"o}dinger equation. Our results show that when the harmonic trapping potential is given, ground state energy of the Bose-Einstein can be obtained without solving the corresponding Gross-Pitaevskii equation. We also managed to predict interaction, kinetic, potential and total energy of a system separately. Error in our results differs case to case. The worst result occurred in separate energy predictions when the interaction parameter is $1$ and the relative error came out about $\%10$. Because of the contribution of the interaction parameter to the Gross-Pitaevskii equation, all terms become same order and the degree of freedom of the network is not enough to make predictions. However, in most cases except separate energy predictions relative error is lower than $\%2$. In inverse problem, we built another neural network to predict interaction parameter when potential and density are given. The prediction accuracy decreases when angular frequency of the trapping potential and shift of equilibrium point is not fixed but mean of the relative error for it is $1.15$.
 
 Our work only involves harmonic trapping potential and limited interaction parameters. Each trained network only accept inputs for a fixed interaction parameter. Our future work will focus on more generic situations such that the network will be able to predict ground state energy of a condensate when both potential and interaction parameter is random. It is also possible to work with two dimensional trapping potential. Our aim is first successful implementation of random interaction parameter and one dimensional random potentials. After that, we will try two dimensional case. 
 
@@ -1075,32 +1075,32 @@ Our work only involves harmonic trapping potential and limited interaction param
 There are two neural network codes and three utility codes. Code of FCN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py automatizes the training process. 
 
 
-Codes are not optimized and involves badly chosen inconsistent naming conventions. But volume of the code is small and it is self explanatory.
+Codes are not optimized and consistency of the naming convention is poor. But volume of the code is small and it is self explanatory. Code can be obtained from 
 
-\subsection{Neural Network and Utility Codes}
-
-\setminted{fontsize=\footnotesize,baselinestretch=1}
-\textbf{Fully Connected Network (FCN)}\\
-(feedforwardnetwork.py)
-\inputminted[breaklines]{python}{../Src/feedforwardnetwork.py}
-
-\noindent \textbf{Convolutional Neural Network (CNN)}\\
-(cnnnetwork1d.py) 
-\inputminted[breaklines]{python}{../Src/cnnnetwork1d.py}
-
-\noindent \textbf{Utility modules:}\\
-(analyzer.py)
-\inputminted[breaklines]{python}{../Src/analyzer.py}
-
-\noindent (readdata.py)
-\inputminted[breaklines]{python}{../Src/readdata.py}
-
-\noindent (sampletrainloader.py)
-\inputminted[breaklines]{python}{../Src/sampletrainloader.py}
-
-\noindent (run\_trainings.py)
-\inputminted[breaklines]{python}{../Src/run_trainings.py}
-
-\newpage
+%\subsection{Neural Network and Utility Codes}
+%
+%\setminted{fontsize=\footnotesize,baselinestretch=1}
+%\textbf{Fully Connected Network (FCN)}\\
+%(feedforwardnetwork.py)
+%\inputminted[breaklines]{python}{../Src/feedforwardnetwork.py}
+%
+%\noindent \textbf{Convolutional Neural Network (CNN)}\\
+%(cnnnetwork1d.py) 
+%\inputminted[breaklines]{python}{../Src/cnnnetwork1d.py}
+%
+%\noindent \textbf{Utility modules:}\\
+%(analyzer.py)
+%\inputminted[breaklines]{python}{../Src/analyzer.py}
+%
+%\noindent (readdata.py)
+%\inputminted[breaklines]{python}{../Src/readdata.py}
+%
+%\noindent (sampletrainloader.py)
+%\inputminted[breaklines]{python}{../Src/sampletrainloader.py}
+%
+%\noindent (run\_trainings.py)
+%\inputminted[breaklines]{python}{../Src/run_trainings.py}
+%
+%\newpage
 
 \end{document}

@@ -13,4 +13,3 @@
 \contentsline {section}{\numberline {5}Conclusion}{30}{section.5}
 \contentsline {section}{\numberline {A}APPENDIX A}{32}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}Comment on Python Codes}{32}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}Neural Network and Utility Codes}{32}{subsection.A.2}
