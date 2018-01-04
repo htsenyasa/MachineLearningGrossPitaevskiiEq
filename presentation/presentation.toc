@@ -7,3 +7,6 @@
 \beamer@subsectionintoc {2}{1}{Numerical Solution}{9}{0}{2}
 \beamer@sectionintoc {3}{Neural Network}{11}{0}{3}
 \beamer@subsectionintoc {3}{1}{Neural Network}{11}{0}{3}
+\beamer@sectionintoc {4}{Training Results}{15}{0}{4}
+\beamer@subsectionintoc {4}{1}{Ground State Energy Predictions}{15}{0}{4}
+\beamer@subsectionintoc {4}{2}{Predicting Interaction Parameter}{18}{0}{4}

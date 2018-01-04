@@ -204,7 +204,6 @@ $\bullet$ Solved by using imaginary time propagation and re-normalization in XMD
 \end{frame}
 
 
-
 \section{Neural Network}
 \subsection{Neural Network}
 \begin{frame}{Neural Network}
@@ -217,6 +216,172 @@ $\bullet$ Trained to predict ground state energy of a Bose-Einstein Condensate.
 \vskip 0.5cm
 $\bullet$ FCN is also trained to predict interaction, kinetic, potential, and total energy of the system.
 
+\end{frame}
+
+\begin{frame}{Fully Connected Network}
+
+$\bullet$ 1 input layer, 3 hidden layers, 1 output layer.
+\vskip 0.5cm
+$\bullet$ Adaptive Learning Rate (Adam)
+\vskip 0.5cm
+$\bullet$ ReLU activation function
+
+\end{frame}
+
+\begin{frame}{Convolutional Neural Network}
+
+$\bullet$ 2 convolution layers, 2 maxpool layers, 3 fully connected layer.
+\vskip 0.5cm
+$\bullet$ Adaptive Learning Rate (Adam)
+\vskip 0.5cm
+$\bullet$ ReLU activation function
+
+\end{frame}
+
+\begin{frame}{Choosing Hyperparameters}
+
+\svgpath{path = {"../figs/archtestresults/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+           \centering
+            \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_003-800"}}
+            \caption{FCN[128, 40, 40, 1], $\eta$ = 0.003}
+            \label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+            \centering
+             \includesvg[width=\linewidth]{{"fourlayer-g0-lr0_001-800"}}
+            \caption{FCN[128, 40, 40, 1], $\eta$ = 0.001}
+            \label{fig:b}
+    \end{subfigure}
+    \caption{Hyperparameters}
+\end{figure}
+\end{frame}
+
+\section{Training Results}
+\subsection{Ground State Energy Predictions}
+
+\begin{frame}{Ground State Energy Predictions}
+
+\svgpath{path = {"../figs/FFN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-0_1-epoch-20-}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-0_1-epoch-40-}
+		\label{fig:b}
+    \end{subfigure}    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-0_1-epoch-60-}
+ 		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-0_1-epoch-60-LOSS-}
+		\label{fig:c}
+    \end{subfigure}
+	{\caption{{FCN[128, 30, 30, 10, 1] results for $g = 0.1$.}}}
+\label{fig:FFN-g-0.1}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Ground State Energy Predictions}
+
+\svgpath{path = {"../figs/CNN/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-1-conv1d-epoch-20-}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-1-conv1d-epoch-40-}
+		\label{fig:b}
+    \end{subfigure}    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-1-conv1d-epoch-60-}
+		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-1-conv1d-epoch-60-LOSS-}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{CNN results for $g = 1$}
+\label{fig:CNN-g-1}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Ground State Energy Predictions}
+
+\svgpath{path = {"../figs/FFNMERGED/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-E_int-}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-E_pot-}
+		\label{fig:b}
+    \end{subfigure}    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-E_kin-}
+		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-E_Total-}
+		\label{fig:c}
+    \end{subfigure}
+	\caption{FCN[128, 30, 30, 10, 4], Separate energy predictions for $g = 1$.}
+\label{fig:FFN-g-1-S}
+\end{figure}
+\end{frame}
+
+\subsection{Predicting Interaction Parameter}
+\begin{frame}{Inverse Problem: Predicting interaction parameter}
+
+\svgpath{path = {"../figs/CNNgPrediction/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		\centering
+    	\includesvg[width=4.5cm]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+    	\includesvg[width=4.5cm]{various-pot_dens-g-VARY-conv1d-epoch-30-}
+		\label{fig:b}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+		\includesvg[width=4.5cm]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
+		\label{fig:c}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+		\includesvg[width=4.5cm]{FPFS-VPFS-VPVS-LOSS-}
+		\label{fig:d}
+    \end{subfigure}
+\end{figure}
 \end{frame}
 
 \end{document}
