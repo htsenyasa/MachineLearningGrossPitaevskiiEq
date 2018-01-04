@@ -1,26 +1,20 @@
-import shlex, subprocess, time
-import random as rnd
+import numpy as np
+import matplotlib.pyplot as plt
+
+dens = np.loadtxt("density.txt")
+pots = np.loadtxt("potential.txt")
+x = np.loadtxt("position.txt")
 
 
-inter_param = 0
-num_particles = 1
-freq = 1.5  # corresponds to omega in xmds file and it will change between [0, 1.7]
-shift = 0   # shift [-10, 10]
-
-#rnd.seed(10)
-shift = rnd.triangular(-10, 10)
-freq = rnd.triangular(0, 1.7)
-
-cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
-args = shlex.split(cmdline)
-p = subprocess.Popen(args)
-p.wait()
-
-cmdline = "python2.7 gp1d.py"
-args = shlex.split(cmdline)
-p = subprocess.Popen(args)
-p.wait()
-
-
-#cmdline = "./xgp1d"
-#cmdline = "./xgp1d --interaction_param=0 --num_particles=1 --freq=0.5 --shift=10"
+plt.plot(x, dens[0], label = "g = 0")
+plt.plot(x, dens[1], label = "g = 0.1")
+plt.plot(x, dens[2], label = "g = 1")
+plt.plot(x, dens[3], label = "g = 10")
+plt.plot(x, dens[4], label = "g = 20")
+plt.xlabel("$z$", fontsize = 20)
+plt.ylabel("$|\psi|^2$", fontsize = 20)
+plt.legend()
+figure = plt.gcf()
+figure.set_size_inches(8,6)
+plt.savefig("potvsdens.svg", format = "svg", dpi=1200)
+#plt.show()

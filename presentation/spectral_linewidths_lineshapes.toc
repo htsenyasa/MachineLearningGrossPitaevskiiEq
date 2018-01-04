@@ -1,0 +1,7 @@
+\select@language {english}
+\beamer@sectionintoc {1}{Machine Learning}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Machine Learning}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Deep Learning and Schr{\"o}dinger Equation}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{Applying Machine Learning to the NLSE}{7}{0}{1}
+\beamer@sectionintoc {2}{Dataset Generation}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Numerical Solution}{9}{0}{2}
