@@ -87,15 +87,15 @@ $\bullet$ Application of machine learning to a 2D Schr{\"o}dinger Equation with 
 
 \end{frame}
 
-\begin{frame}{Deep Learning and Schr{\"o}dinger Equation}
-
-$\bullet$ The article shows that a convolutional neural network can learn the mapping between $V(r)$ and physical features of the system.
-
-\vskip 1cm
-
-$\bullet$ It also shows that partial differential equations can be solved approximately with machine learning.
-
-\end{frame}
+%\begin{frame}{Deep Learning and Schr{\"o}dinger Equation}
+%
+%$\bullet$ The article shows that a convolutional neural network can learn the mapping between $V(r)$ and physical features of the system.
+%
+%\vskip 1cm
+%
+%$\bullet$ It also shows that partial differential equations can be solved approximately with machine learning.
+%
+%\end{frame}
 
 \subsection{Applying Machine Learning to the NLSE}
 
@@ -106,11 +106,7 @@ $$i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar^2}{2m}\nabla^2
 
 \vskip 0.5cm
 
-$\bullet$ Gross-Pitaevskii Equation has non-linear term called as interaction parameter.
-
-\vskip 0.5cm
-
-$\bullet$ Interaction Parameter determines whether interaction is repulsive or attractive.
+$\bullet$ Non-linear term results from the interactions between bosons.
 
 \vskip 0.5cm
 
@@ -146,7 +142,7 @@ $\bullet$ GPE is solved with random harmonic trapping potential including shift 
 
 \begin{table}[]
 \centering
-\caption{My caption}
+\caption{Values and Ranges of Parameters}
 \label{my-label}
 \begin{tabular}{lllll}
 Interaction Parameter & $g$\hspace{0.23cm}:       & \textbraceleft0, 0.1, 1, 10, 20\textbraceright &  &  \\
@@ -380,8 +376,21 @@ $\bullet$ ReLU activation function
         \centering
 		\includesvg[width=4.5cm]{FPFS-VPFS-VPVS-LOSS-}
 		\label{fig:d}
-    \end{subfigure}
+	    \end{subfigure}
+	\caption{Prediction of interaction parameter}
 \end{figure}
 \end{frame}
 
+\section{Conclusion}
+\begin{frame}{Conclusion}
+
+$\bullet$ Machine learning methods can also be applied to non-linear
+Schrödinger equation.
+
+\vskip 1cm
+
+\end{frame}
+
 \end{document}
+
+
