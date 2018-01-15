@@ -3,11 +3,9 @@
 \beamer@subsectionintoc {1}{1}{Machine Learning}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{Deep Learning and Schr{\"o}dinger Equation}{5}{0}{1}
 \beamer@subsectionintoc {1}{3}{Applying Machine Learning to the NLSE}{6}{0}{1}
-\beamer@sectionintoc {2}{Dataset Generation}{8}{0}{2}
-\beamer@subsectionintoc {2}{1}{Numerical Solution}{8}{0}{2}
-\beamer@sectionintoc {3}{Neural Network}{10}{0}{3}
-\beamer@subsectionintoc {3}{1}{Neural Network}{10}{0}{3}
-\beamer@sectionintoc {4}{Training Results}{14}{0}{4}
-\beamer@subsectionintoc {4}{1}{Ground State Energy Predictions}{14}{0}{4}
-\beamer@subsectionintoc {4}{2}{Predicting Interaction Parameter}{17}{0}{4}
-\beamer@sectionintoc {5}{Conclusion}{18}{0}{5}
+\beamer@sectionintoc {2}{Neural Network}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Neural Network}{9}{0}{2}
+\beamer@sectionintoc {3}{Training Results}{12}{0}{3}
+\beamer@subsectionintoc {3}{1}{Ground State Energy Predictions}{12}{0}{3}
+\beamer@subsectionintoc {3}{2}{Predicting Interaction Parameter}{15}{0}{3}
+\beamer@sectionintoc {4}{Conclusion and Future Plans}{16}{0}{4}

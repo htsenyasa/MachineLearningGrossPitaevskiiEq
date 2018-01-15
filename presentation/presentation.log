@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  5 JAN 2018 11:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.12.20)  5 JAN 2018 12:44
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -767,9 +767,6 @@ Package hyperref Warning: Composite letter `\textcedilla+s'
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 ) (./presentation.aux
 
-LaTeX Warning: Label `fig:DPandSE' multiply defined.
-
-
 LaTeX Warning: Label `fig:a' multiply defined.
 
 
@@ -1027,7 +1024,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 [3
 
 ]
-<neuralnetworkex.png, id=116, 599.23875pt x 325.215pt>
+<neuralnetworkex.png, id=105, 599.23875pt x 325.215pt>
 File: neuralnetworkex.png Graphic file (type png)
 <use neuralnetworkex.png>
 Package pdftex.def Info: neuralnetworkex.png  used on input line 74. on input l
@@ -1042,7 +1039,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 [4
 
  <./neuralnetworkex.png>]
-<DPandSE.png, id=126, 1689.31125pt x 876.27374pt>
+<DPandSE.png, id=115, 1689.31125pt x 876.27374pt>
 File: DPandSE.png Graphic file (type png)
 <use DPandSE.png>
 Package pdftex.def Info: DPandSE.png  used on input line 88. on input line 88.
@@ -1063,20 +1060,25 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 [6
 
 ]
-<BoseEinsteinCondensate.png, id=144, 806.01125pt x 404.51125pt>
-File: BoseEinsteinCondensate.png Graphic file (type png)
-<use BoseEinsteinCondensate.png>
-Package pdftex.def Info: BoseEinsteinCondensate.png  used on input line 134. on
- input line 134.
-Package pdftex.def Info: Requested size: 273.83728pt x 137.42706pt on input lin
-e 134.
-pdfTeX warning (ext4): destination with the same identifier (name{fig:DPandSE})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.134 \end{frame}
-                 
-Overfull \vbox (2.10461pt too high) detected at line 134
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 189
+.
+LaTeX Font Info:    No file OMScmss.fd. on input line 189.
+
+
+LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 189.
+
+<onedimbose.png, id=131, 109.40875pt x 436.63126pt>
+File: onedimbose.png Graphic file (type png)
+<use onedimbose.png>
+Package pdftex.def Info: onedimbose.png  used on input line 189. on input line 
+189.
+Package pdftex.def Info: Requested size: 28.45274pt x 113.5481pt on input line 
+189.
+
+Overfull \hbox (12.32632pt too wide) detected at line 189
+[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
  []
 
 
@@ -1086,28 +1088,11 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 
 [7
 
- <./BoseEinsteinCondensate.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 156
-.
-LaTeX Font Info:    No file OMScmss.fd. on input line 156.
-
-
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 156.
-
-
-Overfull \hbox (77.59958pt too wide) has occurred while \output is active
- [][]  \OT1/cmss/m/n/6 ([])  
- []
-
-[8
-
-]
+ <./onedimbose.png>]
 Package svg Info: Last page of `./svg-inkscape/potvsdens_svg-tex.pdf' is 1 on i
-nput line 200.
+nput line 234.
  (./svg-inkscape/potvsdens_svg-tex.pdf_tex
-<./svg-inkscape/potvsdens_svg-tex.pdf, id=163, page=1, pagebox=cropbox, 578.16p
+<./svg-inkscape/potvsdens_svg-tex.pdf, id=144, page=1, pagebox=cropbox, 578.16p
 t x 433.62pt>
 File: ./svg-inkscape/potvsdens_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/potvsdens_svg-tex.pdf, page 1>
@@ -1120,9 +1105,16 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[9
+[8
 
  <./svg-inkscape/potvsdens_svg-tex.pdf>]
+Overfull \hbox (77.59958pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[9
+
+]
 Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
@@ -1130,24 +1122,10 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 [10
 
 ]
-Overfull \hbox (77.59958pt too wide) has occurred while \output is active
- [][]  \OT1/cmss/m/n/6 ([])  
- []
-
-[11
-
-]
-Overfull \hbox (77.59958pt too wide) has occurred while \output is active
- [][]  \OT1/cmss/m/n/6 ([])  
- []
-
-[12
-
-]
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-t
-ex.pdf' is 1 on input line 256.
+ex.pdf' is 1 on input line 290.
  (./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=210, page=1, pagebox
+<./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf, id=185, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_003-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -1160,12 +1138,12 @@ e 52.
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.256 \end{frame}
+l.290 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-t
-ex.pdf' is 1 on input line 256.
+ex.pdf' is 1 on input line 290.
  (./svg-inkscape/fourlayer-g0-lr0_001-800_svg-tex.pdf_tex
-<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=212, page=1, pagebox
+<./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf, id=187, page=1, pagebox
 =cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/"fourlayer-g0-lr0_001-800"_svg-tex.pdf Graphic file (type 
 pdf)
@@ -1179,7 +1157,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[13
+[11
 
  <./svg-inkscape/fourlayer-g0-lr0_003-800_svg-tex.pdf> <./svg-inkscape/fourlaye
 r-g0-lr0_001-800_svg-tex.pdf
@@ -1188,80 +1166,80 @@ pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/fourlayer-g0-lr0_001-800
 _svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
-Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-20-_svg-te
-x.pdf' is 1 on input line 290.
- (./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf, id=490, page=1, pagebox=
-cropbox, 578.16pt x 433.87782pt>
-File: ./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf Graphic file (type p
-df)
-<use ./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf ,
- page1 used on input line 52. on input line 52.
+Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-20-_svg-tex.
+pdf' is 1 on input line 324.
+ (./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf_tex
+<./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, id=463, page=1, pagebox=cr
+opbox, 578.16pt x 433.87782pt>
+File: ./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf , p
+age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line 
 52.
 )pdfTeX warning (ext4): destination with the same identifier (name{fig:a}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \end{frame}
+l.324 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:a}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \end{frame}
+l.324 \end{frame}
                  
-Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-40-_svg-te
-x.pdf' is 1 on input line 290.
- (./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf, id=492, page=1, pagebox=
-cropbox, 578.16pt x 433.87782pt>
-File: ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf Graphic file (type p
-df)
-<use ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf ,
- page1 used on input line 52. on input line 52.
+Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-40-_svg-tex.
+pdf' is 1 on input line 324.
+ (./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf_tex
+<./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, id=465, page=1, pagebox=cr
+opbox, 578.16pt x 433.87782pt>
+File: ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/potential-g-1-epoch-40-_svg-tex.pdf , p
+age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line 
 52.
 )pdfTeX warning (ext4): destination with the same identifier (name{fig:b}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \end{frame}
+l.324 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:b}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \end{frame}
+l.324 \end{frame}
                  
-Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-_svg-te
-x.pdf' is 1 on input line 290.
- (./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf, id=494, page=1, pagebox=
-cropbox, 578.16pt x 433.87782pt>
-File: ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf Graphic file (type p
-df)
-<use ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf ,
- page1 used on input line 52. on input line 52.
+Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-_svg-tex.
+pdf' is 1 on input line 324.
+ (./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf_tex
+<./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, id=467, page=1, pagebox=cr
+opbox, 578.16pt x 433.87782pt>
+File: ./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf , p
+age1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line 
 52.
 )
-Package svg Info: Last page of `./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_s
-vg-tex.pdf' is 1 on input line 290.
+Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg
+-tex.pdf' is 1 on input line 324.
 
-(./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf, id=496, page=1, pag
-ebox=cropbox, 578.2008pt x 433.87782pt>
-File: ./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf Graphic file (t
-ype pdf)
-<use ./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.
-pdf , page1 used on input line 52. on input line 52.
+(./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf_tex
+<./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, id=469, page=1, pageb
+ox=cropbox, 578.2008pt x 433.87782pt>
+File: ./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf Graphic file (typ
+e pdf)
+<use ./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pd
+f , page1 used on input line 52. on input line 52.
 Package pdftex.def Info: Requested size: 128.0374pt x 96.07573pt on input line 
 52.
 )
-Overfull \vbox (2.09882pt too high) detected at line 290
+Overfull \vbox (2.09882pt too high) detected at line 324
  []
 
 
@@ -1269,41 +1247,41 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[14
+[12
 
 pdfTeX warning (ext4): destination with the same identifier (name{fig:c}) has b
 een already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.290 \end{frame}
+l.324 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.290 \end{frame}
-                  <./svg-inkscape/potential-g-0_1-epoch-20-_svg-tex.pdf> <./svg
--inkscape/potential-g-0_1-epoch-40-_svg-tex.pdf
+l.324 \end{frame}
+                  <./svg-inkscape/potential-g-1-epoch-20-_svg-tex.pdf> <./svg-i
+nkscape/potential-g-1-epoch-40-_svg-tex.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-40
--_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a sing
-le page
-> <./svg-inkscape/potential-g-0_1-epoch-60-_svg-tex.pdf
+pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-1-epoch-40-_
+svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
+ page
+> <./svg-inkscape/potential-g-1-epoch-60-_svg-tex.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-60
--_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a sing
-le page
-> <./svg-inkscape/potential-g-0_1-epoch-60-LOSS-_svg-tex.pdf
+pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-1-epoch-60-_
+svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
+ page
+> <./svg-inkscape/potential-g-1-epoch-60-LOSS-_svg-tex.pdf
 
-pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-0_1-epoch-60
--LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a
- single page
+pdfTeX warning: /usr/bin/pdflatex (file ./svg-inkscape/potential-g-1-epoch-60-L
+OSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-20-_s
-vg-tex.pdf' is 1 on input line 322.
+vg-tex.pdf' is 1 on input line 356.
  (./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=945, page=1, pag
+<./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf, id=938, page=1, pag
 ebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1316,18 +1294,18 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:a}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-40-_s
-vg-tex.pdf' is 1 on input line 322.
+vg-tex.pdf' is 1 on input line 356.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=947, page=1, pag
+<./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf, id=940, page=1, pag
 ebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-40-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1340,18 +1318,18 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:b}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-_s
-vg-tex.pdf' is 1 on input line 322.
+vg-tex.pdf' is 1 on input line 356.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=949, page=1, pag
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf, id=942, page=1, pag
 ebox=cropbox, 578.16pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-_svg-tex.pdf Graphic file (t
 ype pdf)
@@ -1364,18 +1342,18 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.08235pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-conv1d-epoch-60-LO
-SS-_svg-tex.pdf' is 1 on input line 322.
+SS-_svg-tex.pdf' is 1 on input line 356.
 
 (./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=951, page=1
+<./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf, id=944, page=1
 , pagebox=cropbox, 578.2008pt x 433.87782pt>
 File: ./svg-inkscape/potential-g-1-conv1d-epoch-60-LOSS-_svg-tex.pdf Graphic fi
 le (type pdf)
@@ -1388,14 +1366,14 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.07573pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.322 \end{frame}
+l.356 \end{frame}
                  
-Overfull \vbox (2.09882pt too high) detected at line 322
+Overfull \vbox (2.09882pt too high) detected at line 356
  []
 
 
@@ -1403,7 +1381,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[15
+[13
 
  <./svg-inkscape/potential-g-1-conv1d-epoch-20-_svg-tex.pdf> <./svg-inkscape/po
 tential-g-1-conv1d-epoch-40-_svg-tex.pdf
@@ -1423,9 +1401,9 @@ ch-60-LOSS-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included
  in a single page
 >]
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_int-_sv
-g-tex.pdf' is 1 on input line 352.
+g-tex.pdf' is 1 on input line 386.
  (./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=1405, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf, id=1400, page=1, pag
 ebox=cropbox, 486.90909pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1438,17 +1416,17 @@ Package pdftex.def Info: Requested size: 128.0374pt x 93.55727pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:a}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_pot-_sv
-g-tex.pdf' is 1 on input line 352.
+g-tex.pdf' is 1 on input line 386.
  (./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=1407, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf, id=1402, page=1, pag
 ebox=cropbox, 465.96646pt x 358.11661pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_pot-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1461,17 +1439,17 @@ Package pdftex.def Info: Requested size: 128.0374pt x 98.40312pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:b}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_kin-_sv
-g-tex.pdf' is 1 on input line 352.
+g-tex.pdf' is 1 on input line 386.
  (./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=1409, page=1, pag
+<./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf, id=1404, page=1, pag
 ebox=cropbox, 463.9182pt x 355.79323pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_kin-_svg-tex.pdf Graphic file (ty
 pe pdf)
@@ -1484,18 +1462,18 @@ Package pdftex.def Info: Requested size: 128.0374pt x 98.1936pt on input line 5
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/potential-g-1-epoch-60-E_Total-_
-svg-tex.pdf' is 1 on input line 352.
+svg-tex.pdf' is 1 on input line 386.
 
 (./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf_tex
-<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=1411, page=1, p
+<./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf, id=1406, page=1, p
 agebox=cropbox, 463.9182pt x 355.99304pt>
 File: ./svg-inkscape/potential-g-1-epoch-60-E_Total-_svg-tex.pdf Graphic file (
 type pdf)
@@ -1508,14 +1486,14 @@ Package pdftex.def Info: Requested size: 128.0374pt x 98.24875pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.352 \end{frame}
+l.386 \end{frame}
                  
-Overfull \vbox (6.58253pt too high) detected at line 352
+Overfull \vbox (6.58253pt too high) detected at line 386
  []
 
 
@@ -1523,7 +1501,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[16
+[14
 
  <./svg-inkscape/potential-g-1-epoch-60-E_int-_svg-tex.pdf> <./svg-inkscape/pot
 ential-g-1-epoch-60-E_pot-_svg-tex.pdf
@@ -1543,9 +1521,9 @@ _Total-_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in
 a single page
 >]
 Package svg Info: Last page of `./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epo
-ch-30-_svg-tex.pdf' is 1 on input line 382.
+ch-30-_svg-tex.pdf' is 1 on input line 416.
  (./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=1938, pa
+<./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=1933, pa
 ge=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graphic
  file (type pdf)
@@ -1559,18 +1537,18 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.02525pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:a}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/various-pot_dens-g-VARY-conv1d-e
-poch-30-_svg-tex.pdf' is 1 on input line 382.
+poch-30-_svg-tex.pdf' is 1 on input line 416.
 
 (./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
-<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=1940, 
+<./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=1935, 
 page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf Graph
 ic file (type pdf)
@@ -1584,19 +1562,19 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.02525pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:b}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/various-shift-pot_dens-g-VARY-co
-nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 382.
+nv1d-epoch-30-_svg-tex.pdf' is 1 on input line 416.
 
 (./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf_tex
 <./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf, id=
-1942, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
+1937, page=1, pagebox=cropbox, 578.16pt x 433.62pt>
 File: ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
  Graphic file (type pdf)
 <use ./svg-inkscape/various-shift-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf,
@@ -1609,17 +1587,17 @@ Package pdftex.def Info: Requested size: 128.0374pt x 96.02525pt on input line
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{sub@fig:c}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.382 \end{frame}
+l.416 \end{frame}
                  
 Package svg Info: Last page of `./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf
-' is 1 on input line 382.
+' is 1 on input line 416.
  (./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf_tex
-<./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, id=1944, page=1, pagebox=crop
+<./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, id=1939, page=1, pagebox=crop
 box, 578.16pt x 433.62pt>
 File: ./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf, page 1>
@@ -1628,7 +1606,7 @@ Package pdftex.def Info: ./svg-inkscape/FPFS-VPFS-VPVS-LOSS-_svg-tex.pdf , page
 Package pdftex.def Info: Requested size: 128.0374pt x 96.02525pt on input line 
 52.
 )
-Overfull \vbox (1.9855pt too high) detected at line 382
+Overfull \vbox (1.9855pt too high) detected at line 416
  []
 
 
@@ -1636,7 +1614,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[17
+[15
 
  <./svg-inkscape/fixed-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf> <./svg-ink
 scape/various-pot_dens-g-VARY-conv1d-epoch-30-_svg-tex.pdf
@@ -1659,7 +1637,7 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
  [][]  \OT1/cmss/m/n/6 ([])  
  []
 
-[18
+[16
 
 ]
 \tf@nav=\write6
@@ -1671,20 +1649,14 @@ Overfull \hbox (77.59958pt too wide) has occurred while \output is active
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 394.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 394.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 434.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 434.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 394.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 394.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 434.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 434.
+Package rerunfilecheck Info: File `presentation.out' has not changed.
+(rerunfilecheck)             Checksum: 716382DAE46F144C26500194F6C71823;681.
 
-
-Package rerunfilecheck Warning: File `presentation.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `presentation.out':
-(rerunfilecheck)             Before: B5070935F19933E4778A1936974B865E;787
-(rerunfilecheck)             After:  8865E1DC8BAA64CCD41EBF4D24A12B16;787.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1693,45 +1665,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 21091 strings out of 492985
- 397679 string characters out of 6138637
- 489956 words of memory out of 5000000
- 23997 multiletter control sequences out of 15000+600000
- 14574 words of font info for 55 fonts, out of 8000000 for 9000
+ 21076 strings out of 492985
+ 397388 string characters out of 6138637
+ 488949 words of memory out of 5000000
+ 23992 multiletter control sequences out of 15000+600000
+ 16426 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,19n,62p,798b,644s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Navigation19} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.4.2.18} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.4.1.15} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.3.1.11} has been referenced but does not e
-xist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.2.1.9} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.1.3.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb>
-Output written on presentation.pdf (18 pages, 3320932 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb>
+Output written on presentation.pdf (16 pages, 3221444 bytes).
 PDF statistics:
- 2384 PDF objects out of 2487 (max. 8388607)
- 1607 compressed objects within 17 object streams
- 69 named destinations out of 1000 (max. 500000)
- 374 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2374 PDF objects out of 2487 (max. 8388607)
+ 1593 compressed objects within 16 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 358 words of extra memory for PDF output out of 10000 (max. 10000000)
 

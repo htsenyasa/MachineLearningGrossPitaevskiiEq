@@ -120,29 +120,50 @@ $\bullet$ Generally solved by numerically or by approximation.
 \end{frame}
 
 
-\begin{frame}{Applying ML to the non-linear Schr{\"o}dinger Equation}
-
-$\bullet$ GPE can also be studied in 1D
-
-$$\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + \frac{1}{2}m\omega_z^2 (z-z_0)^2\psi_z + g^{\prime}|\psi_z|^2\psi_z$$
-
-\begin{figure}[Htb!]
-\includegraphics[width=0.8\textwidth]{BoseEinsteinCondensate.png}
-\caption{\label{fig:DPandSE} Bose-Einstein Condensates in different trapping potentials.}
-\end{figure}
-
-\end{frame}
-
-\section{Dataset Generation}
-\subsection{Numerical Solution}
+%\begin{frame}{Applying ML to the non-linear Schr{\"o}dinger Equation}
+%
+%$\bullet$ GPE can also be studied in 1D
+%
+%$$\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + \frac{1}{2}m\omega_z^2 (z-z_0)^2\psi_z + g^{\prime}|\psi_z|^2\psi_z$$
+%
+%\begin{figure}[Htb!]
+%\includegraphics[width=0.8\textwidth]{BoseEinsteinCondensate.png}
+%\caption{\label{fig:DPandSE} Bose-Einstein Condensates in different trapping potentials.}
+%\end{figure}
+%
+%\end{frame}
+%
+%\section{Dataset Generation}
+%\subsection{Numerical Solution}
+%
+%\begin{frame}{Numerical Solution}
+%
+%$\bullet$ GPE is solved with random harmonic trapping potential including shift while interaction parameter is kept fixed.
+%
+%\begin{table}[]
+%\centering
+%\caption{Values and Ranges of Parameters}
+%\label{my-label}
+%\begin{tabular}{lllll}
+%Interaction Parameter & $g$\hspace{0.23cm}:       & \textbraceleft0, 0.1, 1, 10, 20\textbraceright &  &  \\
+%Shift                 & $z_0$\hspace{0.085cm}:     & {[}-5, 5{]}             &  &  \\
+%Angular Frequency     & $\omega_z$\hspace{0.05cm}:& {[}0.5, 2{]}            &  &  \\
+%                      &            &                         &  & 
+%\end{tabular}
+%\end{table}
+%
+%$\bullet$ Solved by using imaginary time propagation and re-normalization in XMDS Framework.
+%\end{frame}
 
 \begin{frame}{Numerical Solution}
+
+\begin{columns}
+\begin{column}{0.9\textwidth}
+$$\mu^{\prime}\psi_z = \frac{-\hbar^2}{2m}\frac{d^2\psi_z}{dz^2} + \frac{1}{2}m\omega_z^2 (z-z_0)^2\psi_z + g^{\prime}|\psi_z|^2\psi_z$$
 
 $\bullet$ GPE is solved with random harmonic trapping potential including shift while interaction parameter is kept fixed.
 
 \begin{table}[]
-\centering
-\caption{Values and Ranges of Parameters}
 \label{my-label}
 \begin{tabular}{lllll}
 Interaction Parameter & $g$\hspace{0.23cm}:       & \textbraceleft0, 0.1, 1, 10, 20\textbraceright &  &  \\
@@ -153,7 +174,20 @@ Angular Frequency     & $\omega_z$\hspace{0.05cm}:& {[}0.5, 2{]}            &  &
 \end{table}
 
 $\bullet$ Solved by using imaginary time propagation and re-normalization in XMDS Framework.
+
+
+\end{column}
+\begin{column}{0.2\textwidth}  %%<--- here
+    \begin{center}
+\begin{figure}[Htb!]
+\includegraphics[width=1cm]{onedimbose.png}
+\end{figure}
+     \end{center}
+\end{column}
+\end{columns}
+
 \end{frame}
+
 
 \begin{frame}{Numerical Solution}
 
@@ -214,22 +248,22 @@ $\bullet$ FCN is also trained to predict interaction, kinetic, potential, and to
 
 \end{frame}
 
-\begin{frame}{Fully Connected Network}
-
+\begin{frame}{Neural Network}
+\large{Fully Connected Network}: \\
+\vskip 0.3cm
 $\bullet$ 1 input layer, 3 hidden layers, 1 output layer.
-\vskip 0.5cm
+\vskip 0.2cm
 $\bullet$ Adaptive Learning Rate (Adam)
-\vskip 0.5cm
+\vskip 0.2cm
 $\bullet$ ReLU activation function
+\vskip 0.5cm
 
-\end{frame}
-
-\begin{frame}{Convolutional Neural Network}
-
+\large{Convolution Network}: \\
+\vskip 0.3cm
 $\bullet$ 2 convolution layers, 2 maxpool layers, 3 fully connected layer.
-\vskip 0.5cm
+\vskip 0.2cm
 $\bullet$ Adaptive Learning Rate (Adam)
-\vskip 0.5cm
+\vskip 0.2cm
 $\bullet$ ReLU activation function
 
 \end{frame}
@@ -265,26 +299,26 @@ $\bullet$ ReLU activation function
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=4.5cm]{potential-g-0_1-epoch-20-}
+        \includesvg[width=4.5cm]{potential-g-1-epoch-20-}
 		\label{fig:a}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		\centering
-        \includesvg[width=4.5cm]{potential-g-0_1-epoch-40-}
+        \includesvg[width=4.5cm]{potential-g-1-epoch-40-}
 		\label{fig:b}
     \end{subfigure}    
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=4.5cm]{potential-g-0_1-epoch-60-}
- 		\label{fig:c}
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-}
+		\label{fig:c}
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includesvg[width=4.5cm]{potential-g-0_1-epoch-60-LOSS-}
+        \includesvg[width=4.5cm]{potential-g-1-epoch-60-LOSS-}
 		\label{fig:c}
     \end{subfigure}
-	{\caption{{FCN[128, 30, 30, 10, 1] results for $g = 0.1$.}}}
-\label{fig:FFN-g-0.1}
+	\caption{FCN[128, 30, 30, 10, 1] results for $g = 1$}
+\label{fig:FFN-g-1}
 \end{figure}
 
 \end{frame}
@@ -381,13 +415,19 @@ $\bullet$ ReLU activation function
 \end{figure}
 \end{frame}
 
-\section{Conclusion}
-\begin{frame}{Conclusion}
+\section{Conclusion and Future Plans}
+\begin{frame}{Conclusion and Future Plan}
 
 $\bullet$ Machine learning methods can also be applied to non-linear
 Schrödinger equation.
 
 \vskip 1cm
+
+$\bullet$ Working with different potential types including random while the interaction parameter is also random.
+
+\vskip 1cm
+
+$\bullet$ Applying this study to the 2D GPE.
 
 \end{frame}
 
