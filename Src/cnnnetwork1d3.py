@@ -66,6 +66,7 @@ print("CNN running, Interaction param: {}".format(args.inter_param))
 t = tl.nonlinear1D(data_file, label_file, training_len, test_len, unsqueeze = False)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
+
 train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
 test_loader = data_utils.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=False, **kwargs)
 

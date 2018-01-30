@@ -7,6 +7,7 @@ import torch.optim as optim
 import torch.utils.data as data_utils
 from torchvision import datasets, transforms
 from torch.autograd import Variable
+import time
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,9 +39,13 @@ parser.add_argument('--inter-param',       type=float,           default=0.0,   
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
+if torch.cuda.is_available():
+    print("Cuda is Available")
+
 torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
+    print("Cuda Available")
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
@@ -86,7 +91,6 @@ class Net(nn.Module):
         out = self.relu(out)
         out = self.fc4(out)
         return out
-
 
 
 net = Net(input_size, hidden_size, num_classes)
@@ -135,6 +139,8 @@ def test():
 
     return predicted
 
+start = time.time()
+
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
 #    if res.cur_epoch % (res.epochs / 3) == 0:
@@ -143,3 +149,7 @@ while res.cur_epoch != res.epochs + 1:
 
 res.cur_epoch = res.epochs
 test()
+
+end = time.time()
+
+print(end - start)
