@@ -1,5 +1,4 @@
 from __future__ import print_function
-import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -13,7 +12,7 @@ import numpy as np
 
 import readmnistdata as rm
 import sampletrainloader as tl
-import analyzer as an
+import analyzer as an   
 import nlse_common
 from nlse_parsing import process_parsing
 
