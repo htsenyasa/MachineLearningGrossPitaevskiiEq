@@ -1,6 +1,5 @@
 from __future__ import print_function
 import torch
-import torch
 import torch.utils.data as data_utils
 import numpy as np
 import readmnistdata as rm

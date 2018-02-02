@@ -3,8 +3,6 @@ import numpy as np
 
 
 def read_data(data_file, label_file, train_len=800, test_len=200):
-
-
     data_file = os.path.join("../data/nonlinearSE/", data_file)
     label_file = os.path.join("../data/nonlinearSE/", label_file)
 

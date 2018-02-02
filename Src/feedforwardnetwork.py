@@ -39,13 +39,12 @@ parser.add_argument('--inter-param',       type=float,           default=0.0,   
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
-if torch.cuda.is_available():
+if args.cuda:
     print("Cuda is Available")
 
 torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
-    print("Cuda Available")
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
@@ -94,12 +93,16 @@ class Net(nn.Module):
 
 
 net = Net(input_size, hidden_size, num_classes)
+if args.cuda:
+    net.cuda()
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate)
 res = an.analyzer(args)
 
 def train(epoch):
     for batch_idx, (data, labels) in enumerate(train_loader):
+        if args.cuda:
+            data, labels = data.cuda(), labels.cuda()
         data = Variable(data)
         labels = Variable(labels).float()
         optimizer.zero_grad()
@@ -123,12 +126,16 @@ def train(epoch):
 info_file_name = "../figs/FFNTEST/" + os.path.splitext(data_file)[0]
 
 
+#63.33900332450867
+
 def test():
     for data, labels in test_loader:
+        if args.cuda:
+            data, labels = data.cuda(), labels.cuda()
         data = Variable(data)
         outputs = net(data)
-        predicted = outputs.data.numpy()
-        real = test_dataset.target_tensor.numpy()
+        predicted = outputs.data.cpu().numpy()
+        real = test_dataset.target_tensor.cpu().numpy()
         real = real.reshape([test_len, 1])
         res.calc_error(real, predicted)
         #res.display_plot()
@@ -151,5 +158,4 @@ res.cur_epoch = res.epochs
 test()
 
 end = time.time()
-
 print(end - start)
