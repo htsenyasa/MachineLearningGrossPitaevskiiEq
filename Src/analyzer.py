@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib
-matplotlib.use("pgf")
+#matplotlib.use("pgf")
 import matplotlib.pyplot as plt
 import argparse
 import pickle
@@ -68,15 +68,19 @@ class analyzer(object):
         inset2.set_title("Rel.Error (%)", fontsize = 18)
         inset2.tick_params(labelsize=12)
 
-        if file_name == None:
-            figure = plt.gcf()
-            figure.set_size_inches(8,6)
-            plt.show()
-        else:
-            figure = plt.gcf()
-            figure.set_size_inches(8,6)
-            plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
-            plt.clf()
+        figure = plt.gcf()
+        figure.set_size_inches(8,6)
+        plt.show()        
+        
+        #if file_name == None:
+        #    figure = plt.gcf()
+        #    figure.set_size_inches(8,6)
+        #    plt.show()
+        #else:
+        #    figure = plt.gcf()
+        #    figure.set_size_inches(8,6)
+        #    plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
+        #    plt.clf()
 
 
 
@@ -136,20 +140,6 @@ class analyzer(object):
     def step(self, loss_val):
         #self.cur_epoch += 1
         self.loss = np.append(self.loss, loss_val)
-
-#    def gauss(x, a, x0, sigma):
-#        return a * np.exp(-(x-x0)**2 / (2*sigma**2))
-#
-#    def gaussian_dist():
-#        err = self.testdataset - self.predicted)
-#        x_r = np.amax(np.abs(err))
-#        x = np.linspace(-x_r, x_r, self.test_len)
-#        mean = np.mean(err)
-#        sigma = np.std(err)
-#        popt,pcov = curve_fit(gauss, x, err, p0 = [1,mean,sigma])
-#        plt.hist(err)
-#        plt.plot(x, gauss(x, *popt))
-#        plt.show()
 
 
 def save_info(obj, file_name):

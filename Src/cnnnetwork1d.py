@@ -50,9 +50,11 @@ class CnnNet(nn.Module):
         self.conv1 = nn.Conv1d(1, 10, 2)
         self.conv2 = nn.Conv1d(5, 20, 2)
         self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(310, 100)
-        self.fc2 = nn.Linear(100, 20)
-        self.fc3 = nn.Linear(20, 1)
+        self.fc1 = nn.Linear(310, 200)
+        self.fc2 = nn.Linear(200, 100)
+        self.fc3 = nn.Linear(100, 50)
+        self.fc4 = nn.Linear(50, 20)
+        self.fc5 = nn.Linear(20, 1)
 
 
     def forward(self, x):
@@ -64,6 +66,10 @@ class CnnNet(nn.Module):
         x = self.fc2(x)
         x = self.relu(x)
         x = self.fc3(x)
+        x = self.relu(x)
+        x = self.fc4(x)
+        x = self.relu(x)
+        x = self.fc5(x)
         return x
 
 model = CnnNet()
@@ -110,8 +116,8 @@ def test():
         if not args.test_case:
             res.display_plot()
             global info_file_name
-            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
-            an.save_info(res, file_name)
+            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_eplibinput-gestures.conflibinput-gestures.conflibinput-gestures.conflibinput-gestures.conflibinput-gestures.confoch)
+            #an.save_info(res, file_name)
 
     return predicted
 
@@ -119,8 +125,8 @@ start = time.time()
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-    if res.cur_epoch % (res.epochs / 3) == 0 and not args.test_case:
-        test()
+#    if res.cur_epoch % (res.epochs / 3) == 0 and not args.test_case:
+#        test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs
