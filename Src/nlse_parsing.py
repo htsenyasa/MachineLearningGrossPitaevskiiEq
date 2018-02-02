@@ -15,9 +15,10 @@ def process_parsing(arch, desc = "NLSE arguments"):
     parser.add_argument('--training-len',      type=int,             default=arch["training_len"],                               help = 'Training len (default: 3500)')
     parser.add_argument('--test-len',          type=int,             default=arch["test_len"],                               help = 'Test len (default: 500)')
     parser.add_argument('--runtime-count',     type=int,             default=0,                                  help = 'this parameter counts that how many times the program is runned')
-    parser.add_argument('--show-progress',     action='store_true',  default=False,                              help = 'display progress (default:False)')
-    parser.add_argument('--data-file',         type=str,             default="potential-g-20-.dat",              help = 'data file to read (default = "potential.dat")')
-    parser.add_argument('--label-file',        type=str,             default="energy-g-20-.dat",                 help = 'label file to read (default = "energy.dat")')
-    parser.add_argument('--inter-param',       type=float,           default=0.0,                                help = 'interaction parameter program uses this parameter to choose which file to open (default: 0)')
+    parser.add_argument('--display-progress',  action='store_true',  default=False,                              help = 'Display Progress (default:False)')
+    parser.add_argument('--data-filename',     type=str,             default="potential-g-20-.dat",              help = 'Data file name to read (default = "potential.dat")')
+    parser.add_argument('--label-filename',    type=str,             default="energy-g-20-.dat",                 help = 'Label file name to read (default = "energy.dat")')
+    parser.add_argument('--inter-param',       type=float,           default=0.0,                                help = 'Interaction parameter program uses this parameter to choose which file to open (default: 0)')
+    parser.add_argument('--test-case',         action='store_true',  default=False,                              help = 'Test Case (default : False) Run-time for test network. No information will be saved.')
     
     return parser

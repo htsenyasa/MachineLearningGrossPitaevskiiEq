@@ -26,3 +26,10 @@ CNN = { "batch_size": 30,
 
 
 archs = {"FCN": FCN, "CNN": CNN}
+
+def get_filenames(args):
+    if (args.inter_param).is_integer():
+        args.inter_param = int(args.inter_param)
+    data_filename = "potential-g-{}-.dat".format(args.inter_param)
+    label_filename = "energy-g-{}-.dat".format(args.inter_param)
+    return data_filename, label_filename

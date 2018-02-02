@@ -16,17 +16,14 @@ import analyzer as an
 import nlse_common
 from nlse_parsing import process_parsing
 
-# Training settings
 parser = process_parsing(nlse_common.archs["FCN"])
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
-if args.cuda:
-    print("Cuda is Available")
-
 torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
+    print("Cuda is Available")
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
@@ -37,17 +34,10 @@ batch_size = args.batch_size
 learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
-data_file = args.data_file
-label_file = args.label_file
 
-if (args.inter_param).is_integer():
-    args.inter_param = int(args.inter_param)
-print("FFN running, Interaction param: {}".format(args.inter_param))
+data_filename, label_filename = nlse_common.get_filenames(args)
 
-data_file = "potential-g-{}-.dat".format(args.inter_param)
-label_file = "energy-g-{}-.dat".format(args.inter_param)
-
-t = tl.nonlinear1D(data_file, label_file, training_len, test_len)
+t = tl.nonlinear1D(data_filename, label_filename, training_len, test_len)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
 train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
@@ -93,11 +83,11 @@ def train(epoch):
         loss.backward()
         optimizer.step()
 
-#        if (i) % res.batch_size == 0 and args.show_progress == True:
+#        if (i) % res.batch_size == 0 and args.display_progress == True:
 #            print('Epoch [%d/%d], Step [%d/%d], Loss: %.4f' %(res.cur_epoch, res.epochs, i, res.training_len // res.batch_size, loss.data[0]))
 #            res.step(loss.data[0])
 
-        if batch_idx % args.log_interval == 0 and args.show_progress == True:
+        if batch_idx % args.log_interval == 0 and args.display_progress == True:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
@@ -105,10 +95,7 @@ def train(epoch):
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/FFNTEST/" + os.path.splitext(data_file)[0]
-
-
-#63.33900332450867
+info_file_name = "../figs/FFNTEST/" + os.path.splitext(data_filename)[0]
 
 def test():
     for data, labels in test_loader:

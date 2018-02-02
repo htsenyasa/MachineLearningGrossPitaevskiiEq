@@ -20,13 +20,11 @@ parser = process_parsing(nlse_common.archs["CNN"])
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
-if args.cuda:
-    print("Cuda is Available")
-
 torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
-
+    print("Cuda is Available")
+    
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 #input_size, hidden_size, hidden2_size, num_classes = args.network_arch
@@ -35,26 +33,16 @@ batch_size = args.batch_size
 learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
-#data_file = args.data_file
-#label_file = args.label_file
 
-if (args.inter_param).is_integer():
-    args.inter_param = int(args.inter_param)
+data_filename, label_filename = nlse_common.get_filenames(args)
 
 print("CNN running, Interaction param: {}".format(args.inter_param))
 
-
-
-data_file = "potential-g-{}-.dat".format(args.inter_param)
-label_file = "energy-g-{}-.dat".format(args.inter_param)
-
-
-t = tl.nonlinear1D(data_file, label_file, training_len, test_len, unsqueeze = True)
+t = tl.nonlinear1D(data_filename, label_filename, training_len, test_len, unsqueeze = True)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
 train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
 test_loader = data_utils.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=False, **kwargs)
-
 
 class CnnNet(nn.Module):
     def __init__(self):
@@ -96,14 +84,14 @@ def train(epoch):
         loss = criterion(output, target)
         loss.backward()
         optimizer.step()
-        if batch_idx % args.log_interval == 0 and (args.show_progress == True):
+        if batch_idx % args.log_interval == 0 and (args.display_progress == True):
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/CNN/" + os.path.splitext(data_file)[0]
+info_file_name = "../figs/CNN/" + os.path.splitext(data_filename)[0]
 
 def test():
     model.eval()
@@ -118,11 +106,12 @@ def test():
         real = test_dataset.target_tensor.cpu().numpy()
         real = real.reshape([test_len, 1])
         res.calc_error(real, predicted)
-        #res.display_plot()
 
-        global info_file_name
-        file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
-        an.save_info(res, file_name)
+        if not args.test_case:
+            res.display_plot()
+            global info_file_name
+            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
+            an.save_info(res, file_name)
 
     return predicted
 
@@ -130,13 +119,12 @@ start = time.time()
 
 while res.cur_epoch != res.epochs + 1:
     train(res.cur_epoch)
-#    if res.cur_epoch % (res.epochs / 3) == 0:
-#        test()
+    if res.cur_epoch % (res.epochs / 3) == 0 and not args.test_case:
+        test()
     res.cur_epoch +=1
 
 res.cur_epoch = res.epochs
 test()
-
 
 end = time.time()
 print(end - start)

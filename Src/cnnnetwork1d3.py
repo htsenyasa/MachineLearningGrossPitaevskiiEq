@@ -51,8 +51,8 @@ batch_size = args.batch_size
 learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
-data_file = args.data_file
-label_file = args.label_file
+data_filename = args.data_filename
+label_filename = args.label_filename
 
 if (args.inter_param).is_integer():
     args.inter_param = int(args.inter_param)
@@ -60,10 +60,10 @@ if (args.inter_param).is_integer():
 print("CNN running, Interaction param: {}".format(args.inter_param))
 
 
-#data_file = "potential-g-{}-.dat".format(args.inter_param)
-#label_file = "energy-g-{}-.dat".format(args.inter_param)
+#data_filename = "potential-g-{}-.dat".format(args.inter_param)
+#label_filename = "energy-g-{}-.dat".format(args.inter_param)
 
-t = tl.nonlinear1D(data_file, label_file, training_len, test_len, unsqueeze = False)
+t = tl.nonlinear1D(data_filename, label_filename, training_len, test_len, unsqueeze = False)
 train_dataset, test_dataset = t.init_tensor_dataset()
 
 
@@ -107,14 +107,14 @@ def train(epoch):
         loss = criterion(output, target)
         loss.backward()
         optimizer.step()
-        if batch_idx % args.log_interval == 0 and (args.show_progress == True):
+        if batch_idx % args.log_interval == 0 and (args.display_progress == True):
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/CNNgPrediction/" + os.path.splitext(data_file)[0].split("/")[-1]
+info_file_name = "../figs/CNNgPrediction/" + os.path.splitext(data_filename)[0].split("/")[-1]
 
 def test():
     model.eval()

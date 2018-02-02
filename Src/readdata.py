@@ -2,13 +2,13 @@ import os
 import numpy as np
 
 
-def read_data(data_file, label_file, train_len=800, test_len=200):
-    data_file = os.path.join("../data/nonlinearSE/", data_file)
-    label_file = os.path.join("../data/nonlinearSE/", label_file)
+def read_data(data_filename, label_filename, train_len=800, test_len=200):
+    data_filename = os.path.join("../data/nonlinearSE/", data_filename)
+    label_filename = os.path.join("../data/nonlinearSE/", label_filename)
 
-    #data = np.load(data_file)
-    data = np.loadtxt(data_file)
-    label = np.loadtxt(label_file)
+    #data = np.load(data_filename)
+    data = np.loadtxt(data_filename)
+    label = np.loadtxt(label_filename)
 
     total_len = train_len + test_len
     train_data = data[0:train_len]
@@ -20,13 +20,13 @@ def read_data(data_file, label_file, train_len=800, test_len=200):
     return train_data, train_label, test_data, test_label
 
 
-def read_data2(data_file, label_file, train_len=800, test_len=200):
+def read_data2(data_filename, label_filename, train_len=800, test_len=200):
 
-    data_file = os.path.join("../data/nonlinearSE/", data_file)
-    label_file = os.path.join("../data/nonlinearSE/", label_file)
+    data_filename = os.path.join("../data/nonlinearSE/", data_filename)
+    label_filename = os.path.join("../data/nonlinearSE/", label_filename)
 
-    data = np.load(data_file)
-    label = np.loadtxt(label_file)
+    data = np.load(data_filename)
+    label = np.loadtxt(label_filename)
 
     total_len = train_len + test_len
     train_data = data[0:train_len]

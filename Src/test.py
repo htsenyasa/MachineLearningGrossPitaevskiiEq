@@ -15,5 +15,5 @@ parser.add_argument('--network-arch',       type=int,             default=[256, 
 args = parser.parse_args()
 inter_param = args.network_arch
 print(inter_param)
-inter_param = args.label_file
+inter_param = args.label_filename
 print(inter_param)
