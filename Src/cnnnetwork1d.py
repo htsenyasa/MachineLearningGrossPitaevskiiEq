@@ -47,11 +47,12 @@ test_loader = data_utils.DataLoader(test_dataset, batch_size = args.test_batch_s
 class CnnNet(nn.Module):
     def __init__(self):
         super(CnnNet, self).__init__()
-        self.conv1 = nn.Conv1d(1, 10, 2)
-        self.conv2 = nn.Conv1d(5, 20, 2)
-        self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(310, 200)
-        self.fc2 = nn.Linear(200, 100)
+        self.conv1 = nn.Conv1d(1, 20, 2)
+        self.conv2 = nn.Conv1d(10, 20, 2)
+        self.conv3 = nn.Conv1d(10, 20, 2)
+        self.relu = nn.ReLU()   
+        self.fc1 = nn.Linear(150, 125)
+        self.fc2 = nn.Linear(125, 100)
         self.fc3 = nn.Linear(100, 50)
         self.fc4 = nn.Linear(50, 20)
         self.fc5 = nn.Linear(20, 1)
@@ -60,7 +61,9 @@ class CnnNet(nn.Module):
     def forward(self, x):
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2(x), 2))
+        x = F.relu(F.max_pool2d(self.conv3(x), 2))
         x = x.view(x.size(0), -1)
+        #print(x.shape)
         x = self.fc1(x)
         x = self.relu(x)
         x = self.fc2(x)
@@ -116,7 +119,7 @@ def test():
         if not args.test_case:
             res.display_plot()
             global info_file_name
-            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_eplibinput-gestures.conflibinput-gestures.conflibinput-gestures.conflibinput-gestures.conflibinput-gestures.confoch)
+            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
             #an.save_info(res, file_name)
 
     return predicted

@@ -14,9 +14,9 @@ FCN = { "batch_size": 30,
       }
 
 
-CNN = { "batch_size": 64,
+CNN = { "batch_size": 32,
         "test_batch_size": 5500,
-        "epoch": 60,
+        "epoch": 200,
         "lr": 0.001,
         "seed": nlse_seed,
         "network_arch": "CNN",
