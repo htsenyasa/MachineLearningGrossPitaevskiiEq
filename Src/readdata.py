@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import sys
 
 
 def read_data(data_filename, label_filename, train_len=800, test_len=200):
@@ -16,6 +17,10 @@ def read_data(data_filename, label_filename, train_len=800, test_len=200):
 
     test_data = data[train_len:total_len]
     test_label = label[train_len:total_len]
+
+    if (len(test_label) < test_len):
+        print("TEST LENGTH ERROR!\n")
+        sys.exit(1)
 
     return train_data, train_label, test_data, test_label
 

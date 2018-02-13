@@ -1,7 +1,7 @@
 
 ## Common Operations for both CNN and FCN
 
-nlse_seed = 1
+nlse_seed = 11
 
 FCN = { "batch_size": 30,
         "test_batch_size": 2000,
@@ -14,13 +14,13 @@ FCN = { "batch_size": 30,
       }
 
 
-CNN = { "batch_size": 30,
+CNN = { "batch_size": 60,
         "test_batch_size": 5500,
-        "epoch": 60,
-        "lr": 0.001,
+        "epoch": 3,
+        "lr": 1,
         "seed": nlse_seed,  
         "network_arch": "CNN",
-        "training_len": 8500,
+        "training_len": 3500,
         "test_len" : 1500,
       }
 
@@ -34,8 +34,16 @@ def get_filenames(args):
     
     #data_filename = "potential-g-{}-.dat".format(args.inter_param)
     #label_filename = "energy-g-{}-.dat".format(args.inter_param)
-    data_filename = "gp_ml_dataset/var_g_var_pot/potential-var_g_var_pot_.dat"
-    label_filename = "gp_ml_dataset/var_g_var_pot/energy-var_g_var_pot_.dat"
+    
+    data_filename =  "gp_ml_dataset/var_g/potential_test_data.dat"
+    label_filename = "gp_ml_dataset/var_g/energy_test_data.dat"
+    
+    #data_filename =  "/run/media/user/TOSHIBA/gp_data/var_g_shift_pot/potential-var_g_var_pot_.dat"
+    #label_filename = "/run/media/user/TOSHIBA/gp_data/var_g_shift_pot/energy-var_g_var_pot_.dat"
+    
+    #data_filename =  "gp_ml_dataset/var_g_var_pot/potential-var_g_var_pot_.dat"
+    #label_filename = "gp_ml_dataset/var_g_var_pot/energy-var_g_var_pot_.dat"
+    
     #data_filename = "potential-g-{}-.dat".format(args.inter_param)
     #label_filename = "mergeddata/eint_kin_pot_energy-g-{}-.dat".format(args.inter_param)
 
