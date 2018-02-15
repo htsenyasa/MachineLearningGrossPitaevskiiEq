@@ -19,6 +19,9 @@
         real Nparticles;
         real omega;
         real x0; //shift
+        real lw;
+        real rw;
+        int pt_type;
       ]]>
     </globals>
     <arguments>
@@ -38,6 +41,18 @@
       <![CDATA[
       x0 = shift;
       ]]>
+      <argument default_value="-5" name="left_well" type="real"/>
+      <![CDATA[
+      lw = left_well;
+      ]]>
+      <argument default_value="5" name="right_well" type="real"/>
+      <![CDATA[
+      rw = right_well;
+      ]]>
+      <argument default_value="0" name="pot_type" type="real"/>
+      <![CDATA[
+      pt_type = pot_type;
+      ]]>
     </arguments>
  </features>
 
@@ -52,8 +67,10 @@
     <components> V1 </components>
     <initialisation>
       <![CDATA[
-        //V1  = 0.5*x*x;
-        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega
+      switch(pt_type){
+        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
+        case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
+      }
       ]]>
     </initialisation>
   </vector>
@@ -176,6 +193,9 @@ Variables that can be specified on the command line:
   Command line argument num_particles = 1.000000e+00
   Command line argument freq = 1.000000e+00
   Command line argument shift = 0.000000e+00
+  Command line argument left_well = -5.000000e+00
+  Command line argument right_well = 5.000000e+00
+  Command line argument pot_type = 1.000000e+00
 </info>
 
 <XSIL Name="moment_group_1">

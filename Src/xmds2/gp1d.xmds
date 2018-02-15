@@ -20,6 +20,9 @@
         real Nparticles;
         real omega;
         real x0; //shift
+        real lw;
+        real rw;
+        int pt_type;
       ]]>
     </globals>
     <arguments>
@@ -39,6 +42,18 @@
       <![CDATA[
       x0 = shift;
       ]]>
+      <argument name="left_well" type="real" default_value="-5"/>
+      <![CDATA[
+      lw = left_well;
+      ]]>
+      <argument name="right_well" type="real" default_value="5"/>
+      <![CDATA[
+      rw = right_well;
+      ]]>
+      <argument name="pot_type" type="real" default_value="0"/>
+      <![CDATA[
+      pt_type = pot_type;
+      ]]>
     </arguments>
  </features>
 
@@ -53,8 +68,10 @@
     <components> V1 </components>
     <initialisation>
       <![CDATA[
-        //V1  = 0.5*x*x;
-        V1  = 0.5 * omega * omega * (x-x0)*(x-x0); // shift and omega
+      switch(pt_type){
+        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
+        case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
+      }
       ]]>
     </initialisation>
   </vector>
