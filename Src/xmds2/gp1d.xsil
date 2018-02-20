@@ -19,10 +19,9 @@
         real Nparticles;
         real omega;
         real x0; //shift
-        real lw;
-        real rw;
-        int pt_type;
-        real lm_1, lm_2, mu_1, mu_2, s_1, s_2;
+        int pt_type; //type of potential
+        real l_w, r_w; //left, right well
+        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
       ]]>
     </globals>
     <arguments>
@@ -46,13 +45,13 @@
       <![CDATA[
       pt_type = pot_type;
       ]]>
-      <argument default_value="-5" name="left_well" type="real"/>
+      <argument default_value="-5" name="lw" type="real"/>
       <![CDATA[
-      lw = left_well;
+      l_w = lw;
       ]]>
-      <argument default_value="5" name="right_well" type="real"/>
+      <argument default_value="5" name="rw" type="real"/>
       <![CDATA[
-      rw = right_well;
+      r_w = rw;
       ]]>
       <argument default_value="0" name="lam1" type="real"/>
       <![CDATA[
@@ -215,19 +214,19 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 0.000000e+00
+  Command line argument interaction_param = 7.853586e+00
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 1.000000e+00
-  Command line argument shift = 0.000000e+00
+  Command line argument freq = 1.159223e+00
+  Command line argument shift = -4.589214e+00
   Command line argument pot_type = 2.000000e+00
-  Command line argument left_well = -5.000000e+00
-  Command line argument right_well = 5.000000e+00
-  Command line argument lam1 = 5.000000e+00
-  Command line argument lam2 = 3.000000e+00
-  Command line argument mu1 = 1.000000e+00
-  Command line argument mu2 = 6.000000e+00
-  Command line argument s1 = 1.000000e+00
-  Command line argument s2 = 5.000000e+00
+  Command line argument lw = -5.000000e+00
+  Command line argument rw = 5.000000e+00
+  Command line argument lam1 = 0.000000e+00
+  Command line argument lam2 = -1.202721e+00
+  Command line argument mu1 = 7.916643e-01
+  Command line argument mu2 = 5.651866e+00
+  Command line argument s1 = -1.300797e+00
+  Command line argument s2 = 6.344061e-01
 </info>
 
 <XSIL Name="moment_group_1">

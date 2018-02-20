@@ -3,16 +3,6 @@ import random as rnd
 import time as time
 import numpy as np
 
-#parser = argparse.ArgumentParser(description='Fully Connected FeedForwardNetwork for nonlinearSE')
-#
-#parser.add_argument('--interaction-param',      type=float,           default=0.0,        help = 'input batch size for training (default: 64)')
-#parser.add_argument('--num_particles',          type=int,             default=1,          help = 'Number of Particles (default: 1)')
-#parser.add_argument('--frequency',              type=float,           default=1.0,        help = 'display progress (default:False)')
-#parser.add_argument('--shift',                  type=float,           default=0.0,        help = 'display progress (default:False)')
-#
-#
-#args = parser.parse_args()
-
 inter_param = 20
 num_particles = 1
 freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]

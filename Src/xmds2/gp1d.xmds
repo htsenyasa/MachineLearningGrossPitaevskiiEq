@@ -20,10 +20,9 @@
         real Nparticles;
         real omega;
         real x0; //shift
-        real lw;
-        real rw;
-        int pt_type;
-        real lm_1, lm_2, mu_1, mu_2, s_1, s_2;
+        int pt_type; //type of potential
+        real l_w, r_w; //left, right well
+        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
       ]]>
     </globals>
     <arguments>
@@ -47,13 +46,13 @@
       <![CDATA[
       pt_type = pot_type;
       ]]>
-      <argument name="left_well" type="real" default_value="-5"/>
+      <argument name="lw" type="real" default_value="-5"/>
       <![CDATA[
-      lw = left_well;
+      l_w = lw;
       ]]>
-      <argument name="right_well" type="real" default_value="5"/>
+      <argument name="rw" type="real" default_value="5"/>
       <![CDATA[
-      rw = right_well;
+      r_w = rw;
       ]]>
       <argument name="lam1" type="real" default_value="0"/>
       <![CDATA[

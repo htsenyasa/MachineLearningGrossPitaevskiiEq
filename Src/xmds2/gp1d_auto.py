@@ -10,7 +10,7 @@ parser.add_argument('--pos-file-ex',         type=str,             default="-tes
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
-root = "../../data/nonlinearSE/interaction/"
+root = "../../data/nonlinearSE/generic_dataset/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex
@@ -49,14 +49,14 @@ dens = dens.reshape(1, len(dens))
 
 f = open(pot_file_name, "a")
 f2 = open(en_file_name, "a")
-#f3 = open(ekin_file_name, "a")
-#f4 = open(epot_file_name, "a")
-#f5 = open(eint_file_name, "a")
+f3 = open(ekin_file_name, "a")
+f4 = open(epot_file_name, "a")
+f5 = open(eint_file_name, "a")
 f6 = open(dens_file_name, "a")
 
-np.savetxt(f, v1_3)
-np.savetxt(f2, e1_2[-2:-1])
-#np.savetxt(f3, e1kin_2[-2:-1])
-#np.savetxt(f4, e1pot_2[-2:-1])
-#np.savetxt(f5, e1int_2[-2:-1])
-np.savetxt(f6, dens)
+np.save(f, v1_3)
+np.save(f2, e1_2[-2:-1])
+np.save(f3, e1kin_2[-2:-1])
+np.save(f4, e1pot_2[-2:-1])
+np.save(f5, e1int_2[-2:-1])
+np.save(f6, dens)

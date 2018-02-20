@@ -320,12 +320,11 @@ real Uint; // interaction parameter
 real Nparticles;
 real omega;
 real x0; //shift
-real lw;
-real rw;
-int pt_type;
-real lm_1, lm_2, mu_1, mu_2, s_1, s_2;
+int pt_type; //type of potential
+real l_w, r_w; //left, right well
+real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
 
-#line 329 "xgp1d.cc"
+#line 328 "xgp1d.cc"
 
 // ********************************************************
 //   Command line argument processing globals
@@ -334,8 +333,8 @@ real num_particles = 1;
 real freq = 1; 
 real shift = 0; 
 real pot_type = 0; 
-real left_well = -5; 
-real right_well = 5; 
+real lw = -5; 
+real rw = 5; 
 real lam1 = 0; 
 real lam2 = 0; 
 real mu1 = 0; 
@@ -570,8 +569,8 @@ int main(int argc, char **argv)
         {"freq", required_argument, 0, 'f'},
         {"shift", required_argument, 0, 's'},
         {"pot_type", required_argument, 0, 'p'},
-        {"left_well", required_argument, 0, 'l'},
-        {"right_well", required_argument, 0, 'r'},
+        {"lw", required_argument, 0, 'l'},
+        {"rw", required_argument, 0, 'r'},
         {"lam1", required_argument, 0, 'a'},
         {"lam2", required_argument, 0, 'm'},
         {"mu1", required_argument, 0, 'u'},
@@ -617,11 +616,11 @@ int main(int argc, char **argv)
         break;
       
       case 'l':
-        left_well = strtod(optarg, NULL);
+        lw = strtod(optarg, NULL);
         break;
       
       case 'r':
-        right_well = strtod(optarg, NULL);
+        rw = strtod(optarg, NULL);
         break;
       
       case 'a':
@@ -658,7 +657,7 @@ int main(int argc, char **argv)
     _print_usage(); // This causes the simulation to exit.
   
   // ******** Argument post-processing code *******
-  #line 31 "gp1d.xmds"
+  #line 30 "gp1d.xmds"
   
   Uint = interaction_param;
   
@@ -670,9 +669,9 @@ int main(int argc, char **argv)
   
   pt_type = pot_type;
   
-  lw = left_well;
+  l_w = lw;
   
-  rw = right_well;
+  r_w = rw;
   
   lm_1 = lam1;
   
@@ -686,21 +685,21 @@ int main(int argc, char **argv)
   
   s_2 = s2;
   
-  #line 690 "xgp1d.cc"
+  #line 689 "xgp1d.cc"
   // **********************************************
   
     
   
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_kx) * _x_wavefunction_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_x) * _x_wavefunction_ncomponents);
   _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
   _x_potential_alloc_size = MAX(_x_potential_alloc_size, (_lattice_x) * _x_potential_ncomponents);
-  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
   _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
-  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
-  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
+  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t) * _mg1_output_raw_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
   
@@ -1085,7 +1084,7 @@ void _transform_1(bool _forward, real _multiplier, real* const __restrict__ _dat
 void _print_usage()
 {
   // This function does not return.
-  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp1d --interaction_param <real> --num_particles <real> --freq <real> --shift <real> --pot_type <real> --left_well <real> --right_well <real> --lam1 <real> --lam2 <real> --mu1 <real> --mu2 <real> --s1 <real> --s2 <real>\n\n"
+  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp1d --interaction_param <real> --num_particles <real> --freq <real> --shift <real> --pot_type <real> --lw <real> --rw <real> --lam1 <real> --lam2 <real> --mu1 <real> --mu2 <real> --s1 <real> --s2 <real>\n\n"
                          "Details:\n"
                          "Option\t\tType\t\tDefault value\n"
                          "-i,  --interaction_param\treal \t\t0\n"
@@ -1093,8 +1092,8 @@ void _print_usage()
                          "-f,  --freq\treal \t\t1\n"
                          "-s,  --shift\treal \t\t0\n"
                          "-p,  --pot_type\treal \t\t0\n"
-                         "-l,  --left_well\treal \t\t-5\n"
-                         "-r,  --right_well\treal \t\t5\n"
+                         "-l,  --lw\treal \t\t-5\n"
+                         "-r,  --rw\treal \t\t5\n"
                          "-a,  --lam1\treal \t\t0\n"
                          "-m,  --lam2\treal \t\t0\n"
                          "-u,  --mu1\treal \t\t0\n"
@@ -1148,11 +1147,11 @@ void _x_gradphi_evaluate()
   
   for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
     // ************* Evaluation code ****************
-    #line 118 "gp1d.xmds"
+    #line 117 "gp1d.xmds"
     
     dphix=i*kx*phi;
     
-    #line 1156 "xgp1d.cc"
+    #line 1155 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_gradphi_index_pointer += 1 * _x_gradphi_ncomponents;
@@ -1234,11 +1233,11 @@ void _x_wavefunction_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 108 "gp1d.xmds"
+    #line 107 "gp1d.xmds"
     
     phi = 1; //exp(-(x*x)/2);
     
-    #line 1242 "xgp1d.cc"
+    #line 1241 "xgp1d.cc"
     // **********************************************
     #undef t
     
@@ -1312,7 +1311,7 @@ void _x_potential_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 95 "gp1d.xmds"
+    #line 94 "gp1d.xmds"
     
     switch(pt_type){
       case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
@@ -1320,7 +1319,7 @@ void _x_potential_initialise()
       case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / s_1) - lm_2 * exp(-pow((x-mu_2), 2)/s_2); break;
     }
     
-    #line 1324 "xgp1d.cc"
+    #line 1323 "xgp1d.cc"
     // **********************************************
     #undef t
     
@@ -1363,7 +1362,7 @@ void _dimensionless_normalisation_evaluate()
   
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     // ************* Evaluation code ****************
-    #line 128 "gp1d.xmds"
+    #line 127 "gp1d.xmds"
     
     // Calculate the current normalisation of the wave function.
     Ncalc = mod2(phi);
@@ -1374,7 +1373,7 @@ void _dimensionless_normalisation_evaluate()
             Virial = Ekin - Epot + Eint;
             mu = Ekin + Epot + (2) * Eint;
     
-    #line 1378 "xgp1d.cc"
+    #line 1377 "xgp1d.cc"
     // **********************************************
     
     _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0] += Ncalc * dx;
@@ -1419,11 +1418,11 @@ void _segment1__evaluate_operator0()
 {
   
   // ************** Filter code *****************
-  #line 143 "gp1d.xmds"
+  #line 142 "gp1d.xmds"
   
   printf("Hello world from a filter segment!\n");
   
-  #line 1427 "xgp1d.cc"
+  #line 1426 "xgp1d.cc"
   // **********************************************
 }
 
@@ -1460,11 +1459,11 @@ void _segment2__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 150 "gp1d.xmds"
+    #line 149 "gp1d.xmds"
     
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 1468 "xgp1d.cc"
+    #line 1467 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -2128,11 +2127,11 @@ void _segment3_x_operators_evaluate_operator0()
     
     
     // ************** Operator code *****************
-    #line 169 "gp1d.xmds"
+    #line 168 "gp1d.xmds"
     
     T2 = -0.5*kx*kx;
     
-    #line 2136 "xgp1d.cc"
+    #line 2135 "xgp1d.cc"
     // **********************************************
     
     // T2[phi]
@@ -2215,11 +2214,11 @@ void _segment3_x_operators_evaluate_operator1(real _step)
     #define dt _step
     
     // ************* Propagation code ***************
-    #line 175 "gp1d.xmds"
+    #line 174 "gp1d.xmds"
     
     dphi_dt = _T2_phi - (V1 + Uint * mod2(phi) )*phi;
     
-    #line 2223 "xgp1d.cc"
+    #line 2222 "xgp1d.cc"
     // **********************************************
     
     #undef dt
@@ -2263,12 +2262,12 @@ void _segment3__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 160 "gp1d.xmds"
+    #line 159 "gp1d.xmds"
     
     // Correct normalisation of the wavefunction
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 2272 "xgp1d.cc"
+    #line 2271 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -2364,10 +2363,9 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        real Nparticles;\n");
   fprintf(fp, "        real omega;\n");
   fprintf(fp, "        real x0; //shift\n");
-  fprintf(fp, "        real lw;\n");
-  fprintf(fp, "        real rw;\n");
-  fprintf(fp, "        int pt_type;\n");
-  fprintf(fp, "        real lm_1, lm_2, mu_1, mu_2, s_1, s_2;\n");
+  fprintf(fp, "        int pt_type; //type of potential\n");
+  fprintf(fp, "        real l_w, r_w; //left, right well\n");
+  fprintf(fp, "        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </globals>\n");
   fprintf(fp, "    <arguments>\n");
@@ -2391,13 +2389,13 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      pt_type = pot_type;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"-5\" name=\"left_well\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"-5\" name=\"lw\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      lw = left_well;\n");
+  fprintf(fp, "      l_w = lw;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"5\" name=\"right_well\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"5\" name=\"rw\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      rw = right_well;\n");
+  fprintf(fp, "      r_w = rw;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "      <argument default_value=\"0\" name=\"lam1\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
@@ -2570,9 +2568,9 @@ void _write_xsil_header(FILE* fp)
   
   fprintf(fp, "  Command line argument pot_type = %e\n", pot_type);
   
-  fprintf(fp, "  Command line argument left_well = %e\n", left_well);
+  fprintf(fp, "  Command line argument lw = %e\n", lw);
   
-  fprintf(fp, "  Command line argument right_well = %e\n", right_well);
+  fprintf(fp, "  Command line argument rw = %e\n", rw);
   
   fprintf(fp, "  Command line argument lam1 = %e\n", lam1);
   
@@ -2634,12 +2632,12 @@ void _mg0_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 187 "gp1d.xmds"
+    #line 186 "gp1d.xmds"
     
     dens = mod2(phi);
     _SAMPLE_COMPLEX(phi);
     
-    #line 2643 "xgp1d.cc"
+    #line 2641 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
@@ -2876,7 +2874,7 @@ void _mg1_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 195 "gp1d.xmds"
+  #line 194 "gp1d.xmds"
   
   norm = Ncalc;
   e1 = EN;
@@ -2886,7 +2884,7 @@ void _mg1_sample()
   vir1  = Virial;
   mu1   = mu;
   
-  #line 2890 "xgp1d.cc"
+  #line 2888 "xgp1d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
@@ -3149,11 +3147,11 @@ void _mg2_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 208 "gp1d.xmds"
+    #line 207 "gp1d.xmds"
     
     v1 = V1;
     
-    #line 3157 "xgp1d.cc"
+    #line 3155 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
