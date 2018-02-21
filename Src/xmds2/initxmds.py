@@ -26,7 +26,7 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 200
+N_of_ex = 10
 N_of_ex_g = 1
 rnd.seed()
 
@@ -55,7 +55,7 @@ for pot in pot_types:
       p.wait()
 
       #cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-g_{}_.dat".format(inter_param)
-      cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-generic"
+      cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-generic.dat"
       args = shlex.split(cmdline)
       p = subprocess.Popen(args)
       p.wait()

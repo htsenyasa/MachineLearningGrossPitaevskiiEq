@@ -94,7 +94,7 @@
       switch(pt_type){
         case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
         case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
-        case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / s_1) - lm_2 * exp(-pow((x-mu_2), 2)/s_2); break;
+        case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / pow(s_1, 2)) - lm_2 * exp(-pow((x-mu_2), 2) / pow(s_2,2)); break;
       }
       ]]>
     </initialisation>
@@ -214,19 +214,19 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 7.853586e+00
+  Command line argument interaction_param = 8.759326e+00
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 1.159223e+00
-  Command line argument shift = -4.589214e+00
+  Command line argument freq = 1.352148e+00
+  Command line argument shift = -1.831639e+00
   Command line argument pot_type = 2.000000e+00
   Command line argument lw = -5.000000e+00
   Command line argument rw = 5.000000e+00
   Command line argument lam1 = 0.000000e+00
-  Command line argument lam2 = -1.202721e+00
-  Command line argument mu1 = 7.916643e-01
-  Command line argument mu2 = 5.651866e+00
-  Command line argument s1 = -1.300797e+00
-  Command line argument s2 = 6.344061e-01
+  Command line argument lam2 = -2.422423e+00
+  Command line argument mu1 = 1.000553e+00
+  Command line argument mu2 = 9.326583e+00
+  Command line argument s1 = 1.959510e+00
+  Command line argument s2 = 1.035536e+00
 </info>
 
 <XSIL Name="moment_group_1">

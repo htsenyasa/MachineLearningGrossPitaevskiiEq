@@ -1316,7 +1316,7 @@ void _x_potential_initialise()
     switch(pt_type){
       case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
       case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
-      case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / s_1) - lm_2 * exp(-pow((x-mu_2), 2)/s_2); break;
+      case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / pow(s_1, 2)) - lm_2 * exp(-pow((x-mu_2), 2) / pow(s_2,2)); break;
     }
     
     #line 1323 "xgp1d.cc"
@@ -2438,7 +2438,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      switch(pt_type){\n");
   fprintf(fp, "        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;\n");
   fprintf(fp, "        case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;\n");
-  fprintf(fp, "        case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / s_1) - lm_2 * exp(-pow((x-mu_2), 2)/s_2); break;\n");
+  fprintf(fp, "        case 2: V1 = -lm_1 * exp(-pow((x-mu_1),2) / pow(s_1, 2)) - lm_2 * exp(-pow((x-mu_2), 2) / pow(s_2,2)); break;\n");
   fprintf(fp, "      }\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");

@@ -11,15 +11,17 @@ low = 0
 inc = 0.5
 high = 4
 
+np.random.seed(1234)
+
 for i in range(100):
 
-    l_1 = rnd.uniform(1, 10)
-    mu_1 = rnd.uniform(-5, 5)
-    s_1 = rnd.uniform(low + inc, high - (high / 7 * np.abs(mu_1)))
+    l_1 = np.random.uniform(1, 10)
+    mu_1 = np.random.uniform(-5, 5)
+    s_1 = np.random.uniform(low + inc, high - (high / 7 * np.abs(mu_1)))
 
-    l_2 = rnd.uniform(1, 10)
-    mu_2 = rnd.uniform(-5, 5)
-    s_2 = rnd.uniform(low + inc, high - (high/7 * np.abs(mu_2)))
+    l_2 = np.random.uniform(1, 10)
+    mu_2 = np.random.uniform(-5, 5)
+    s_2 = np.random.uniform(low + inc, high - (high/7 * np.abs(mu_2)))
 
     zz = [- l_1 * np.exp(-(x-mu_1)**2/s_1**2) - l_2 * np.exp(-(x-mu_2)**2/s_2**2) for x in X]
 
