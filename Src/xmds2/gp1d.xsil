@@ -214,19 +214,19 @@ Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
-  Command line argument interaction_param = 8.759326e+00
+  Command line argument interaction_param = 8.826412e+00
   Command line argument num_particles = 1.000000e+00
-  Command line argument freq = 1.352148e+00
-  Command line argument shift = -1.831639e+00
+  Command line argument freq = 1.687946e+00
+  Command line argument shift = 4.588018e+00
   Command line argument pot_type = 2.000000e+00
   Command line argument lw = -5.000000e+00
   Command line argument rw = 5.000000e+00
   Command line argument lam1 = 0.000000e+00
-  Command line argument lam2 = -2.422423e+00
-  Command line argument mu1 = 1.000553e+00
-  Command line argument mu2 = 9.326583e+00
-  Command line argument s1 = 1.959510e+00
-  Command line argument s2 = 1.035536e+00
+  Command line argument lam2 = 1.519959e-01
+  Command line argument mu1 = 1.860213e+00
+  Command line argument mu2 = 4.708815e+00
+  Command line argument s1 = 1.436974e+00
+  Command line argument s2 = 2.614508e+00
 </info>
 
 <XSIL Name="moment_group_1">

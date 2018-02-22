@@ -26,7 +26,7 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 10
+N_of_ex = 20
 N_of_ex_g = 1
 rnd.seed()
 
