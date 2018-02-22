@@ -15,8 +15,9 @@ def get_gaussian_params():
   return l_1, mu_1, s_1, l_2, mu_2, s_2 #use this order
 
 def get_infwell_params():
-  lw = rnd.uniform(-5, -0.5) # left_well
-  return lw, -lw
+  lc = rnd.uniform(-5, 5) # left_well
+  lw = rnd.uniform(1, 8) # left_well
+  return lc+lw/2, lc-lw/2
 
 low = 0
 inc = 0.5
