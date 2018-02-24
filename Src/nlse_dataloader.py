@@ -2,7 +2,7 @@ from __future__ import print_function
 import torch
 import torch.utils.data as data_utils
 import numpy as np
-import readdata as rd
+import nlse_readdata as rd
 from sklearn.preprocessing import StandardScaler
 
 class Dataloader(object):
@@ -13,8 +13,8 @@ class Dataloader(object):
 
         self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(data_filename, label_filename, self.train_len, self.test_len)
         
-        self.train_label = self.train_label.reshape((len(self.train_label), 1))
-        self.test_label = self.test_label.reshape((len(self.test_label), 1))
+        #self.train_label = self.train_label.reshape((len(self.train_label), 1))
+        #self.test_label = self.test_label.reshape((len(self.test_label), 1))
         #self.train_data = scaler.fit_transform(self.train_data)
         #self.test_data = scaler.fit_transform(self.test_data)
         #self.train_label = scaler.fit_transform(self.train_label)

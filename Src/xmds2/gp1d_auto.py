@@ -7,11 +7,16 @@ import cPickle as pickle
 
 parser = argparse.ArgumentParser(description='xmds data')
 parser.add_argument('--pos-file-ex',         type=str,             default="-test.dat",                    help = 'target file ex')
+parser.add_argument('--dir',                 type=str,             default="",                             help = 'target file ex')
+parser.add_argument('--pot',                 type=str,             default="0",                              help = 'target file ex')
+
 
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
-root = "../../data/nonlinearSE/generic_dataset/"
+dire = args.dir
+pot = args.pot
+root = "../../data/nonlinearSE/generic_dataset/" + dire + "/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex

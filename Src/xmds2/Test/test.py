@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random as rnd
+import math
 
 #A*|x-c|
 
@@ -8,27 +9,30 @@ start = -10
 stop = 10
 X = np.arange(start, stop, (stop-start)/128)
 low = 0
-inc = 0.5
+inc = 0.5   
 high = 4
 
 np.random.seed(1234)
 
-for i in range(100):
+for i in range(20):
 
-    l_1 = np.random.uniform(1, 10)
+    lm_1 = np.random.uniform(1, 10)
     mu_1 = np.random.uniform(-5, 5)
     s_1 = np.random.uniform(low + inc, high - (high / 7 * np.abs(mu_1)))
 
-    l_2 = np.random.uniform(1, 10)
+    lm_2 = np.random.uniform(1, 10)
     mu_2 = np.random.uniform(-5, 5)
     s_2 = np.random.uniform(low + inc, high - (high/7 * np.abs(mu_2)))
 
-    zz = [- l_1 * np.exp(-(x-mu_1)**2/s_1**2) - l_2 * np.exp(-(x-mu_2)**2/s_2**2) for x in X]
+    #zz = [- l_1 * np.exp(-(x-mu_1)**2/s_1**2) - l_2 * np.exp(-(x-mu_2)**2/s_2**2) for x in X]
+    zz = [(-lm_1 * np.exp(-pow(x-mu_1, 2) / pow(s_1, 2))) + (-lm_2 * np.exp(-pow(x-mu_2, 2) / pow(s_2,2))) for x in X]
+
+
 
     fig, ax1 = plt.subplots()
     ax1.plot(X, zz)
     props = dict(boxstyle='square', facecolor='white', alpha=0.5)
-    textstr = "l_1:{:.2f}\nmu_1:{:.2f}\ns_1:{:.2f}".format(l_1, mu_1, s_1)
+    textstr = "l_1:{:.2f}\nmu_1:{:.2f}\ns_1:{:.2f}".format(lm_1, mu_1, s_1)
     ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
     plt.show()
 
