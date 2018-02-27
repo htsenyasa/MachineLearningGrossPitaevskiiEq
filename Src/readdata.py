@@ -10,7 +10,7 @@ def read_data(data_filename, label_filename, train_len=800, test_len=200):
     data = np.load(data_filename)
     print("DATA IS LOADING WITH np.load METHOD")
     #data = np.loadtxt(data_filename)
-    label = np.loadtxt(label_filename)
+    label = np.load(label_filename)
 
     total_len = train_len + test_len
     train_data = data[0:train_len]

@@ -20,14 +20,18 @@ pot[rw_i:] = inf_pot
 #plt.show()
 #plt.clf()
 
-def f_x(x):
-    lw = rnd.uniform(-5, -0.5) # left_well
-    rw = -lw # right_well
-    lw_i = m.ceil(lw * ratio) + num_grid//2 #index of lw 
-    rw_i = m.floor(rw * ratio) + num_grid//2 #index of rw
 
+def get_infwell_params():
+  lc = rnd.uniform(-5, 5) # left_well
+  lw = rnd.uniform(1, 8) # left_well
+  return lc-lw/2, lc+lw/2
+
+def f_x(x):
+    lw, rw = get_infwell_params()
     if (lw < x < rw):
         return 0
     return 100
 
-x_in = np.arange(-10, 10, 128)
+x_in = np.arange(-10, 10, 20/128)
+
+pot = [f_x(x) for x in x_in]
