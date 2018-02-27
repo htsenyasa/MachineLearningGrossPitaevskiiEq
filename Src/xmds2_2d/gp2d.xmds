@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation xmds-version="2">
+  <name>xgp2d</name>
+  <author>Joe Hope</author>
+  <description>
+    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
+    This is done by evolving it in imaginary time while re-normalising each timestep.
+  </description>
+  
+  <features>
+    <auto_vectorise />
+    <benchmark />
+    <bing />
+    <fftw plan="exhaustive" />
+    <globals>
+      <![CDATA[
+        const real Nptls = 1.0;
+        real gg;
+        real x0;
+        real y0_;
+        real wx;
+        real wy;
+      ]]>
+    </globals>
+    <arguments>
+      <argument name="xshift" type="real" default_value="3"/>
+      <![CDATA[
+      x0 = xshift;
+      ]]>
+      <argument name="yshift" type="real" default_value="5"/>
+      <![CDATA[
+      y0_ = yshift;
+      ]]>
+      <argument name="interaction" type="real" default_value="0"/>
+      <![CDATA[
+      gg = interaction;
+      ]]>
+    </arguments>
+
+  </features>
+  
+  <geometry>
+    <propagation_dimension> t </propagation_dimension>
+    <transverse_dimensions>
+      <dimension name="x" lattice="128"  domain="(-10.0, 10.0)" />
+      <dimension name="y" lattice="128"  domain="(-10.0, 10.0)" />
+    </transverse_dimensions>
+  </geometry>
+  
+  <vector name="potential" initial_basis="x y" type="real">
+    <components> Vext </components>
+    <initialisation>
+      <![CDATA[
+        Vext  = 0.5*( (x-x0)*(x-x0)+(y-y0_)*(y-y0_) );
+      ]]>
+    </initialisation>
+  </vector>
+  
+  <vector name="wavefunction" initial_basis="x y" type="complex">
+    <components> phi </components>
+    <initialisation>
+      <![CDATA[
+        if (fabs(y) < 3.0 && fabs(x) < 3.0) {
+          phi = 1.0;
+          // This will be automatically normalised later
+        } else {
+          phi = 0.0;
+        }
+            ]]>
+    </initialisation>
+  </vector>
+  
+  <computed_vector name="number" dimensions="" type="real">
+    <components> Ncalc </components>
+    <evaluation>
+      <dependencies basis="x y">wavefunction</dependencies>
+      <![CDATA[
+        // Calculate the current normalisation of the wave function.
+        Ncalc = mod2(phi);
+      ]]>
+    </evaluation>
+  </computed_vector>
+  
+  <sequence>
+    <filter>
+        <dependencies>number wavefunction</dependencies>
+      <![CDATA[
+        phi *= sqrt(Nptls/Ncalc);
+      ]]>
+    </filter>
+
+    <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
+      <samples>1 1 25</samples>
+      <filters where="step end">
+        <filter>
+          <dependencies>wavefunction number</dependencies>
+          <![CDATA[
+            // Correct normalisation of the wavefunction
+            phi *= sqrt(Nptls/Ncalc);
+          ]]>
+        </filter>
+      </filters>
+      <operators>
+        <!-- <operator kind="ip"> -->
+	<operator kind="ex" dimensions="x y">
+          <operator_names>T</operator_names>
+          <![CDATA[
+            T = -0.5*(kx*kx+ky*ky);
+          ]]>
+        </operator>
+        <integration_vectors>wavefunction</integration_vectors>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+          dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
+        ]]>
+      </operators>
+    </integrate>
+ 
+    <!--
+    <breakpoint filename="gp2d.xsil" format="ascii">
+      <dependencies basis="kx ky">wavefunction </dependencies>
+    </breakpoint>
+    -->
+
+  </sequence>
+
+  <output filename="gp2d.xsil">
+      <sampling_group initial_sample="yes">
+        <moments>Nptls</moments>
+        <dependencies>number</dependencies>
+        <![CDATA[
+          Nptls = Ncalc;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x y" initial_sample="yes">
+        <moments>Pot</moments>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+	  Pot = Vext;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x y" initial_sample="yes">
+        <moments>dens</moments>
+        <dependencies>wavefunction</dependencies>
+        <![CDATA[
+          dens = mod2(phi);
+        ]]>
+      </sampling_group>
+  </output>
+</simulation>

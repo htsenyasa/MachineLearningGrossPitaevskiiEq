@@ -2554,7 +2554,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  </output>\n");
   
   fprintf(fp, "\n<info>\n");
-  fprintf(fp, "Script compiled with XMDS2 version 2.2.0 \"Out of cheese error\" (Debian package 2.2.0+dfsg1-1)\n");
+  fprintf(fp, "Script compiled with XMDS2 version 2.2.2 \"XMDS2 is a game of two halves\" (Debian package 2.2.2+dfsg-1)\n");
   fprintf(fp, "See http://www.xmds.org for more information.\n");
   fprintf(fp, "\nVariables that can be specified on the command line:\n");
   

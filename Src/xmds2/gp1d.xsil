@@ -210,7 +210,7 @@
   </output>
 
 <info>
-Script compiled with XMDS2 version 2.2.0 "Out of cheese error" (Debian package 2.2.0+dfsg1-1)
+Script compiled with XMDS2 version 2.2.2 "XMDS2 is a game of two halves" (Debian package 2.2.2+dfsg-1)
 See http://www.xmds.org for more information.
 
 Variables that can be specified on the command line:
@@ -222,11 +222,11 @@ Variables that can be specified on the command line:
   Command line argument lw = -5.000000e+00
   Command line argument rw = 5.000000e+00
   Command line argument lam1 = 0.000000e+00
-  Command line argument lam2 = 3.605890e-02
-  Command line argument mu1 = 3.895838e+00
-  Command line argument mu2 = 7.621412e+00
-  Command line argument s1 = -3.967507e+00
-  Command line argument s2 = 1.433207e+00
+  Command line argument lam2 = 6.199340e-02
+  Command line argument mu1 = 3.836362e+00
+  Command line argument mu2 = 5.192436e+00
+  Command line argument s1 = 4.053258e-01
+  Command line argument s2 = 2.101142e+00
 </info>
 
 <XSIL Name="moment_group_1">
