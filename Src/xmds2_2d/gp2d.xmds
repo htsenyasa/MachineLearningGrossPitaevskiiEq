@@ -6,7 +6,6 @@
     Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
     This is done by evolving it in imaginary time while re-normalising each timestep.
   </description>
-  
   <features>
     <auto_vectorise />
     <benchmark />
@@ -96,12 +95,12 @@
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
-        Ekin = 0.5*(mod2(dphix)+mod2(dphiy));
-        Epot = Vext*mod2(phi);
-        Eint = 0.5*gg*mod2(phi)*mod2(phi);
-        EN = Ekin+Vext+Eint;
-	//Virial = Ekin - Epot + Eint;
-	//mu = Ekin + Epot + (2) * Eint;
+        Ekin = 0.5 * (mod2(dphix)+mod2(dphiy));
+        Epot = Vext * mod2(phi);
+        Eint = 0.5 * gg * mod2(phi)*mod2(phi);
+        EN = Ekin+Epot+Eint;
+	    //Virial = Ekin - Epot + Eint;
+	    //mu = Ekin + Epot + (2) * Eint;
       ]]>
     </evaluation>
   </computed_vector>
@@ -156,18 +155,18 @@
         <dependencies>number</dependencies>
         <![CDATA[
           Nptls = Ncalc;
-	  Ek = Ekin;
-	  Ep = Epot;
-	  Ei = Eint;
-	  En = EN;
-	  g0 = gg;
+	        Ek = Ekin;
+	        Ep = Epot;
+	        Ei = Eint;
+	        En = EN;
+	        g0 = gg;
         ]]>
       </sampling_group>
       <sampling_group basis="x y" initial_sample="yes">
         <moments>Pot</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
-	  Pot = Vext;
+	      Pot = Vext;
         ]]>
       </sampling_group>
       <sampling_group basis="x y" initial_sample="yes">

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
@@ -26,6 +27,8 @@ ekin_file_name = root + "ekin" + file_ex
 epot_file_name = root + "epot" + file_ex
 eint_file_name = root + "eint" + file_ex
 dens_file_name = root + "dens" + file_ex
+gg_file_name = root + "gg" + file_ex
+
 
 
 xsilFile = XSILFile("gp2d.xsil")
@@ -61,14 +64,12 @@ dens_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependen
 #f4 = open(epot_file_name, "ab")
 #f5 = open(eint_file_name, "ab")
 #f6 = open(dens_file_name, "ab")
-#
-#pot = np.array(Pot_2)
-#np.save(f, Pot_2[-1])
-#
+#f7 = open(gg_file_name, "ab")
 #
 #np.save(f, Pot_2[-1])
-#np.save(f2, En_1)
-#np.save(f3, e1kin_2[-2:-1])
-#np.save(f4, e1pot_2[-2:-1])
-#np.save(f5, e1int_2[-2:-1])
-#np.save(f6, dens)
+#np.save(f2, En_1[-1])
+#np.save(f3, Ek_1[-1])
+#np.save(f4, Ep_1[-1])
+#np.save(f5, Ei_1[-1])
+#np.save(f6, dens_3[-1])
+#np.save(f7, g0_1[-1])

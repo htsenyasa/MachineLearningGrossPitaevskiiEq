@@ -192,12 +192,20 @@ inline void *xmds_malloc(size_t size);
 #define _xy_wavefunction_ncomponents 1
 
 // ********************************************************
+//   field x defines
+#define _x_ndims 1
+
+
+// vector gradphi defines
+#define _x_gradphi_ncomponents 2
+
+// ********************************************************
 //   field dimensionless defines
 #define _dimensionless_ndims 0
 
 
 // vector number defines
-#define _dimensionless_number_ncomponents 1
+#define _dimensionless_number_ncomponents 5
 
 // ********************************************************
 //   segment 2 (RK45 adaptive-step integrator) defines
@@ -220,7 +228,7 @@ inline void *xmds_malloc(size_t size);
 #define _mg0_output_dt        (_mg0_output_t[_index_t+1]-_mg0_output_t[_index_t])
 
 // vector raw defines
-#define _mg0_output_raw_ncomponents 1
+#define _mg0_output_raw_ncomponents 6
 
 // ********************************************************
 //   field mg1_sampling defines
@@ -314,18 +322,21 @@ typedef map<_basis_pair, _basis_transform_t, _basis_pair_less_than> _basis_map;
 
 _basis_map _xy_segment2_xy_operators_operator0_result_basis_map;
 _basis_map _xy_wavefunction_basis_map;
+_basis_map _x_gradphi_basis_map;
 
 real *_auxiliary_array = NULL;
 
 const char *_basis_identifiers[] = {
-  /* 0 */ "(kx, ky)",
-  /* 1 */ "(x, y)",
+  /* 0 */ "(kx)",
+  /* 1 */ "(kx, ky)",
+  /* 2 */ "(x)",
+  /* 3 */ "(x, y)",
 };
 
 // ********************************************************
 //   'Globals' element globals
 
-#line 16 "gp2d.xmds"
+#line 15 "gp2d.xmds"
 
 const real Nptls = 1.0;
 real gg;
@@ -334,7 +345,7 @@ real y0_;
 real wx;
 real wy;
 
-#line 338 "xgp2d.cc"
+#line 349 "xgp2d.cc"
 
 // ********************************************************
 //   Command line argument processing globals
@@ -372,6 +383,15 @@ complex* _xy_wavefunction = NULL;
 complex* _active_xy_wavefunction = NULL;
 
 ptrdiff_t _xy_wavefunction_basis = -1;
+
+// ********************************************************
+//   field x globals
+// vector gradphi globals
+size_t _x_gradphi_alloc_size = 0;
+complex* _x_gradphi = NULL;
+complex* _active_x_gradphi = NULL;
+
+ptrdiff_t _x_gradphi_basis = -1;
 
 // ********************************************************
 //   field dimensionless globals
@@ -434,6 +454,7 @@ real* _active_mg2_output_raw = NULL;
 //   Transform Multiplexer function prototypes
 void _transform_0(bool _forward, real _multiplier, real* const __restrict__ _data_in, real* const __restrict__ _data_out, ptrdiff_t _prefix_lattice, ptrdiff_t _postfix_lattice);
 void _transform_1(bool _forward, real _multiplier, real* const __restrict__ _data_in, real* const __restrict__ _data_out, ptrdiff_t _prefix_lattice, ptrdiff_t _postfix_lattice);
+void _transform_2(bool _forward, real _multiplier, real* const __restrict__ _data_in, real* const __restrict__ _data_out, ptrdiff_t _prefix_lattice, ptrdiff_t _postfix_lattice);
 
 // ********************************************************
 //   Command line argument processing function prototypes
@@ -445,6 +466,12 @@ void _xy_potential_initialise();
 
 void _xy_wavefunction_initialise();
 void _xy_wavefunction_basis_transform(ptrdiff_t new_basis);
+
+// ********************************************************
+//   field x function prototypes
+void _x_gradphi_evaluate();
+void _x_gradphi_initialise();
+void _x_gradphi_basis_transform(ptrdiff_t new_basis);
 
 // ********************************************************
 //   field dimensionless function prototypes
@@ -609,7 +636,7 @@ int main(int argc, char **argv)
     _print_usage(); // This causes the simulation to exit.
   
   // ******** Argument post-processing code *******
-  #line 27 "gp2d.xmds"
+  #line 26 "gp2d.xmds"
   
   x0 = xshift;
   
@@ -621,11 +648,13 @@ int main(int argc, char **argv)
   
   wy = w_y;
   
-  #line 625 "xgp2d.cc"
+  #line 652 "xgp2d.cc"
   // **********************************************
   
     
   
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
   _dimensionless_number_alloc_size = MAX(_dimensionless_number_alloc_size, (1) * _dimensionless_number_ncomponents);
   _xy_segment2_xy_operators_operator0_result_alloc_size = MAX(_xy_segment2_xy_operators_operator0_result_alloc_size, (_lattice_x * _lattice_y) * _xy_segment2_xy_operators_operator0_result_ncomponents);
   _xy_segment2_xy_operators_operator0_result_alloc_size = MAX(_xy_segment2_xy_operators_operator0_result_alloc_size, (_lattice_kx * _lattice_ky) * _xy_segment2_xy_operators_operator0_result_ncomponents);
@@ -649,6 +678,9 @@ int main(int argc, char **argv)
   
   _xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
   _active_xy_wavefunction = _xy_wavefunction;
+  
+  _x_gradphi = (complex*) xmds_malloc(sizeof(complex) * MAX(_x_gradphi_alloc_size,1));
+  _active_x_gradphi = _x_gradphi;
   
   _dimensionless_number = (real*) xmds_malloc(sizeof(real) * MAX(_dimensionless_number_alloc_size,1));
   _active_dimensionless_number = _dimensionless_number;
@@ -737,7 +769,7 @@ int main(int argc, char **argv)
     _max_vector_size = 2 * _xy_segment2_xy_operators_operator0_result_alloc_size;
     _max_vector_array = reinterpret_cast<real*>(_xy_segment2_xy_operators_operator0_result);
   }
-  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(1, 0)];
+  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(3, 1)];
   _basis_transform->_multiplier = _inverse_sqrt_2pi * _dx * _inverse_sqrt_2pi * _dy;
   _basis_transform->append(
     /* transform function */ _transform_0,
@@ -754,7 +786,7 @@ int main(int argc, char **argv)
     /* postfix lattice*/ _xy_segment2_xy_operators_operator0_result_ncomponents * 2
   );
   
-  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(0, 1)];
+  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(1, 3)];
   _basis_transform->_multiplier = _inverse_sqrt_2pi * _dkx * _inverse_sqrt_2pi * _dky;
   _basis_transform->append(
     /* transform function */ _transform_1,
@@ -775,7 +807,7 @@ int main(int argc, char **argv)
     _max_vector_size = 2 * _xy_wavefunction_alloc_size;
     _max_vector_array = reinterpret_cast<real*>(_xy_wavefunction);
   }
-  _basis_transform = &_xy_wavefunction_basis_map[_basis_pair(1, 0)];
+  _basis_transform = &_xy_wavefunction_basis_map[_basis_pair(3, 1)];
   _basis_transform->_multiplier = _inverse_sqrt_2pi * _dx * _inverse_sqrt_2pi * _dy;
   _basis_transform->append(
     /* transform function */ _transform_0,
@@ -792,7 +824,7 @@ int main(int argc, char **argv)
     /* postfix lattice*/ _xy_wavefunction_ncomponents * 2
   );
   
-  _basis_transform = &_xy_wavefunction_basis_map[_basis_pair(0, 1)];
+  _basis_transform = &_xy_wavefunction_basis_map[_basis_pair(1, 3)];
   _basis_transform->_multiplier = _inverse_sqrt_2pi * _dkx * _inverse_sqrt_2pi * _dky;
   _basis_transform->append(
     /* transform function */ _transform_1,
@@ -809,6 +841,44 @@ int main(int argc, char **argv)
     /* postfix lattice */ _xy_wavefunction_ncomponents
   );
   
+  if (2 * _x_gradphi_alloc_size > _max_vector_size) {
+    _max_vector_size = 2 * _x_gradphi_alloc_size;
+    _max_vector_array = reinterpret_cast<real*>(_x_gradphi);
+  }
+  _basis_transform = &_x_gradphi_basis_map[_basis_pair(0, 2)];
+  _basis_transform->_multiplier = _inverse_sqrt_2pi * _dkx;
+  _basis_transform->append(
+    /* transform function */ _transform_2,
+    /* forward? */ false,
+    /* out-of-place? */ false,
+    /* prefix lattice */ 1,
+    /* postfix lattice*/ _x_gradphi_ncomponents
+  );
+  _basis_transform->append(
+    /* transform function */ _transform_1,
+    /* forward? */ true,
+    /* out-of-place? */ false,
+    /* prefix lattice */ _lattice_x,
+    /* postfix lattice*/ _x_gradphi_ncomponents * 2
+  );
+  
+  _basis_transform = &_x_gradphi_basis_map[_basis_pair(2, 0)];
+  _basis_transform->_multiplier = _inverse_sqrt_2pi * _dx;
+  _basis_transform->append(
+    /* transform function */ _transform_1,
+    /* forward? */ false,
+    /* out-of-place? */ false,
+    /* prefix lattice */ _lattice_x,
+    /* postfix lattice */ _x_gradphi_ncomponents * 2
+  );
+  _basis_transform->append(
+    /* transform function */ _transform_2,
+    /* forward? */ true,
+    /* out-of-place? */ false,
+    /* prefix lattice */ 1,
+    /* postfix lattice */ _x_gradphi_ncomponents
+  );
+  
   if (_auxiliary_array_size) {
     _auxiliary_array = (real*) xmds_malloc(sizeof(real) * _auxiliary_array_size);
   }
@@ -821,6 +891,7 @@ int main(int argc, char **argv)
   
   // Make all geometry-dependent transformations prepare plans, etc.
   _transform_0(true, 1.0, _max_vector_array, _auxiliary_array, 1, _xy_segment2_xy_operators_operator0_result_ncomponents);
+  _transform_2(true, 1.0, _max_vector_array, _auxiliary_array, 1, _x_gradphi_ncomponents);
   
   if (_allocated_temporary_array) {
     xmds_free(_max_vector_array);
@@ -867,6 +938,9 @@ int main(int argc, char **argv)
   
   xmds_free(_xy_wavefunction);
   _active_xy_wavefunction = _xy_wavefunction = NULL;
+  
+  xmds_free(_x_gradphi);
+  _active_x_gradphi = _x_gradphi = NULL;
   
   xmds_free(_dimensionless_number);
   _active_dimensionless_number = _dimensionless_number = NULL;
@@ -983,6 +1057,76 @@ void _transform_1(bool _forward, real _multiplier, real* const __restrict__ _dat
   }
 }
 
+
+// x <---> kx transform
+void _transform_2(bool _forward, real _multiplier, real* const __restrict__ _data_in, real* const __restrict__ _data_out, ptrdiff_t _prefix_lattice, ptrdiff_t _postfix_lattice)
+{
+  if (_prefix_lattice <= 0 || _postfix_lattice <= 0) return;
+  // _prefix_lattice should be 1
+  // _postfix_lattice should be 2
+  static fftw_plan _fftw_forward_plan = NULL;
+  static fftw_plan _fftw_backward_plan = NULL;
+  
+  if (!_fftw_forward_plan) {
+    _LOG(_SIMULATION_LOG_LEVEL, "Planning for x <---> kx transform...");
+    
+    fftw_iodim _transform_sizes[1], _loop_sizes[2];
+    fftw_iodim *_iodim_ptr = NULL;
+    
+    int _transform_sizes_index = 0, _loop_sizes_index = 0;
+    
+    if (_prefix_lattice > 1) {
+      _iodim_ptr = &_loop_sizes[_loop_sizes_index++];
+      _iodim_ptr->n = _prefix_lattice;
+      _iodim_ptr->is = _iodim_ptr->os = _postfix_lattice * _lattice_x;
+    }
+    if (_postfix_lattice > 1) {
+      _iodim_ptr = &_loop_sizes[_loop_sizes_index++];
+      _iodim_ptr->n = _postfix_lattice;
+      _iodim_ptr->is = _iodim_ptr->os = 1;
+    }
+    _iodim_ptr = &_transform_sizes[_transform_sizes_index++];
+    _iodim_ptr->n = _lattice_x;
+    _iodim_ptr->is = _iodim_ptr->os = _postfix_lattice;
+    
+    
+    _fftw_forward_plan = fftw_plan_guru_dft(
+      _transform_sizes_index, _transform_sizes,
+      _loop_sizes_index, _loop_sizes,
+      reinterpret_cast<fftw_complex*>(_data_in), reinterpret_cast<fftw_complex*>(_data_in),
+      FFTW_FORWARD, FFTW_EXHAUSTIVE
+    );
+    if (!_fftw_forward_plan)
+      _LOG(_ERROR_LOG_LEVEL, "(%s: %i) Unable to create forward dft plan.\n", __FILE__, __LINE__);
+    
+    _fftw_backward_plan = fftw_plan_guru_dft(
+      _transform_sizes_index, _transform_sizes,
+      _loop_sizes_index, _loop_sizes,
+      reinterpret_cast<fftw_complex*>(_data_in), reinterpret_cast<fftw_complex*>(_data_in),
+      FFTW_BACKWARD, FFTW_EXHAUSTIVE
+    );
+    if (!_fftw_backward_plan)
+      _LOG(_ERROR_LOG_LEVEL, "(%s: %i) Unable to create backward dft plan.\n", __FILE__, __LINE__);
+    
+    
+    _LOG(_SIMULATION_LOG_LEVEL, " done.\n");
+  }
+  
+  if (_forward) {
+    fftw_execute_dft(
+      _fftw_forward_plan,
+      reinterpret_cast<fftw_complex*>(_data_in),
+      reinterpret_cast<fftw_complex*>(_data_in)
+    );
+  } else {
+    fftw_execute_dft(
+      _fftw_backward_plan,
+      reinterpret_cast<fftw_complex*>(_data_in),
+      reinterpret_cast<fftw_complex*>(_data_in)
+    );
+  }
+}
+
 // ********************************************************
 //   Command line argument processing function implementations
 void _print_usage()
@@ -1051,11 +1195,11 @@ void _xy_potential_initialise()
       #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
       
       // ********** Initialisation code ***************
-      #line 61 "gp2d.xmds"
+      #line 60 "gp2d.xmds"
       
       Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));
       
-      #line 1059 "xgp2d.cc"
+      #line 1203 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1092,16 +1236,16 @@ void _xy_wavefunction_initialise()
       #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
       
       // ********** Initialisation code ***************
-      #line 70 "gp2d.xmds"
+      #line 69 "gp2d.xmds"
       
-      if (fabs(y) < 3.0 && fabs(x) < 3.0) {
+      if (fabs(y) < 9.0 && fabs(x) < 9.0) {
         phi = 1.0;
         // This will be automatically normalised later
       } else {
         phi = 0.0;
       }
       
-      #line 1105 "xgp2d.cc"
+      #line 1249 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1116,7 +1260,7 @@ void _xy_wavefunction_initialise()
   #undef dx
   #undef phi
   
-  _xy_wavefunction_basis = 1;
+  _xy_wavefunction_basis = 3;
 }
 
 
@@ -1162,6 +1306,109 @@ void _xy_wavefunction_basis_transform(ptrdiff_t new_basis)
 }
 
 // ********************************************************
+//   field x function implementations
+void _x_gradphi_evaluate()
+{
+  _active_x_gradphi = _x_gradphi;
+  _x_gradphi_initialise();
+  
+  // Transforming vectors to basis (kx, ky)
+  _xy_wavefunction_basis_transform(1); // (kx, ky)
+  
+  long _x_gradphi_index_pointer = 0;
+  complex dphix;
+  complex dphiy;
+  long _xy_wavefunction_index_pointer = 0;
+  #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
+  #define kx _kx[_index_kx + 0]
+  #define dkx (_dkx * (1.0))
+  
+  for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
+    #define ky _ky[_index_ky + 0]
+    #define dky (_dky * (1.0))
+    
+    for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
+      // Set index pointers explicitly for (some) vectors
+      _x_gradphi_index_pointer = ( 0
+         + _index_kx * 1 ) * _x_gradphi_ncomponents;
+      // ************* Evaluation code ****************
+      #line 84 "gp2d.xmds"
+      
+      dphix=i*kx*phi;
+      dphiy=i*ky*phi;
+      
+      #line 1341 "xgp2d.cc"
+      // **********************************************
+      
+      _active_x_gradphi[_x_gradphi_index_pointer + 0] += dphix * dky;
+      _active_x_gradphi[_x_gradphi_index_pointer + 1] += dphiy * dky;
+      // Increment index pointers for vectors in field xy (or having the same dimensions)
+      _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
+      
+    }
+    #undef ky
+    #undef dky
+  }
+  #undef kx
+  #undef dkx
+  #undef phi
+  
+  _x_gradphi_basis = 0;
+}
+
+
+// initialisation for computed vector gradphi
+void _x_gradphi_initialise()
+{
+  // Because we're integrating over dimensions, we need to set the vector to zero.
+  bzero(_active_x_gradphi, sizeof(complex) * _x_gradphi_alloc_size);
+  
+  _x_gradphi_basis = 0;
+}
+
+
+void _x_gradphi_basis_transform(ptrdiff_t new_basis)
+{
+  if (_x_gradphi_basis == new_basis)
+    return;
+  
+  if (_x_gradphi_basis == -1) {
+    _LOG(
+      _ERROR_LOG_LEVEL,
+      "Error: Attempted to transform the vector 'x_gradphi' to basis %s, but the vector doesn't have a basis specified yet!\n"
+      "       Please report this error to xmds-devel@lists.sourceforge.net\n",
+      _basis_identifiers[new_basis]
+      );
+  }
+  
+  if (_x_gradphi_basis_map.count(_basis_pair(_x_gradphi_basis, new_basis)) == 0) {
+    _LOG(
+      _ERROR_LOG_LEVEL,
+      "Error: We should have information about how to do every needed transform, but it seems we don't for this transform.\n"
+      "       The transform is for the vector 'x_gradphi' from basis %s to basis %s.\n",
+      _basis_identifiers[_x_gradphi_basis], _basis_identifiers[new_basis]
+    );
+  }
+  _basis_transform_t &_t = _x_gradphi_basis_map[_basis_pair(_x_gradphi_basis, new_basis)];
+  if (_t._transform_steps.size() == 0) {
+    _LOG(_ERROR_LOG_LEVEL, "Error: It looks like we tried to create plans for this transform, but failed.\n"
+                           "       The transform was for the vector 'x_gradphi' from basis %s to basis %s.\n",
+                           _basis_identifiers[_x_gradphi_basis], _basis_identifiers[new_basis]);
+  }
+  real *_source_data = reinterpret_cast<real*>(_active_x_gradphi);
+  real *_dest_data = _auxiliary_array;
+  for (vector<_transform_step>::iterator _it = _t._transform_steps.begin(); _it != _t._transform_steps.end(); ++_it) {
+    _it->_func(_it->_forward, _t._multiplier, _source_data, _dest_data, _it->_prefix_lattice, _it->_postfix_lattice);
+    if (_it->_out_of_place) {
+      real *_temp = _source_data;
+      _source_data = _dest_data;
+      _dest_data = _temp;
+    }
+  }
+  _x_gradphi_basis = new_basis;
+}
+
+// ********************************************************
 //   field dimensionless function implementations
 void _dimensionless_number_evaluate()
 {
@@ -1169,12 +1416,22 @@ void _dimensionless_number_evaluate()
   _dimensionless_number_initialise();
   
   // Transforming vectors to basis (x, y)
-  _xy_wavefunction_basis_transform(1); // (x, y)
+  _x_gradphi_basis_transform(2); // (x)
+  _xy_wavefunction_basis_transform(3); // (x, y)
   
+  long _x_gradphi_index_pointer = 0;
+  #define dphix _active_x_gradphi[_x_gradphi_index_pointer + 0]
+  #define dphiy _active_x_gradphi[_x_gradphi_index_pointer + 1]
+  long _xy_potential_index_pointer = 0;
+  #define Vext _active_xy_potential[_xy_potential_index_pointer + 0]
   long _xy_wavefunction_index_pointer = 0;
   #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
   long _dimensionless_number_index_pointer = 0;
   real Ncalc;
+  real Ekin;
+  real Epot;
+  real Eint;
+  real EN;
   #define x _x[_index_x + 0]
   #define dx (_dx * (1.0))
   
@@ -1183,17 +1440,31 @@ void _dimensionless_number_evaluate()
     #define dy (_dy * (1.0))
     
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
+      // Set index pointers explicitly for (some) vectors
+      _x_gradphi_index_pointer = ( 0
+         + _index_x * 1 ) * _x_gradphi_ncomponents;
       // ************* Evaluation code ****************
-      #line 85 "gp2d.xmds"
+      #line 95 "gp2d.xmds"
       
       // Calculate the current normalisation of the wave function.
       Ncalc = mod2(phi);
+      Ekin = 0.5 * (mod2(dphix)+mod2(dphiy));
+      Epot = Vext * mod2(phi);
+      Eint = 0.5 * gg * mod2(phi)*mod2(phi);
+      EN = Ekin+Epot+Eint;
+          //Virial = Ekin - Epot + Eint;
+          //mu = Ekin + Epot + (2) * Eint;
       
-      #line 1193 "xgp2d.cc"
+      #line 1459 "xgp2d.cc"
       // **********************************************
       
       _active_dimensionless_number[_dimensionless_number_index_pointer + 0] += Ncalc * dx * dy;
+      _active_dimensionless_number[_dimensionless_number_index_pointer + 1] += Ekin * dx * dy;
+      _active_dimensionless_number[_dimensionless_number_index_pointer + 2] += Epot * dx * dy;
+      _active_dimensionless_number[_dimensionless_number_index_pointer + 3] += Eint * dx * dy;
+      _active_dimensionless_number[_dimensionless_number_index_pointer + 4] += EN * dx * dy;
       // Increment index pointers for vectors in field xy (or having the same dimensions)
+      _xy_potential_index_pointer += 1 * _xy_potential_ncomponents;
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
       
     }
@@ -1202,6 +1473,9 @@ void _dimensionless_number_evaluate()
   }
   #undef x
   #undef dx
+  #undef dphix
+  #undef dphiy
+  #undef Vext
   #undef phi
 }
 
@@ -1225,14 +1499,19 @@ void _segment1()
 // Filter operator
 void _segment1__evaluate_operator0()
 {
+  _x_gradphi_evaluate();
   _dimensionless_number_evaluate();
   // Transforming vectors to basis (x, y)
-  _xy_wavefunction_basis_transform(1); // (x, y)
+  _xy_wavefunction_basis_transform(3); // (x, y)
   
   long _xy_wavefunction_index_pointer = 0;
   #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
   long _dimensionless_number_index_pointer = 0;
   #define Ncalc _active_dimensionless_number[_dimensionless_number_index_pointer + 0]
+  #define Ekin _active_dimensionless_number[_dimensionless_number_index_pointer + 1]
+  #define Epot _active_dimensionless_number[_dimensionless_number_index_pointer + 2]
+  #define Eint _active_dimensionless_number[_dimensionless_number_index_pointer + 3]
+  #define EN _active_dimensionless_number[_dimensionless_number_index_pointer + 4]
   #define x _x[_index_x + 0]
   #define dx (_dx * (1.0))
   
@@ -1243,11 +1522,11 @@ void _segment1__evaluate_operator0()
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
       
       // ************** Filter code *****************
-      #line 95 "gp2d.xmds"
+      #line 111 "gp2d.xmds"
       
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 1251 "xgp2d.cc"
+      #line 1530 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -1260,6 +1539,10 @@ void _segment1__evaluate_operator0()
   #undef dx
   #undef phi
   #undef Ncalc
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef EN
 }
 
 // ********************************************************
@@ -1418,7 +1701,7 @@ void _segment2()
     
     do {
       
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       // a_k = y1
       memcpy(_akfield_xy_wavefunction, _xy_wavefunction, sizeof(complex) * _xy_wavefunction_alloc_size);
@@ -1427,7 +1710,7 @@ void _segment2()
       
       // a_i = D(a_2*dt)[y1]
       _segment2_ip_evolve(1);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       // y2 = y1
       memcpy(_checkfield_xy_wavefunction, _xy_wavefunction, sizeof(complex) * _xy_wavefunction_alloc_size);
@@ -1442,7 +1725,7 @@ void _segment2()
       
       // a_k = D(a_2*dt)[a_k]
       _segment2_ip_evolve(1);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       {
         _MAKE_AUTOVEC_VARIABLE(_akfield_xy_wavefunction);
@@ -1471,7 +1754,7 @@ void _segment2()
       _segment2_calculate_delta_a(_step);
       
       _segment2_ip_evolve(2);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       // c_2 == cs_2 == 0
       {
@@ -1501,7 +1784,7 @@ void _segment2()
       
       // a_j = D(-(a_3 - a_2)*dt)[a_j]
       _segment2_ip_evolve(3);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       {
         _MAKE_AUTOVEC_VARIABLE(_ajfield_xy_wavefunction);
@@ -1536,7 +1819,7 @@ void _segment2()
       
       // a_l = D(-(a_4 - a_2)*dt)[a_l]
       _segment2_ip_evolve(4);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       {
         _MAKE_AUTOVEC_VARIABLE(_ajfield_xy_wavefunction);
@@ -1561,7 +1844,7 @@ void _segment2()
       
       // a_l = G[a_l, t + aa_5*dt]
       _segment2_calculate_delta_a(_step);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       // c_5 == 0
       {
@@ -1593,7 +1876,7 @@ void _segment2()
       
       // a_l = D(-(a_6 - a_2)*dt)[a_l]
       _segment2_ip_evolve(5);
-      _xy_wavefunction_basis_transform(1); // (x, y)
+      _xy_wavefunction_basis_transform(3); // (x, y)
       
       // c_5 == 0
       {
@@ -1885,7 +2168,7 @@ void _segment2_xy_operators_evaluate_operator0()
   _active_xy_wavefunction = _active_xy_segment2_xy_operators_operator0_result;
   
   // Transforming vectors to basis (kx, ky)
-  _xy_wavefunction_basis_transform(0); // (kx, ky)
+  _xy_wavefunction_basis_transform(1); // (kx, ky)
   
   long _xy_segment2_xy_operators_operator0_result_index_pointer = 0;
   #define _T_phi _active_xy_segment2_xy_operators_operator0_result[_xy_segment2_xy_operators_operator0_result_index_pointer + 0]
@@ -1903,11 +2186,11 @@ void _segment2_xy_operators_evaluate_operator0()
       
       
       // ************** Operator code *****************
-      #line 116 "gp2d.xmds"
+      #line 132 "gp2d.xmds"
       
       T = -0.5*(kx*kx+ky*ky);
       
-      #line 1911 "xgp2d.cc"
+      #line 2194 "xgp2d.cc"
       // **********************************************
       
       // T[phi]
@@ -1927,7 +2210,7 @@ void _segment2_xy_operators_evaluate_operator0()
   _active_xy_wavefunction = __backup_ptr;
   _xy_wavefunction_basis = __backup_basis;
   
-  _xy_segment2_xy_operators_operator0_result_basis = 0;
+  _xy_segment2_xy_operators_operator0_result_basis = 1;
 }
 
 void _xy_segment2_xy_operators_operator0_result_basis_transform(ptrdiff_t new_basis)
@@ -1975,8 +2258,8 @@ void _xy_segment2_xy_operators_operator0_result_basis_transform(ptrdiff_t new_ba
 void _segment2_xy_operators_evaluate_operator1(real _step)
 {
   // Transforming vectors to basis (x, y)
-  _xy_segment2_xy_operators_operator0_result_basis_transform(1); // (x, y)
-  _xy_wavefunction_basis_transform(1); // (x, y)
+  _xy_segment2_xy_operators_operator0_result_basis_transform(3); // (x, y)
+  _xy_wavefunction_basis_transform(3); // (x, y)
   
   long _xy_segment2_xy_operators_operator0_result_index_pointer = 0;
   #define _T_phi _active_xy_segment2_xy_operators_operator0_result[_xy_segment2_xy_operators_operator0_result_index_pointer + 0]
@@ -1997,11 +2280,11 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
       #define dt _step
       
       // ************* Propagation code ***************
-      #line 122 "gp2d.xmds"
+      #line 138 "gp2d.xmds"
       
       dphi_dt = _T_phi - ( Vext + gg * mod2(phi) )*phi;
       
-      #line 2005 "xgp2d.cc"
+      #line 2288 "xgp2d.cc"
       // **********************************************
       
       #undef dt
@@ -2027,14 +2310,19 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
 // Filter operator
 void _segment2__evaluate_operator0()
 {
+  _x_gradphi_evaluate();
   _dimensionless_number_evaluate();
   // Transforming vectors to basis (x, y)
-  _xy_wavefunction_basis_transform(1); // (x, y)
+  _xy_wavefunction_basis_transform(3); // (x, y)
   
   long _xy_wavefunction_index_pointer = 0;
   #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
   long _dimensionless_number_index_pointer = 0;
   #define Ncalc _active_dimensionless_number[_dimensionless_number_index_pointer + 0]
+  #define Ekin _active_dimensionless_number[_dimensionless_number_index_pointer + 1]
+  #define Epot _active_dimensionless_number[_dimensionless_number_index_pointer + 2]
+  #define Eint _active_dimensionless_number[_dimensionless_number_index_pointer + 3]
+  #define EN _active_dimensionless_number[_dimensionless_number_index_pointer + 4]
   #define x _x[_index_x + 0]
   #define dx (_dx * (1.0))
   
@@ -2045,12 +2333,12 @@ void _segment2__evaluate_operator0()
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
       
       // ************** Filter code *****************
-      #line 106 "gp2d.xmds"
+      #line 122 "gp2d.xmds"
       
       // Correct normalisation of the wavefunction
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 2054 "xgp2d.cc"
+      #line 2342 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -2063,6 +2351,10 @@ void _segment2__evaluate_operator0()
   #undef dx
   #undef phi
   #undef Ncalc
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef EN
 }
 
 // ********************************************************
@@ -2129,7 +2421,6 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.\n");
   fprintf(fp, "    This is done by evolving it in imaginary time while re-normalising each timestep.\n");
   fprintf(fp, "  </description>\n");
-  fprintf(fp, "  \n");
   fprintf(fp, "  <features>\n");
   fprintf(fp, "    <auto_vectorise/>\n");
   fprintf(fp, "    <benchmark/>\n");
@@ -2191,7 +2482,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <components> phi </components>\n");
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "        if (fabs(y) < 3.0 && fabs(x) < 3.0) {\n");
+  fprintf(fp, "        if (fabs(y) < 9.0 && fabs(x) < 9.0) {\n");
   fprintf(fp, "          phi = 1.0;\n");
   fprintf(fp, "          // This will be automatically normalised later\n");
   fprintf(fp, "        } else {\n");
@@ -2201,13 +2492,30 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");
   fprintf(fp, "  \n");
-  fprintf(fp, "  <computed_vector dimensions=\"\" name=\"number\" type=\"real\">\n");
-  fprintf(fp, "    <components> Ncalc </components>\n");
+  fprintf(fp, "  <computed_vector dimensions=\"x\" name=\"gradphi\" type=\"complex\">\n");
+  fprintf(fp, "    <components> dphix dphiy </components>\n");
   fprintf(fp, "    <evaluation>\n");
-  fprintf(fp, "      <dependencies basis=\"x y\">wavefunction</dependencies>\n");
+  fprintf(fp, "      <dependencies basis=\"kx ky\">wavefunction</dependencies>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "        dphix=i*kx*phi;\n");
+  fprintf(fp, "        dphiy=i*ky*phi;\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "    </evaluation>\n");
+  fprintf(fp, "  </computed_vector>\n");
+  fprintf(fp, "\n");
+  fprintf(fp, "  <computed_vector dimensions=\"\" name=\"number\" type=\"real\">\n");
+  fprintf(fp, "    <components> Ncalc Ekin Epot Eint EN </components>\n");
+  fprintf(fp, "    <evaluation>\n");
+  fprintf(fp, "      <dependencies basis=\"x y\">wavefunction gradphi potential</dependencies>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        // Calculate the current normalisation of the wave function.\n");
   fprintf(fp, "        Ncalc = mod2(phi);\n");
+  fprintf(fp, "        Ekin = 0.5 * (mod2(dphix)+mod2(dphiy));\n");
+  fprintf(fp, "        Epot = Vext * mod2(phi);\n");
+  fprintf(fp, "        Eint = 0.5 * gg * mod2(phi)*mod2(phi);\n");
+  fprintf(fp, "        EN = Ekin+Epot+Eint;\n");
+  fprintf(fp, "            //Virial = Ekin - Epot + Eint;\n");
+  fprintf(fp, "            //mu = Ekin + Epot + (2) * Eint;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </evaluation>\n");
   fprintf(fp, "  </computed_vector>\n");
@@ -2258,17 +2566,22 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "\n");
   fprintf(fp, "  <output filename=\"gp2d.xsil\">\n");
   fprintf(fp, "      <sampling_group initial_sample=\"yes\">\n");
-  fprintf(fp, "        <moments>Nptls</moments>\n");
+  fprintf(fp, "        <moments>Nptls Ek Ep Ei En g0</moments>\n");
   fprintf(fp, "        <dependencies>number</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
   fprintf(fp, "          Nptls = Ncalc;\n");
+  fprintf(fp, "                Ek = Ekin;\n");
+  fprintf(fp, "                Ep = Epot;\n");
+  fprintf(fp, "                Ei = Eint;\n");
+  fprintf(fp, "                En = EN;\n");
+  fprintf(fp, "                g0 = gg;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"x y\" initial_sample=\"yes\">\n");
   fprintf(fp, "        <moments>Pot</moments>\n");
   fprintf(fp, "        <dependencies>potential</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
-  fprintf(fp, "          Pot = Vext;\n");
+  fprintf(fp, "              Pot = Vext;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"x y\" initial_sample=\"yes\">\n");
@@ -2311,12 +2624,22 @@ void _write_xsil_footer(FILE* fp)
 //   moment group 0 function implementations
 void _mg0_sample()
 {
+  _x_gradphi_evaluate();
   _dimensionless_number_evaluate();
   
   long _mg0_output_raw_index_pointer = 0;
   #define Nptls _active_mg0_output_raw[_mg0_output_raw_index_pointer + 0]
+  #define Ek _active_mg0_output_raw[_mg0_output_raw_index_pointer + 1]
+  #define Ep _active_mg0_output_raw[_mg0_output_raw_index_pointer + 2]
+  #define Ei _active_mg0_output_raw[_mg0_output_raw_index_pointer + 3]
+  #define En _active_mg0_output_raw[_mg0_output_raw_index_pointer + 4]
+  #define g0 _active_mg0_output_raw[_mg0_output_raw_index_pointer + 5]
   long _dimensionless_number_index_pointer = 0;
   #define Ncalc _active_dimensionless_number[_dimensionless_number_index_pointer + 0]
+  #define Ekin _active_dimensionless_number[_dimensionless_number_index_pointer + 1]
+  #define Epot _active_dimensionless_number[_dimensionless_number_index_pointer + 2]
+  #define Eint _active_dimensionless_number[_dimensionless_number_index_pointer + 3]
+  #define EN _active_dimensionless_number[_dimensionless_number_index_pointer + 4]
   // Set index pointers explicitly for (some) vectors
   _mg0_output_raw_index_pointer = ( 0
      + _mg0_output_index_t  * 1 ) * _mg0_output_raw_ncomponents;
@@ -2324,16 +2647,30 @@ void _mg0_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 140 "gp2d.xmds"
+  #line 156 "gp2d.xmds"
   
   Nptls = Ncalc;
+        Ek = Ekin;
+        Ep = Epot;
+        Ei = Eint;
+        En = EN;
+        g0 = gg;
   
-  #line 2332 "xgp2d.cc"
+  #line 2660 "xgp2d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
   #undef Nptls
+  #undef Ek
+  #undef Ep
+  #undef Ei
+  #undef En
+  #undef g0
   #undef Ncalc
+  #undef Ekin
+  #undef Epot
+  #undef Eint
+  #undef EN
   
   _mg0_output_t[0 + _mg0_output_index_t++] = t;
   
@@ -2356,14 +2693,14 @@ void _mg0_write_out(FILE* _outfile)
     fprintf(_outfile, "<XSIL Name=\"moment_group_1\">\n");
     fprintf(_outfile, "  <Param Name=\"n_independent\">1</Param>\n");
     fprintf(_outfile, "  <Array Name=\"variables\" Type=\"Text\">\n");
-    fprintf(_outfile, "    <Dim>2</Dim>\n");
+    fprintf(_outfile, "    <Dim>7</Dim>\n");
     fprintf(_outfile, "    <Stream><Metalink Format=\"Text\" Delimiter=\" \\n\"/>\n");
-    fprintf(_outfile, "t Nptls \n");
+    fprintf(_outfile, "t Nptls Ek Ep Ei En g0 \n");
     fprintf(_outfile, "    </Stream>\n");
     fprintf(_outfile, "  </Array>\n");
     fprintf(_outfile, "  <Array Name=\"data\" Type=\"double\">\n");
     fprintf(_outfile, "    <Dim>%i</Dim>\n", _mg0_output_lattice_t);
-    fprintf(_outfile, "    <Dim>2</Dim>\n");
+    fprintf(_outfile, "    <Dim>7</Dim>\n");
   }
   
   
@@ -2421,6 +2758,46 @@ void _mg0_write_out(FILE* _outfile)
   #if defined(HAVE_HDF5_HL)
     H5DSattach_scale(dataset_Nptls, dataset_t, 0);
   #endif
+  hid_t dataset_Ek;
+  if (!H5Lexists(hdf5_file, "/1/Ek", H5P_DEFAULT))
+    dataset_Ek = H5Dcreate(hdf5_file, "/1/Ek", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_Ek = H5Dopen(hdf5_file, "/1/Ek");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_Ek, dataset_t, 0);
+  #endif
+  hid_t dataset_Ep;
+  if (!H5Lexists(hdf5_file, "/1/Ep", H5P_DEFAULT))
+    dataset_Ep = H5Dcreate(hdf5_file, "/1/Ep", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_Ep = H5Dopen(hdf5_file, "/1/Ep");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_Ep, dataset_t, 0);
+  #endif
+  hid_t dataset_Ei;
+  if (!H5Lexists(hdf5_file, "/1/Ei", H5P_DEFAULT))
+    dataset_Ei = H5Dcreate(hdf5_file, "/1/Ei", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_Ei = H5Dopen(hdf5_file, "/1/Ei");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_Ei, dataset_t, 0);
+  #endif
+  hid_t dataset_En;
+  if (!H5Lexists(hdf5_file, "/1/En", H5P_DEFAULT))
+    dataset_En = H5Dcreate(hdf5_file, "/1/En", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_En = H5Dopen(hdf5_file, "/1/En");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_En, dataset_t, 0);
+  #endif
+  hid_t dataset_g0;
+  if (!H5Lexists(hdf5_file, "/1/g0", H5P_DEFAULT))
+    dataset_g0 = H5Dcreate(hdf5_file, "/1/g0", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_g0 = H5Dopen(hdf5_file, "/1/g0");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_g0, dataset_t, 0);
+  #endif
   H5Dclose(dataset_t);
   
   
@@ -2434,9 +2811,9 @@ void _mg0_write_out(FILE* _outfile)
     
     
     hid_t mem_dataspace;
-    mem_dims[1] = 1;
+    mem_dims[1] = 6;
     mem_dataspace = H5Screate_simple(2, mem_dims, NULL);
-    mem_stride[1] = 1;
+    mem_stride[1] = 6;
     
     // Select hyperslabs of memory and file data spaces for data transfer operation
     mem_start[1] = 0;
@@ -2445,12 +2822,47 @@ void _mg0_write_out(FILE* _outfile)
     
     if (dataset_Nptls)
       H5Dwrite(dataset_Nptls, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
+    mem_start[1] = 1;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_Ek)
+      H5Dwrite(dataset_Ek, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
+    mem_start[1] = 2;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_Ep)
+      H5Dwrite(dataset_Ep, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
+    mem_start[1] = 3;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_Ei)
+      H5Dwrite(dataset_Ei, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
+    mem_start[1] = 4;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_En)
+      H5Dwrite(dataset_En, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
+    mem_start[1] = 5;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_g0)
+      H5Dwrite(dataset_g0, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg0_output_raw);
     
     H5Sclose(mem_dataspace);
   }
   
   
   H5Dclose(dataset_Nptls);
+  H5Dclose(dataset_Ek);
+  H5Dclose(dataset_Ep);
+  H5Dclose(dataset_Ei);
+  H5Dclose(dataset_En);
+  H5Dclose(dataset_g0);
   
   H5Sclose(file_dataspace);
   H5Gclose(group);
@@ -2498,11 +2910,11 @@ void _mg1_sample()
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 147 "gp2d.xmds"
+      #line 168 "gp2d.xmds"
       
       Pot = Vext;
       
-      #line 2506 "xgp2d.cc"
+      #line 2918 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX
@@ -2693,7 +3105,7 @@ void _mg2_sample()
 {
   
   // Transforming vectors to basis (t, x, y)
-  _xy_wavefunction_basis_transform(1); // (x, y)
+  _xy_wavefunction_basis_transform(3); // (x, y)
   
   long _xy_wavefunction_index_pointer = 0;
   #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
@@ -2716,11 +3128,11 @@ void _mg2_sample()
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 154 "gp2d.xmds"
+      #line 175 "gp2d.xmds"
       
       dens = mod2(phi);
       
-      #line 2724 "xgp2d.cc"
+      #line 3136 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX

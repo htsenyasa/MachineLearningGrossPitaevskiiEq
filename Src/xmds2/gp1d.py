@@ -37,9 +37,7 @@ v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentV
 #dens = dens_1[-1].T
 #dens = dens.reshape(1, len(dens))
 
-plt.plot(v1_3)
-plt.show()
-
+print e1_2
 
 #np.savetxt(f, dens)
 #np.savetxt(f, x_1)
