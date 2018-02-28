@@ -68,7 +68,7 @@
     <components> phi </components>
     <initialisation>
       <![CDATA[
-        if (fabs(y) < 3.0 && fabs(x) < 3.0) {
+        if (fabs(y) < 9.0 && fabs(x) < 9.0) {
           phi = 1.0;
           // This will be automatically normalised later
         } else {
@@ -78,13 +78,30 @@
     </initialisation>
   </vector>
   
-  <computed_vector name="number" dimensions="" type="real">
-    <components> Ncalc </components>
+  <computed_vector name="gradphi" dimensions="x" type="complex">
+    <components> dphix dphiy </components>
     <evaluation>
-      <dependencies basis="x y">wavefunction</dependencies>
+      <dependencies basis="kx ky">wavefunction</dependencies>
+      <![CDATA[
+        dphix=i*kx*phi;
+        dphiy=i*ky*phi;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <computed_vector name="number" dimensions="" type="real">
+    <components> Ncalc Ekin Epot Eint EN </components>
+    <evaluation>
+      <dependencies basis="x y">wavefunction gradphi potential</dependencies>
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
+        Ekin = 0.5*(mod2(dphix)+mod2(dphiy));
+        Epot = Vext*mod2(phi);
+        Eint = 0.5*gg*mod2(phi)*mod2(phi);
+        EN = Ekin+Vext+Eint;
+	//Virial = Ekin - Epot + Eint;
+	//mu = Ekin + Epot + (2) * Eint;
       ]]>
     </evaluation>
   </computed_vector>
@@ -135,10 +152,15 @@
 
   <output filename="gp2d.xsil">
       <sampling_group initial_sample="yes">
-        <moments>Nptls</moments>
+        <moments>Nptls Ek Ep Ei En g0</moments>
         <dependencies>number</dependencies>
         <![CDATA[
           Nptls = Ncalc;
+	  Ek = Ekin;
+	  Ep = Epot;
+	  Ei = Eint;
+	  En = EN;
+	  g0 = gg;
         ]]>
       </sampling_group>
       <sampling_group basis="x y" initial_sample="yes">
