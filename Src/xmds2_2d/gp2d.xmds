@@ -77,7 +77,7 @@
     </initialisation>
   </vector>
   
-  <computed_vector name="gradphi" dimensions="x" type="complex">
+  <computed_vector name="gradphi" dimensions="x y" type="complex">
     <components> dphix dphiy </components>
     <evaluation>
       <dependencies basis="kx ky">wavefunction</dependencies>
