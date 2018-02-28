@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<simulation xmds-version="2">
+<?xml version="1.0" ?><simulation xmds-version="2">
   <name>xgp2d</name>
   <author>Joe Hope</author>
   <description>
@@ -8,10 +7,10 @@
   </description>
   
   <features>
-    <auto_vectorise />
-    <benchmark />
-    <bing />
-    <fftw plan="exhaustive" />
+    <auto_vectorise/>
+    <benchmark/>
+    <bing/>
+    <fftw plan="exhaustive"/>
     <globals>
       <![CDATA[
         const real Nptls = 1.0;
@@ -23,23 +22,23 @@
       ]]>
     </globals>
     <arguments>
-      <argument name="xshift" type="real" default_value="5"/>
+      <argument default_value="5" name="xshift" type="real"/>
       <![CDATA[
       x0 = xshift;
       ]]>
-      <argument name="yshift" type="real" default_value="0"/>
+      <argument default_value="0" name="yshift" type="real"/>
       <![CDATA[
       y0_ = yshift;
       ]]>
-      <argument name="interaction" type="real" default_value="0"/>
+      <argument default_value="0" name="interaction" type="real"/>
       <![CDATA[
       gg = interaction;
       ]]>
-      <argument name="w_x" type="real" default_value="1"/>
+      <argument default_value="1" name="w_x" type="real"/>
       <![CDATA[
       wx = w_x;
       ]]>
-      <argument name="w_y" type="real" default_value="1"/>
+      <argument default_value="1" name="w_y" type="real"/>
       <![CDATA[
       wy = w_y;
       ]]>
@@ -50,12 +49,12 @@
   <geometry>
     <propagation_dimension> t </propagation_dimension>
     <transverse_dimensions>
-      <dimension name="x" lattice="128"  domain="(-10.0, 10.0)" />
-      <dimension name="y" lattice="128"  domain="(-10.0, 10.0)" />
+      <dimension domain="(-10.0, 10.0)" lattice="128" name="x"/>
+      <dimension domain="(-10.0, 10.0)" lattice="128" name="y"/>
     </transverse_dimensions>
   </geometry>
   
-  <vector name="potential" initial_basis="x y" type="real">
+  <vector initial_basis="x y" name="potential" type="real">
     <components> Vext </components>
     <initialisation>
       <![CDATA[
@@ -64,7 +63,7 @@
     </initialisation>
   </vector>
   
-  <vector name="wavefunction" initial_basis="x y" type="complex">
+  <vector initial_basis="x y" name="wavefunction" type="complex">
     <components> phi </components>
     <initialisation>
       <![CDATA[
@@ -78,7 +77,7 @@
     </initialisation>
   </vector>
   
-  <computed_vector name="number" dimensions="" type="real">
+  <computed_vector dimensions="" name="number" type="real">
     <components> Ncalc </components>
     <evaluation>
       <dependencies basis="x y">wavefunction</dependencies>
@@ -100,7 +99,7 @@
     <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
       <samples>1 1 25</samples>
       <filters where="step end">
-        <filter>root = "../../data/nonlinearSE/generic_dataset_2/" + dire + "/"
+        <filter>root = &quot;../../data/nonlinearSE/generic_dataset_2/&quot; + dire + &quot;/&quot;
 
           <dependencies>wavefunction number</dependencies>
           <![CDATA[
@@ -111,7 +110,7 @@
       </filters>
       <operators>
         <!-- <operator kind="ip"> -->
-	<operator kind="ex" dimensions="x y">
+        <operator dimensions="x y" kind="ex">
           <operator_names>T</operator_names>
           <![CDATA[
             T = -0.5*(kx*kx+ky*ky);
@@ -145,7 +144,7 @@
         <moments>Pot</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
-	  Pot = Vext;
+          Pot = Vext;
         ]]>
       </sampling_group>
       <sampling_group basis="x y" initial_sample="yes">
@@ -156,4 +155,71 @@
         ]]>
       </sampling_group>
   </output>
+
+<info>
+Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
+See http://www.xmds.org for more information.
+
+Variables that can be specified on the command line:
+  Command line argument xshift = 0.000000e+00
+  Command line argument yshift = 0.000000e+00
+  Command line argument interaction = 0.000000e+00
+  Command line argument w_x = 1.000000e+00
+  Command line argument w_y = 1.000000e+00
+</info>
+
+<XSIL Name="moment_group_1">
+  <Param Name="n_independent">1</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>2</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t Nptls 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>2</Dim>
+    <Dim>2</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_2">
+  <Param Name="n_independent">3</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>4</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t x y Pot 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>2</Dim>
+    <Dim>128</Dim>
+    <Dim>128</Dim>
+    <Dim>4</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/2"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_3">
+  <Param Name="n_independent">3</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>4</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t x y dens 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>26</Dim>
+    <Dim>128</Dim>
+    <Dim>128</Dim>
+    <Dim>4</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/3"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
 </simulation>
