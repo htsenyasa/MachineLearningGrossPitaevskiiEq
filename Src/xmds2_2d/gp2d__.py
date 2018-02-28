@@ -4,30 +4,30 @@ import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 import sys
+import tables as tb
+
 
 sys.path.append("/home/user/Desktop/")
 from xpdeint.XSILFile import XSILFile
 
 
 parser = argparse.ArgumentParser(description='xmds data')
-parser.add_argument('--pos-file-ex',         type=str,             default="-test.dat",                    help = 'target file ex')
+parser.add_argument('--pos-file-ex',         type=str,             default=".h5",                    help = 'target file ex')
 parser.add_argument('--dir',                 type=str,             default="",                             help = 'target file ex')
-parser.add_argument('--pot',                 type=str,             default="0",                              help = 'target file ex')
 
 
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
 dire = args.dir
-pot = args.pot
-root = "../../data/nonlinearSE/generic_dataset_2d/" + dire + "/"
-pot_file_name = root + "potential" + file_ex
-en_file_name = root + "energy" + file_ex
-ekin_file_name = root + "ekin" + file_ex
-epot_file_name = root + "epot" + file_ex
-eint_file_name = root + "eint" + file_ex
-dens_file_name = root + "dens" + file_ex
-gg_file_name = root + "gg" + file_ex
+path = "../../data/nonlinearSE/generic_dataset_2d/" + dire + "/"
+pot_file_name  = path + "potential" + file_ex
+en_file_name   = path + "energy" + file_ex
+ekin_file_name = path + "ekin" + file_ex
+epot_file_name = path + "epot" + file_ex
+eint_file_name = path + "eint" + file_ex
+dens_file_name = path + "dens" + file_ex
+gg_file_name   = path + "gg" + file_ex
 
 
 
@@ -57,19 +57,21 @@ dens_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependen
 # Write your plotting commands here.
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
 
+# features = [GG, Etot, Ekin, Epot, Eint]
+features = np.array([g0_1[-1], En_1[-1], Ek_1[-1], Ep_1[-1], Ei_1[-1]])
 
-#f = open(pot_file_name, "ab")
-#f2 = open(en_file_name, "ab")
-#f3 = open(ekin_file_name, "ab")
-#f4 = open(epot_file_name, "ab")
-#f5 = open(eint_file_name, "ab")
-#f6 = open(dens_file_name, "ab")
-#f7 = open(gg_file_name, "ab")
-#
-#np.save(f, Pot_2[-1])
-#np.save(f2, En_1[-1])
-#np.save(f3, Ek_1[-1])
-#np.save(f4, Ep_1[-1])
-#np.save(f5, Ei_1[-1])
-#np.save(f6, dens_3[-1])
-#np.save(f7, g0_1[-1])
+f = tb.open_file(pot_file_name, "a")
+f2 = tb.open_file(dens_file_name, "a")
+f3 = tb.open_file(path + "features.h5", "a")
+
+pot = np.reshape(Pot_2[-1], (1, 128, 128))
+dens = np.reshape(dens_3[-1], (1, 128, 128))
+features = np.reshape(features, (1, 5))
+
+f.root.data.append(pot)
+f2.root.data.append(dens)
+f3.root.data.append(features)
+
+f.close()
+f2.close()
+f3.close()
