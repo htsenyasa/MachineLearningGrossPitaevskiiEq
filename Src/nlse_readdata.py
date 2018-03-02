@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import sys
-
+import tables as tb
 
 def read_data(data_filename, label_filename, train_len=900, test_len=300, folders = None):
     path = "../data/nonlinearSE/generic_dataset/"
@@ -51,5 +51,30 @@ def read_data2(data_filename, label_filename, train_len=800, test_len=200):
 
     test_data = data[train_len:total_len]
     test_label = label[train_len:total_len]
+
+    return train_data, train_label, test_data, test_label
+
+
+def read_data_h5(data_filename, label_filename, train_len=800, test_len=200):
+
+    data_filename = os.path.join("../data/nonlinearSE/", data_filename)
+    label_filename = os.path.join("../data/nonlinearSE/", label_filename)
+
+    data = tb.open_file(data_filename, "r")
+    label = tb.open_file(label_filename, "r")
+
+    total_len = train_len + test_len
+    train_data = np.array(data.root.data[0:train_len])
+    train_label = np.array(label.root.data[0:train_len, 1])
+
+    test_data = data.root.data[train_len:total_len]
+    test_label = label.root.data[train_len:total_len, 1]
+
+    #if (len(train_label.shape) == 1):
+    #    train_label = np.expand_dims(train_label, axis=0)
+    #    test_label = np.expand_dims(test_label, axis=0)
+        
+    data.close()
+    label.close()
 
     return train_data, train_label, test_data, test_label

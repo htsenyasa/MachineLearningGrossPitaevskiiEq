@@ -10,7 +10,7 @@ args = parser.parse_args()
 file_ex = args.pos_file_ex
 dire = args.dir
 
-root = "../../data/nonlinearSE/generic_dataset_2d/" + dire + "/"
+root = "../../data/nonlinearSE/generic_dataset_2d/harmonic" + dire + "/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex

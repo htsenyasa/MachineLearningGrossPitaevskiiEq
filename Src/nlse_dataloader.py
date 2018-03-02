@@ -6,12 +6,12 @@ import nlse_readdata as rd
 from sklearn.preprocessing import StandardScaler
 
 class Dataloader(object):
-    def __init__(self, data_filename, label_filename, train_len, test_len, label_vectorize = False, unsqueeze = False):
+    def __init__(self, data_filename, label_filename, train_len, test_len, read_func = rd.read_data, label_vectorize = False, unsqueeze = False):
         self.train_len = train_len
         self.test_len = test_len
         scaler = StandardScaler()
 
-        self.train_data, self.train_label, self.test_data, self.test_label = rd.read_data(data_filename, label_filename, self.train_len, self.test_len)
+        self.train_data, self.train_label, self.test_data, self.test_label = read_func(data_filename, label_filename, self.train_len, self.test_len)
         
         #self.train_label = self.train_label.reshape((len(self.train_label), 1))
         #self.test_label = self.test_label.reshape((len(self.test_label), 1))

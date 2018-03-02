@@ -14,14 +14,14 @@ FCN = { "batch_size": 30,
       }
 
 
-CNN = { "batch_size": 100,
+CNN = { "batch_size": 3,
         "test_batch_size": 3 * 5500,
-        "epoch": 3,
+        "epoch": 20,
         "lr": 0.003,
         "seed": nlse_seed,  
         "network_arch": "CNN",
-        "training_len": 3 * 45000,
-        "test_len" : 3 * 3000,
+        "training_len": 80,
+        "test_len" : 20,
       }
 
 
@@ -41,9 +41,11 @@ def get_filenames(args):
     #data_filename =  "gp_ml_dataset/var_g_var_pot/pot_inter_merge2.dat"
     #label_filename = "gp_ml_dataset/var_g_var_pot/energy-var_g_var_pot_.dat"
 
-    data_filename  = "pot_inter.dat.npy"
-    label_filename = "energy-generic.dat.npy"
+    #data_filename  = "pot_inter.dat.npy"
+    #label_filename = "energy-generic.dat.npy"
     
+    data_filename = "generic_dataset_2d/harmonic/potential.h5"
+    label_filename = "generic_dataset_2d/harmonic/features.h5"
 
     #data_filename =  "/run/media/user/TOSHIBA/gp_data/var_g_var_freq/potential-var_g_var_freq_.dat"
     #label_filename = "/run/media/user/TOSHIBA/gp_data/var_g_var_freq/energy-var_g_var_freq_.dat"

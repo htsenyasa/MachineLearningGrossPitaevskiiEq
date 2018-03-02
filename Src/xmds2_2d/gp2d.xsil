@@ -184,9 +184,9 @@ See http://www.xmds.org for more information.
 Variables that can be specified on the command line:
   Command line argument xshift = 0.000000e+00
   Command line argument yshift = 0.000000e+00
-  Command line argument interaction = 0.000000e+00
-  Command line argument w_x = 5.000000e-01
-  Command line argument w_y = 5.000000e-01
+  Command line argument interaction = 2.774316e+00
+  Command line argument w_x = 1.973128e+00
+  Command line argument w_y = 5.997580e-01
 </info>
 
 <XSIL Name="moment_group_1">

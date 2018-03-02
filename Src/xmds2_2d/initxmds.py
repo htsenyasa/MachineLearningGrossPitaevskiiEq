@@ -25,7 +25,7 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 50000
+N_of_ex = 100
 N_of_ex_g = 1
 rnd.seed()
 
@@ -42,10 +42,11 @@ for pot in pot_types:
   for inter_param in inter_params:
     #for i in range(N_of_ex_g):
 
-      shift = np.random.uniform(-5,5)
-      freq = np.random.uniform(0.1,2)
+      #shift = np.random.uniform(-5,5)
+      xfreq = np.random.uniform(0.1 ,2)
+      yfreq = np.random.uniform(0.1 ,2)
 
-      cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={} --pot_type={} ".format(inter_param, num_particles, freq, shift, pot)
+      cmdline = "./xgp2d --interaction={} --w_x={} --w_y={} --xshift={} --yshift={} ".format(inter_param, xfreq, yfreq, 0, 0)
 
       if (pot == 1):
         cmdline += "--lw={} --rw={} ".format(*get_infwell_params())
@@ -56,7 +57,7 @@ for pot in pot_types:
       p = subprocess.Popen(args)
       p.wait()
 
-      cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot])
+      cmdline = "python gp2d__.py --dir={}".format(dirs[pot])
       args = shlex.split(cmdline)
       p = subprocess.Popen(args)
       p.wait()
