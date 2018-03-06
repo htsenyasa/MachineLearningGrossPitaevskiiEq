@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation xmds-version="2">
-  <name>xgp2d</name>
+  <name>xgp2d_no_opt</name>
   <author>Joe Hope</author>
   <description>
     Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
@@ -10,15 +10,15 @@
     <auto_vectorise />
     <benchmark />
     <bing />
-    <fftw plan="exhaustive"  threads="1"/>
+    <fftw plan="exhaustive" />
     <globals>
       <![CDATA[
         const real Nptls = 1.0;
         real gg;
-        real x0, y0_;
-        real w_x, w_y;
-        real r_w, l_w, u_w, b_w; //right, left, upper, bottom well
-        real pot_type;
+        real x0;
+        real y0_;
+        real wx;
+        real wy;
       ]]>
     </globals>
     <arguments>
@@ -34,33 +34,13 @@
       <![CDATA[
       gg = interaction;
       ]]>
-      <argument name="wx" type="real" default_value="1"/>
+      <argument name="w_x" type="real" default_value="1"/>
       <![CDATA[
-      w_x = wx;
+      wx = w_x;
       ]]>
-      <argument name="wy" type="real" default_value="1"/>
+      <argument name="w_y" type="real" default_value="1"/>
       <![CDATA[
-      w_y = wy;
-      ]]>
-      <argument name="rw" type="real" default_value="1"/>
-      <![CDATA[
-      r_w = rw;
-      ]]>
-      <argument name="lw" type="real" default_value="-1"/>
-      <![CDATA[
-      l_w = lw;
-      ]]>
-      <argument name="uw" type="real" default_value="-1"/>
-      <![CDATA[
-      u_w = uw;
-      ]]>
-      <argument name="bw" type="real" default_value="1"/>
-      <![CDATA[
-      b_w = bw;
-      ]]>
-      <argument name="pottype" type="real" default_value="0"/>
-      <![CDATA[
-      pot_type = pottype;
+      wy = w_y;
       ]]>
     </arguments>
 
@@ -78,9 +58,7 @@
     <components> Vext </components>
     <initialisation>
       <![CDATA[
-        switch(pot_type){
-        case 0: Vext  = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_)); break;
-        case 1: Vext = 
+        Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));
       ]]>
     </initialisation>
   </vector>
@@ -148,43 +126,20 @@
         </filter>
       </filters>
       <operators>
-      <operator kind="ip" type="real" dimensions="x">
-        <operator_names>Tx</operator_names>
-        <![CDATA[
-                Tx = -0.5*kx*kx;
-        ]]>
-      </operator>
-      <operator kind="ip" type="real" dimensions="y">
-        <operator_names>Ty</operator_names>
-        <![CDATA[
-                Ty = -0.5*ky*ky;
-         ]]>
-      </operator>
-      <!--
+        <!-- <operator kind="ip"> -->
 	<operator kind="ex" dimensions="x y">
           <operator_names>T</operator_names>
           <![CDATA[
             T = -0.5*(kx*kx+ky*ky);
           ]]>
         </operator>
-      -->	
-      <!-- <integration_vectors basis="kx ky">wavefunction</integration_vectors>-->
         <integration_vectors>wavefunction</integration_vectors>
         <dependencies>potential</dependencies>
         <![CDATA[
-	  // dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
-          dphi_dt = Tx[phi] + Ty[phi]  - ( Vext + gg * mod2(phi) )*phi;
+          dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
         ]]>
       </operators>
     </integrate>
-
-    <filter>
-      <![CDATA[
-	  printf(" ");
-	  printf(" %lf", 5.);
-	  printf(" ");
-      ]]>
-    </filter> 
  
     <!--
     <breakpoint filename="gp2d.xsil" format="ascii">
@@ -207,7 +162,7 @@
 	        g0 = gg;
         ]]>
       </sampling_group>
-      <sampling_group basis="x y" initial_sample="no">
+      <sampling_group basis="x y" initial_sample="yes">
         <moments>Pot</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
