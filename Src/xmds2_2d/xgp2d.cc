@@ -333,20 +333,23 @@ const char *_basis_identifiers[] = {
 
 const real Nptls = 1.0;
 real gg;
-real x0;
-real y0_;
-real wx;
-real wy;
+real x0, y0_;
+real w_x, w_y;
+real r_w, l_w, u_w, b_w; //right, left, upper, bottom well
 
-#line 342 "xgp2d.cc"
+#line 341 "xgp2d.cc"
 
 // ********************************************************
 //   Command line argument processing globals
-real xshift = 5; 
+real xshift = 0; 
 real yshift = 0; 
 real interaction = 0; 
-real w_x = 1; 
-real w_y = 1; 
+real wx = 1; 
+real wy = 1; 
+real rw = 1; 
+real lw = -1; 
+real uw = -1; 
+real bw = 1; 
 
 // ********************************************************
 //   FFTW3 globals
@@ -575,14 +578,18 @@ int main(int argc, char **argv)
         {"xshift", required_argument, 0, 'x'},
         {"yshift", required_argument, 0, 'y'},
         {"interaction", required_argument, 0, 'i'},
-        {"w_x", required_argument, 0, 'w'},
-        {"w_y", required_argument, 0, '_'},
+        {"wx", required_argument, 0, 'w'},
+        {"wy", required_argument, 0, 'a'},
+        {"rw", required_argument, 0, 'r'},
+        {"lw", required_argument, 0, 'l'},
+        {"uw", required_argument, 0, 'u'},
+        {"bw", required_argument, 0, 'b'},
         {NULL, 0, 0, 0}
       };
     
     int option_index = 0;
   
-    resp = getopt_long(argc, argv, "hx:y:i:w:_:", long_options, &option_index);
+    resp = getopt_long(argc, argv, "hx:y:i:w:a:r:l:u:b:", long_options, &option_index);
     
     if (resp == -1)
       break;
@@ -608,11 +615,27 @@ int main(int argc, char **argv)
         break;
       
       case 'w':
-        w_x = strtod(optarg, NULL);
+        wx = strtod(optarg, NULL);
         break;
       
-      case '_':
-        w_y = strtod(optarg, NULL);
+      case 'a':
+        wy = strtod(optarg, NULL);
+        break;
+      
+      case 'r':
+        rw = strtod(optarg, NULL);
+        break;
+      
+      case 'l':
+        lw = strtod(optarg, NULL);
+        break;
+      
+      case 'u':
+        uw = strtod(optarg, NULL);
+        break;
+      
+      case 'b':
+        bw = strtod(optarg, NULL);
         break;
         
       default:
@@ -625,7 +648,7 @@ int main(int argc, char **argv)
     _print_usage(); // This causes the simulation to exit.
   
   // ******** Argument post-processing code *******
-  #line 26 "gp2d.xmds"
+  #line 25 "gp2d.xmds"
   
   x0 = xshift;
   
@@ -633,11 +656,19 @@ int main(int argc, char **argv)
   
   gg = interaction;
   
-  wx = w_x;
+  w_x = wx;
   
-  wy = w_y;
+  w_y = wy;
   
-  #line 641 "xgp2d.cc"
+  r_w = rw;
+  
+  l_w = lw;
+  
+  u_w = uw;
+  
+  b_w = bw;
+  
+  #line 672 "xgp2d.cc"
   // **********************************************
   
     
@@ -1127,14 +1158,18 @@ void _transform_2(bool _forward, real _multiplier, real* const __restrict__ _dat
 void _print_usage()
 {
   // This function does not return.
-  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp2d --xshift <real> --yshift <real> --interaction <real> --w_x <real> --w_y <real>\n\n"
+  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp2d --xshift <real> --yshift <real> --interaction <real> --wx <real> --wy <real> --rw <real> --lw <real> --uw <real> --bw <real>\n\n"
                          "Details:\n"
                          "Option\t\tType\t\tDefault value\n"
-                         "-x,  --xshift\treal \t\t5\n"
+                         "-x,  --xshift\treal \t\t0\n"
                          "-y,  --yshift\treal \t\t0\n"
                          "-i,  --interaction\treal \t\t0\n"
-                         "-w,  --w_x\treal \t\t1\n"
-                         "-_,  --w_y\treal \t\t1\n"
+                         "-w,  --wx\treal \t\t1\n"
+                         "-a,  --wy\treal \t\t1\n"
+                         "-r,  --rw\treal \t\t1\n"
+                         "-l,  --lw\treal \t\t-1\n"
+                         "-u,  --uw\treal \t\t-1\n"
+                         "-b,  --bw\treal \t\t1\n"
                          );
   // _LOG terminates the simulation.
 }
@@ -1190,11 +1225,12 @@ void _xy_potential_initialise()
       #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
       
       // ********** Initialisation code ***************
-      #line 60 "gp2d.xmds"
+      #line 75 "gp2d.xmds"
       
-      Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));
+      Vext  = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_));
+      printf("%lf", Vext);
       
-      #line 1198 "xgp2d.cc"
+      #line 1234 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1231,7 +1267,7 @@ void _xy_wavefunction_initialise()
       #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
       
       // ********** Initialisation code ***************
-      #line 69 "gp2d.xmds"
+      #line 85 "gp2d.xmds"
       
       if (fabs(y) < 9.0 && fabs(x) < 9.0) {
         phi = 1.0;
@@ -1240,7 +1276,7 @@ void _xy_wavefunction_initialise()
         phi = 0.0;
       }
       
-      #line 1244 "xgp2d.cc"
+      #line 1280 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1319,12 +1355,12 @@ void _xy_gradphi_evaluate()
     
     for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
       // ************* Evaluation code ****************
-      #line 84 "gp2d.xmds"
+      #line 100 "gp2d.xmds"
       
       dphix=i*kx*phi;
       dphiy=i*ky*phi;
       
-      #line 1328 "xgp2d.cc"
+      #line 1364 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -1426,7 +1462,7 @@ void _dimensionless_number_evaluate()
     
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
       // ************* Evaluation code ****************
-      #line 95 "gp2d.xmds"
+      #line 111 "gp2d.xmds"
       
       // Calculate the current normalisation of the wave function.
       Ncalc = mod2(phi);
@@ -1437,7 +1473,7 @@ void _dimensionless_number_evaluate()
           //Virial = Ekin - Epot + Eint;
           //mu = Ekin + Epot + (2) * Eint;
       
-      #line 1441 "xgp2d.cc"
+      #line 1477 "xgp2d.cc"
       // **********************************************
       
       _active_dimensionless_number[_dimensionless_number_index_pointer + 0] += Ncalc * dx * dy;
@@ -1505,11 +1541,11 @@ void _segment1__evaluate_operator0()
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
       
       // ************** Filter code *****************
-      #line 111 "gp2d.xmds"
+      #line 127 "gp2d.xmds"
       
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 1513 "xgp2d.cc"
+      #line 1549 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -2169,11 +2205,11 @@ void _segment2_xy_operators_evaluate_operator0()
       
       
       // ************** Operator code *****************
-      #line 132 "gp2d.xmds"
+      #line 148 "gp2d.xmds"
       
       T = -0.5*(kx*kx+ky*ky);
       
-      #line 2177 "xgp2d.cc"
+      #line 2213 "xgp2d.cc"
       // **********************************************
       
       // T[phi]
@@ -2263,11 +2299,11 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
       #define dt _step
       
       // ************* Propagation code ***************
-      #line 138 "gp2d.xmds"
+      #line 154 "gp2d.xmds"
       
       dphi_dt = _T_phi - ( Vext + gg * mod2(phi) )*phi;
       
-      #line 2271 "xgp2d.cc"
+      #line 2307 "xgp2d.cc"
       // **********************************************
       
       #undef dt
@@ -2316,12 +2352,12 @@ void _segment2__evaluate_operator0()
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
       
       // ************** Filter code *****************
-      #line 122 "gp2d.xmds"
+      #line 138 "gp2d.xmds"
       
       // Correct normalisation of the wavefunction
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 2325 "xgp2d.cc"
+      #line 2361 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -2413,14 +2449,13 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        const real Nptls = 1.0;\n");
   fprintf(fp, "        real gg;\n");
-  fprintf(fp, "        real x0;\n");
-  fprintf(fp, "        real y0_;\n");
-  fprintf(fp, "        real wx;\n");
-  fprintf(fp, "        real wy;\n");
+  fprintf(fp, "        real x0, y0_;\n");
+  fprintf(fp, "        real w_x, w_y;\n");
+  fprintf(fp, "        real r_w, l_w, u_w, b_w; //right, left, upper, bottom well\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </globals>\n");
   fprintf(fp, "    <arguments>\n");
-  fprintf(fp, "      <argument default_value=\"5\" name=\"xshift\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"0\" name=\"xshift\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      x0 = xshift;\n");
   fprintf(fp, "      ]]>\n");
@@ -2432,13 +2467,29 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      gg = interaction;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"1\" name=\"w_x\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"1\" name=\"wx\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      wx = w_x;\n");
+  fprintf(fp, "      w_x = wx;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"1\" name=\"w_y\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"1\" name=\"wy\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      wy = w_y;\n");
+  fprintf(fp, "      w_y = wy;\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "      <argument default_value=\"1\" name=\"rw\" type=\"real\"/>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "      r_w = rw;\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "      <argument default_value=\"-1\" name=\"lw\" type=\"real\"/>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "      l_w = lw;\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "      <argument default_value=\"-1\" name=\"uw\" type=\"real\"/>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "      u_w = uw;\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "      <argument default_value=\"1\" name=\"bw\" type=\"real\"/>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "      b_w = bw;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </arguments>\n");
   fprintf(fp, "\n");
@@ -2456,7 +2507,8 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <components> Vext </components>\n");
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "        Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));\n");
+  fprintf(fp, "        Vext  = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_));\n");
+  fprintf(fp, "        printf(\"%%lf\", Vext);\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");
@@ -2587,9 +2639,17 @@ void _write_xsil_header(FILE* fp)
   
   fprintf(fp, "  Command line argument interaction = %e\n", interaction);
   
-  fprintf(fp, "  Command line argument w_x = %e\n", w_x);
+  fprintf(fp, "  Command line argument wx = %e\n", wx);
   
-  fprintf(fp, "  Command line argument w_y = %e\n", w_y);
+  fprintf(fp, "  Command line argument wy = %e\n", wy);
+  
+  fprintf(fp, "  Command line argument rw = %e\n", rw);
+  
+  fprintf(fp, "  Command line argument lw = %e\n", lw);
+  
+  fprintf(fp, "  Command line argument uw = %e\n", uw);
+  
+  fprintf(fp, "  Command line argument bw = %e\n", bw);
   fprintf(fp, "</info>\n");
   
 }
@@ -2630,7 +2690,7 @@ void _mg0_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 156 "gp2d.xmds"
+  #line 172 "gp2d.xmds"
   
   Nptls = Ncalc;
         Ek = Ekin;
@@ -2639,7 +2699,7 @@ void _mg0_sample()
         En = EN;
         g0 = gg;
   
-  #line 2643 "xgp2d.cc"
+  #line 2703 "xgp2d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
@@ -2893,11 +2953,11 @@ void _mg1_sample()
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 168 "gp2d.xmds"
+      #line 184 "gp2d.xmds"
       
       Pot = Vext;
       
-      #line 2901 "xgp2d.cc"
+      #line 2961 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX
@@ -3111,11 +3171,11 @@ void _mg2_sample()
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 175 "gp2d.xmds"
+      #line 191 "gp2d.xmds"
       
       dens = mod2(phi);
       
-      #line 3119 "xgp2d.cc"
+      #line 3179 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX

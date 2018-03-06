@@ -14,14 +14,14 @@ FCN = { "batch_size": 30,
       }
 
 
-CNN = { "batch_size": 3,
+CNN = { "batch_size": 10,
         "test_batch_size": 3 * 5500,
-        "epoch": 20,
+        "epoch": 40,
         "lr": 0.003,
         "seed": nlse_seed,  
         "network_arch": "CNN",
-        "training_len": 80,
-        "test_len" : 20,
+        "training_len": 1800,
+        "test_len" : 200,
       }
 
 

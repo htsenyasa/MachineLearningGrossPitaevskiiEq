@@ -26,7 +26,7 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
     print("Cuda is Available")
     
-kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
+kwargs = {'num_workers': 8, 'pin_memory': True} if args.cuda else {}
 
 #input_size, hidden_size, hidden2_size, num_classes = args.network_arch
 num_epochs = args.epochs
