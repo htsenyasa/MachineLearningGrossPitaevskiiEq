@@ -204,8 +204,21 @@ inline void *xmds_malloc(size_t size);
 
 // ********************************************************
 //   segment 2 (RK45 adaptive-step integrator) defines
-// vector segment2_xy_operators_operator0_result defines
-#define _xy_segment2_xy_operators_operator0_result_ncomponents 1
+// vector segment2_xy_operators_operator0_field defines
+#define _x_segment2_xy_operators_operator0_field_ncomponents 5
+
+// vector segment2_xy_operators_operator1_field defines
+#define _y_segment2_xy_operators_operator1_field_ncomponents 5
+
+// ********************************************************
+//   field x defines
+#define _x_ndims 1
+
+
+// ********************************************************
+//   field y defines
+#define _y_ndims 1
+
 
 // ********************************************************
 //   field mg0_sampling defines
@@ -232,13 +245,8 @@ inline void *xmds_malloc(size_t size);
 
 // ********************************************************
 //   field mg1_output defines
-#define _mg1_output_ndims 3
+#define _mg1_output_ndims 2
 
-
-#define _mg1_output_lattice_t ((int)2)
-#define _mg1_output_min_t     (_mg1_output_t[0])
-#define _mg1_output_max_t     (_mg1_output_t[_mg1_output_lattice_t-1])
-#define _mg1_output_dt        (_mg1_output_t[_index_t+1]-_mg1_output_t[_index_t])
 
 // vector raw defines
 #define _mg1_output_raw_ncomponents 1
@@ -315,7 +323,6 @@ struct _basis_transform_t
 // Map type for holding (old_basis, new_basis) -> _basis_transform_t mappings
 typedef map<_basis_pair, _basis_transform_t, _basis_pair_less_than> _basis_map;
 
-_basis_map _xy_segment2_xy_operators_operator0_result_basis_map;
 _basis_map _xy_wavefunction_basis_map;
 _basis_map _xy_gradphi_basis_map;
 
@@ -338,11 +345,11 @@ real y0_;
 real wx;
 real wy;
 
-#line 342 "xgp2d.cc"
+#line 349 "xgp2d.cc"
 
 // ********************************************************
 //   Command line argument processing globals
-real xshift = 5; 
+real xshift = 0; 
 real yshift = 0; 
 real interaction = 0; 
 real w_x = 1; 
@@ -399,12 +406,19 @@ complex* _segment2_ajfield_xy_wavefunction;
 complex* _segment2_alfield_xy_wavefunction;
 complex* _segment2_checkfield_xy_wavefunction;
 
-// vector segment2_xy_operators_operator0_result globals
-size_t _xy_segment2_xy_operators_operator0_result_alloc_size = 0;
-complex* _xy_segment2_xy_operators_operator0_result = NULL;
-complex* _active_xy_segment2_xy_operators_operator0_result = NULL;
+real _segment2_xy_operators_operator0_last_timestep_size_map[5];
 
-ptrdiff_t _xy_segment2_xy_operators_operator0_result_basis = -1;
+// vector segment2_xy_operators_operator0_field globals
+size_t _x_segment2_xy_operators_operator0_field_alloc_size = 0;
+real* _x_segment2_xy_operators_operator0_field = NULL;
+real* _active_x_segment2_xy_operators_operator0_field = NULL;
+
+real _segment2_xy_operators_operator1_last_timestep_size_map[5];
+
+// vector segment2_xy_operators_operator1_field globals
+size_t _y_segment2_xy_operators_operator1_field_alloc_size = 0;
+real* _y_segment2_xy_operators_operator1_field = NULL;
+real* _active_y_segment2_xy_operators_operator1_field = NULL;
 
 // ********************************************************
 //   field mg0_output globals
@@ -418,9 +432,6 @@ real* _active_mg0_output_raw = NULL;
 
 // ********************************************************
 //   field mg1_output globals
-real* _mg1_output_t = NULL;
-unsigned long _mg1_output_index_t = 0;
-
 // vector raw globals
 size_t _mg1_output_raw_alloc_size = 0;
 real* _mg1_output_raw = NULL;
@@ -487,13 +498,19 @@ real _segment2_setup_sampling(bool* _next_sample_flag, long* _next_sample_counte
 real _segment2_xy_wavefunction_timestep_error(complex* _checkfield);
 bool _segment2_xy_wavefunction_reset(complex* _reset_to);
 
-void _segment2_xy_operators_evaluate_operator0();
+void _segment2_xy_operators_calculate_operator0_field(real _step, int _exponent);
 
-void _xy_segment2_xy_operators_operator0_result_basis_transform(ptrdiff_t new_basis);
+void _segment2_xy_operators_calculate_operator1_field(real _step, int _exponent);
 
-void _segment2_xy_operators_evaluate_operator1(real _step);
+void _segment2_xy_operators_evaluate_operator2(real _step);
 
 void _segment2__evaluate_operator0();
+
+// ********************************************************
+//   segment 3 (Filter) function prototypes
+void _segment3();
+
+void _segment3__evaluate_operator0();
 
 // ********************************************************
 //   output function prototypes
@@ -637,22 +654,22 @@ int main(int argc, char **argv)
   
   wy = w_y;
   
-  #line 641 "xgp2d.cc"
+  #line 658 "xgp2d.cc"
   // **********************************************
   
     
   
   _xy_gradphi_alloc_size = MAX(_xy_gradphi_alloc_size, (_lattice_kx * _lattice_ky) * _xy_gradphi_ncomponents);
   _xy_gradphi_alloc_size = MAX(_xy_gradphi_alloc_size, (_lattice_x * _lattice_y) * _xy_gradphi_ncomponents);
+  _y_segment2_xy_operators_operator1_field_alloc_size = MAX(_y_segment2_xy_operators_operator1_field_alloc_size, (_lattice_ky) * _y_segment2_xy_operators_operator1_field_ncomponents);
   _dimensionless_number_alloc_size = MAX(_dimensionless_number_alloc_size, (1) * _dimensionless_number_ncomponents);
-  _xy_segment2_xy_operators_operator0_result_alloc_size = MAX(_xy_segment2_xy_operators_operator0_result_alloc_size, (_lattice_x * _lattice_y) * _xy_segment2_xy_operators_operator0_result_ncomponents);
-  _xy_segment2_xy_operators_operator0_result_alloc_size = MAX(_xy_segment2_xy_operators_operator0_result_alloc_size, (_lattice_kx * _lattice_ky) * _xy_segment2_xy_operators_operator0_result_ncomponents);
   _xy_potential_alloc_size = MAX(_xy_potential_alloc_size, (_lattice_x * _lattice_y) * _xy_potential_ncomponents);
+  _x_segment2_xy_operators_operator0_field_alloc_size = MAX(_x_segment2_xy_operators_operator0_field_alloc_size, (_lattice_kx) * _x_segment2_xy_operators_operator0_field_ncomponents);
   _xy_wavefunction_alloc_size = MAX(_xy_wavefunction_alloc_size, (_lattice_x * _lattice_y) * _xy_wavefunction_ncomponents);
   _xy_wavefunction_alloc_size = MAX(_xy_wavefunction_alloc_size, (_lattice_kx * _lattice_ky) * _xy_wavefunction_ncomponents);
   _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_mg2_output_lattice_t * _lattice_x * _lattice_y) * _mg2_output_raw_ncomponents);
   _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t) * _mg0_output_raw_ncomponents);
-  _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t * _lattice_x * _lattice_y) * _mg1_output_raw_ncomponents);
+  _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_lattice_x * _lattice_y) * _mg1_output_raw_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
   
   _kx = (real*) xmds_malloc(sizeof(real) * (_lattice_kx+1));
@@ -679,8 +696,6 @@ int main(int argc, char **argv)
   
   _mg0_output_raw = (real*) xmds_malloc(sizeof(real) * MAX(_mg0_output_raw_alloc_size,1));
   _active_mg0_output_raw = _mg0_output_raw;
-  _mg1_output_t = (real*) xmds_malloc(sizeof(real) * (_mg1_output_lattice_t+1));
-  
   
   _mg1_output_raw = (real*) xmds_malloc(sizeof(real) * MAX(_mg1_output_raw_alloc_size,1));
   _active_mg1_output_raw = _mg1_output_raw;
@@ -754,44 +769,6 @@ int main(int argc, char **argv)
   ptrdiff_t _auxiliary_array_size = 0;
   ptrdiff_t _max_vector_size = 0;
   real* _max_vector_array = NULL;
-  
-  if (2 * _xy_segment2_xy_operators_operator0_result_alloc_size > _max_vector_size) {
-    _max_vector_size = 2 * _xy_segment2_xy_operators_operator0_result_alloc_size;
-    _max_vector_array = reinterpret_cast<real*>(_xy_segment2_xy_operators_operator0_result);
-  }
-  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(1, 0)];
-  _basis_transform->_multiplier = _inverse_sqrt_2pi * _dx * _inverse_sqrt_2pi * _dy;
-  _basis_transform->append(
-    /* transform function */ _transform_0,
-    /* forward? */ true,
-    /* out-of-place? */ false,
-    /* prefix lattice */ 1,
-    /* postfix lattice*/ _xy_segment2_xy_operators_operator0_result_ncomponents
-  );
-  _basis_transform->append(
-    /* transform function */ _transform_1,
-    /* forward? */ true,
-    /* out-of-place? */ false,
-    /* prefix lattice */ _lattice_kx * _lattice_ky,
-    /* postfix lattice*/ _xy_segment2_xy_operators_operator0_result_ncomponents * 2
-  );
-  
-  _basis_transform = &_xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(0, 1)];
-  _basis_transform->_multiplier = _inverse_sqrt_2pi * _dkx * _inverse_sqrt_2pi * _dky;
-  _basis_transform->append(
-    /* transform function */ _transform_1,
-    /* forward? */ false,
-    /* out-of-place? */ false,
-    /* prefix lattice */ _lattice_kx * _lattice_ky,
-    /* postfix lattice */ _xy_segment2_xy_operators_operator0_result_ncomponents * 2
-  );
-  _basis_transform->append(
-    /* transform function */ _transform_0,
-    /* forward? */ false,
-    /* out-of-place? */ false,
-    /* prefix lattice */ 1,
-    /* postfix lattice */ _xy_segment2_xy_operators_operator0_result_ncomponents
-  );
   
   if (2 * _xy_wavefunction_alloc_size > _max_vector_size) {
     _max_vector_size = 2 * _xy_wavefunction_alloc_size;
@@ -880,7 +857,7 @@ int main(int argc, char **argv)
   }
   
   // Make all geometry-dependent transformations prepare plans, etc.
-  _transform_0(true, 1.0, _max_vector_array, _auxiliary_array, 1, _xy_segment2_xy_operators_operator0_result_ncomponents);
+  _transform_0(true, 1.0, _max_vector_array, _auxiliary_array, 1, _xy_wavefunction_ncomponents);
   _transform_2(true, 1.0, _max_vector_array, _auxiliary_array, 1, _xy_gradphi_ncomponents);
   
   if (_allocated_temporary_array) {
@@ -1130,7 +1107,7 @@ void _print_usage()
   _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp2d --xshift <real> --yshift <real> --interaction <real> --w_x <real> --w_y <real>\n\n"
                          "Details:\n"
                          "Option\t\tType\t\tDefault value\n"
-                         "-x,  --xshift\treal \t\t5\n"
+                         "-x,  --xshift\treal \t\t0\n"
                          "-y,  --yshift\treal \t\t0\n"
                          "-i,  --interaction\treal \t\t0\n"
                          "-w,  --w_x\treal \t\t1\n"
@@ -1153,13 +1130,12 @@ void _segment0()
   _active_xy_wavefunction = _xy_wavefunction;
   _xy_wavefunction_initialise();
   _mg0_output_index_t = 0;
-  _mg1_output_index_t = 0;
   _mg2_output_index_t = 0;
   _mg0_sample();
-  _mg1_sample();
   _mg2_sample();
   _segment1();
   _segment2();
+  _segment3();
   
   _mg0_process();
   _mg1_process();
@@ -1194,7 +1170,7 @@ void _xy_potential_initialise()
       
       Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));
       
-      #line 1198 "xgp2d.cc"
+      #line 1174 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1240,7 +1216,7 @@ void _xy_wavefunction_initialise()
         phi = 0.0;
       }
       
-      #line 1244 "xgp2d.cc"
+      #line 1220 "xgp2d.cc"
       // **********************************************
       #undef t
       
@@ -1324,7 +1300,7 @@ void _xy_gradphi_evaluate()
       dphix=i*kx*phi;
       dphiy=i*ky*phi;
       
-      #line 1328 "xgp2d.cc"
+      #line 1304 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -1437,7 +1413,7 @@ void _dimensionless_number_evaluate()
           //Virial = Ekin - Epot + Eint;
           //mu = Ekin + Epot + (2) * Eint;
       
-      #line 1441 "xgp2d.cc"
+      #line 1417 "xgp2d.cc"
       // **********************************************
       
       _active_dimensionless_number[_dimensionless_number_index_pointer + 0] += Ncalc * dx * dy;
@@ -1509,7 +1485,7 @@ void _segment1__evaluate_operator0()
       
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 1513 "xgp2d.cc"
+      #line 1489 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -1533,17 +1509,20 @@ void _segment1__evaluate_operator0()
 inline void _segment2_calculate_delta_a(real _step)
 {
   
-  // EX transverse derivative operator for field xy (not constant)
-  _segment2_xy_operators_evaluate_operator0();
   
   // Delta A propagation operator for field xy
-  _segment2_xy_operators_evaluate_operator1(_step);
+  _segment2_xy_operators_evaluate_operator2(_step);
   
 }
 
 
 inline void _segment2_calculate_nonconstant_ip_fields(real _step, int _exponent)
 {
+  // NonConstantIPOperator
+  _segment2_xy_operators_calculate_operator0_field(_step, _exponent);
+  
+  // NonConstantIPOperator
+  _segment2_xy_operators_calculate_operator1_field(_step, _exponent);
 }
 
 
@@ -1582,13 +1561,20 @@ void _segment2()
   }
   
   
-  _xy_segment2_xy_operators_operator0_result = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_segment2_xy_operators_operator0_result_alloc_size,1));
-  _active_xy_segment2_xy_operators_operator0_result = _xy_segment2_xy_operators_operator0_result;
+  _x_segment2_xy_operators_operator0_field = (real*) xmds_malloc(sizeof(real) * MAX(_x_segment2_xy_operators_operator0_field_alloc_size,1));
+  _active_x_segment2_xy_operators_operator0_field = _x_segment2_xy_operators_operator0_field;
+  
+  
+  _y_segment2_xy_operators_operator1_field = (real*) xmds_malloc(sizeof(real) * MAX(_y_segment2_xy_operators_operator1_field_alloc_size,1));
+  _active_y_segment2_xy_operators_operator1_field = _y_segment2_xy_operators_operator1_field;
   _segment2_akfield_xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
   _segment2_aifield_xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
   _segment2_ajfield_xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
   _segment2_alfield_xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
   _segment2_checkfield_xy_wavefunction = (complex*) xmds_malloc(sizeof(complex) * MAX(_xy_wavefunction_alloc_size,1));
+  memset(_segment2_xy_operators_operator0_last_timestep_size_map, 0, sizeof(_segment2_xy_operators_operator0_last_timestep_size_map));
+  
+  memset(_segment2_xy_operators_operator1_last_timestep_size_map, 0, sizeof(_segment2_xy_operators_operator1_last_timestep_size_map));
   complex* _akfield_xy_wavefunction = _segment2_akfield_xy_wavefunction;
   complex* _aifield_xy_wavefunction = _segment2_aifield_xy_wavefunction;
   complex* _ajfield_xy_wavefunction = _segment2_ajfield_xy_wavefunction;
@@ -1909,8 +1895,6 @@ void _segment2()
                              "         Non-finite number in integration vector \"wavefunction\" in segment 2.\n", t);
           if (_mg0_output_index_t < _mg0_output_lattice_t)
             _mg0_sample();
-          if (_mg1_output_index_t < _mg1_output_lattice_t)
-            _mg1_sample();
           if (_mg2_output_index_t < _mg2_output_lattice_t)
             _mg2_sample();
           
@@ -1976,8 +1960,12 @@ void _segment2()
   
   _SEGMENT2_END:;
   
-  xmds_free(_xy_segment2_xy_operators_operator0_result);
-  _active_xy_segment2_xy_operators_operator0_result = _xy_segment2_xy_operators_operator0_result = NULL;
+  xmds_free(_x_segment2_xy_operators_operator0_field);
+  _active_x_segment2_xy_operators_operator0_field = _x_segment2_xy_operators_operator0_field = NULL;
+  
+  
+  xmds_free(_y_segment2_xy_operators_operator1_field);
+  _active_y_segment2_xy_operators_operator1_field = _y_segment2_xy_operators_operator1_field = NULL;
   xmds_free(_segment2_akfield_xy_wavefunction);
   xmds_free(_segment2_aifield_xy_wavefunction);
   xmds_free(_segment2_ajfield_xy_wavefunction);
@@ -1991,6 +1979,73 @@ void _segment2()
 
 inline void _segment2_ip_evolve(int _exponent)
 {
+  unsigned long _segment2_xy_operators_operator0_exponentIndex = (abs(_exponent) - 1) * 1;
+  unsigned long _segment2_xy_operators_operator1_exponentIndex = (abs(_exponent) - 1) * 1;
+  
+  _xy_wavefunction_basis_transform(0); // (kx, ky)
+  
+  if (_exponent > 0) {
+    long _y_segment2_xy_operators_operator1_field_index_pointer = 0;
+    long _x_segment2_xy_operators_operator0_field_index_pointer = 0;
+    long _xy_wavefunction_index_pointer = 0;
+    #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
+    #define kx _kx[_index_kx + 0]
+    #define dkx (_dkx * (1.0))
+    
+    for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
+      #define ky _ky[_index_ky + 0]
+      #define dky (_dky * (1.0))
+      
+      for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
+        // Set index pointers explicitly for (some) vectors
+        _x_segment2_xy_operators_operator0_field_index_pointer = ( 0
+           + _index_kx * 1 ) * _x_segment2_xy_operators_operator0_field_ncomponents;
+        _y_segment2_xy_operators_operator1_field_index_pointer = ( 0
+           + _index_ky * 1 ) * _y_segment2_xy_operators_operator1_field_ncomponents;
+        phi *= /* Tx[phi] */ _x_segment2_xy_operators_operator0_field[_x_segment2_xy_operators_operator0_field_index_pointer + 0 + _segment2_xy_operators_operator0_exponentIndex]
+            *  /* Ty[phi] */ _y_segment2_xy_operators_operator1_field[_y_segment2_xy_operators_operator1_field_index_pointer + 0 + _segment2_xy_operators_operator1_exponentIndex];
+        // Increment index pointers for vectors in field xy (or having the same dimensions)
+        _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
+        
+      }
+      #undef ky
+      #undef dky
+    }
+    #undef kx
+    #undef dkx
+    #undef phi
+  } else {
+    long _y_segment2_xy_operators_operator1_field_index_pointer = 0;
+    long _x_segment2_xy_operators_operator0_field_index_pointer = 0;
+    long _xy_wavefunction_index_pointer = 0;
+    #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
+    #define kx _kx[_index_kx + 0]
+    #define dkx (_dkx * (1.0))
+    
+    for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
+      #define ky _ky[_index_ky + 0]
+      #define dky (_dky * (1.0))
+      
+      for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
+        // Set index pointers explicitly for (some) vectors
+        _x_segment2_xy_operators_operator0_field_index_pointer = ( 0
+           + _index_kx * 1 ) * _x_segment2_xy_operators_operator0_field_ncomponents;
+        _y_segment2_xy_operators_operator1_field_index_pointer = ( 0
+           + _index_ky * 1 ) * _y_segment2_xy_operators_operator1_field_ncomponents;
+        phi /= /* Tx[phi] */ _x_segment2_xy_operators_operator0_field[_x_segment2_xy_operators_operator0_field_index_pointer + 0 + _segment2_xy_operators_operator0_exponentIndex]
+            *  /* Ty[phi] */ _y_segment2_xy_operators_operator1_field[_y_segment2_xy_operators_operator1_field_index_pointer + 0 + _segment2_xy_operators_operator1_exponentIndex];
+        // Increment index pointers for vectors in field xy (or having the same dimensions)
+        _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
+        
+      }
+      #undef ky
+      #undef dky
+    }
+    #undef kx
+    #undef dkx
+    #undef phi
+  }
+  
   
 }
 real _segment2_setup_sampling(bool* _next_sample_flag, long* _next_sample_counter)
@@ -2142,110 +2197,108 @@ bool _segment2_xy_wavefunction_reset(complex* _reset_to_xy_wavefunction)
   return bNoNaNsPresent;
 }
 
-// EX transverse derivative operator for field xy (not constant)
-void _segment2_xy_operators_evaluate_operator0()
+// NonConstantIPOperator
+void _segment2_xy_operators_calculate_operator0_field(real _step, int _exponent)
 {
-  memcpy(_active_xy_segment2_xy_operators_operator0_result, _active_xy_wavefunction, _xy_wavefunction_alloc_size * sizeof(complex));
-  complex *__backup_ptr = _active_xy_wavefunction;
-  ptrdiff_t __backup_basis = _xy_wavefunction_basis;
-  _active_xy_wavefunction = _active_xy_segment2_xy_operators_operator0_result;
+  static const real _propagationStepFractions[] = {
+    1.0,
+    4.0/5.0,
+    7.0/10.0,
+    2.0/5.0,
+    1.0/8.0,
+  };
+  const long _arrayIndex = _exponent - 1;
+  const real _propagationStepFraction = _propagationStepFractions[_arrayIndex];
   
-  // Transforming vectors to basis (kx, ky)
-  _xy_wavefunction_basis_transform(0); // (kx, ky)
+  // If the timestep hasn't changed from the last time, then we're done.
+  if (_propagationStepFraction * _step == _segment2_xy_operators_operator0_last_timestep_size_map[_arrayIndex])
+    return;
   
-  long _xy_segment2_xy_operators_operator0_result_index_pointer = 0;
-  #define _T_phi _active_xy_segment2_xy_operators_operator0_result[_xy_segment2_xy_operators_operator0_result_index_pointer + 0]
-  long _xy_wavefunction_index_pointer = 0;
-  #define phi _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0]
+  long _x_segment2_xy_operators_operator0_field_index_pointer = 0;
   #define kx _kx[_index_kx + 0]
   #define dkx (_dkx * (1.0))
   
   for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
-    #define ky _ky[_index_ky + 0]
-    #define dky (_dky * (1.0))
+    real Tx;
+    // The purpose of the following define is to give a (somewhat helpful) compile-time error
+    // if the user has attempted to use the propagation dimension variable in a constant IP operator/
+    // The user probably shouldn't be doing this, but if they must, they should use a non-constant EX
+    // operator instead
+    #define t Dont_use_propagation_dimension_t_in_constant_IP_operator___Use_non_constant_EX_operator_instead
+    // ************** Operator code *****************
+    #line 131 "gp2d.xmds"
     
-    for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
-      complex T;
-      
-      
-      // ************** Operator code *****************
-      #line 132 "gp2d.xmds"
-      
-      T = -0.5*(kx*kx+ky*ky);
-      
-      #line 2177 "xgp2d.cc"
-      // **********************************************
-      
-      // T[phi]
-      _T_phi = T * phi;
-      // Increment index pointers for vectors in field xy (or having the same dimensions)
-      _xy_segment2_xy_operators_operator0_result_index_pointer += 1 * _xy_segment2_xy_operators_operator0_result_ncomponents;
-      _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
-      
-    }
-    #undef ky
-    #undef dky
+    Tx = -0.5*kx*kx;
+    
+    #line 2234 "xgp2d.cc"
+    // **********************************************
+    #undef t
+    
+    _x_segment2_xy_operators_operator0_field[_x_segment2_xy_operators_operator0_field_index_pointer + _arrayIndex * 1 + 0] = exp(Tx * _propagationStepFraction * _step);
+    // Increment index pointers for vectors in field x (or having the same dimensions)
+    _x_segment2_xy_operators_operator0_field_index_pointer += 1 * _x_segment2_xy_operators_operator0_field_ncomponents;
+    
   }
   #undef kx
   #undef dkx
-  #undef _T_phi
-  #undef phi
-  _active_xy_wavefunction = __backup_ptr;
-  _xy_wavefunction_basis = __backup_basis;
   
-  _xy_segment2_xy_operators_operator0_result_basis = 0;
+  _segment2_xy_operators_operator0_last_timestep_size_map[_arrayIndex] = _propagationStepFraction * _step;
 }
 
-void _xy_segment2_xy_operators_operator0_result_basis_transform(ptrdiff_t new_basis)
+// NonConstantIPOperator
+void _segment2_xy_operators_calculate_operator1_field(real _step, int _exponent)
 {
-  if (_xy_segment2_xy_operators_operator0_result_basis == new_basis)
+  static const real _propagationStepFractions[] = {
+    1.0,
+    4.0/5.0,
+    7.0/10.0,
+    2.0/5.0,
+    1.0/8.0,
+  };
+  const long _arrayIndex = _exponent - 1;
+  const real _propagationStepFraction = _propagationStepFractions[_arrayIndex];
+  
+  // If the timestep hasn't changed from the last time, then we're done.
+  if (_propagationStepFraction * _step == _segment2_xy_operators_operator1_last_timestep_size_map[_arrayIndex])
     return;
   
-  if (_xy_segment2_xy_operators_operator0_result_basis == -1) {
-    _LOG(
-      _ERROR_LOG_LEVEL,
-      "Error: Attempted to transform the vector 'xy_segment2_xy_operators_operator0_result' to basis %s, but the vector doesn't have a basis specified yet!\n"
-      "       Please report this error to xmds-devel@lists.sourceforge.net\n",
-      _basis_identifiers[new_basis]
-      );
-  }
+  long _y_segment2_xy_operators_operator1_field_index_pointer = 0;
+  #define ky _ky[_index_ky + 0]
+  #define dky (_dky * (1.0))
   
-  if (_xy_segment2_xy_operators_operator0_result_basis_map.count(_basis_pair(_xy_segment2_xy_operators_operator0_result_basis, new_basis)) == 0) {
-    _LOG(
-      _ERROR_LOG_LEVEL,
-      "Error: We should have information about how to do every needed transform, but it seems we don't for this transform.\n"
-      "       The transform is for the vector 'xy_segment2_xy_operators_operator0_result' from basis %s to basis %s.\n",
-      _basis_identifiers[_xy_segment2_xy_operators_operator0_result_basis], _basis_identifiers[new_basis]
-    );
+  for (long _index_ky = 0; _index_ky < _lattice_ky; _index_ky++) {
+    real Ty;
+    // The purpose of the following define is to give a (somewhat helpful) compile-time error
+    // if the user has attempted to use the propagation dimension variable in a constant IP operator/
+    // The user probably shouldn't be doing this, but if they must, they should use a non-constant EX
+    // operator instead
+    #define t Dont_use_propagation_dimension_t_in_constant_IP_operator___Use_non_constant_EX_operator_instead
+    // ************** Operator code *****************
+    #line 137 "gp2d.xmds"
+    
+    Ty = -0.5*ky*ky;
+    
+    #line 2282 "xgp2d.cc"
+    // **********************************************
+    #undef t
+    
+    _y_segment2_xy_operators_operator1_field[_y_segment2_xy_operators_operator1_field_index_pointer + _arrayIndex * 1 + 0] = exp(Ty * _propagationStepFraction * _step);
+    // Increment index pointers for vectors in field y (or having the same dimensions)
+    _y_segment2_xy_operators_operator1_field_index_pointer += 1 * _y_segment2_xy_operators_operator1_field_ncomponents;
+    
   }
-  _basis_transform_t &_t = _xy_segment2_xy_operators_operator0_result_basis_map[_basis_pair(_xy_segment2_xy_operators_operator0_result_basis, new_basis)];
-  if (_t._transform_steps.size() == 0) {
-    _LOG(_ERROR_LOG_LEVEL, "Error: It looks like we tried to create plans for this transform, but failed.\n"
-                           "       The transform was for the vector 'xy_segment2_xy_operators_operator0_result' from basis %s to basis %s.\n",
-                           _basis_identifiers[_xy_segment2_xy_operators_operator0_result_basis], _basis_identifiers[new_basis]);
-  }
-  real *_source_data = reinterpret_cast<real*>(_active_xy_segment2_xy_operators_operator0_result);
-  real *_dest_data = _auxiliary_array;
-  for (vector<_transform_step>::iterator _it = _t._transform_steps.begin(); _it != _t._transform_steps.end(); ++_it) {
-    _it->_func(_it->_forward, _t._multiplier, _source_data, _dest_data, _it->_prefix_lattice, _it->_postfix_lattice);
-    if (_it->_out_of_place) {
-      real *_temp = _source_data;
-      _source_data = _dest_data;
-      _dest_data = _temp;
-    }
-  }
-  _xy_segment2_xy_operators_operator0_result_basis = new_basis;
+  #undef ky
+  #undef dky
+  
+  _segment2_xy_operators_operator1_last_timestep_size_map[_arrayIndex] = _propagationStepFraction * _step;
 }
 
 // Delta A propagation operator for field xy
-void _segment2_xy_operators_evaluate_operator1(real _step)
+void _segment2_xy_operators_evaluate_operator2(real _step)
 {
   // Transforming vectors to basis (x, y)
-  _xy_segment2_xy_operators_operator0_result_basis_transform(1); // (x, y)
   _xy_wavefunction_basis_transform(1); // (x, y)
   
-  long _xy_segment2_xy_operators_operator0_result_index_pointer = 0;
-  #define _T_phi _active_xy_segment2_xy_operators_operator0_result[_xy_segment2_xy_operators_operator0_result_index_pointer + 0]
   long _xy_potential_index_pointer = 0;
   #define Vext _active_xy_potential[_xy_potential_index_pointer + 0]
   long _xy_wavefunction_index_pointer = 0;
@@ -2263,11 +2316,12 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
       #define dt _step
       
       // ************* Propagation code ***************
-      #line 138 "gp2d.xmds"
+      #line 152 "gp2d.xmds"
       
-      dphi_dt = _T_phi - ( Vext + gg * mod2(phi) )*phi;
+      // dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
+      dphi_dt = 0.0 + 0.0  - ( Vext + gg * mod2(phi) )*phi;
       
-      #line 2271 "xgp2d.cc"
+      #line 2325 "xgp2d.cc"
       // **********************************************
       
       #undef dt
@@ -2275,7 +2329,6 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
       
       _active_xy_wavefunction[_xy_wavefunction_index_pointer + 0] = dphi_dt * _step;
       // Increment index pointers for vectors in field xy (or having the same dimensions)
-      _xy_segment2_xy_operators_operator0_result_index_pointer += 1 * _xy_segment2_xy_operators_operator0_result_ncomponents;
       _xy_potential_index_pointer += 1 * _xy_potential_ncomponents;
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
       
@@ -2285,7 +2338,6 @@ void _segment2_xy_operators_evaluate_operator1(real _step)
   }
   #undef x
   #undef dx
-  #undef _T_phi
   #undef Vext
   #undef phi
 }
@@ -2321,7 +2373,7 @@ void _segment2__evaluate_operator0()
       // Correct normalisation of the wavefunction
       phi *= sqrt(Nptls/Ncalc);
       
-      #line 2325 "xgp2d.cc"
+      #line 2377 "xgp2d.cc"
       // **********************************************
       // Increment index pointers for vectors in field xy (or having the same dimensions)
       _xy_wavefunction_index_pointer += 1 * _xy_wavefunction_ncomponents;
@@ -2338,6 +2390,30 @@ void _segment2__evaluate_operator0()
   #undef Epot
   #undef Eint
   #undef EN
+}
+
+// ********************************************************
+//   segment 3 (Filter) function implementations
+void _segment3()
+{
+  
+  // Filter operator
+  _segment3__evaluate_operator0();
+}
+
+// Filter operator
+void _segment3__evaluate_operator0()
+{
+  
+  // ************** Filter code *****************
+  #line 160 "gp2d.xmds"
+  
+  printf(" ");
+  printf(" %lf", 5.);
+  printf(" ");
+  
+  #line 2416 "xgp2d.cc"
+  // **********************************************
 }
 
 // ********************************************************
@@ -2408,7 +2484,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <auto_vectorise/>\n");
   fprintf(fp, "    <benchmark/>\n");
   fprintf(fp, "    <bing/>\n");
-  fprintf(fp, "    <fftw plan=\"exhaustive\"/>\n");
+  fprintf(fp, "    <fftw plan=\"exhaustive\" threads=\"1\"/>\n");
   fprintf(fp, "    <globals>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        const real Nptls = 1.0;\n");
@@ -2420,7 +2496,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </globals>\n");
   fprintf(fp, "    <arguments>\n");
-  fprintf(fp, "      <argument default_value=\"5\" name=\"xshift\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"0\" name=\"xshift\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      x0 = xshift;\n");
   fprintf(fp, "      ]]>\n");
@@ -2524,20 +2600,43 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        </filter>\n");
   fprintf(fp, "      </filters>\n");
   fprintf(fp, "      <operators>\n");
-  fprintf(fp, "        <!-- <operator kind=\"ip\"> -->\n");
-  fprintf(fp, "        <operator dimensions=\"x y\" kind=\"ex\">\n");
+  fprintf(fp, "      <operator dimensions=\"x\" kind=\"ip\" type=\"real\">\n");
+  fprintf(fp, "        <operator_names>Tx</operator_names>\n");
+  fprintf(fp, "        <![CDATA[\n");
+  fprintf(fp, "                Tx = -0.5*kx*kx;\n");
+  fprintf(fp, "        ]]>\n");
+  fprintf(fp, "      </operator>\n");
+  fprintf(fp, "      <operator dimensions=\"y\" kind=\"ip\" type=\"real\">\n");
+  fprintf(fp, "        <operator_names>Ty</operator_names>\n");
+  fprintf(fp, "        <![CDATA[\n");
+  fprintf(fp, "                Ty = -0.5*ky*ky;\n");
+  fprintf(fp, "         ]]>\n");
+  fprintf(fp, "      </operator>\n");
+  fprintf(fp, "      <!--\n");
+  fprintf(fp, "        <operator kind=\"ex\" dimensions=\"x y\">\n");
   fprintf(fp, "          <operator_names>T</operator_names>\n");
   fprintf(fp, "          <![CDATA[\n");
   fprintf(fp, "            T = -0.5*(kx*kx+ky*ky);\n");
   fprintf(fp, "          ]]>\n");
   fprintf(fp, "        </operator>\n");
+  fprintf(fp, "      -->       \n");
+  fprintf(fp, "      <!-- <integration_vectors basis=\"kx ky\">wavefunction</integration_vectors>-->\n");
   fprintf(fp, "        <integration_vectors>wavefunction</integration_vectors>\n");
   fprintf(fp, "        <dependencies>potential</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
-  fprintf(fp, "          dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;\n");
+  fprintf(fp, "          // dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;\n");
+  fprintf(fp, "          dphi_dt = Tx[phi] + Ty[phi]  - ( Vext + gg * mod2(phi) )*phi;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </operators>\n");
   fprintf(fp, "    </integrate>\n");
+  fprintf(fp, "\n");
+  fprintf(fp, "    <filter>\n");
+  fprintf(fp, "      <![CDATA[\n");
+  fprintf(fp, "          printf(\" \");\n");
+  fprintf(fp, "          printf(\" %%lf\", 5.);\n");
+  fprintf(fp, "          printf(\" \");\n");
+  fprintf(fp, "      ]]>\n");
+  fprintf(fp, "    </filter> \n");
   fprintf(fp, " \n");
   fprintf(fp, "    <!--\n");
   fprintf(fp, "    <breakpoint filename=\"gp2d.xsil\" format=\"ascii\">\n");
@@ -2560,7 +2659,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "                g0 = gg;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
-  fprintf(fp, "      <sampling_group basis=\"x y\" initial_sample=\"yes\">\n");
+  fprintf(fp, "      <sampling_group basis=\"x y\" initial_sample=\"no\">\n");
   fprintf(fp, "        <moments>Pot</moments>\n");
   fprintf(fp, "        <dependencies>potential</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
@@ -2577,7 +2676,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "  </output>\n");
   
   fprintf(fp, "\n<info>\n");
-  fprintf(fp, "Script compiled with XMDS2 version 2.2.3 \"It came from the deep\" (r2989)\n");
+  fprintf(fp, "Script compiled with XMDS2 version 2.2.0 \"Out of cheese error\" (Debian package 2.2.0+dfsg1-1)\n");
   fprintf(fp, "See http://www.xmds.org for more information.\n");
   fprintf(fp, "\nVariables that can be specified on the command line:\n");
   
@@ -2630,7 +2729,7 @@ void _mg0_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 156 "gp2d.xmds"
+  #line 179 "gp2d.xmds"
   
   Nptls = Ncalc;
         Ek = Ekin;
@@ -2639,7 +2738,7 @@ void _mg0_sample()
         En = EN;
         g0 = gg;
   
-  #line 2643 "xgp2d.cc"
+  #line 2742 "xgp2d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
@@ -2884,25 +2983,21 @@ void _mg1_sample()
     #define dy (_dy * (1.0))
     
     for (long _index_y = 0; _index_y < _lattice_y; _index_y++) {
-      // Set index pointers explicitly for (some) vectors
-      _mg1_output_raw_index_pointer = ( 0
-         + _mg1_output_index_t  * _lattice_x * _lattice_y
-         + _index_x * _lattice_y
-         + _index_y * 1 ) * _mg1_output_raw_ncomponents;
       #define _SAMPLE_COMPLEX(variable) \
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 168 "gp2d.xmds"
+      #line 191 "gp2d.xmds"
       
       Pot = Vext;
       
-      #line 2901 "xgp2d.cc"
+      #line 2995 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX
       // Increment index pointers for vectors in field mg1_sampling (or having the same dimensions)
       _xy_potential_index_pointer += 1 * _xy_potential_ncomponents;
+      _mg1_output_raw_index_pointer += 1 * _mg1_output_raw_ncomponents;
       
     }
     #undef y
@@ -2912,8 +3007,6 @@ void _mg1_sample()
   #undef dx
   #undef Vext
   #undef Pot
-  
-  _mg1_output_t[0 + _mg1_output_index_t++] = t;
   
   _LOG(_SAMPLE_LOG_LEVEL, "Sampled field (for moment group #2) at t = %e\n", t);
   
@@ -2932,18 +3025,17 @@ void _mg1_write_out(FILE* _outfile)
   if (_outfile) {
     fprintf(_outfile, "\n");
     fprintf(_outfile, "<XSIL Name=\"moment_group_2\">\n");
-    fprintf(_outfile, "  <Param Name=\"n_independent\">3</Param>\n");
+    fprintf(_outfile, "  <Param Name=\"n_independent\">2</Param>\n");
     fprintf(_outfile, "  <Array Name=\"variables\" Type=\"Text\">\n");
-    fprintf(_outfile, "    <Dim>4</Dim>\n");
+    fprintf(_outfile, "    <Dim>3</Dim>\n");
     fprintf(_outfile, "    <Stream><Metalink Format=\"Text\" Delimiter=\" \\n\"/>\n");
-    fprintf(_outfile, "t x y Pot \n");
+    fprintf(_outfile, "x y Pot \n");
     fprintf(_outfile, "    </Stream>\n");
     fprintf(_outfile, "  </Array>\n");
     fprintf(_outfile, "  <Array Name=\"data\" Type=\"double\">\n");
-    fprintf(_outfile, "    <Dim>%i</Dim>\n", _mg1_output_lattice_t);
     fprintf(_outfile, "    <Dim>%i</Dim>\n", _lattice_x);
     fprintf(_outfile, "    <Dim>%i</Dim>\n", _lattice_y);
-    fprintf(_outfile, "    <Dim>4</Dim>\n");
+    fprintf(_outfile, "    <Dim>3</Dim>\n");
   }
   
   
@@ -2976,19 +3068,6 @@ void _mg1_write_out(FILE* _outfile)
   /* Create the coordinate data sets */
   hsize_t coordinate_length;
   hid_t coordinate_dataspace;
-  coordinate_length = _mg1_output_lattice_t;
-  coordinate_dataspace = H5Screate_simple(1, &coordinate_length, NULL);
-  hid_t dataset_t;
-  if (!H5Lexists(hdf5_file, "/2/t", H5P_DEFAULT))
-    dataset_t = H5Dcreate(hdf5_file, "/2/t", H5T_NATIVE_REAL, coordinate_dataspace, H5P_DEFAULT);
-  else
-    dataset_t = H5Dopen(hdf5_file, "/2/t");
-  H5Dwrite(dataset_t, H5T_NATIVE_REAL, H5S_ALL, H5S_ALL, H5P_DEFAULT, _mg1_output_t);
-  #if defined(HAVE_HDF5_HL)
-    H5DSset_scale(dataset_t, "t");
-  #endif
-  
-  H5Sclose(coordinate_dataspace);
   coordinate_length = _lattice_x;
   coordinate_dataspace = H5Screate_simple(1, &coordinate_length, NULL);
   hid_t dataset_x;
@@ -3016,8 +3095,8 @@ void _mg1_write_out(FILE* _outfile)
   
   H5Sclose(coordinate_dataspace);
   
-  hsize_t file_dims[] = {_mg1_output_lattice_t, _lattice_x, _lattice_y};
-  hid_t file_dataspace = H5Screate_simple(3, file_dims, NULL);
+  hsize_t file_dims[] = {_lattice_x, _lattice_y};
+  hid_t file_dataspace = H5Screate_simple(2, file_dims, NULL);
   
   hid_t dataset_Pot;
   if (!H5Lexists(hdf5_file, "/2/Pot", H5P_DEFAULT))
@@ -3025,31 +3104,29 @@ void _mg1_write_out(FILE* _outfile)
   else
     dataset_Pot = H5Dopen(hdf5_file, "/2/Pot");
   #if defined(HAVE_HDF5_HL)
-    H5DSattach_scale(dataset_Pot, dataset_t, 0);
-    H5DSattach_scale(dataset_Pot, dataset_x, 1);
-    H5DSattach_scale(dataset_Pot, dataset_y, 2);
+    H5DSattach_scale(dataset_Pot, dataset_x, 0);
+    H5DSattach_scale(dataset_Pot, dataset_y, 1);
   #endif
-  H5Dclose(dataset_t);
   H5Dclose(dataset_x);
   H5Dclose(dataset_y);
   
   
-  if ((_mg1_output_lattice_t * _lattice_x * _lattice_y)) {
+  if ((_lattice_x * _lattice_y)) {
     /* Create the data space */
-    hsize_t file_start[3] = {0, 0, 0};
-    hsize_t mem_dims[4] = {_mg1_output_lattice_t, _lattice_x, _lattice_y, 1};
-    hsize_t mem_start[4] = {0, 0, 0, 0};
-    hsize_t mem_stride[4] = {1, 1, 1, 1};
-    hsize_t mem_count[4] = {_mg1_output_lattice_t, _lattice_x, _lattice_y, 1};
+    hsize_t file_start[2] = {0, 0};
+    hsize_t mem_dims[3] = {_lattice_x, _lattice_y, 1};
+    hsize_t mem_start[3] = {0, 0, 0};
+    hsize_t mem_stride[3] = {1, 1, 1};
+    hsize_t mem_count[3] = {_lattice_x, _lattice_y, 1};
     
     
     hid_t mem_dataspace;
-    mem_dims[3] = 1;
-    mem_dataspace = H5Screate_simple(4, mem_dims, NULL);
-    mem_stride[3] = 1;
+    mem_dims[2] = 1;
+    mem_dataspace = H5Screate_simple(3, mem_dims, NULL);
+    mem_stride[2] = 1;
     
     // Select hyperslabs of memory and file data spaces for data transfer operation
-    mem_start[3] = 0;
+    mem_start[2] = 0;
     H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
     H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
     
@@ -3111,11 +3188,11 @@ void _mg2_sample()
                 variable ## R = variable.Re(); variable ## I = variable.Im();
       
       // *************** Sampling code ****************
-      #line 175 "gp2d.xmds"
+      #line 198 "gp2d.xmds"
       
       dens = mod2(phi);
       
-      #line 3119 "xgp2d.cc"
+      #line 3196 "xgp2d.cc"
       // **********************************************
       
       #undef _SAMPLE_COMPLEX

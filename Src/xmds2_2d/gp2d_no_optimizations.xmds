@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation xmds-version="2">
-  <name>xgp2d</name>
+  <name>xgp2d_no_opt</name>
   <author>Joe Hope</author>
   <description>
     Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
@@ -10,7 +10,7 @@
     <auto_vectorise />
     <benchmark />
     <bing />
-    <fftw plan="exhaustive"  threads="1"/>
+    <fftw plan="exhaustive" />
     <globals>
       <![CDATA[
         const real Nptls = 1.0;
@@ -126,43 +126,20 @@
         </filter>
       </filters>
       <operators>
-      <operator kind="ip" type="real" dimensions="x">
-        <operator_names>Tx</operator_names>
-        <![CDATA[
-                Tx = -0.5*kx*kx;
-        ]]>
-      </operator>
-      <operator kind="ip" type="real" dimensions="y">
-        <operator_names>Ty</operator_names>
-        <![CDATA[
-                Ty = -0.5*ky*ky;
-         ]]>
-      </operator>
-      <!--
+        <!-- <operator kind="ip"> -->
 	<operator kind="ex" dimensions="x y">
           <operator_names>T</operator_names>
           <![CDATA[
             T = -0.5*(kx*kx+ky*ky);
           ]]>
         </operator>
-      -->	
-      <!-- <integration_vectors basis="kx ky">wavefunction</integration_vectors>-->
         <integration_vectors>wavefunction</integration_vectors>
         <dependencies>potential</dependencies>
         <![CDATA[
-	  // dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
-          dphi_dt = Tx[phi] + Ty[phi]  - ( Vext + gg * mod2(phi) )*phi;
+          dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
         ]]>
       </operators>
     </integrate>
-
-    <filter>
-      <![CDATA[
-	  printf(" ");
-	  printf(" %lf", 5.);
-	  printf(" ");
-      ]]>
-    </filter> 
  
     <!--
     <breakpoint filename="gp2d.xsil" format="ascii">
@@ -185,7 +162,7 @@
 	        g0 = gg;
         ]]>
       </sampling_group>
-      <sampling_group basis="x y" initial_sample="no">
+      <sampling_group basis="x y" initial_sample="yes">
         <moments>Pot</moments>
         <dependencies>potential</dependencies>
         <![CDATA[
