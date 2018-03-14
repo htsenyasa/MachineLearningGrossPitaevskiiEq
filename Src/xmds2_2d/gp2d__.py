@@ -5,7 +5,8 @@ import argparse
 import matplotlib.pyplot as plt
 import sys
 import tables as tb
-
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
 
 sys.path.append("/home/user/Desktop/")
 from xpdeint.XSILFile import XSILFile
@@ -33,6 +34,18 @@ gg_file_name   = path + "gg" + file_ex
 
 xsilFile = XSILFile("gp2d.xsil")
 
+
+def display_pot(Z):
+    X = np.arange(-10, 10, 20/128)
+    Y = np.arange(-10, 10, 20/128)
+    X, Y = np.meshgrid(X, Y)
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='hot', linewidth=0, antialiased=False)
+    #plt.imshow(Z)
+    plt.show()
+
+
 def firstElementOrNone(enumerable):
   for element in enumerable:
     return element
@@ -54,24 +67,27 @@ x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independent
 y_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "y")
 dens_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "dens")
 
+
+#display_pot(Pot_2)
 # Write your plotting commands here.
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
 
-# features = [GG, Etot, Ekin, Epot, Eint]
+###features = [GG, Etot, Ekin, Epot, Eint]
 features = np.array([g0_1[-1], En_1[-1], Ek_1[-1], Ep_1[-1], Ei_1[-1]])
 
-f = tb.open_file(pot_file_name, "a")
-f2 = tb.open_file(dens_file_name, "a")
-f3 = tb.open_file(path + "features.h5", "a")
-
-pot = np.reshape(Pot_2[-1], (1, 128, 128))
-dens = np.reshape(dens_3[-1], (1, 128, 128))
-features = np.reshape(features, (1, 5))
-
-f.root.data.append(pot)
-f2.root.data.append(dens)
-f3.root.data.append(features)
-
-f.close()
-f2.close()
-f3.close()
+print(features)
+#f = tb.open_file(pot_file_name, "a")
+#f2 = tb.open_file(dens_file_name, "a")
+#f3 = tb.open_file(path + "features.h5", "a")
+#
+#pot = np.reshape(Pot_2, (1, 128, 128))
+#dens = np.reshape(dens_3[-1], (1, 128, 128))
+#features = np.reshape(features, (1, 5))
+#
+#f.root.data.append(pot)
+#f2.root.data.append(dens)
+#f3.root.data.append(features)
+#
+#f.close()
+#f2.close()
+#f3.close()

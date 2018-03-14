@@ -30,14 +30,15 @@ v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentV
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
 
 
+plt.plot(dens_1[-1])
+plt.show()
+
 #f = open("position.txt", "a")
 #f2 = open("potential.txt", "a")
 
 #v1_3 = v1_3.reshape(1, len(v1_3))
 #dens = dens_1[-1].T
 #dens = dens.reshape(1, len(dens))
-
-print e1_2
 
 #np.savetxt(f, dens)
 #np.savetxt(f, x_1)

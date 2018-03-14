@@ -1,3 +1,6 @@
+import os.path
+import time
+
 from __future__ import print_function
 import torch
 import torch.nn as nn
@@ -6,8 +9,6 @@ import torch.optim as optim
 import torch.utils.data as data_utils
 from torchvision import datasets, transforms
 from torch.autograd import Variable
-import os.path
-import time
 import numpy as np
 
 import nlse_dataloader as loader
@@ -40,8 +41,17 @@ tl = loader.Dataloader(data_filename, label_filename, training_len, test_len, rd
 train_dataset, test_dataset = tl.init_tensor_dataset()
 res = tracer.Tracer(args)
 
-train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=True, **kwargs)
+train_loader = data_utils.DataLoader(train_dataset, batch_size = args.batch_size, shuffle=False, **kwargs)
 test_loader = data_utils.DataLoader(test_dataset, batch_size = args.test_batch_size, shuffle=False, **kwargs)
+total_len = training_len + test_len
+add_feature = rd.read_feature(label_filename, 0, total_len)
+add_feature = np.repeat(add_feature, 64).reshape((total_len, 64))
+add_feature = torch.from_numpy(add_feature).float()
+
+
+print(train_loader.dataset.data_tensor.shape)
+print(add_feature.shape)
+
 
 class CnnNet(nn.Module):
     def __init__(self):
@@ -53,19 +63,29 @@ class CnnNet(nn.Module):
         self.conv5 = nn.Conv2d(16, 16, 1)
         self.conv6 = nn.Conv2d(16, 16, 1)
         self.relu = nn.ReLU()
-        self.fc1 = nn.Linear(64, 32)
-        self.fc2 = nn.Linear(32, 16)
+        #self.fc1 = nn.Linear(64, 32)
+        #self.fc2 = nn.Linear(32, 16)
+        #self.fc3 = nn.Linear(16, 1)
+        self.fc1 = nn.Linear(128, 64)
+        self.fc2 = nn.Linear(64, 16)
         self.fc3 = nn.Linear(16, 1)
 
 
-    def forward(self, x):
+    def forward(self, x, y):
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2(x), 2))
         x = F.relu(F.max_pool2d(self.conv3(x), 2))
         x = F.relu(F.max_pool2d(self.conv4(x), 2))
         x = F.relu(F.max_pool2d(self.conv5(x), 2))
         x = F.relu(F.max_pool2d(self.conv6(x), 2))
+
         x = x.view(x.size(0), -1)
+        
+        #print("x shape = {}".format(x.shape))
+        #print("y shape = {}".format(y.shape))
+
+        x = torch.cat((x, y), 1)
+
         x = self.fc1(x)
         x = self.relu(x)
         x = self.fc2(x)
@@ -83,12 +103,13 @@ optimizer = optim.Adam(model.parameters(), lr = args.lr)
 
 def train(epoch):
     model.train()
+    global add_feature
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
-            data, target = data.cuda(), target.cuda()
-        data, target = Variable(data), Variable(target).float()
+            data, target, add_feature = data.cuda(), target.cuda(), add_feature.cuda()
+        data, target, feature = Variable(data), Variable(target).float(), Variable(add_feature)
         optimizer.zero_grad()
-        output = model(data)
+        output = model(data, feature[batch_idx * batch_size : (batch_idx + 1) * batch_size ])
         res.chrono_point("backprop_start")
         loss = criterion(output, target)
         loss.backward()
@@ -131,12 +152,13 @@ def test():
     test_loss = 0
     correct = 0
     predicted = np.empty((test_len, 1), float)
+    global add_feature
     for batch_idx, (data, target) in enumerate(test_loader):
         if args.cuda:
-            data, target = data.cuda(), target.cuda()
-        data, target = Variable(data, volatile = True), Variable(target).float()
-        outputs = model(data)
-        predicted[batch_idx * test_loader.batch_size : (batch_idx + 1) * test_loader.batch_size] = outputs.data.cpu().numpy()
+            data, target, add_feature = data.cuda(), target.cuda(), add_feature.cuda()
+        data, target, feature = Variable(data, volatile = True), Variable(target).float(), Variable(add_feature)
+        output = model(data, feature[(batch_idx * 25) + training_len: ((batch_idx + 1) * 25) + training_len])
+        predicted[batch_idx * test_loader.batch_size : (batch_idx + 1) * test_loader.batch_size] = output.data.cpu().numpy()
         
     real = test_dataset.target_tensor.cpu().numpy()
     print(real.shape)
@@ -150,7 +172,7 @@ def test():
     #    global info_file_name
     #    file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
     
-    tracer.save_info(res, "test_case.inf")
+    tracer.save_info(res, "test_case_2.inf")
     return predicted
 
 

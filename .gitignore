@@ -1,2 +1,12 @@
 data/
 others/
+Src/other
+Src/__pycache__
+Src/torch
+Src/testmodel.pkl
+Src/ML-NLSE.code-workspace
+Src/.vscode
+Src/xmds2/Test
+figs/APPLRESULTS
+presentation/APPLPRESENTATION
+report/APPLREPORT

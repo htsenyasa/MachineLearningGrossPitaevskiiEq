@@ -12,7 +12,7 @@ class Dataloader(object):
         scaler = StandardScaler()
 
         self.train_data, self.train_label, self.test_data, self.test_label = read_func(data_filename, label_filename, self.train_len, self.test_len)
-        
+
         #self.train_label = self.train_label.reshape((len(self.train_label), 1))
         #self.test_label = self.test_label.reshape((len(self.test_label), 1))
         #self.train_data = scaler.fit_transform(self.train_data)

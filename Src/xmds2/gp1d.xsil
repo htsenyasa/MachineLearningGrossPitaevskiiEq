@@ -1,0 +1,300 @@
+<?xml version="1.0" ?><simulation xmds-version="2">
+  <name>xgp1d</name>
+  <author>H.T.S</author>
+  <description>
+    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
+    This is done by evolving it in imaginary time while re-normalising each timestep.
+    Adapted from xmds2 examples.
+  </description>
+  
+  <features>
+    <auto_vectorise/>
+    <benchmark/>
+    <diagnostics/>
+    <bing/>
+    <fftw plan="exhaustive"/>
+    <globals>
+      <![CDATA[
+        real Uint; // interaction parameter
+        real Nparticles;
+        real omega;
+        real x0; //shift
+        int pt_type; //type of potential
+        real l_w, r_w; //left, right well
+        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
+        int id;
+      ]]>
+    </globals>
+
+    <arguments>  
+      <argument default_value="0" name="interaction_param" type="real"/>
+      <![CDATA[
+      Uint = interaction_param;
+      ]]>
+      <argument default_value="1" name="num_particles" type="real"/>
+      <![CDATA[
+      Nparticles = num_particles;
+      ]]>
+      <argument default_value="1" name="freq" type="real"/>
+      <![CDATA[
+      omega = freq;
+      ]]>
+      <argument default_value="0" name="shift" type="real"/>
+      <![CDATA[
+      x0 = shift;
+      ]]>
+      <argument default_value="0" name="pot_type" type="real"/>
+      <![CDATA[
+      pt_type = pot_type;
+      ]]>
+      <argument default_value="-5" name="lw" type="real"/>
+      <![CDATA[
+      l_w = lw;
+      ]]>
+      <argument default_value="5" name="rw" type="real"/>
+      <![CDATA[
+      r_w = rw;
+      ]]>
+      <argument default_value="3" name="lam1" type="real"/>
+      <![CDATA[
+      lm_1 = lam1;
+      ]]>
+      <argument default_value="0" name="lam2" type="real"/>
+      <![CDATA[
+      lm_2 = lam2;
+      ]]>
+      <argument default_value="0" name="mu1" type="real"/>
+      <![CDATA[
+      mu_1 = mu1;
+      ]]>
+      <argument default_value="0" name="mu2" type="real"/>
+      <![CDATA[
+      mu_2 = mu2;
+      ]]>
+      <argument default_value="0" name="s1" type="real"/>
+      <![CDATA[
+      s_1 = s1;
+      ]]>
+      <argument default_value="0" name="s2" type="real"/>
+      <![CDATA[
+      s_2 = s2;
+      ]]>
+      <argument default_value="5" name="runtime_id" type="integer"/>
+      <![CDATA[
+      id = runtime_id;
+      ]]>    
+    </arguments>
+ </features>
+
+
+    <geometry>
+      <propagation_dimension> t </propagation_dimension>
+      <transverse_dimensions>
+        <dimension domain="(-10.0, 10.0)" lattice="128" name="x"/>
+      </transverse_dimensions>
+    </geometry>
+
+    <vector dimensions="x" name="gen_function_x" type="real">
+      <components> func </components>
+      <initialisation kind="hdf5">
+        <filename> func.h5 </filename>
+      </initialisation>
+    </vector>
+
+  <vector initial_basis="x" name="potential" type="real">
+    <components> V1 </components>
+    <initialisation>
+     <dependencies basis="x"> gen_function_x</dependencies>
+      <![CDATA[
+      switch(pt_type){
+        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
+        case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
+        case 2: V1 = (-lm_1 * exp(-((x-mu_1)*(x-mu_1)) / (s_1 * s_1))) + (-lm_2 * exp(-((x-mu_2)*(x-mu_2)) / (s_2 * s_2)));
+        case 3: V1  = func; break;
+      }
+      ]]>
+    </initialisation>
+  </vector>
+
+  <vector initial_basis="x" name="wavefunction" type="complex">
+    <components> phi </components>
+    <initialisation>
+      <![CDATA[
+      phi = 1; //exp(-(x*x)/2);
+      ]]>
+    </initialisation>
+  </vector>
+
+  <computed_vector dimensions="x" name="gradphi" type="complex">
+    <components> dphix </components>
+    <evaluation>
+      <dependencies basis="kx">wavefunction</dependencies>
+      <![CDATA[
+        dphix=i*kx*phi;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <computed_vector dimensions="" name="normalisation" type="real">
+    <components>Ncalc EN Ekin Epot Eint Virial mu</components>
+    <evaluation>
+      <dependencies basis="x">wavefunction gradphi potential</dependencies>
+      <![CDATA[
+        // Calculate the current normalisation of the wave function.
+        Ncalc = mod2(phi);
+        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
+        Ekin = 0.5*mod2(dphix);
+        Epot = V1*mod2(phi);
+        Eint = 0.5*Uint*mod2(phi)*mod2(phi);
+                Virial = Ekin - Epot + Eint;
+                mu = Ekin + Epot + (2) * Eint;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <sequence>
+      <filter>
+        <![CDATA[
+          printf("Hello world from a filter segment!\n");
+        ]]>
+      </filter>
+
+    <filter>
+        <dependencies>normalisation wavefunction</dependencies>
+      <![CDATA[
+        phi *= sqrt(Nparticles/Ncalc);
+      ]]>
+    </filter>
+
+    <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
+      <samples>1 1 1</samples>
+      <filters where="step end">
+        <filter>
+          <dependencies>wavefunction normalisation</dependencies>
+          <![CDATA[
+            // Correct normalisation of the wavefunction
+            phi *= sqrt(Nparticles/Ncalc);
+          ]]>
+        </filter>
+      </filters>
+      <operators>
+        <operator dimensions="x" kind="ex">
+          <operator_names>T2</operator_names>
+          <![CDATA[
+            T2 = -0.5*kx*kx;
+          ]]>
+        </operator>
+        <integration_vectors>wavefunction</integration_vectors>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi) )*phi;
+        ]]>
+      </operators>
+    </integrate>
+
+  </sequence>
+
+  <output filename="gp1d.xsil">
+      <sampling_group basis="x" initial_sample="yes">
+        <moments>dens phiR phiI</moments>
+        <dependencies>wavefunction normalisation</dependencies>
+        <![CDATA[
+          dens = mod2(phi);
+          _SAMPLE_COMPLEX(phi);
+        ]]>
+      </sampling_group>
+      <sampling_group basis="" initial_sample="yes">
+        <moments>norm e1 e1kin e1pot e1int vir1 mu1</moments>
+        <dependencies>normalisation</dependencies>
+        <![CDATA[
+          norm = Ncalc;
+          e1 = EN;
+          e1kin = Ekin;
+          e1pot = Epot;
+          e1int = Eint;
+          vir1  = Virial;
+          mu1   = mu;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x" initial_sample="no">
+        <moments>v1</moments>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+                  v1 = V1;
+        ]]>
+      </sampling_group>
+  </output>
+
+<info>
+Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
+See http://www.xmds.org for more information.
+
+Variables that can be specified on the command line:
+  Command line argument interaction_param = 2.121060e+00
+  Command line argument num_particles = 1.000000e+00
+  Command line argument freq = 9.952298e-01
+  Command line argument shift = 4.507772e+00
+  Command line argument pot_type = 3.000000e+00
+  Command line argument lw = -5.000000e+00
+  Command line argument rw = 5.000000e+00
+  Command line argument lam1 = 3.000000e+00
+  Command line argument lam2 = 0.000000e+00
+  Command line argument mu1 = 0.000000e+00
+  Command line argument mu2 = 0.000000e+00
+  Command line argument s1 = 0.000000e+00
+  Command line argument s2 = 0.000000e+00
+  Command line argument runtime_id = 5
+</info>
+
+<XSIL Name="moment_group_1">
+  <Param Name="n_independent">2</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>5</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t x dens phiR phiI 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>2</Dim>
+    <Dim>128</Dim>
+    <Dim>5</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
+gp1d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_2">
+  <Param Name="n_independent">1</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>8</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t norm e1 e1kin e1pot e1int vir1 mu1 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>2</Dim>
+    <Dim>8</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/2"/>
+gp1d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_3">
+  <Param Name="n_independent">1</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>2</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+x v1 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>128</Dim>
+    <Dim>2</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/3"/>
+gp1d.h5
+    </Stream>
+  </Array>
+</XSIL>
+</simulation>

@@ -10,7 +10,7 @@
     <auto_vectorise />
     <benchmark />
     <bing />
-    <fftw plan="exhaustive"  threads="1"/>
+    <fftw plan="exhaustive"  threads="4"/>
     <globals>
       <![CDATA[
         const real Nptls = 1.0;
@@ -18,10 +18,23 @@
         real x0, y0_;
         real w_x, w_y;
         real r_w, l_w, u_w, b_w; //right, left, upper, bottom well
-        real pot_type;
+        real lm_x_1, lm_x_2, mu_x_1, mu_x_2, s_x_1, s_x_2; //params of double inverted gaussian distribution X
+        real lm_y_1, lm_y_2, mu_y_1, mu_y_2, s_y_1, s_y_2; //params of double inverted gaussian distribution Y
+        int pot_type;
       ]]>
     </globals>
     <arguments>
+      <argument name="interaction" type="real" default_value="0"/>
+      <![CDATA[
+      gg = interaction;
+      ]]>
+      <argument name="pottype" type="real" default_value="0"/>
+      <![CDATA[
+      pot_type = pottype;
+      ]]>
+
+      <!-- ****************** Harmonic Params  ********************** -->
+      
       <argument name="xshift" type="real" default_value="0"/>
       <![CDATA[
       x0 = xshift;
@@ -29,10 +42,6 @@
       <argument name="yshift" type="real" default_value="0"/>
       <![CDATA[
       y0_ = yshift;
-      ]]>
-      <argument name="interaction" type="real" default_value="0"/>
-      <![CDATA[
-      gg = interaction;
       ]]>
       <argument name="wx" type="real" default_value="1"/>
       <![CDATA[
@@ -42,25 +51,80 @@
       <![CDATA[
       w_y = wy;
       ]]>
-      <argument name="rw" type="real" default_value="1"/>
+      
+      <!-- ****************** Infinite Well Params  ********************** -->
+            
+      <argument name="rw" type="real" default_value="3"/>
       <![CDATA[
       r_w = rw;
       ]]>
-      <argument name="lw" type="real" default_value="-1"/>
+      <argument name="lw" type="real" default_value="-3"/>
       <![CDATA[
       l_w = lw;
       ]]>
-      <argument name="uw" type="real" default_value="-1"/>
+      <argument name="uw" type="real" default_value="3"/>
       <![CDATA[
       u_w = uw;
       ]]>
-      <argument name="bw" type="real" default_value="1"/>
+      <argument name="bw" type="real" default_value="-3"/>
       <![CDATA[
       b_w = bw;
       ]]>
-      <argument name="pottype" type="real" default_value="0"/>
+
+
+      <!-- ****************** Double Inverted Gaussian Params X  ********************** -->
+
+      <argument name="xlam1" type="real" default_value="3"/>
       <![CDATA[
-      pot_type = pottype;
+      lm_x_1 = xlam1;
+      ]]>
+      <argument name="xlam2" type="real" default_value="2"/>
+      <![CDATA[
+      lm_x_2 = xlam2;
+      ]]>
+      <argument name="xmu1" type="real" default_value="-2"/>
+      <![CDATA[
+      mu_x_1 = xmu1;
+      ]]>
+      <argument name="xmu2" type="real" default_value="2"/>
+      <![CDATA[
+      mu_x_2 = xmu2;
+      ]]>
+      <argument name="xs1" type="real" default_value="2"/>
+      <![CDATA[
+      s_x_1 = xs1;
+      ]]>
+      <argument name="xs2" type="real" default_value="2"/>
+      <![CDATA[
+      s_x_2 = xs2;
+      ]]>
+
+      <!-- ****************** Double Inverted Gaussian Params Y ********************** -->
+    
+
+      <argument name="ylam1" type="real" default_value="3"/>
+      <![CDATA[
+      lm_y_1 = ylam1;
+      ]]>
+      <argument name="ylam2" type="real" default_value="2"/>
+      <![CDATA[
+      lm_y_2 = xlam2;
+      ]]>
+      <argument name="ymu1" type="real" default_value="-2"/>
+      <![CDATA[
+      mu_y_1 = ymu1;
+      ]]>
+      <argument name="ymu2" type="real" default_value="2"/>
+      <![CDATA[
+      mu_y_2 = ymu2;
+      ]]>
+      <argument name="ys1" type="real" default_value="2"/>
+      <![CDATA[
+      s_y_1 = ys1;
+      ]]>
+      <argument name="ys2" type="real" default_value="2"/>
+      <![CDATA[
+      s_y_2 = ys2;
       ]]>
     </arguments>
 
@@ -79,8 +143,14 @@
     <initialisation>
       <![CDATA[
         switch(pot_type){
-        case 0: Vext  = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_)); break;
-        case 1: Vext = 
+        case 0: Vext = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_)); break;
+        case 1: Vext = !((x > l_w) && (x < r_w) && (y > b_w) && (y < u_w)) * 100; break;
+        case 2: Vext = -((lm_x_1 * exp(-((x-mu_x_1)*(x-mu_x_1)) / (s_x_1 * s_x_1))) + (lm_x_2 * exp(-((x-mu_x_2)*(x-mu_x_2)) / (s_x_2 * s_x_2)))) * ((lm_y_1 * exp(-((y-mu_y_1)*(y-mu_y_1)) / (s_y_1 * s_y_1))) + (lm_y_2 * exp(-((y-mu_y_2)*(y-mu_y_2)) / (s_y_2 * s_y_2)))); break;
+        //case 2: Vext = - ((lm_x_1 * exp(-((x-mu_x_1)*(x-mu_x_1)) / (s_x_1 * s_x_1))) ) * ((lm_y_1 * exp(-((y-mu_y_1)*(y-mu_y_1)) / (s_y_1 * s_y_1))));
+        }
+
+        //printf("*************\n%lf %lf %lf %lf %lf %lf\n", lm_x_1, lm_x_2, mu_x_1, mu_x_2, s_x_1, s_x_2); 
+        //printf("*************\n%lf %lf %lf %lf %lf %lf\n", lm_y_1, lm_y_2, mu_y_1, mu_y_2, s_y_1, s_y_2); 
       ]]>
     </initialisation>
   </vector>
@@ -117,7 +187,7 @@
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
-        Ekin = 0.5 * (mod2(dphix)+mod2(dphiy));
+        Ekin = 0.5 * (mod2(dphix) + mod2(dphiy));
         Epot = Vext * mod2(phi);
         Eint = 0.5 * gg * mod2(phi)*mod2(phi);
         EN = Ekin+Epot+Eint;

@@ -1,12 +1,12 @@
 <?xml version="1.0" ?><simulation xmds-version="2">
   <name>xgp1d</name>
-  <author>Joe Hope</author>
+  <author>H.T.S</author>
   <description>
     Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
     This is done by evolving it in imaginary time while re-normalising each timestep.
     Adapted from xmds2 examples.
   </description>
-
+  
   <features>
     <auto_vectorise/>
     <benchmark/>
@@ -15,18 +15,18 @@
     <fftw plan="exhaustive"/>
     <globals>
       <![CDATA[
-        #include<stdio.h>
-        #include<stdlib.h>
         real Uint; // interaction parameter
         real Nparticles;
         real omega;
         real x0; //shift
-        real lw;
-        real rw;
-        int pt_type;
+        int pt_type; //type of potential
+        real l_w, r_w; //left, right well
+        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
+        int id;
       ]]>
     </globals>
-    <arguments>
+
+    <arguments>  
       <argument default_value="0" name="interaction_param" type="real"/>
       <![CDATA[
       Uint = interaction_param;
@@ -43,20 +43,49 @@
       <![CDATA[
       x0 = shift;
       ]]>
-      <argument default_value="-5" name="left_well" type="real"/>
-      <![CDATA[
-      lw = left_well;
-      ]]>
-      <argument default_value="5" name="right_well" type="real"/>
-      <![CDATA[
-      rw = right_well;
-      ]]>
       <argument default_value="0" name="pot_type" type="real"/>
       <![CDATA[
       pt_type = pot_type;
       ]]>
+      <argument default_value="-5" name="lw" type="real"/>
+      <![CDATA[
+      l_w = lw;
+      ]]>
+      <argument default_value="5" name="rw" type="real"/>
+      <![CDATA[
+      r_w = rw;
+      ]]>
+      <argument default_value="3" name="lam1" type="real"/>
+      <![CDATA[
+      lm_1 = lam1;
+      ]]>
+      <argument default_value="0" name="lam2" type="real"/>
+      <![CDATA[
+      lm_2 = lam2;
+      ]]>
+      <argument default_value="0" name="mu1" type="real"/>
+      <![CDATA[
+      mu_1 = mu1;
+      ]]>
+      <argument default_value="0" name="mu2" type="real"/>
+      <![CDATA[
+      mu_2 = mu2;
+      ]]>
+      <argument default_value="0" name="s1" type="real"/>
+      <![CDATA[
+      s_1 = s1;
+      ]]>
+      <argument default_value="0" name="s2" type="real"/>
+      <![CDATA[
+      s_2 = s2;
+      ]]>
+      <argument default_value="5" name="runtime_id" type="integer"/>
+      <![CDATA[
+      id = runtime_id;
+      ]]>    
     </arguments>
  </features>
+
 
   <geometry>
     <propagation_dimension> t </propagation_dimension>
@@ -65,13 +94,23 @@
     </transverse_dimensions>
   </geometry>
 
+    <vector dimensions="x" name="gen_function_x" type="real">
+      <components> func </components>
+      <initialisation kind="hdf5">
+        <filename> func.h5 </filename>
+      </initialisation>
+    </vector>
+
   <vector initial_basis="x" name="potential" type="real">
     <components> V1 </components>
     <initialisation>
+     <dependencies basis="x"> gen_function_x</dependencies>
       <![CDATA[
       switch(pt_type){
-        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
+        //case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
+        case 0: V1  = func; break;
         case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
+        case 2: V1 = (-lm_1 * exp(-((x-mu_1)*(x-mu_1)) / (s_1 * s_1))) + (-lm_2 * exp(-((x-mu_2)*(x-mu_2)) / (s_2 * s_2)));
       }
       ]]>
     </initialisation>
@@ -126,9 +165,9 @@
         phi *= sqrt(Nparticles/Ncalc);
       ]]>
     </filter>
-
+    
     <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
-      <samples>25 25 1</samples>
+      <samples>1 1 1</samples>
       <filters where="step end">
         <filter>
           <dependencies>wavefunction normalisation</dependencies>
@@ -164,7 +203,7 @@
           _SAMPLE_COMPLEX(phi);
         ]]>
       </sampling_group>
-      <sampling_group basis="" initial_sample="yes">
+      <sampling_group basis="" initial_sample="no">
         <moments>norm e1 e1kin e1pot e1int vir1 mu1</moments>
         <dependencies>normalisation</dependencies>
         <![CDATA[
@@ -195,9 +234,16 @@ Variables that can be specified on the command line:
   Command line argument num_particles = 1.000000e+00
   Command line argument freq = 1.000000e+00
   Command line argument shift = 0.000000e+00
-  Command line argument left_well = -5.000000e+00
-  Command line argument right_well = 5.000000e+00
-  Command line argument pot_type = 1.000000e+00
+  Command line argument pot_type = 0.000000e+00
+  Command line argument lw = -5.000000e+00
+  Command line argument rw = 5.000000e+00
+  Command line argument lam1 = 3.000000e+00
+  Command line argument lam2 = 0.000000e+00
+  Command line argument mu1 = 0.000000e+00
+  Command line argument mu2 = 0.000000e+00
+  Command line argument s1 = 0.000000e+00
+  Command line argument s2 = 0.000000e+00
+  Command line argument runtime_id = 5
 </info>
 
 <XSIL Name="moment_group_1">
@@ -209,7 +255,7 @@ t x dens phiR phiI
     </Stream>
   </Array>
   <Array Name="data" Type="double">
-    <Dim>26</Dim>
+    <Dim>2</Dim>
     <Dim>128</Dim>
     <Dim>5</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
@@ -219,16 +265,15 @@ gp1d.h5
 </XSIL>
 
 <XSIL Name="moment_group_2">
-  <Param Name="n_independent">1</Param>
+  <Param Name="n_independent">0</Param>
   <Array Name="variables" Type="Text">
-    <Dim>8</Dim>
+    <Dim>7</Dim>
     <Stream><Metalink Format="Text" Delimiter=" \n"/>
-t norm e1 e1kin e1pot e1int vir1 mu1 
+norm e1 e1kin e1pot e1int vir1 mu1 
     </Stream>
   </Array>
   <Array Name="data" Type="double">
-    <Dim>26</Dim>
-    <Dim>8</Dim>
+    <Dim>7</Dim>
     <Stream><Metalink Format="HDF5" Type="Remote" Group="/2"/>
 gp1d.h5
     </Stream>

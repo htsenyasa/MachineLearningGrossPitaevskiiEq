@@ -139,3 +139,12 @@ class Tracer(object):
     def step(self, loss_val):
         #self.cur_epoch += 1
         self.loss = np.append(self.loss, loss_val)
+
+def save_info(obj, file_name):
+    f = open(file_name, "wb")
+    pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
+def load_info(file_name):
+    f = open(file_name, "rb")
+    return pickle.load(f)

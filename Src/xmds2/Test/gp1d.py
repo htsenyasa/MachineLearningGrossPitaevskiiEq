@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from xpdeint.XSILFile import XSILFile
+import matplotlib.pyplot as plt
 
 xsilFile = XSILFile("gp1d.xsil")
 
@@ -26,9 +27,6 @@ v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentV
 
 # Write your plotting commands here.
 # You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
-
-import numpy as np
-import matplotlib.pyplot as plt
 
 plt.plot(v1_3)
 plt.show()

@@ -10,6 +10,7 @@ def get_gaussian_params():
     l_2 = rnd.uniform(1, 10)
     mu_2 = rnd.uniform(-5, 5)
     s_2 = rnd.uniform(low + inc, high - (high / 7 * np.abs(mu_2)))
+
     return l_1, l_2, mu_1, mu_2, s_1, s_2 #use this order
 
 def get_infwell_params():
@@ -29,14 +30,14 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 100
+N_of_ex = 1
 N_of_ex_g = 1
 rnd.seed()
 
 dirs = ["harmonic", "well", "gaussian"]
 
-np.random.seed(34)
-inter_params = np.random.uniform(0.,10.,N_of_ex)
+rnd.seed(1)
+inter_params = [rnd.uniform(0., 10.) for i in range(N_of_ex)]
 pot_types = [0, 1, 2] # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian
 pot_types = [0]
 
@@ -46,16 +47,22 @@ for pot in pot_types:
     for inter_param in inter_params:
         #for i in range(N_of_ex_g):
 
-        #shift = np.random.uniform(-5,5)
-        xfreq = np.random.uniform(0.1 ,2)
-        yfreq = np.random.uniform(0.1 ,2)
+        xshift = rnd.uniform(-5, 5)
+        yshift = rnd.uniform(-5, 5)
+        xfreq = rnd.uniform(0.1, 2)
+        yfreq = rnd.uniform(0.1, 2)
 
-        cmdline = "./xgp2d --interaction={} --w_x={} --w_y={} --xshift={} --yshift={} ".format(inter_param, xfreq, yfreq, 0, 0)
+        cmdline = "./xgp2d --interaction={} --pottype={} ".format(inter_param, pot)
 
-        if (pot == 1):
-          cmdline += "--lw={} --rw={} ".format(*get_infwell_params())
+        if (pot == 0):
+            cmdline += "--wx={} --wy={} --xshift={} --yshift={} ".format(xfreq, yfreq, xshift, yshift)
+        elif (pot == 1):
+          cmdline += "--lw={} --rw={} --bw={} --uw={} ".format(*get_infwell_params())
         elif (pot == 2):
-          cmdline += "--lam1={} --lam2={} --mu1={} --mu2={} --s1={} --s2={} ".format(*get_gaussian_params())
+          cmdline += "--xlam1={} --xlam2={} --xmu1={} --xmu2={} --xs1={} --xs2={} ".format(*get_gaussian_params())
+          cmdline += "--ylam1={} --ylam2={} --ymu1={} --ymu2={} --ys1={} --ys2={} ".format(*get_gaussian_params())
+
+        print(cmdline)
 
         args = shlex.split(cmdline)
         p = subprocess.Popen(args)

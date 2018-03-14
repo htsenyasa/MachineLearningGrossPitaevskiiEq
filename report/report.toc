@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Introduction and Motivation}{1}{section.1}
+\contentsline {section}{\numberline {2}Conclusion}{2}{section.2}
+\contentsline {section}{\numberline {A}APPENDIX A}{3}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Comment on Python Codes}{3}{subsection.A.1}

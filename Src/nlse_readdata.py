@@ -64,6 +64,8 @@ def read_data_h5(data_filename, label_filename, train_len=800, test_len=200):
     label = tb.open_file(label_filename, "r")
 
     total_len = train_len + test_len
+#    data.root.data = np.array([data.root.data[i] * label.root.data[i, 0] for i in range(total_len)])
+
     train_data = np.array(data.root.data[0:train_len])
     train_label = np.array(label.root.data[0:train_len, 1])
 
@@ -78,3 +80,12 @@ def read_data_h5(data_filename, label_filename, train_len=800, test_len=200):
     label.close()
 
     return train_data, train_label, test_data, test_label
+
+
+def read_feature(data_filename, index, size_request):
+    data_filename = os.path.join("../data/nonlinearSE/", data_filename)
+    data = tb.open_file(data_filename, "r")
+    
+    feature = data.root.data[0:size_request, index]
+    data.close()
+    return feature

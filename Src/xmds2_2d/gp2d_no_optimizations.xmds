@@ -15,10 +15,10 @@
       <![CDATA[
         const real Nptls = 1.0;
         real gg;
-        real x0;
-        real y0_;
-        real wx;
-        real wy;
+        real x0, y0_;
+        real w_x, w_y;
+        real r_w, l_w, u_w, b_w; //right, left, upper, bottom well
+        int pot_type;
       ]]>
     </globals>
     <arguments>
@@ -34,13 +34,33 @@
       <![CDATA[
       gg = interaction;
       ]]>
-      <argument name="w_x" type="real" default_value="1"/>
+      <argument name="wx" type="real" default_value="1"/>
       <![CDATA[
-      wx = w_x;
+      w_x = wx;
       ]]>
-      <argument name="w_y" type="real" default_value="1"/>
+      <argument name="wy" type="real" default_value="1"/>
       <![CDATA[
-      wy = w_y;
+      w_y = wy;
+      ]]>
+      <argument name="rw" type="real" default_value="3"/>
+      <![CDATA[
+      r_w = rw;
+      ]]>
+      <argument name="lw" type="real" default_value="-3"/>
+      <![CDATA[
+      l_w = lw;
+      ]]>
+      <argument name="uw" type="real" default_value="3"/>
+      <![CDATA[
+      u_w = uw;
+      ]]>
+      <argument name="bw" type="real" default_value="-3"/>
+      <![CDATA[
+      b_w = bw;
+      ]]>
+      <argument name="pottype" type="real" default_value="0"/>
+      <![CDATA[
+      pot_type = pottype;
       ]]>
     </arguments>
 
@@ -58,7 +78,10 @@
     <components> Vext </components>
     <initialisation>
       <![CDATA[
-        Vext  = 0.5*( wx*wx * (x-x0)*(x-x0) + wy*wy * (y-y0_)*(y-y0_));
+        switch(pot_type){
+        case 0: Vext = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_)); break;
+        case 1: Vext = !((x > l_w) && (x < r_w) && (y > b_w) && (y < u_w)) * 100; break;
+        }
       ]]>
     </initialisation>
   </vector>

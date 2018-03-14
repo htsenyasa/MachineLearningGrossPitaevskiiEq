@@ -1,0 +1,377 @@
+<?xml version="1.0" ?><simulation xmds-version="2">
+  <name>xgp2d</name>
+  <author>Joe Hope</author>
+  <description>
+    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
+    This is done by evolving it in imaginary time while re-normalising each timestep.
+  </description>
+  <features>
+    <auto_vectorise/>
+    <benchmark/>
+    <bing/>
+    <fftw plan="exhaustive" threads="4"/>
+    <globals>
+      <![CDATA[
+        const real Nptls = 1.0;
+        real gg;
+        real x0, y0_;
+        real w_x, w_y;
+        real r_w, l_w, u_w, b_w; //right, left, upper, bottom well
+        real lm_x_1, lm_x_2, mu_x_1, mu_x_2, s_x_1, s_x_2; //params of double inverted gaussian distribution X
+        real lm_y_1, lm_y_2, mu_y_1, mu_y_2, s_y_1, s_y_2; //params of double inverted gaussian distribution Y
+        int pot_type;
+      ]]>
+    </globals>
+    <arguments>
+      <argument default_value="0" name="interaction" type="real"/>
+      <![CDATA[
+      gg = interaction;
+      ]]>
+      <argument default_value="0" name="pottype" type="real"/>
+      <![CDATA[
+      pot_type = pottype;
+      ]]>
+
+      <!-- ****************** Harmonic Params  ********************** -->
+      
+      <argument default_value="0" name="xshift" type="real"/>
+      <![CDATA[
+      x0 = xshift;
+      ]]>
+      <argument default_value="0" name="yshift" type="real"/>
+      <![CDATA[
+      y0_ = yshift;
+      ]]>
+      <argument default_value="1" name="wx" type="real"/>
+      <![CDATA[
+      w_x = wx;
+      ]]>
+      <argument default_value="1" name="wy" type="real"/>
+      <![CDATA[
+      w_y = wy;
+      ]]>
+      
+      <!-- ****************** Infinite Well Params  ********************** -->
+            
+      <argument default_value="3" name="rw" type="real"/>
+      <![CDATA[
+      r_w = rw;
+      ]]>
+      <argument default_value="-3" name="lw" type="real"/>
+      <![CDATA[
+      l_w = lw;
+      ]]>
+      <argument default_value="3" name="uw" type="real"/>
+      <![CDATA[
+      u_w = uw;
+      ]]>
+      <argument default_value="-3" name="bw" type="real"/>
+      <![CDATA[
+      b_w = bw;
+      ]]>
+
+
+      <!-- ****************** Double Inverted Gaussian Params X  ********************** -->
+
+      <argument default_value="3" name="xlam1" type="real"/>
+      <![CDATA[
+      lm_x_1 = xlam1;
+      ]]>
+      <argument default_value="2" name="xlam2" type="real"/>
+      <![CDATA[
+      lm_x_2 = xlam2;
+      ]]>
+      <argument default_value="-2" name="xmu1" type="real"/>
+      <![CDATA[
+      mu_x_1 = xmu1;
+      ]]>
+      <argument default_value="2" name="xmu2" type="real"/>
+      <![CDATA[
+      mu_x_2 = xmu2;
+      ]]>
+      <argument default_value="2" name="xs1" type="real"/>
+      <![CDATA[
+      s_x_1 = xs1;
+      ]]>
+      <argument default_value="2" name="xs2" type="real"/>
+      <![CDATA[
+      s_x_2 = xs2;
+      ]]>
+
+      <!-- ****************** Double Inverted Gaussian Params Y ********************** -->
+    
+
+      <argument default_value="3" name="ylam1" type="real"/>
+      <![CDATA[
+      lm_y_1 = ylam1;
+      ]]>
+      <argument default_value="2" name="ylam2" type="real"/>
+      <![CDATA[
+      lm_y_2 = xlam2;
+      ]]>
+      <argument default_value="-2" name="ymu1" type="real"/>
+      <![CDATA[
+      mu_y_1 = ymu1;
+      ]]>
+      <argument default_value="2" name="ymu2" type="real"/>
+      <![CDATA[
+      mu_y_2 = ymu2;
+      ]]>
+      <argument default_value="2" name="ys1" type="real"/>
+      <![CDATA[
+      s_y_1 = ys1;
+      ]]>
+      <argument default_value="2" name="ys2" type="real"/>
+      <![CDATA[
+      s_y_2 = ys2;
+      ]]>
+    </arguments>
+
+  </features>
+  
+  <geometry>
+    <propagation_dimension> t </propagation_dimension>
+    <transverse_dimensions>
+      <dimension domain="(-10.0, 10.0)" lattice="128" name="x"/>
+      <dimension domain="(-10.0, 10.0)" lattice="128" name="y"/>
+    </transverse_dimensions>
+  </geometry>
+  
+  <vector initial_basis="x y" name="potential" type="real">
+    <components> Vext </components>
+    <initialisation>
+      <![CDATA[
+        switch(pot_type){
+        case 0: Vext = 0.5*( w_x*w_x * (x-x0)*(x-x0) + w_y*w_y * (y-y0_)*(y-y0_)); break;
+        case 1: Vext = !((x > l_w) && (x < r_w) && (y > b_w) && (y < u_w)) * 100; break;
+        case 2: Vext = -((lm_x_1 * exp(-((x-mu_x_1)*(x-mu_x_1)) / (s_x_1 * s_x_1))) + (lm_x_2 * exp(-((x-mu_x_2)*(x-mu_x_2)) / (s_x_2 * s_x_2)))) * ((lm_y_1 * exp(-((y-mu_y_1)*(y-mu_y_1)) / (s_y_1 * s_y_1))) + (lm_y_2 * exp(-((y-mu_y_2)*(y-mu_y_2)) / (s_y_2 * s_y_2)))); break;
+        //case 2: Vext = - ((lm_x_1 * exp(-((x-mu_x_1)*(x-mu_x_1)) / (s_x_1 * s_x_1))) ) * ((lm_y_1 * exp(-((y-mu_y_1)*(y-mu_y_1)) / (s_y_1 * s_y_1))));
+        }
+
+        //printf("*************\n%lf %lf %lf %lf %lf %lf\n", lm_x_1, lm_x_2, mu_x_1, mu_x_2, s_x_1, s_x_2); 
+        //printf("*************\n%lf %lf %lf %lf %lf %lf\n", lm_y_1, lm_y_2, mu_y_1, mu_y_2, s_y_1, s_y_2); 
+      ]]>
+    </initialisation>
+  </vector>
+  
+  <vector initial_basis="x y" name="wavefunction" type="complex">
+    <components> phi </components>
+    <initialisation>
+      <![CDATA[
+        if (fabs(y) < 9.0 && fabs(x) < 9.0) {
+          phi = 1.0;
+          // This will be automatically normalised later
+        } else {
+          phi = 0.0;
+        }
+            ]]>
+    </initialisation>
+  </vector>
+  
+  <computed_vector dimensions="x y" name="gradphi" type="complex">
+    <components> dphix dphiy </components>
+    <evaluation>
+      <dependencies basis="kx ky">wavefunction</dependencies>
+      <![CDATA[
+        dphix=i*kx*phi;
+        dphiy=i*ky*phi;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <computed_vector dimensions="" name="number" type="real">
+    <components> Ncalc Ekin Epot Eint EN </components>
+    <evaluation>
+      <dependencies basis="x y">wavefunction gradphi potential</dependencies>
+      <![CDATA[
+        // Calculate the current normalisation of the wave function.
+        Ncalc = mod2(phi);
+        Ekin = 0.5 * (mod2(dphix)+mod2(dphiy));
+        Epot = Vext * mod2(phi);
+        Eint = 0.5 * gg * mod2(phi)*mod2(phi);
+        EN = Ekin+Epot+Eint;
+            //Virial = Ekin - Epot + Eint;
+            //mu = Ekin + Epot + (2) * Eint;
+      ]]>
+    </evaluation>
+  </computed_vector>
+  
+  <sequence>
+    <filter>
+        <dependencies>number wavefunction</dependencies>
+      <![CDATA[
+        phi *= sqrt(Nptls/Ncalc);
+      ]]>
+    </filter>
+
+    <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
+      <samples>1 1 25</samples>
+      <filters where="step end">
+        <filter>root = &quot;../../data/nonlinearSE/generic_dataset_2/&quot; + dire + &quot;/&quot;
+
+          <dependencies>wavefunction number</dependencies>
+          <![CDATA[
+            // Correct normalisation of the wavefunction
+            phi *= sqrt(Nptls/Ncalc);
+          ]]>
+        </filter>
+      </filters>
+      <operators>
+      <operator dimensions="x" kind="ip" type="real">
+        <operator_names>Tx</operator_names>
+        <![CDATA[
+                Tx = -0.5*kx*kx;
+        ]]>
+      </operator>
+      <operator dimensions="y" kind="ip" type="real">
+        <operator_names>Ty</operator_names>
+        <![CDATA[
+                Ty = -0.5*ky*ky;
+         ]]>
+      </operator>
+      <!--
+        <operator kind="ex" dimensions="x y">
+          <operator_names>T</operator_names>
+          <![CDATA[
+            T = -0.5*(kx*kx+ky*ky);
+          ]]>
+        </operator>
+      -->       
+      <!-- <integration_vectors basis="kx ky">wavefunction</integration_vectors>-->
+        <integration_vectors>wavefunction</integration_vectors>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+          // dphi_dt = T[phi] - ( Vext + gg * mod2(phi) )*phi;
+          dphi_dt = Tx[phi] + Ty[phi]  - ( Vext + gg * mod2(phi) )*phi;
+        ]]>
+      </operators>
+    </integrate>
+
+    <filter>
+      <![CDATA[
+          printf(" ");
+          printf(" %lf", 5.);
+          printf(" ");
+      ]]>
+    </filter> 
+ 
+    <!--
+    <breakpoint filename="gp2d.xsil" format="ascii">
+      <dependencies basis="kx ky">wavefunction </dependencies>
+    </breakpoint>
+    -->
+
+  </sequence>
+
+  <output filename="gp2d.xsil">
+      <sampling_group initial_sample="yes">
+        <moments>Nptls Ek Ep Ei En g0</moments>
+        <dependencies>number</dependencies>
+        <![CDATA[
+          Nptls = Ncalc;
+                Ek = Ekin;
+                Ep = Epot;
+                Ei = Eint;
+                En = EN;
+                g0 = gg;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x y" initial_sample="no">
+        <moments>Pot</moments>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+              Pot = Vext;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x y" initial_sample="yes">
+        <moments>dens</moments>
+        <dependencies>wavefunction</dependencies>
+        <![CDATA[
+          dens = mod2(phi);
+        ]]>
+      </sampling_group>
+  </output>
+
+<info>
+Script compiled with XMDS2 version 2.2.3 "It came from the deep" (r2989)
+See http://www.xmds.org for more information.
+
+Variables that can be specified on the command line:
+  Command line argument interaction = 1.343642e+00
+  Command line argument pottype = 0.000000e+00
+  Command line argument xshift = 3.474337e+00
+  Command line argument yshift = 2.637746e+00
+  Command line argument wx = 1.000000e+00
+  Command line argument wy = 1.000000e+00
+  Command line argument rw = 3.000000e+00
+  Command line argument lw = -3.000000e+00
+  Command line argument uw = 3.000000e+00
+  Command line argument bw = -3.000000e+00
+  Command line argument xlam1 = 3.000000e+00
+  Command line argument xlam2 = 2.000000e+00
+  Command line argument xmu1 = -2.000000e+00
+  Command line argument xmu2 = 2.000000e+00
+  Command line argument xs1 = 2.000000e+00
+  Command line argument xs2 = 2.000000e+00
+  Command line argument ylam1 = 3.000000e+00
+  Command line argument ylam2 = 2.000000e+00
+  Command line argument ymu1 = -2.000000e+00
+  Command line argument ymu2 = 2.000000e+00
+  Command line argument ys1 = 2.000000e+00
+  Command line argument ys2 = 2.000000e+00
+</info>
+
+<XSIL Name="moment_group_1">
+  <Param Name="n_independent">1</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>7</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t Nptls Ek Ep Ei En g0 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>2</Dim>
+    <Dim>7</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/1"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_2">
+  <Param Name="n_independent">2</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>3</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+x y Pot 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>128</Dim>
+    <Dim>128</Dim>
+    <Dim>3</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/2"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
+
+<XSIL Name="moment_group_3">
+  <Param Name="n_independent">3</Param>
+  <Array Name="variables" Type="Text">
+    <Dim>4</Dim>
+    <Stream><Metalink Format="Text" Delimiter=" \n"/>
+t x y dens 
+    </Stream>
+  </Array>
+  <Array Name="data" Type="double">
+    <Dim>26</Dim>
+    <Dim>128</Dim>
+    <Dim>128</Dim>
+    <Dim>4</Dim>
+    <Stream><Metalink Format="HDF5" Type="Remote" Group="/3"/>
+gp2d.h5
+    </Stream>
+  </Array>
+</XSIL>
+</simulation>
