@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.ndimage
+import h5py
 
-def generate_random_pot():
-    Np = 100
+def generate_random_pot(sigma):
+    Np = 128
     beta=30
-    x = np.linspace(-1,1,Np)
-    envelope=(np.tanh((x-0.8)*beta)-np.tanh(beta*(x+0.8)))
+    x = np.arange(-10,10,20/Np)
+    envelope=(np.tanh((x-4.8)*beta)-np.tanh(beta*(x+4.8)))
     c = np.random.randn(Np)
     f = np.zeros(Np)
     f[0] = c[0]
@@ -14,5 +15,14 @@ def generate_random_pot():
         f[i+1] = f[i] + c[i]
 
     f+=np.abs(np.min(f))
-    f = scipy.ndimage.filters.gaussian_filter1d(f,10)
-    plt.plot(x,f * envelope)
+    f = scipy.ndimage.filters.gaussian_filter1d(f, sigma)
+    f *= envelope
+
+    hf = h5py.File("func.h5", "w")
+
+    hf.create_dataset('func', data=f)
+    hf.create_dataset('x', data=x)
+
+    hf.close()
+
+    return x, f
