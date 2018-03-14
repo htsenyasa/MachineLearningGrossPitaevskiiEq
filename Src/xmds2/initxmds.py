@@ -3,6 +3,8 @@ import random as rnd
 import time as time
 import numpy as np
 
+import genrandompot as grp
+
 def get_gaussian_params():
   l_1 = rnd.uniform(1, 10)
   mu_1 = rnd.uniform(-5, 5)
@@ -25,41 +27,43 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 50000
+N_of_ex = 30
 N_of_ex_g = 1
 rnd.seed()
 
-dirs = ["harmonic", "well", "gaussian"]
+dirs = ["harmonic", "well", "gaussian", "random"]
 
 np.random.seed(34)
 inter_params = np.random.uniform(0.,10.,N_of_ex)
-pot_types = [0, 1, 2] # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian
-pot_types = [2]
+pot_types = [0, 1, 2, 3] # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random
+pot_types = [3]
 
 start = time.time()
 
 for pot in pot_types:
-  for inter_param in inter_params:
-    #for i in range(N_of_ex_g):
+    for inter_param in inter_params:
 
-      shift = np.random.uniform(-5,5)
-      freq = np.random.uniform(0.1,2)
+        shift = np.random.uniform(-5,5)
+        freq = np.random.uniform(0.1,2)
 
-      cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={} --pot_type={} ".format(inter_param, num_particles, freq, shift, pot)
+        cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={} --pot_type={} ".format(inter_param, num_particles, freq, shift, pot)
 
-      if (pot == 1):
-        cmdline += "--lw={} --rw={} ".format(*get_infwell_params())
-      elif (pot == 2):
-        cmdline += "--lam1={} --lam2={} --mu1={} --mu2={} --s1={} --s2={} ".format(*get_gaussian_params())
+        if (pot == 1):
+            cmdline += "--lw={} --rw={} ".format(*get_infwell_params())
+        elif (pot == 2):
+            cmdline += "--lam1={} --lam2={} --mu1={} --mu2={} --s1={} --s2={} ".format(*get_gaussian_params())
+        elif (pot == 3):
+            cmdline += ""
+            grp.generate_random_pot(3)            
 
-      args = shlex.split(cmdline)
-      p = subprocess.Popen(args)
-      p.wait()
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
 
-      cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot])
-      args = shlex.split(cmdline)
-      p = subprocess.Popen(args)
-      p.wait()
+        cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot])
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
 
 
 print("Total Time = {}".format(time.time() - start))
