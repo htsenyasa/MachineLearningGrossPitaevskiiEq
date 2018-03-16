@@ -3,7 +3,7 @@ import numpy as np
 import sys
 import tables as tb
 
-def read_data(data_filename, label_filename, train_len=900, test_len=300, folders = None):
+def read_data(data_filename, label_filename, train_len=900, test_len=300, folders = ["random"]):
     path = "../data/nonlinearSE/generic_dataset/"
 
     if folders == None:

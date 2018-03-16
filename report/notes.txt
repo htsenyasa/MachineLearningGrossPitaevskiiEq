@@ -1,0 +1,2 @@
+ML & SE and us use different random generation technique. If the predictions of two identical networks are same, then we can conclude that 
+network really learning something not just memorizing it. Because results are independent of how potentials are generated. 

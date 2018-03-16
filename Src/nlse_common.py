@@ -14,14 +14,14 @@ FCN = { "batch_size": 30,
       }
 
 
-CNN = { "batch_size": 20,
+CNN = { "batch_size": 50,
         "test_batch_size": 25,
         "epoch": 40,
         "lr": 0.003,
         "seed": nlse_seed,  
         "network_arch": "CNN",
-        "training_len": 8500,
-        "test_len" : 1500,
+        "training_len": 45000,
+        "test_len" : 5000,
       }
 
 
@@ -41,11 +41,14 @@ def get_filenames(args):
     #data_filename =  "gp_ml_dataset/var_g_var_pot/pot_inter_merge2.dat"
     #label_filename = "gp_ml_dataset/var_g_var_pot/energy-var_g_var_pot_.dat"
 
-    #data_filename  = "pot_inter.dat.npy"
-    #label_filename = "energy-generic.dat.npy"
+    data_filename  = "pot_inter.dat.npy"
+    label_filename = "energy-generic.dat.npy"
     
-    data_filename = "generic_dataset_2d/harmonic/potential.h5"
-    label_filename = "generic_dataset_2d/harmonic/features.h5"
+    #data_filename = "generic_dataset_2d/harmonic/potential.h5"
+    #label_filename = "generic_dataset_2d/harmonic/features.h5"
+
+    #data_filename = "generic_dataset/random/potential.h5"
+    #label_filename = "generic_dataset/random/features.h5"
 
     #data_filename =  "/run/media/user/TOSHIBA/gp_data/var_g_var_freq/potential-var_g_var_freq_.dat"
     #label_filename = "/run/media/user/TOSHIBA/gp_data/var_g_var_freq/energy-var_g_var_freq_.dat"

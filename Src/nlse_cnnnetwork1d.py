@@ -167,21 +167,23 @@ def test():
     model.eval()
     test_loss = 0
     correct = 0
-    for data, target in test_loader:
+    predicted = np.empty((test_len, 1), float)
+    for batch_idx, (data, target) in enumerate(test_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
         data, target = Variable(data, volatile = True), Variable(target).float()
         outputs = model(data)
-        predicted = outputs.data.cpu().numpy()
-        real = test_dataset.target_tensor.cpu().numpy()
-        real = real.reshape([test_len, 1])
-        res.analyze(real, predicted)
+        predicted[batch_idx * test_loader.batch_size: (batch_idx + 1) * test_loader.batch_size] = outputs.data.cpu().numpy()
+    
+    real = test_dataset.target_tensor.cpu().numpy()
+    real = real.reshape([test_len, 1])
+    res.analyze(real, predicted)
 
-        if not args.test_case:
-            res.plot_figure()
-            global info_file_name
-            file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
-            #an.save_info(res, file_name)
+    if not args.test_case:
+        res.plot_figure()
+        #global info_file_name
+        #file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
+        #an.save_info(res, file_name)
 
     return predicted
 
