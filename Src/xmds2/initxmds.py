@@ -27,14 +27,14 @@ num_particles = 1
 freq = 1.  # corresponds to omega in xmds file and it will change between [0.5, 2]
 shift = 0   # shift [-10, 10]
 
-N_of_ex = 30
+N_of_ex = 10
 N_of_ex_g = 1
 rnd.seed()
 
 dirs = ["harmonic", "well", "gaussian", "random"]
 
-np.random.seed(34)
-inter_params = np.random.uniform(0.,10.,N_of_ex)
+rnd.seed(34)
+inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
 pot_types = [0, 1, 2, 3] # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random
 pot_types = [3]
 
@@ -43,8 +43,8 @@ start = time.time()
 for pot in pot_types:
     for inter_param in inter_params:
 
-        shift = np.random.uniform(-5,5)
-        freq = np.random.uniform(0.1,2)
+        shift = rnd.uniform(-5, 5)
+        freq = rnd.uniform(0.1, 2)
 
         cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={} --pot_type={} ".format(inter_param, num_particles, freq, shift, pot)
 
@@ -54,7 +54,7 @@ for pot in pot_types:
             cmdline += "--lam1={} --lam2={} --mu1={} --mu2={} --s1={} --s2={} ".format(*get_gaussian_params())
         elif (pot == 3):
             cmdline += ""
-            grp.generate_random_pot(3)            
+            grp.generate_random_pot(exec_func=grp.save_as_h5)            
 
         args = shlex.split(cmdline)
         p = subprocess.Popen(args)

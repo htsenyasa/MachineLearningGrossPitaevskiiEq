@@ -2,59 +2,48 @@ import shlex, subprocess, time
 import random as rnd
 import time as time
 import numpy as np
+import argparse
 
-inter_param = 20
-num_particles = 1
-freq = 1.5  # corresponds to omega in xmds file and it will change between [0.5, 2]
-shift = 0   # shift [-10, 10]
+import genrandompot as grp
+import potentialgenerator as pg
 
-N_of_examples = 1
+parser = argparse.ArgumentParser(description='XMDS initializer')
+parser.add_argument('--examples',            type=int,             default=10,      help = 'Number of examples to solve (Default: 10)')
+parser.add_argument('--pot-type',            type=int,             default=-1,     help = 'Type of potential 0: Harmonic, 1:Well, 2: DI Gaussian 3 & 4: Random (Default : all)')
 
-rnd.seed()
+args = parser.parse_args()
 
-inter_params = [0, 0.1, 1, 10, 20]
-root = "../../data/nonlinearSE/interaction/"
-#np.savetxt(root + "inter_params.dat", inter_params)
+pot_type = args.pot_type
+N_of_ex = args.examples
+
+dirs = ["harmonic", "well", "gaussian", "random", "random2"]
+
+pot_types = [0, 1, 2, 3, 4]    # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random 4:Random2
+if pot_type != -1:
+    pot_types = [pot_type]
 
 start = time.time()
 
-for inter_param in inter_params:
+pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
+pot_generators = [pot_gen.generate_harmonic_pot, pot_gen.generate_well_pot, pot_gen.generate_gaussian_pot, pot_gen.generate_random_pot, pot_gen.generate_random_pot_2]
 
-    shift = rnd.random() * rnd.randint(-5, 5)
-    shift = 0
-    freq = rnd.uniform(0.5, 2)
-    freq = 0.5
+for pot_type in pot_types:
+    inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
+    for inter_param in inter_params:
 
-    cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
-    args = shlex.split(cmdline)
-    p = subprocess.Popen(args)
-    p.wait()
+        cmdline = "./xgp1d --interaction_param={}".format(inter_param)
 
-    cmdline = "python2.7 gp1d.py"
-    args = shlex.split(cmdline)
-    p = subprocess.Popen(args)
-    p.wait()
+        pot_generators[pot_type]()
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
+
+        cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
+
 
 print("Total Time = {}".format(time.time() - start))
 
 
-
-#start = time.time()
-#
-#for inter_param in inter_params:
-#  for i in range(N_of_examples):
-#
-#    #shift = rnd.random() * rnd.randint(-5, 5)
-#    #freq = rnd.uniform(0.5, 2)
-#
-#    cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={}".format(inter_param, num_particles, freq, shift)
-#    args = shlex.split(cmdline)
-#    p = subprocess.Popen(args)
-#    p.wait()
-#
-#    cmdline = "python2.7 gp1d_auto.py --pos-file-ex=-g-{}-.dat".format("VARY")
-#    args = shlex.split(cmdline)
-#    p = subprocess.Popen(args)
-#    p.wait()
-#
-#print("Total Time = {}".format(time.time() - start))

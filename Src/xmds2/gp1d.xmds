@@ -205,16 +205,17 @@
         ]]>
       </sampling_group>
       <sampling_group basis="" initial_sample="yes">
-        <moments>norm e1 e1kin e1pot e1int vir1 mu1</moments>
+        <moments>norm e1 e1kin e1pot e1int vir1 mu1 gg</moments>
         <dependencies>normalisation</dependencies>
         <![CDATA[
-          norm = Ncalc;
-	  e1 = EN;
-	  e1kin = Ekin;
-	  e1pot = Epot;
-	  e1int = Eint;
-	  vir1  = Virial;
-	  mu1   = mu;
+            norm = Ncalc;
+	        e1 = EN;
+	        e1kin = Ekin;
+	        e1pot = Epot;
+	        e1int = Eint;
+	        vir1  = Virial;
+	        mu1   = mu;
+            gg = Uint;
         ]]>
       </sampling_group>
       <sampling_group basis="x" initial_sample="no">

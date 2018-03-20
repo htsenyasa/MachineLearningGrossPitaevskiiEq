@@ -26,8 +26,9 @@ def get_infwell_params():
   lw = rnd.uniform(1, 8) # left_well
   return lc-lw/2, lc+lw/2
 
+lw, rw = get_infwell_params()
+
 def f_x(x):
-    lw, rw = get_infwell_params()
     if (lw < x < rw):
         return 0
     return 100

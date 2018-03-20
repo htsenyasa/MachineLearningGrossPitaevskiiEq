@@ -235,7 +235,7 @@ inline void *xmds_malloc(size_t size);
 #define _mg1_output_dt        (_mg1_output_t[_index_t+1]-_mg1_output_t[_index_t])
 
 // vector raw defines
-#define _mg1_output_raw_ncomponents 7
+#define _mg1_output_raw_ncomponents 8
 
 // ********************************************************
 //   field mg2_sampling defines
@@ -318,34 +318,20 @@ const char *_basis_identifiers[] = {
 // ********************************************************
 //   'Globals' element globals
 
-#line 18 "gp1d.xmds"
+#line 18 "gp1d_FF.xmds"
 
 real Uint; // interaction parameter
 real Nparticles;
-real omega;
-real x0; //shift
 int pt_type; //type of potential
-real l_w, r_w; //left, right well
-real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution
 int id;
 
-#line 333 "xgp1d.cc"
+#line 329 "xgp1d.cc"
 
 // ********************************************************
 //   Command line argument processing globals
-real interaction_param = 0; 
+real inter_param = 0; 
 real num_particles = 1; 
-real freq = 1; 
-real shift = 0; 
 real pot_type = 0; 
-real lw = -5; 
-real rw = 5; 
-real lam1 = 3; 
-real lam2 = 0; 
-real mu1 = 0; 
-real mu2 = 0; 
-real s1 = 0; 
-real s2 = 0; 
 integer runtime_id = 5; 
 
 // ********************************************************
@@ -577,26 +563,16 @@ int main(int argc, char **argv)
     static struct option long_options[] = 
       {
         {"help", no_argument, 0, 'h'},
-        {"interaction_param", required_argument, 0, 'i'},
+        {"inter_param", required_argument, 0, 'i'},
         {"num_particles", required_argument, 0, 'n'},
-        {"freq", required_argument, 0, 'f'},
-        {"shift", required_argument, 0, 's'},
         {"pot_type", required_argument, 0, 'p'},
-        {"lw", required_argument, 0, 'l'},
-        {"rw", required_argument, 0, 'r'},
-        {"lam1", required_argument, 0, 'a'},
-        {"lam2", required_argument, 0, 'm'},
-        {"mu1", required_argument, 0, 'u'},
-        {"mu2", required_argument, 0, '2'},
-        {"s1", required_argument, 0, '1'},
-        {"s2", required_argument, 0, 'b'},
-        {"runtime_id", required_argument, 0, 't'},
+        {"runtime_id", required_argument, 0, 'r'},
         {NULL, 0, 0, 0}
       };
     
     int option_index = 0;
   
-    resp = getopt_long(argc, argv, "hi:n:f:s:p:l:r:a:m:u:2:1:b:t:", long_options, &option_index);
+    resp = getopt_long(argc, argv, "hi:n:p:r:", long_options, &option_index);
     
     if (resp == -1)
       break;
@@ -610,58 +586,18 @@ int main(int argc, char **argv)
         _print_usage(); // This causes the simulation to exit
       
       case 'i':
-        interaction_param = strtod(optarg, NULL);
+        inter_param = strtod(optarg, NULL);
         break;
       
       case 'n':
         num_particles = strtod(optarg, NULL);
         break;
       
-      case 'f':
-        freq = strtod(optarg, NULL);
-        break;
-      
-      case 's':
-        shift = strtod(optarg, NULL);
-        break;
-      
       case 'p':
         pot_type = strtod(optarg, NULL);
         break;
       
-      case 'l':
-        lw = strtod(optarg, NULL);
-        break;
-      
       case 'r':
-        rw = strtod(optarg, NULL);
-        break;
-      
-      case 'a':
-        lam1 = strtod(optarg, NULL);
-        break;
-      
-      case 'm':
-        lam2 = strtod(optarg, NULL);
-        break;
-      
-      case 'u':
-        mu1 = strtod(optarg, NULL);
-        break;
-      
-      case '2':
-        mu2 = strtod(optarg, NULL);
-        break;
-      
-      case '1':
-        s1 = strtod(optarg, NULL);
-        break;
-      
-      case 'b':
-        s2 = strtod(optarg, NULL);
-        break;
-      
-      case 't':
         runtime_id = strtol(optarg, NULL, 10);
         break;
         
@@ -675,51 +611,31 @@ int main(int argc, char **argv)
     _print_usage(); // This causes the simulation to exit.
   
   // ******** Argument post-processing code *******
-  #line 32 "gp1d.xmds"
+  #line 28 "gp1d_FF.xmds"
   
   Uint = interaction_param;
   
   Nparticles = num_particles;
   
-  omega = freq;
-  
-  x0 = shift;
-  
   pt_type = pot_type;
-  
-  l_w = lw;
-  
-  r_w = rw;
-  
-  lm_1 = lam1;
-  
-  lm_2 = lam2;
-  
-  mu_1 = mu1;
-  
-  mu_2 = mu2;
-  
-  s_1 = s1;
-  
-  s_2 = s2;
   
   id = runtime_id;
   
-  #line 709 "xgp1d.cc"
+  #line 625 "xgp1d.cc"
   // **********************************************
   
     
   
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
+  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_kx) * _x_wavefunction_ncomponents);
   _x_wavefunction_alloc_size = MAX(_x_wavefunction_alloc_size, (_lattice_x) * _x_wavefunction_ncomponents);
   _mg2_output_raw_alloc_size = MAX(_mg2_output_raw_alloc_size, (_lattice_x) * _mg2_output_raw_ncomponents);
   _x_potential_alloc_size = MAX(_x_potential_alloc_size, (_lattice_x) * _x_potential_ncomponents);
-  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_kx) * _x_segment3_x_operators_operator0_result_ncomponents);
   _x_segment3_x_operators_operator0_result_alloc_size = MAX(_x_segment3_x_operators_operator0_result_alloc_size, (_lattice_x) * _x_segment3_x_operators_operator0_result_ncomponents);
-  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_kx) * _x_gradphi_ncomponents);
-  _x_gradphi_alloc_size = MAX(_x_gradphi_alloc_size, (_lattice_x) * _x_gradphi_ncomponents);
   _mg0_output_raw_alloc_size = MAX(_mg0_output_raw_alloc_size, (_mg0_output_lattice_t * _lattice_x) * _mg0_output_raw_ncomponents);
+  _dimensionless_normalisation_alloc_size = MAX(_dimensionless_normalisation_alloc_size, (1) * _dimensionless_normalisation_ncomponents);
   _mg1_output_raw_alloc_size = MAX(_mg1_output_raw_alloc_size, (_mg1_output_lattice_t) * _mg1_output_raw_ncomponents);
   _x_gen_function_x_alloc_size = MAX(_x_gen_function_x_alloc_size, (_lattice_x) * _x_gen_function_x_ncomponents);
   _x = (real*) xmds_malloc(sizeof(real) * (_lattice_x+1));
@@ -1113,23 +1029,13 @@ void _transform_1(bool _forward, real _multiplier, real* const __restrict__ _dat
 void _print_usage()
 {
   // This function does not return.
-  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp1d --interaction_param <real> --num_particles <real> --freq <real> --shift <real> --pot_type <real> --lw <real> --rw <real> --lam1 <real> --lam2 <real> --mu1 <real> --mu2 <real> --s1 <real> --s2 <real> --runtime_id <integer>\n\n"
+  _LOG(_NO_ERROR_TERMINATE_LOG_LEVEL, "\n\nUsage: xgp1d --inter_param <real> --num_particles <real> --pot_type <real> --runtime_id <integer>\n\n"
                          "Details:\n"
                          "Option\t\tType\t\tDefault value\n"
-                         "-i,  --interaction_param\treal \t\t0\n"
+                         "-i,  --inter_param\treal \t\t0\n"
                          "-n,  --num_particles\treal \t\t1\n"
-                         "-f,  --freq\treal \t\t1\n"
-                         "-s,  --shift\treal \t\t0\n"
                          "-p,  --pot_type\treal \t\t0\n"
-                         "-l,  --lw\treal \t\t-5\n"
-                         "-r,  --rw\treal \t\t5\n"
-                         "-a,  --lam1\treal \t\t3\n"
-                         "-m,  --lam2\treal \t\t0\n"
-                         "-u,  --mu1\treal \t\t0\n"
-                         "-2,  --mu2\treal \t\t0\n"
-                         "-1,  --s1\treal \t\t0\n"
-                         "-b,  --s2\treal \t\t0\n"
-                         "-t,  --runtime_id\tinteger \t\t5\n"
+                         "-r,  --runtime_id\tinteger \t\t5\n"
                          );
   // _LOG terminates the simulation.
 }
@@ -1179,11 +1085,11 @@ void _x_gradphi_evaluate()
   
   for (long _index_kx = 0; _index_kx < _lattice_kx; _index_kx++) {
     // ************* Evaluation code ****************
-    #line 133 "gp1d.xmds"
+    #line 84 "gp1d_FF.xmds"
     
     dphix=i*kx*phi;
     
-    #line 1187 "xgp1d.cc"
+    #line 1093 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_gradphi_index_pointer += 1 * _x_gradphi_ncomponents;
@@ -1265,11 +1171,11 @@ void _x_wavefunction_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 123 "gp1d.xmds"
+    #line 74 "gp1d_FF.xmds"
     
     phi = 1; //exp(-(x*x)/2);
     
-    #line 1273 "xgp1d.cc"
+    #line 1179 "xgp1d.cc"
     // **********************************************
     #undef t
     
@@ -1345,16 +1251,11 @@ void _x_potential_initialise()
     #define t Dont_use_propagation_dimension_t_in_vector_element_CDATA_block___Use_a_computed_vector_instead
     
     // ********** Initialisation code ***************
-    #line 109 "gp1d.xmds"
+    #line 65 "gp1d_FF.xmds"
     
-    switch(pt_type){
-      case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;
-      case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;
-      case 2: V1 = (-lm_1 * exp(-((x-mu_1)*(x-mu_1)) / (s_1 * s_1))) + (-lm_2 * exp(-((x-mu_2)*(x-mu_2)) / (s_2 * s_2)));
-      case 3: V1  = func; break;
-    }
+    V1 = func;
     
-    #line 1358 "xgp1d.cc"
+    #line 1259 "xgp1d.cc"
     // **********************************************
     #undef t
     
@@ -1527,7 +1428,7 @@ void _dimensionless_normalisation_evaluate()
   
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     // ************* Evaluation code ****************
-    #line 143 "gp1d.xmds"
+    #line 94 "gp1d_FF.xmds"
     
     // Calculate the current normalisation of the wave function.
     Ncalc = mod2(phi);
@@ -1538,7 +1439,7 @@ void _dimensionless_normalisation_evaluate()
             Virial = Ekin - Epot + Eint;
             mu = Ekin + Epot + (2) * Eint;
     
-    #line 1542 "xgp1d.cc"
+    #line 1443 "xgp1d.cc"
     // **********************************************
     
     _active_dimensionless_normalisation[_dimensionless_normalisation_index_pointer + 0] += Ncalc * dx;
@@ -1583,11 +1484,11 @@ void _segment1__evaluate_operator0()
 {
   
   // ************** Filter code *****************
-  #line 158 "gp1d.xmds"
+  #line 109 "gp1d_FF.xmds"
   
   printf("Hello world from a filter segment!\n");
   
-  #line 1591 "xgp1d.cc"
+  #line 1492 "xgp1d.cc"
   // **********************************************
 }
 
@@ -1624,11 +1525,11 @@ void _segment2__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 165 "gp1d.xmds"
+    #line 116 "gp1d_FF.xmds"
     
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 1632 "xgp1d.cc"
+    #line 1533 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -2292,11 +2193,11 @@ void _segment3_x_operators_evaluate_operator0()
     
     
     // ************** Operator code *****************
-    #line 184 "gp1d.xmds"
+    #line 135 "gp1d_FF.xmds"
     
     T2 = -0.5*kx*kx;
     
-    #line 2300 "xgp1d.cc"
+    #line 2201 "xgp1d.cc"
     // **********************************************
     
     // T2[phi]
@@ -2379,11 +2280,11 @@ void _segment3_x_operators_evaluate_operator1(real _step)
     #define dt _step
     
     // ************* Propagation code ***************
-    #line 190 "gp1d.xmds"
+    #line 141 "gp1d_FF.xmds"
     
     dphi_dt = _T2_phi - (V1 + Uint * mod2(phi) )*phi;
     
-    #line 2387 "xgp1d.cc"
+    #line 2288 "xgp1d.cc"
     // **********************************************
     
     #undef dt
@@ -2427,12 +2328,12 @@ void _segment3__evaluate_operator0()
   for (long _index_x = 0; _index_x < _lattice_x; _index_x++) {
     
     // ************** Filter code *****************
-    #line 175 "gp1d.xmds"
+    #line 126 "gp1d_FF.xmds"
     
     // Correct normalisation of the wavefunction
     phi *= sqrt(Nparticles/Ncalc);
     
-    #line 2436 "xgp1d.cc"
+    #line 2337 "xgp1d.cc"
     // **********************************************
     // Increment index pointers for vectors in field x (or having the same dimensions)
     _x_wavefunction_index_pointer += 1 * _x_wavefunction_ncomponents;
@@ -2526,17 +2427,13 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "        real Uint; // interaction parameter\n");
   fprintf(fp, "        real Nparticles;\n");
-  fprintf(fp, "        real omega;\n");
-  fprintf(fp, "        real x0; //shift\n");
   fprintf(fp, "        int pt_type; //type of potential\n");
-  fprintf(fp, "        real l_w, r_w; //left, right well\n");
-  fprintf(fp, "        real lm_1, lm_2, mu_1, mu_2, s_1, s_2; //params of double inverted gaussian distribution\n");
   fprintf(fp, "        int id;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </globals>\n");
   fprintf(fp, "\n");
   fprintf(fp, "    <arguments>  \n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"interaction_param\" type=\"real\"/>\n");
+  fprintf(fp, "      <argument default_value=\"0\" name=\"inter_param\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      Uint = interaction_param;\n");
   fprintf(fp, "      ]]>\n");
@@ -2544,49 +2441,9 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      Nparticles = num_particles;\n");
   fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"1\" name=\"freq\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      omega = freq;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"shift\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      x0 = shift;\n");
-  fprintf(fp, "      ]]>\n");
   fprintf(fp, "      <argument default_value=\"0\" name=\"pot_type\" type=\"real\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
   fprintf(fp, "      pt_type = pot_type;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"-5\" name=\"lw\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      l_w = lw;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"5\" name=\"rw\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      r_w = rw;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"3\" name=\"lam1\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      lm_1 = lam1;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"lam2\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      lm_2 = lam2;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"mu1\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      mu_1 = mu1;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"mu2\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      mu_2 = mu2;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"s1\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      s_1 = s1;\n");
-  fprintf(fp, "      ]]>\n");
-  fprintf(fp, "      <argument default_value=\"0\" name=\"s2\" type=\"real\"/>\n");
-  fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      s_2 = s2;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "      <argument default_value=\"5\" name=\"runtime_id\" type=\"integer\"/>\n");
   fprintf(fp, "      <![CDATA[\n");
@@ -2615,12 +2472,7 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "    <initialisation>\n");
   fprintf(fp, "     <dependencies basis=\"x\"> gen_function_x</dependencies>\n");
   fprintf(fp, "      <![CDATA[\n");
-  fprintf(fp, "      switch(pt_type){\n");
-  fprintf(fp, "        case 0: V1  = 0.5 * omega * omega * (x-x0)*(x-x0); break;\n");
-  fprintf(fp, "        case 1: V1 = (!((lw < x) && (x < rw)) * 100.0); break;\n");
-  fprintf(fp, "        case 2: V1 = (-lm_1 * exp(-((x-mu_1)*(x-mu_1)) / (s_1 * s_1))) + (-lm_2 * exp(-((x-mu_2)*(x-mu_2)) / (s_2 * s_2)));\n");
-  fprintf(fp, "        case 3: V1  = func; break;\n");
-  fprintf(fp, "      }\n");
+  fprintf(fp, "          V1 = func;\n");
   fprintf(fp, "      ]]>\n");
   fprintf(fp, "    </initialisation>\n");
   fprintf(fp, "  </vector>\n");
@@ -2713,16 +2565,17 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"\" initial_sample=\"yes\">\n");
-  fprintf(fp, "        <moments>norm e1 e1kin e1pot e1int vir1 mu1</moments>\n");
+  fprintf(fp, "        <moments>norm e1 e1kin e1pot e1int vir1 mu1 gg</moments>\n");
   fprintf(fp, "        <dependencies>normalisation</dependencies>\n");
   fprintf(fp, "        <![CDATA[\n");
-  fprintf(fp, "          norm = Ncalc;\n");
-  fprintf(fp, "          e1 = EN;\n");
-  fprintf(fp, "          e1kin = Ekin;\n");
-  fprintf(fp, "          e1pot = Epot;\n");
-  fprintf(fp, "          e1int = Eint;\n");
-  fprintf(fp, "          vir1  = Virial;\n");
-  fprintf(fp, "          mu1   = mu;\n");
+  fprintf(fp, "            norm = Ncalc;\n");
+  fprintf(fp, "                e1 = EN;\n");
+  fprintf(fp, "                e1kin = Ekin;\n");
+  fprintf(fp, "                e1pot = Epot;\n");
+  fprintf(fp, "                e1int = Eint;\n");
+  fprintf(fp, "                vir1  = Virial;\n");
+  fprintf(fp, "                mu1   = mu;\n");
+  fprintf(fp, "            gg = Uint;\n");
   fprintf(fp, "        ]]>\n");
   fprintf(fp, "      </sampling_group>\n");
   fprintf(fp, "      <sampling_group basis=\"x\" initial_sample=\"no\">\n");
@@ -2739,31 +2592,11 @@ void _write_xsil_header(FILE* fp)
   fprintf(fp, "See http://www.xmds.org for more information.\n");
   fprintf(fp, "\nVariables that can be specified on the command line:\n");
   
-  fprintf(fp, "  Command line argument interaction_param = %e\n", interaction_param);
+  fprintf(fp, "  Command line argument inter_param = %e\n", inter_param);
   
   fprintf(fp, "  Command line argument num_particles = %e\n", num_particles);
   
-  fprintf(fp, "  Command line argument freq = %e\n", freq);
-  
-  fprintf(fp, "  Command line argument shift = %e\n", shift);
-  
   fprintf(fp, "  Command line argument pot_type = %e\n", pot_type);
-  
-  fprintf(fp, "  Command line argument lw = %e\n", lw);
-  
-  fprintf(fp, "  Command line argument rw = %e\n", rw);
-  
-  fprintf(fp, "  Command line argument lam1 = %e\n", lam1);
-  
-  fprintf(fp, "  Command line argument lam2 = %e\n", lam2);
-  
-  fprintf(fp, "  Command line argument mu1 = %e\n", mu1);
-  
-  fprintf(fp, "  Command line argument mu2 = %e\n", mu2);
-  
-  fprintf(fp, "  Command line argument s1 = %e\n", s1);
-  
-  fprintf(fp, "  Command line argument s2 = %e\n", s2);
   
   fprintf(fp, "  Command line argument runtime_id = %li\n", runtime_id);
   fprintf(fp, "</info>\n");
@@ -2815,12 +2648,12 @@ void _mg0_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 202 "gp1d.xmds"
+    #line 153 "gp1d_FF.xmds"
     
     dens = mod2(phi);
     _SAMPLE_COMPLEX(phi);
     
-    #line 2824 "xgp1d.cc"
+    #line 2657 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
@@ -3050,6 +2883,7 @@ void _mg1_sample()
   #define e1int _active_mg1_output_raw[_mg1_output_raw_index_pointer + 4]
   #define vir1 _active_mg1_output_raw[_mg1_output_raw_index_pointer + 5]
   #define mu1 _active_mg1_output_raw[_mg1_output_raw_index_pointer + 6]
+  #define gg _active_mg1_output_raw[_mg1_output_raw_index_pointer + 7]
   // Set index pointers explicitly for (some) vectors
   _mg1_output_raw_index_pointer = ( 0
      + _mg1_output_index_t  * 1 ) * _mg1_output_raw_ncomponents;
@@ -3057,17 +2891,18 @@ void _mg1_sample()
             variable ## R = variable.Re(); variable ## I = variable.Im();
   
   // *************** Sampling code ****************
-  #line 210 "gp1d.xmds"
+  #line 161 "gp1d_FF.xmds"
   
   norm = Ncalc;
-  e1 = EN;
-  e1kin = Ekin;
-  e1pot = Epot;
-  e1int = Eint;
-  vir1  = Virial;
-  mu1   = mu;
+      e1 = EN;
+      e1kin = Ekin;
+      e1pot = Epot;
+      e1int = Eint;
+      vir1  = Virial;
+      mu1   = mu;
+  gg = Uint;
   
-  #line 3071 "xgp1d.cc"
+  #line 2906 "xgp1d.cc"
   // **********************************************
   
   #undef _SAMPLE_COMPLEX
@@ -3085,6 +2920,7 @@ void _mg1_sample()
   #undef e1int
   #undef vir1
   #undef mu1
+  #undef gg
   
   _mg1_output_t[0 + _mg1_output_index_t++] = t;
   
@@ -3107,14 +2943,14 @@ void _mg1_write_out(FILE* _outfile)
     fprintf(_outfile, "<XSIL Name=\"moment_group_2\">\n");
     fprintf(_outfile, "  <Param Name=\"n_independent\">1</Param>\n");
     fprintf(_outfile, "  <Array Name=\"variables\" Type=\"Text\">\n");
-    fprintf(_outfile, "    <Dim>8</Dim>\n");
+    fprintf(_outfile, "    <Dim>9</Dim>\n");
     fprintf(_outfile, "    <Stream><Metalink Format=\"Text\" Delimiter=\" \\n\"/>\n");
-    fprintf(_outfile, "t norm e1 e1kin e1pot e1int vir1 mu1 \n");
+    fprintf(_outfile, "t norm e1 e1kin e1pot e1int vir1 mu1 gg \n");
     fprintf(_outfile, "    </Stream>\n");
     fprintf(_outfile, "  </Array>\n");
     fprintf(_outfile, "  <Array Name=\"data\" Type=\"double\">\n");
     fprintf(_outfile, "    <Dim>%i</Dim>\n", _mg1_output_lattice_t);
-    fprintf(_outfile, "    <Dim>8</Dim>\n");
+    fprintf(_outfile, "    <Dim>9</Dim>\n");
   }
   
   
@@ -3220,6 +3056,14 @@ void _mg1_write_out(FILE* _outfile)
   #if defined(HAVE_HDF5_HL)
     H5DSattach_scale(dataset_mu1, dataset_t, 0);
   #endif
+  hid_t dataset_gg;
+  if (!H5Lexists(hdf5_file, "/2/gg", H5P_DEFAULT))
+    dataset_gg = H5Dcreate(hdf5_file, "/2/gg", H5T_NATIVE_REAL, file_dataspace, H5P_DEFAULT);
+  else
+    dataset_gg = H5Dopen(hdf5_file, "/2/gg");
+  #if defined(HAVE_HDF5_HL)
+    H5DSattach_scale(dataset_gg, dataset_t, 0);
+  #endif
   H5Dclose(dataset_t);
   
   
@@ -3233,9 +3077,9 @@ void _mg1_write_out(FILE* _outfile)
     
     
     hid_t mem_dataspace;
-    mem_dims[1] = 7;
+    mem_dims[1] = 8;
     mem_dataspace = H5Screate_simple(2, mem_dims, NULL);
-    mem_stride[1] = 7;
+    mem_stride[1] = 8;
     
     // Select hyperslabs of memory and file data spaces for data transfer operation
     mem_start[1] = 0;
@@ -3280,6 +3124,12 @@ void _mg1_write_out(FILE* _outfile)
     
     if (dataset_mu1)
       H5Dwrite(dataset_mu1, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
+    mem_start[1] = 7;
+    H5Sselect_hyperslab(mem_dataspace, H5S_SELECT_SET, mem_start, mem_stride, mem_count, NULL);
+    H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, file_start, mem_stride, mem_count, NULL);
+    
+    if (dataset_gg)
+      H5Dwrite(dataset_gg, H5T_NATIVE_REAL, mem_dataspace, file_dataspace, H5P_DEFAULT, _active_mg1_output_raw);
     
     H5Sclose(mem_dataspace);
   }
@@ -3292,6 +3142,7 @@ void _mg1_write_out(FILE* _outfile)
   H5Dclose(dataset_e1int);
   H5Dclose(dataset_vir1);
   H5Dclose(dataset_mu1);
+  H5Dclose(dataset_gg);
   
   H5Sclose(file_dataspace);
   H5Gclose(group);
@@ -3330,11 +3181,11 @@ void _mg2_sample()
               variable ## R = variable.Re(); variable ## I = variable.Im();
     
     // *************** Sampling code ****************
-    #line 223 "gp1d.xmds"
+    #line 175 "gp1d_FF.xmds"
     
     v1 = V1;
     
-    #line 3338 "xgp1d.cc"
+    #line 3189 "xgp1d.cc"
     // **********************************************
     
     #undef _SAMPLE_COMPLEX
