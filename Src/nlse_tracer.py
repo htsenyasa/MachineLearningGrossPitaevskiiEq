@@ -28,11 +28,14 @@ class Tracer(object):
         self.loss = np.empty(0)
         self.chrono_points["init"] = time.time()
 
+
     def load_data_to_analyze(self, predicted):
         self.predicted = predicted
 
+
     def chrono_point(self, label):
         self.chrono_points[label] = time.time()
+
 
     def analyze(self, test_dataset, predicted):
         self.predicted = predicted
@@ -40,6 +43,7 @@ class Tracer(object):
         self.mse_error = sum((self.predicted - self.test_dataset)**2) / self.test_len
         self.relative_error = ((self.test_dataset - self.predicted) / (self.test_dataset)) * 100
         self.diff_error = self.test_dataset - self.predicted
+
 
     def plot_figure(self, file_name = None, inter = False):
         err = self.test_dataset - self.predicted
@@ -91,6 +95,7 @@ class Tracer(object):
         #    plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
         #    plt.clf()
 
+
     def plot_figure2(self, file_name = None):
         features = ['E_int', 'E_kin', 'E_pot', 'E_Total']
         features_l = ['$E_{int}$', '$E_{kin}$', '$E_{pot}$', '$E_{tot}$']
@@ -133,7 +138,6 @@ class Tracer(object):
         if file_name == None:
             plt.show()
             plt.clf()
-
 
 
     def step(self, loss_val):

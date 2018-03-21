@@ -128,10 +128,6 @@ class analyzer(object):
             plt.show()
             plt.clf()
 
-
-
-
-
     def plot_error(self):
         error = self.testdataset - self.predicted
         plt.hist(error)

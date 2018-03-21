@@ -11,6 +11,34 @@ parser.add_argument('--dir',                 type=str,             default="",  
 parser.add_argument('--pot',                 type=str,             default="0",                              help = 'target file ex')
 
 
+#def is_convergent(dens, epsilon):
+#    if (dens.shape[0]) <= 2:
+#        print("Not enough example! Cannot check convergence\n")
+#        return False
+#
+#    for i in range(dens.shape[0] - 1):
+#        mse_error = sum((dens[i + 1] - dens[i])**2) / dens.shape[-1]
+#        if mse_error < epsilon:
+#            return True
+#    return False
+
+def is_convergent(dens, epsilon):
+    if (dens.shape[0]) <= 2:
+        print("Not enough example! Cannot check convergence\n")
+        return False
+
+    mse_error = []
+    for i in range(dens.shape[0] - 1):
+        mse_error.append(sum((dens[i + 1] - dens[i])**2) / dens.shape[-1])
+    
+    for i in range(len(mse_error) - 1):
+        error = np.abs(mse_error[i + 1] - mse_error[i])
+        if error < epsilon:
+                return True
+    return False
+
+
+
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
@@ -50,22 +78,24 @@ gg_2 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[1].dependentV
 x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "x")
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
+
+
 v1_3 = v1_3.reshape(1, len(v1_3))
 dens = dens_1[-1].T
 dens = dens.reshape(1, len(dens))
 
-f = open(pot_file_name,   "ab")
-f2 = open(en_file_name,   "ab")
-f3 = open(ekin_file_name, "ab")
-f4 = open(epot_file_name, "ab")
-f5 = open(eint_file_name, "ab")
-f6 = open(dens_file_name, "ab")
-f7 = open(gg_file_name, "ab")
-
-np.savetxt(f, v1_3)
-np.savetxt(f2, e1_2[-2:-1])
-np.savetxt(f3, e1kin_2[-2:-1])
-np.savetxt(f4, e1pot_2[-2:-1])
-np.savetxt(f5, e1int_2[-2:-1])
-np.savetxt(f6, dens)
-np.savetxt(f7, gg_2[-2:-1])
+#f = open(pot_file_name,   "ab")
+#f2 = open(en_file_name,   "ab")
+#f3 = open(ekin_file_name, "ab")
+#f4 = open(epot_file_name, "ab")
+#f5 = open(eint_file_name, "ab")
+#f6 = open(dens_file_name, "ab")
+#f7 = open(gg_file_name, "ab")
+#
+#np.savetxt(f, v1_3)
+#np.savetxt(f2, e1_2[-2:-1])
+#np.savetxt(f3, e1kin_2[-2:-1])
+#np.savetxt(f4, e1pot_2[-2:-1])
+#np.savetxt(f5, e1int_2[-2:-1])
+#np.savetxt(f6, dens)
+#np.savetxt(f7, gg_2[-2:-1])

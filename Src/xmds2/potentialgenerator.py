@@ -20,7 +20,6 @@ class PotentialGenerator(object):
         self.seed = seed
 
     def create_envolope_pot(self, beta = None, width = 10, Np = 128,  l_x0 = -5, r_x0 = 5):
-
         if beta == None:
             beta = 1 + rnd.random() * 3
         envelope = (np.tanh((self.x + l_x0) * beta) - np.tanh(beta * (self.x + r_x0)))
@@ -30,7 +29,6 @@ class PotentialGenerator(object):
 
     def potential_process(self, pot, procs = [], args = []):
         """ args: A list of len(procs) that involves arguments of procs as tuples"""
-
         Nprocs = len(procs)
         pot += np.abs(np.min(pot))
         pot *= self.create_envolope_pot(2)
@@ -45,7 +43,6 @@ class PotentialGenerator(object):
 
 
     def generate_random_pot(self, sigma = 3, exec_func = None):
-
         c = np.array([rnd.gauss(0, 1) for i in range(self.Np)])
         pot = np.zeros(self.Np)
         pot[0] = c[0]
@@ -97,7 +94,6 @@ class PotentialGenerator(object):
 
 
     def generate_well_pot(self, exec_func = None):
-        
         lc = rnd.uniform(-5, 5) 
         lw = rnd.uniform(1, 8)
         l, r = lc - lw/2, lc + lw/2
@@ -117,7 +113,6 @@ class PotentialGenerator(object):
 
 
     def generate_harmonic_pot(self, exec_func = None):
-
         x0 = rnd.uniform(-5, 5)
         omega = rnd.uniform(0.01, 4)
         pot =  0.5 * omega**2 * (self.x - x0)**2
@@ -136,7 +131,6 @@ class PotentialGenerator(object):
 
 
     def generate_gaussian_pot(self, exec_func = None):
-
         low = 0
         inc = 0.5
         high = 4

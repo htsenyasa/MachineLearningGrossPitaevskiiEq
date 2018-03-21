@@ -119,7 +119,7 @@
     </filter>
 
     <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
-      <samples>1 1 1</samples>
+      <samples>10 1 1</samples>
       <filters where="step end">
         <filter>
           <dependencies>wavefunction normalisation</dependencies>

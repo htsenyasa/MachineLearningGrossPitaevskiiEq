@@ -45,5 +45,3 @@ for pot_type in pot_types:
 
 
 print("Total Time = {}".format(time.time() - start))
-
-
