@@ -61,92 +61,63 @@ state density profile for a given harmonic trapping potential.
 \pagenumbering{arabic}
 \section{Introduction and Motivation}
 \label{sec:Intro}
+\noindent Machine learning.\\
+    General usage area.\\
+    ML in physics and Phyiscs in ML.\\
+    ML\&SE article.\\
+    Ours difference.\\
 
-Machine learning is a growing research area, not only its theoretical base but also its share in applications in different areas. One of the reason why machine learning is used increasingly today is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network that satisfies the relation $|\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and be exploited for their advantages. Approximate value of the quantity can be determined for different scenarios.
 
-Many different kind of applications of machine learning have already been implemented in physics\footnote{For a detailed list, see \cite{physicsml}}. For example, In \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problems. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. 
+\section{Gross Pitaevskii Equation}
+\noindent   General information about GPE \\
+    Why and how nonlinearty is introduced.\\
+    Physical and mathematical interpretation of interaction parameter. (phy: attractive, repulsive  math:dominance of the terms)\\
+    Stationary form.\\
+    Potential, kinetic and interaction energy expressions.\\
+    Reduction of dimension.\\
+    Analytic solution and approximation.
 
-In \cite{mills2017deep}, machine learning approach is applied to a 2D Schr{\"o}dinger Equation with random potentials. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different two dimensional confining potentials including some random potentials. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation to predict ground state energy of a Bose-Einstein condensate at absolute zero temperature in one dimensional harmonic trapping potentials.
+\subsection{Numeric Solution and Dataset Generation}
+\noindent Potential types (with analytic forms etc.)\\ 
+    Scaling, $\alpha \beta$ case etc \\
+    Brief info about imaginary time evolution. (detailed in APPENDIX)\\
+    XMDS framerwork and other programs.\\
+    Potential generation.\\
+    Random potential generations with different method. (Reason)\\ 
+    Boundaries. (Table)\\
+    Convergence (detailed in APPENDIX).\\
+    Dataset generation. (Total number of examples etc)\\    
+
+\section{Machine Learning}
+\subsection{Network architecture}
+\noindent Architecture of the network.\\
+    A general figure like in the ML\&SE article that describes the work done.\\
+    Another figure about internals of the network such as number of layers, how interaction parameter is introduced to the network etc.\\
+    Hyperparameters.\\
+\subsection{Training}
+\noindent    Detailed info about dataset (energy distribution etc).\\
+    Indicate that if there is any method to increase the number of examples in low and high energy values.
+
+\subsection{Results}
+
+\section{Inverse Problem}
 
 \clearpage
-\section{Conclusion}
+\section{Conclusion and Discussion}
 
-Lorem Ipsum
+\noindent Conclusion.\\
+    Discussion.\\
+    Effects of random potential generation method.\\
+    Are there problems in low and high energies compared to the mean?\\
+    Inverse problem.\\
+
 
 \clearpage
-\bibliographystyle{ieeetr}
-\bibliography{references}
 
 
 \appendix
 \section{APPENDIX A}
 
-\subsection{Comment on Python Codes}
 
-There are two neural network codes and three utility codes. Code of FCN is feedforwardnetwork.py, CNN is cnnnetwork1d.py. analyzer.py is kind of a network tracer. All information about network internals and iteration information is saved and traced by class inside this module. readdata.py reads the data generated by XMDS and produces proper representations of the data. sampletrainloader.py takes the data from readdata.py and produces Pytorch's tensors. run\_training.py automatizes the training process. 
-
-
-Codes are not optimized and consistency of the naming convention is poor. But volume of the code is small and it is self explanatory. Code can be obtained from: goo.gl/8Fm8yt
-
-
-%\subsection{Neural Network and Utility Codes}
-%
-%\setminted{fontsize=\footnotesize,baselinestretch=1}
-%\textbf{Fully Connected Network (FCN)}\\
-%(feedforwardnetwork.py)
-%\inputminted[breaklines]{python}{../Src/feedforwardnetwork.py}
-%
-%\noindent \textbf{Convolutional Neural Network (CNN)}\\
-%(cnnnetwork1d.py) 
-%\inputminted[breaklines]{python}{../Src/cnnnetwork1d.py}
-%
-%\noindent \textbf{Utility modules:}\\
-%(analyzer.py)
-%\inputminted[breaklines]{python}{../Src/analyzer.py}
-%
-%\noindent (readdata.py)
-%\inputminted[breaklines]{python}{../Src/readdata.py}
-%
-%\noindent (sampletrainloader.py)
-%\inputminted[breaklines]{python}{../Src/sampletrainloader.py}
-%
-%\noindent (run\_trainings.py)
-%\inputminted[breaklines]{python}{../Src/run_trainings.py}
-%
-%\newpage
 
 \end{document}
-
-
-
-%\svgpath{path = {"../figs/CNNgPrediction/"}}
-%\begin{figure}[H]
-%    \centering
-%    \begin{subfigure}[t]{0.45\textwidth}
-%		\centering
-%    	\includesvg[width=\linewidth]{fixed-pot_dens-g-VARY-conv1d-epoch-30-}
-%    	\caption{Epoch = 30}
-%		\label{fig:a}
-%    \end{subfigure}
-%    \begin{subfigure}[t]{0.45\textwidth}
-%        \centering
-%    	\includesvg[width=\linewidth]{various-pot_dens-g-VARY-conv1d-epoch-30-}
-%    	\caption{Epoch = 30}
-%		\label{fig:b}
-%    \end{subfigure}
-%    \begin{subfigure}[t]{0.45\textwidth}
-%        \centering
-%		\includesvg[width=\linewidth]{various-shift-pot_dens-g-VARY-conv1d-epoch-30-}
-%    	\caption{Epoch = 30}
-%		\label{fig:c}
-%    \end{subfigure}
-%    \begin{subfigure}[t]{0.45\textwidth}
-%        \centering
-%		\includesvg[width=\linewidth]{FPFS-VPFS-VPVS-LOSS-}
-%    	\caption{Loss}
-%		\label{fig:d}
-%    \end{subfigure}
-%
-%	\caption{In (a) is angular frequency is fixed and there is no shift (FPFS). In (b) angular frequency is randomized and no shift (VPFS). In (c) both angular frequency and shift are randomized (VPVS).}
-%\label{fig:FFN-g-pred}
-%\end{figure}

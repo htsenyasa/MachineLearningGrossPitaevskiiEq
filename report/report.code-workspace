@@ -1,0 +1,22 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+		"files.exclude": {
+            "**/APPLREPORT": true,
+            "**/*.aux": true,
+            "**/*.log": true,
+            "**/*.toc": true,
+            "**/*.pdf": true,
+            "**/*.bbl": true,
+            "**/*.blg": true,
+            "**/*.fdb_latexmk": true,
+            "**/*.fls": true,
+            "**/*.out": true,
+            "**/*.gz": true,
+        },
+    },
+}
