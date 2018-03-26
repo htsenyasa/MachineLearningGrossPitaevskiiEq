@@ -9,7 +9,7 @@ import potentialgenerator as pg
 
 parser = argparse.ArgumentParser(description='XMDS initializer')
 parser.add_argument('--examples',            type=int,             default=10,      help = 'Number of examples to solve (Default: 10)')
-parser.add_argument('--pot-type',            type=int,             default=-1,     help = 'Type of potential 0: Harmonic, 1:Well, 2: DI Gaussian 3 & 4: Random (Default : all)')
+parser.add_argument('--pot-type',            type=int,             default=-1,      help = 'Type of potential 0: Harmonic, 1:Well, 2: DI Gaussian 3 & 4: Random (Default : all)')
 
 args = parser.parse_args()
 

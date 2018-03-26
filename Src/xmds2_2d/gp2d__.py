@@ -69,8 +69,6 @@ dens_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependen
 
 
 #display_pot(Pot_2)
-# Write your plotting commands here.
-# You may want to import pylab (from pylab import *) or matplotlib (from matplotlib import *)
 
 ###features = [GG, Etot, Ekin, Epot, Eint]
 features = np.array([g0_1[-1], En_1[-1], Ek_1[-1], Ep_1[-1], Ei_1[-1]])

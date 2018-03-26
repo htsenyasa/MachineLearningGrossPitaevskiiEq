@@ -11,6 +11,7 @@
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{hyperref}
 
+
 \begin{document}
 
 \begin{titlepage}
@@ -61,32 +62,70 @@ state density profile for a given harmonic trapping potential.
 \pagenumbering{arabic}
 \section{Introduction and Motivation}
 \label{sec:Intro}
-\noindent Machine learning.\\
-    General usage area.\\
-    ML in physics and Phyiscs in ML.\\
-    ML\&SE article.\\
-    Ours difference.\\
+\noindent 
+Machine learning.\\
+General usage area.\\
+ML in physics and Phyiscs in ML.\\
+ML\&SE article.\\
+Ours difference.\\
 
 
 \section{Gross Pitaevskii Equation}
-\noindent   General information about GPE \\
-    Why and how nonlinearty is introduced.\\
-    Physical and mathematical interpretation of interaction parameter. (phy: attractive, repulsive  math:dominance of the terms)\\
-    Stationary form.\\
-    Potential, kinetic and interaction energy expressions.\\
-    Reduction of dimension.\\
-    Analytic solution and approximation.
+\noindent   
+General information about GPE \\
+Why and how nonlinearty is introduced.\\
+Physical and mathematical interpretation of interaction parameter. (phy: attractive, repulsive  math:dominance of the terms)\\
+Stationary form.\\
+Potential, kinetic and interaction energy expressions.\\
+Reduction of dimension.\\
+Analytic solution and approximation.
 
 \subsection{Numeric Solution and Dataset Generation}
-\noindent Potential types (with analytic forms etc.)\\ 
-    Scaling, $\alpha \beta$ case etc \\
-    Brief info about imaginary time evolution. (detailed in APPENDIX)\\
-    XMDS framerwork and other programs.\\
-    Potential generation.\\
-    Random potential generations with different method. (Reason)\\ 
-    Boundaries. (Table)\\
-    Convergence (detailed in APPENDIX).\\
-    Dataset generation. (Total number of examples etc)\\    
+\noindent 
+Potential types (with analytic forms etc.)\\ 
+Scaling, $\alpha \beta$ case etc \\
+Brief info about imaginary time evolution. (detailed in APPENDIX)\\
+XMDS framerwork and other programs.\\
+Potential generation.\\
+Random potential generations with different method. (Reason)\\ 
+Boundaries. (Table)\\
+Convergence (detailed in APPENDIX).\\
+Dataset generation. (Total number of examples etc)\\    
+
+\subsubsection{Scaling}
+
+$$ V(z) = \widetilde{V}(z)\gamma E_0 $$
+
+$$z = \beta L\widetilde{z}$$
+
+$$\mu =  \widetilde{\mu}\gamma E_0$$
+
+$$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha $$
+
+$$ \psi = \widetilde{\psi}\sqrt{\frac{N}{\beta L}}  $$
+
+
+\begin{equation}
+    \label{eq:GPE_dimensionless}
+    -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \widetilde{V}(z)\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
+\end{equation}
+    
+\subsection{Dataset Features}
+\subsubsection{Energy distribution}
+
+\svgpath{path = {"../figs/dataresults/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includesvg[width=\linewidth]{gaussian-total}
+        \caption{g = 0}
+		\label{fig:a}
+    \end{subfigure}
+    \caption{Total energy distributions of the generated solution for different interaction parameter values.}
+\label{fig:energy_dist}
+\end{figure}
+
 
 \section{Machine Learning}
 \subsection{Network architecture}
