@@ -4,7 +4,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
-\usepackage{svg}
+%\usepackage{svg}
 \usepackage{subcaption}
 %\usepackage{minted}
 \onehalfspacing
@@ -113,12 +113,12 @@ $$ \psi = \widetilde{\psi}\sqrt{\frac{N}{\beta L}}  $$
 \subsection{Dataset Features}
 \subsubsection{Energy distribution}
 
-\svgpath{path = {"../figs/dataresults/"}}
+\graphicspath{{"../figs/dataresults/gaussian/"}}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
 		%\centering
-        \includesvg[width=\linewidth]{gaussian-total}
+        \includegraphics[width=\linewidth]{total}
         \caption{g = 0}
 		\label{fig:a}
     \end{subfigure}
