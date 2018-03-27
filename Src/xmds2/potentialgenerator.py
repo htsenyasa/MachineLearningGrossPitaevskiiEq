@@ -9,7 +9,7 @@ class PotentialGenerator(object):
     cur_pot_type = None
     type_of_pots = 0
 
-    def __init__(self, seed = 100, width = 10, Np = 128, inf_val = 30, g_exec_func = None):
+    def __init__(self, seed = 100, width = 10, Np = 128, inf_val = 5, g_exec_func = None):
         self.width = width
         self.total_width = 2 * width
         self.step_size = self.total_width / float(Np)

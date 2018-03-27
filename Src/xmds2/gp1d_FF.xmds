@@ -94,12 +94,12 @@
       <![CDATA[
         // Calculate the current normalisation of the wave function.
         Ncalc = mod2(phi);
-        EN = 0.5*mod2(dphix)+(V1+0.5*Uint*mod2(phi))*mod2(phi);
-        Ekin = 0.5*mod2(dphix);
-        Epot = V1*mod2(phi);
-        Eint = 0.5*Uint*mod2(phi)*mod2(phi);
+        EN = 0.5 * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
+        Ekin = 0.5 * mod2(dphix);
+        Epot = V1 * mod2(phi);
+        Eint = 0.5 * Uint * mod2(phi) * mod2(phi);
 		Virial = Ekin - Epot + Eint;
-		mu = Ekin + Epot + (2) * Eint;
+		mu = Ekin + Epot + 2 * Eint;
       ]]>
     </evaluation>
   </computed_vector>

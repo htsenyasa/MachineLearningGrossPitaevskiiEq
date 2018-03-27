@@ -4,7 +4,6 @@ import time as time
 import numpy as np
 import argparse
 
-import genrandompot as grp
 import potentialgenerator as pg
 
 parser = argparse.ArgumentParser(description='XMDS initializer')

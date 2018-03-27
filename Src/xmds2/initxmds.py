@@ -45,7 +45,7 @@ for pot in pot_types:
 
         shift = rnd.uniform(-5, 5)
         freq = rnd.uniform(0.1, 2)
-
+        
         cmdline = "./xgp1d --interaction_param={} --num_particles={} --freq={} --shift={} --pot_type={} ".format(inter_param, num_particles, freq, shift, pot)
 
         if (pot == 1):
