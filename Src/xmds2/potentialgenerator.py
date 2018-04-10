@@ -90,8 +90,9 @@ class PotentialGenerator(object):
         return pot
 
     def generate_random_pot_3(self, sigma = None, scale_fac = 8, exec_func = None):
+        
         if sigma == None:
-            sigma = rnd.uniform(3, 10)
+            sigma = rnd.uniform(2.5, 10)
 
         bin_grid = np.array([rnd.randint(0, 1) for i in range(self.Np // scale_fac)])
         bin_grid = np.repeat(bin_grid, scale_fac)
@@ -99,16 +100,15 @@ class PotentialGenerator(object):
         bin_grid_2 = np.array([rnd.randint(0, 1) for i in range(self.Np // (scale_fac * 2))])
         bin_grid_2 = np.repeat(bin_grid_2, scale_fac)
 
-        chunk = np.zeros((len(bin_grid) - len(bin_grid_2)) // 2)
+        padding = np.zeros((len(bin_grid) - len(bin_grid_2)) // 2)
 
-        bin_grid_2 = np.concatenate((chunk, bin_grid_2), axis = 0)
-        bin_grid_2 = np.concatenate((bin_grid_2, chunk), axis = 0)
+        bin_grid_2 = np.concatenate((padding, bin_grid_2), axis = 0)
+        bin_grid_2 = np.concatenate((bin_grid_2, padding), axis = 0)
 
         pot = bin_grid - bin_grid_2
 
         procs = [scipy.ndimage.filters.gaussian_filter1d]
         args = [(pot, sigma)]
-
         pot = self.potential_process(pot, procs, args)
 
         if self.g_exec_func != None:
@@ -183,3 +183,24 @@ def save_as_h5(x, pot):
     hf.create_dataset("func", data=pot)
     hf.create_dataset("x", data=x)
     hf.close()
+
+def display_pot(x, pot):
+    plt.plot(x, pot)
+    plt.show()
+
+
+#        index = (self.Np // self.total_width) * (self.width // 2)
+#        mask = np.zeros(self.Np - index * 2)
+#
+#        k = rnd.randint(2, 7)
+#
+#        for i in range(k**2):
+#            mask[rnd.randint(0, len(mask))] = 1
+#
+#        #mask = self.potential_process(mask, procs, args)
+#
+#        mask = np.concatenate((np.zeros(index), mask), axis = 0)
+#        mask = np.concatenate((mask, np.zeros(index)), axis = 0)
+#        mask = scipy.ndimage.filters.gaussian_filter1d(mask, sigma)
+#
+#        pot *= mask

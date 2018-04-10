@@ -39,7 +39,7 @@
       <argument name="runtime_id" type="integer" default_value="5"/>
       <![CDATA[
       id = runtime_id;
-      ]]>    
+      ]]>
     </arguments>
  </features>
 
@@ -139,7 +139,7 @@
         <integration_vectors>wavefunction</integration_vectors>
         <dependencies>potential</dependencies>
         <![CDATA[
-        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi) )*phi;
+        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi))*phi;
         ]]>
       </operators>
     </integrate>

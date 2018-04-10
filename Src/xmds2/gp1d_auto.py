@@ -26,8 +26,6 @@ def is_convergent(dens, epsilon):
                 return True
     return False
 
-
-
 args = parser.parse_args()
 
 file_ex = args.pos_file_ex
@@ -82,7 +80,7 @@ f6 = open(dens_file_name, "ab")
 f7 = open(gg_file_name, "ab")
 
 np.savetxt(f, v1_3)
-np.savetxt(f2, e1_2[-1:])
+np.savetxt(f2, e1_2[-1:])   # Maintain array form
 np.savetxt(f3, e1kin_2[-1:])
 np.savetxt(f4, e1pot_2[-1:])
 np.savetxt(f5, e1int_2[-1:])
