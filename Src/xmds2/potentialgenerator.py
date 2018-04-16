@@ -178,6 +178,10 @@ class PotentialGenerator(object):
 
         return pot
 
+    def reset_seed(self, seed):
+        self.seed = seed;
+        rnd.seed(seed)
+
 def save_as_h5(x, pot):
     hf = h5py.File("func.h5", "w")
     hf.create_dataset("func", data=pot)
@@ -187,6 +191,7 @@ def save_as_h5(x, pot):
 def display_pot(x, pot):
     plt.plot(x, pot)
     plt.show()
+
 
 
 #        index = (self.Np // self.total_width) * (self.width // 2)

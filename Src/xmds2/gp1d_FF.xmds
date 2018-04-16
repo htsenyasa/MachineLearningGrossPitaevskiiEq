@@ -40,6 +40,7 @@
       <![CDATA[
       id = runtime_id;
       ]]>
+      <argument name="alpha" type="real" default_value="0.5"/>
     </arguments>
  </features>
 
@@ -93,9 +94,16 @@
       <dependencies basis="x">wavefunction gradphi potential</dependencies>
       <![CDATA[
         // Calculate the current normalisation of the wave function.
+        // Ncalc = mod2(phi);
+        // EN = 0.5 * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
+        // Ekin = 0.5 * mod2(dphix);
+        // Epot = V1 * mod2(phi);
+        // Eint = 0.5 * Uint * mod2(phi) * mod2(phi);
+		// Virial = Ekin - Epot + Eint;
+		// mu = Ekin + Epot + 2 * Eint;
         Ncalc = mod2(phi);
-        EN = 0.5 * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
-        Ekin = 0.5 * mod2(dphix);
+        EN = alpha * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
+        Ekin = alpha * mod2(dphix);
         Epot = V1 * mod2(phi);
         Eint = 0.5 * Uint * mod2(phi) * mod2(phi);
 		Virial = Ekin - Epot + Eint;
@@ -133,7 +141,7 @@
         <operator kind="ex" dimensions="x">
           <operator_names>T2</operator_names>
           <![CDATA[
-            T2 = -0.5*kx*kx;
+            T2 = -alpha*kx*kx;
           ]]>
         </operator>
         <integration_vectors>wavefunction</integration_vectors>
