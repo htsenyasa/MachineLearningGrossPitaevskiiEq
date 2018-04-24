@@ -1,6 +1,7 @@
 \documentclass[a4paper,times,12pt]{article}
 %\usepackage{indentfirst}
 \usepackage{amsmath}
+\usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
@@ -88,60 +89,245 @@ Ours difference.\\
 
 \subsection{Numeric Solution and Dataset Generation}
 \subsubsection{Potential types (with analytic forms etc.)}
+
+We use \textbf{six} different types of potential in our study. The first three potential which have analytic form given in Table~\ref{tb:analytic_pot_types}. are 1D version of potentials studied in \cite{mills2017deep}. We implement two more random potential generator to study effect of generation process. The generation processes of the random potentials are described in Section~\ref{sec:random_potential_gen}.
+
+\newcommand{\infinitewell}{$
+V(x) = 
+    \begin{cases}
+       0 &\quad\text{if } x_l < x < x_r  \\
+       \infty &\quad\text{if } otherwise \\
+    \end{cases}
+$}
+
+\newcommand{\harmonicpot}{$ V(x) =  \frac{1}{2}m \omega^2 x^2 $}
+
+\newcommand{\gaussianpot}{$ V(x) = -A_1 exp(\frac{(x - \mu_1)^2}{s_1^2}) -A_2 exp(\frac{(x - \mu_2)^2}{s_2^2})  $
+}
+
+
+
+\begin{table}[H]
+\centering
+\caption{Potential Types and Analytic Forms}
+\begin{tabular}{l | ll}
+    Potential Type  & Analytic Form  & \\  \hline \\
+    Infinite Well   & \infinitewell  &  \\[0.7cm] \hline \\
+    Harmonic        & \harmonicpot   &  \\[0.7cm] \hline \\
+    DI Gaussian     & \gaussianpot   & \\[0.7cm] \hline
+\end{tabular}
+\label{tb:analytic_pot_types}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Parameters}
+\label{tb:analytic_pot_params}
+    \begin{tabular}{l|llll}
+    Potentials                     & Parameters     & Min  & Max & \\  \hline \\
+    \multirow{3}{*}{Infinite Well} & $x_l$          & -9   & 4.5 & \\
+                                   & $x_r$          & -4.5 & 9   & \\
+                                   & $x_l - x_r$    & 1    & 8   & \\ \hline \\
+    \multirow{2}{*}{Harmonic}      & $\omega$       & 0.01 & 4   & \\
+                                   & $x_0$          & -5   & 5   & \\ \hline \\
+    \multirow{3}{*}{DI Gaussian}   & $A_1, A_2$     & 1    & 10  & \\
+                                   & $\mu_1, \mu_2$ & -5   & 5   & \\
+                                   & $s_1, s_2$     & 0.5  & 4   & 
+    \end{tabular}
+\end{table}
+
+
+
+
+
+
 \subsubsection{Scaling}
 
-$$ V(z) = \widetilde{V}(z)\gamma E_0 $$
+The scaling of GPE is generally done according to potential type and there are more than one scaling conventions \textbf{REFS}. In our study, we use a more general scaling to investigate how different scalings affect the precision. To do that, we compare numerical solutions by representing same physical system with different scaling coefficients in both framework. Then we compare these results first internally and then we do a cross check. 
 
-$$z = \beta L\widetilde{z}$$
+We also compare numerical solutions of two different solvers implemented in different frameworks to show that the numerical solutions are \textbf{consistent}.\\ 
 
-$$\mu =  \widetilde{\mu}\gamma E_0$$
+GPE is given as,
 
-$$g = \widetilde{g}\gamma E_0 \beta L $$
+\begin{equation}
+    \label{eq:GPE_1D}
+    \frac{-\hbar^2}{2m}\frac{d^2\psi}{dz^2} + V(z)\psi + g|\psi|^2\psi = \mu\psi
+\end{equation}
 
-$$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha $$
+First we define dimensionless potential, and then we make the length dimensionless,
 
-$$ \psi = \widetilde{\psi}\sqrt{\frac{N}{\beta L}}  $$
+$$ \widetilde{V}(z) \equiv \frac{V(z)}{\gamma E_0} $$
+
+$$ \widetilde{z} \equiv \frac{z}{\beta L} $$
+
+The potentials are going to be generated according to the length transformation, thus; we can transform potential expression implicitly. 
+
+$$ \widetilde{V}(z) \rightarrow \widetilde{V}(\widetilde{z}) $$ 
+
+If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
+
+\begin{equation}
+    \label{eq:GPE_1D_dimensionless_en_len}
+    \frac{-\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2}  \frac{d^2\psi}{d \widetilde{z}^2} + \widetilde{V}(\widetilde{z})\psi + \frac{g}{\gamma E_0}|\psi|^2\psi = \frac{\mu}{\gamma E_0}\psi
+\end{equation}
+
+To obtain final form, we define dimensionless energy, wave function and interaction parameter respectively. 
+
+$$\widetilde{\mu} \equiv \frac{\mu}{\gamma E_0}$$
+
+$$ \widetilde{\psi} \equiv \psi{\sqrt{\frac{\beta L}{N}}}  $$
+
+$$\widetilde{g} \equiv \frac{gN}{\gamma E_0 \beta L} $$
+
+To control scaling coefficients we set the coefficient of the kinetic term to an arbitrary positive real number $\alpha$  
+
+$$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha, $$
+
+and set $E_0 = \hbar^2 / 2m$. Now the scaling of GPE can be controlled by $\alpha$ and $\beta$ only.
 
 \begin{equation}
 \label{eq:GPE_dimensionless}
-    -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \widetilde{V}(z)\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
+    -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \widetilde{V}(\widetilde{z})\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
 \end{equation}
     
 We are going to change these scaling coefficients and see their effects by comparing results. An example of setting the scale coefficients is shown in appendix~\ref{ap:scale}.
+
+
+
+\graphicspath{{"../figs/numericanalyze/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{dens}
+        \caption{g = 0}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{energy}
+        \caption{g = 0}
+		\label{fig:a}
+    \end{subfigure}
+    \caption{}
+\label{fig:energy_dist}
+\end{figure}
+
+
+
 
 \subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
 \subsubsection{XMDS framerwork and other programs.}
 \subsubsection{Potential generation}
 
-\tab We create an envelope function as a mask with the following expression,
+We create an envelope function as a mask with the following expression,
 \begin{equation}
 \label{eq:envelope_potential}
-\tanh{(\beta(x + x_l))} + \tanh{(\beta(x + x_r))}
+    \tanh{(\beta(x + x_l))} + \tanh{(\beta(x + x_r))}
 \end{equation}
 
-where $x_l$ and $x_r$ bounds are given in the \textbf{table} to make sure that all potentials goes to maximum value at numerical infinity.  
+where $x_l$ and $x_r$ bounds are given in the \textbf{table}. We apply this mask to all potentials except harmonic to make sure that all potential goes to maximum value at numerical infinity.  
+
+\graphicspath{{"../figs/numericanalyze/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{envpot}
+		\label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{rndpotwithoutprocess}
+		\label{fig:b}
+    \end{subfigure}
+\caption{Envelope Potential and Random Potential Before Process}
+\label{fig:envelope_and_random_withot_pros}
+\end{figure}
+
+The two potential in Figure~\ref{fig:envelope_and_random_withot_pros} are combined and a gaussian filter applied. 
+
+
+\begin{figure}[H]
+\centering
+    \includegraphics[width=0.5\linewidth]{rndpot}
+\caption{}
+\label{fig:a}
+\end{figure}
+
+
+
+
 
 \subsubsection{Random potential generations with different method. (Reason)}
+\label{sec:random_potential_gen}
 
 To be able to observe the effect of random potential generation to the results we used three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. We applied a gaussian filter with a random sigma value to the potential array to make it smooth.    
 
-\begin{algorithm}
+\begin{algorithm}[H]
     \caption{RandomPotential1}\label{euclid}
     \begin{algorithmic}[1]
     \Procedure{RandomPotential1}{}
-        \State $ \text{points} \gets \text{gaussian distributed random points}$
-        \State $len \gets \textit{length(points)}$
-        \State $potential[0] = points[0]$
-        \For{$\text{i} \gets 0 \textbf{ to } len - 1$}
-        \State $potential[i + 1] = pot[i] + points[i]$
+        \State $ Points = GaussianDistributedRandomPoints()$
+        \State $Len = \textit{Length(Points)}$
+        \State $Potential[0] = Points[0]$
+        \For{$\text{i} = 0 \textbf{ to } Len - 1$}
+        \State $Potential[i + 1] = Pot[i] + Points[i]$
         \EndFor
+        \State $Potential = GaussianFilter(Potential, \sigma)$ 
     \EndProcedure
     \end{algorithmic}
+\label{alg:random_potential_1}
 \end{algorithm}
 
-The second one is summation of sines and cosines with random coefficients.
+The second one is summation of sines and cosines with random coefficients. Firstly, the number of terms are determined, after that each coefficient of the terms are assigned and summed iteratively. The resultant sum is potential and a gaussian filter is applied. 
 
-One of them describes in \cite{mills2017deep}. 
+\begin{algorithm}[H]
+    \caption{RandomPotential2}\label{euclid}
+    \begin{algorithmic}[1]
+    \Procedure{RandomPotential2}{}
+        \State $ Nterms = RandomInteger(1, 100)$
+        \For{$\text{i} = 0 \textbf{ to } Nterms$}
+        \State $A = GaussianDistributedRandomNumber()$
+        \State $B = GaussianDistributedRandomNumber()$
+        \State $n_1 = GaussianDistributedRandomNumber() * \sigma*\pi / width  $
+        \State $n_2 = GaussianDistributedRandomNumber() * \sigma*\pi / width  $
+        \State $Potential \mathrel{+}= A\sin(n_1 x) + B\cos(n_2 x)$
+        \EndFor
+        \State $Potential = GaussianFilter(Potential, \sigma)$ 
+    \EndProcedure
+    \end{algorithmic}
+\label{alg:random_potential_1}
+\end{algorithm}
+
+We use slight modificated version of the algorithm described in \cite{mills2017deep}. Our modification occurs in the masking part. In this part we use our envelope function rather than convex hull mask. 
+
+
+\begin{algorithm}[H]
+    \caption{RandomPotentia3}\label{euclid}
+    \begin{algorithmic}[1]
+    \Procedure{RandomPotential3}{}
+        \State $ ScaleFactor = 8$
+        \For{$\text{i} = 0 \textbf{ to } NumberOfPoints/ScaleFactor$}
+        \State $BinaryGrid[i] = RandomInteger(0, 1)$
+        \EndFor
+        \State $BinaryGrid = RepeatElements(BinaryGrid, ScaleFactor)$
+        \For{$\text{i} = 0 \textbf{ to } NumberOfPoints/(ScaleFactor * 2)$}
+        \State $BinaryGrid2[i] = RandomInteger(0, 1)$
+        \EndFor
+        \State $BinaryGrid2 = RepeatElements(BinaryGrid, ScaleFactor)$
+        \State $Padding = Zeros((Length(BinaryGrid) - Length(BinaryGrid2))/2)$
+        \State $BinaryGrid2 = Concatanate(Padding, BinaryGrid2, Padding) $
+        \State $Potential = BinaryGrid - BinaryGrid2$
+        \State $Potential = GaussianFilter(Potential, \sigma)$ 
+    \EndProcedure
+    \end{algorithmic}
+\label{alg:random_potential_1}
+\end{algorithm}
+
+
+
 
 \subsubsection{Boundaries. (Table)}
 \subsubsection{Convergence (detailed in APPENDIX)}
@@ -200,19 +386,65 @@ One of them describes in \cite{mills2017deep}.
 
 \textbf{Obtaining harmonic trap potential scaling from Eq.~\eqref{eq:GPE_dimensionless}}
 
-$$V(z) \rightarrow V(\widetilde{z}) \rightarrow \widetilde{V}(\widetilde{z})$$
+\begin{equation}
+\label{eq:GPESCALE_harmonic_potential_transform}
+    V(z) \rightarrow V(\widetilde{z}) \rightarrow \widetilde{V}(\widetilde{z})
+\end{equation}
 
-$$V(z) = \frac{1}{2}m\omega^2 (z-z_0)^2$$
+\begin{equation}
+\label{eq:GPESCALE_dimensionless_harmonic_potential}
+    \widetilde{V}(z) \equiv \frac{V(z)}{\gamma E_0}
+\end{equation}
 
-$$V(\widetilde{z}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{z}-\widetilde{z_0})^2$$
+\begin{equation}
+\label{eq:GPESCALE_dimensionless_length}
+    \widetilde{z} \equiv \frac{z}{\beta L} 
+\end{equation}
 
-$$\widetilde{V}(\widetilde{z}) = \frac{1}{2}(\widetilde{z}-\widetilde{z_0})^2 m\omega^2 \frac{\beta^2 L^2}{\gamma E_0}  $$
+\begin{equation}
+\label{eq:GPESCALE_harmonic_potential}
+    V(z) = \frac{1}{2}m\omega^2 (z-z_0)^2
+\end{equation}
 
-The coefficient on the right starts with mass $m$ must be dimensionless. 
+\begin{equation}
+\label{eq:GPESCALE_harmonic_length_transform}
+    V(\widetilde{z}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{z}-\widetilde{z_0})^2
+\end{equation}
 
-$$m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} = 1 $$
+\begin{equation}
+\label{eq:GPESCALE_harmonic_energy_transform}
+    \widetilde{V}(\widetilde{z}) = \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} (\widetilde{z}-\widetilde{z_0})^2  
+\end{equation}
 
-$$\beta^2 L^2 = \frac{\gamma E_0}{m\omega^2} $$
+The coefficient of this equation must be dimensionless, therefore;
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_coeff}
+    \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} = C
+\end{equation}
+
+Where $C$ is a positive constant. We know that $E_0 = \frac{\hbar^2}{2m}$ and the definition of $\alpha$ is given as,
+
+\begin{equation}
+\label{eq:GPESCALE_alpha}
+    \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha
+\end{equation}
+thus;
+
+\begin{equation}
+\label{eq:GPESCALE_gamma}
+     \frac{1}{\gamma} = \alpha \beta^2 L^2
+\end{equation}
+
+if we plug Eq.~\eqref{eq:GPESCALE_gamma} in to Eq.~\eqref{eq:GPESCALE_harmonic_coeff}, then equation becomes,
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_coeff_2}
+    \frac{m^2\omega^2}{\hbar^2} \alpha \beta^4 L^4 = C 
+\end{equation} 
+
+in the case of expressing same physical system, $m$ and $\omega$ must be constant. In that case $\alpha = C (\beta L)^{-4}$.\\
+
 
 In this case, $\alpha$ becomes
 
@@ -222,17 +454,17 @@ Conventionally, $\alpha$ is set to $1/2$, therefore;
 
 $$ \hbar \omega = \gamma E_0 $$
 
-$$ \beta L = \sqrt{\frac{\hbar}{m\omega^2}} $$ 
+$$ \beta L = \sqrt{\frac{\hbar}{m\omega}} $$ 
 
 $ \beta L $ is generally defined as harmonic oscillator length $\ell$
 
-$$ \ell = \sqrt{\frac{\hbar}{m\omega^2}} $$ 
+$$ \ell = \sqrt{\frac{\hbar}{m\omega}} $$ 
 
 $$ \widetilde{\mu} = \frac{\mu}{\hbar \omega} $$ 
 
 $$ \widetilde{g} = \frac{g}{\hbar \omega \ell} $$
 
-Finally, dimensionless GPE scaled for harmonic trapping potential can be 
+Finally, dimensionless GPE scaled for harmonic trapping potential can be written as,
 
 $$\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \frac{1}{2}\widetilde{z}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} $$
 
