@@ -36,6 +36,7 @@ alpha = 0.5
 
 for pot_type in pot_types:
     inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
+    inter_params = [0]
     for inter_param in inter_params:
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)

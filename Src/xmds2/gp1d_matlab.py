@@ -32,6 +32,7 @@ file_ex = args.pos_file_ex
 dire = args.dir
 pot = args.pot
 root = "../../data/nonlinearSE/generic_dataset/" + dire + "/"
+matlab_root = "../../data/nonlinearSE/generic_dataset/matlab/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex
@@ -40,6 +41,9 @@ eint_file_name = root + "eint" + file_ex
 dens_file_name = root + "dens" + file_ex
 gg_file_name = root + "gg" + file_ex
 phi_file_name = root + "phi" + file_ex
+
+en_matlab_file_name = root + "energy" + "-matlab" + file_ex
+dens_matlab_file_name = root + "dens" + "-matlab" + file_ex
 
 
 xsilFile = XSILFile("gp1d.xsil")
@@ -66,6 +70,10 @@ gg_2 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[1].dependentV
 x_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].independentVariables if _["name"] == "x")
 v1_3 = firstElementOrNone(_["array"] for _ in xsilFile.xsilObjects[2].dependentVariables if _["name"] == "v1")
 
+en_matlab = np.zeros(1)
+en_matlab[0] = np.loadtxt(matlab_root + "energy.txt")
+dens_matlab = np.loadtxt(matlab_root + "dens.txt")
+
 v1_3 = v1_3.reshape(1, len(v1_3))
 dens = dens_1[-1].T
 dens = dens.reshape(1, len(dens))
@@ -81,6 +89,8 @@ f4 = open(epot_file_name, "ab")
 f5 = open(eint_file_name, "ab")
 f6 = open(dens_file_name, "ab")
 f7 = open(gg_file_name, "ab")
+f8 = open(en_matlab_file_name, "ab")
+f9 = open(dens_matlab_file_name, "ab")
 
 
 np.savetxt(f, v1_3)
@@ -90,4 +100,6 @@ np.savetxt(f4, e1pot_2[-1:])
 np.savetxt(f5, e1int_2[-1:])
 np.savetxt(f6, dens)
 np.savetxt(f7, gg_2[-1:])
+np.savetxt(f8, en_matlab)
+np.savetxt(f9, dens_matlab)
 

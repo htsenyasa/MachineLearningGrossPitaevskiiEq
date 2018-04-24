@@ -9,7 +9,7 @@ class PotentialGenerator(object):
     cur_pot_type = None
     type_of_pots = 0
 
-    def __init__(self, seed = 100, width = 10, Np = 128, inf_val = 30, g_exec_func = None):
+    def __init__(self, seed = 100, width = 10, Np = 128, inf_val = 30, g_exec_func = None, transform = None):
         self.width = width
         self.total_width = 2 * width
         self.step_size = self.total_width / float(Np)
@@ -18,6 +18,9 @@ class PotentialGenerator(object):
         self.g_exec_func = g_exec_func
         self.x = np.arange(-self.width, self.width, self.step_size)
         self.seed = seed
+        if transform == None:
+            transform = lambda x: x
+        self.transform = transform
 
     def create_envolope_pot(self, beta = None, width = 10, Np = 128,  l_x0 = -5, r_x0 = 5):
         if beta == None:
@@ -65,7 +68,6 @@ class PotentialGenerator(object):
 
         pot = np.zeros(self.Np)
         Nterms = rnd.randint(1, 100)
-        n_range = rnd.uniform(0, 20)
         if sigma == None:
             sigma = rnd.uniform(0.1, 10)
 
@@ -140,10 +142,12 @@ class PotentialGenerator(object):
     def generate_harmonic_pot(self, exec_func = None):
         x0 = rnd.uniform(-5, 5)
         omega = rnd.uniform(0.01, 4)
-        pot =  0.5 * omega**2 * (self.x - x0)**2
+        omega = 3
+        pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
+        #pot =  0.5 * (self.transform(self.x - x0))**2
 
-        index = np.where(pot > 100)
-        pot[index] = 100
+        index = np.where(pot > self.inf_val)
+        pot[index] = self.inf_val
         pot *= self.inf_val / np.max(np.abs(pot)) 
 
         if self.g_exec_func != None:
@@ -191,7 +195,6 @@ def save_as_h5(x, pot):
 def display_pot(x, pot):
     plt.plot(x, pot)
     plt.show()
-
 
 
 #        index = (self.Np // self.total_width) * (self.width // 2)
