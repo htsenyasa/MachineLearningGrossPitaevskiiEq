@@ -48,10 +48,10 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]    
 
 
-alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
+#alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
 #alphas = np.concatenate(([0.01, 0.1, 0.5], alphas), axis = 0)
 #alphas = np.concatenate(([0.001, 0.01, 0.1], alphas), axis = 0)
-alphas = np.array([0.1, 1, 10, 100])
+alphas = np.array([0.5])
 #betas = np.arange(1, 10, (10 - 1) / 10)
 betas = np.array([1/10, 1])
 inter_params = [0., 0.5, 1, 10, 100, 300]

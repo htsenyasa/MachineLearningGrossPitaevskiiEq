@@ -17,12 +17,12 @@ class PotentialGenerator(object):
         self.inf_val = inf_val
         self.g_exec_func = g_exec_func
         self.x = np.arange(-self.width, self.width, self.step_size)
-        self.seed = seed
+        self.seed = seed; rnd.seed(seed)
         if transform == None:
             transform = lambda x: x
         self.transform = transform
 
-    def create_envolope_pot(self, beta = None, width = 10, Np = 128,  l_x0 = -5, r_x0 = 5):
+    def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -8, r_x0 = 8):
         if beta == None:
             beta = 1 + rnd.random() * 3
         envelope = (np.tanh((self.x + l_x0) * beta) - np.tanh(beta * (self.x + r_x0)))
@@ -31,6 +31,7 @@ class PotentialGenerator(object):
 
     def potential_process(self, pot, procs = [], args = []):
         """ args: A list of len(procs) that involves arguments of procs as tuples"""
+        tpot = pot
         Nprocs = len(procs)
         pot += np.abs(np.min(pot))
         pot *= self.create_envolope_pot(2)
@@ -41,14 +42,15 @@ class PotentialGenerator(object):
         pot *= self.inf_val / np.max(np.abs(pot)) 
         pot += np.abs(np.min(pot))
 
+        #return tpot, pot
         return pot
 
     def generate_random_pot(self, sigma = 3, exec_func = None):
-        c = np.array([rnd.gauss(0, 1) for i in range(self.Np)])
+        points = np.array([rnd.gauss(0, 1) for i in range(self.Np)])
         pot = np.zeros(self.Np)
-        pot[0] = c[0]
+        pot[0] = points[0]
         for i in range(self.Np - 1):
-            pot[i+1] = pot[i] + c[i]
+            pot[i+1] = pot[i] + points[i]
 
         procs = [scipy.ndimage.filters.gaussian_filter1d]
         args = [(pot, sigma)]
@@ -141,8 +143,9 @@ class PotentialGenerator(object):
 
     def generate_harmonic_pot(self, exec_func = None):
         x0 = rnd.uniform(-5, 5)
+        x0 = 0
         omega = rnd.uniform(0.01, 4)
-        omega = 3
+        #omega = 3
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
         #pot =  0.5 * (self.transform(self.x - x0))**2
 
@@ -212,3 +215,21 @@ def display_pot(x, pot):
 #        mask = scipy.ndimage.filters.gaussian_filter1d(mask, sigma)
 #
 #        pot *= mask
+
+#
+#import potentialgenerator as pg
+#import numpy as np
+#import matplotlib.pyplot as plt
+#a = pg.PotentialGenerator()
+#pot_gen = pg.PotentialGenerator()
+#pot_generators = [
+#                  pot_gen.generate_random_pot, 
+#                  pot_gen.generate_random_pot_2, 
+#                  pot_gen.generate_random_pot_3]
+#                  
+#pot_types = [0, 1, 2]
+#x = np.arange(-10, 10, 20/512)
+#for i in range(10):
+#    for pot_type in pot_types:
+#        plt.plot(x, pot_generators[pot_type]())
+#        plt.show()

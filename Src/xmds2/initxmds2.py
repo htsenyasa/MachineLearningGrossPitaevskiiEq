@@ -1,8 +1,10 @@
 import shlex, subprocess, time
 import random as rnd
 import time as time
-import numpy as np
 import argparse
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 import potentialgenerator as pg
 
@@ -20,6 +22,7 @@ dirs = ["harmonic", "well", "gaussian", "random", "random2", "random3"]
 pot_types = [0, 1, 2, 3, 4, 5]    # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random 4:Random2 5:Random5
 if pot_type != -1:
     pot_types = [pot_type]
+#pot_types = [2]
 
 start = time.time()
 
@@ -33,15 +36,16 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]
 
 alpha = 0.5
-
+#pot_generators[pot_types[0]]()
 for pot_type in pot_types:
-    inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
-    inter_params = [0]
+    #inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
+    #inter_params = np.array([0, 5, 10 , 100, 300])
+    inter_params = np.array([5])
     for inter_param in inter_params:
 
-        cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
-
         pot_generators[pot_type]()
+
+        cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)
         p = subprocess.Popen(args)
         p.wait()
