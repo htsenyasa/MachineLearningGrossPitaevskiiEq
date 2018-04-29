@@ -12,6 +12,7 @@
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 %\usepackage{hyperref}
 \usepackage{algorithm}
+\usepackage{rotating}
 \usepackage[noend]{algpseudocode}
 
 \makeatletter
@@ -88,59 +89,6 @@ Ours difference.\\
 \subsection{Analytic solution and approximation.}
 
 \subsection{Numeric Solution and Dataset Generation}
-\subsubsection{Potential types (with analytic forms etc.)}
-
-We use \textbf{six} different types of potential in our study. The first three potential which have analytic form given in Table~\ref{tb:analytic_pot_types}. are 1D version of potentials studied in \cite{mills2017deep}. We implement two more random potential generator to study effect of generation process. The generation processes of the random potentials are described in Section~\ref{sec:random_potential_gen}.
-
-\newcommand{\infinitewell}{$
-V(x) = 
-    \begin{cases}
-       0 &\quad\text{if } x_l < x < x_r  \\
-       \infty &\quad\text{if } otherwise \\
-    \end{cases}
-$}
-
-\newcommand{\harmonicpot}{$ V(x) =  \frac{1}{2}m \omega^2 x^2 $}
-
-\newcommand{\gaussianpot}{$ V(x) = -A_1 exp(\frac{(x - \mu_1)^2}{s_1^2}) -A_2 exp(\frac{(x - \mu_2)^2}{s_2^2})  $
-}
-
-
-
-\begin{table}[H]
-\centering
-\caption{Potential Types and Analytic Forms}
-\begin{tabular}{l | ll}
-    Potential Type  & Analytic Form  & \\  \hline \\
-    Infinite Well   & \infinitewell  &  \\[0.7cm] \hline \\
-    Harmonic        & \harmonicpot   &  \\[0.7cm] \hline \\
-    DI Gaussian     & \gaussianpot   & \\[0.7cm] \hline
-\end{tabular}
-\label{tb:analytic_pot_types}
-\end{table}
-
-
-\begin{table}[H]
-\centering
-\caption{Parameters}
-\label{tb:analytic_pot_params}
-    \begin{tabular}{l|llll}
-    Potentials                     & Parameters     & Min  & Max & \\  \hline \\
-    \multirow{3}{*}{Infinite Well} & $x_l$          & -9   & 4.5 & \\
-                                   & $x_r$          & -4.5 & 9   & \\
-                                   & $x_l - x_r$    & 1    & 8   & \\ \hline \\
-    \multirow{2}{*}{Harmonic}      & $\omega$       & 0.01 & 4   & \\
-                                   & $x_0$          & -5   & 5   & \\ \hline \\
-    \multirow{3}{*}{DI Gaussian}   & $A_1, A_2$     & 1    & 10  & \\
-                                   & $\mu_1, \mu_2$ & -5   & 5   & \\
-                                   & $s_1, s_2$     & 0.5  & 4   & 
-    \end{tabular}
-\end{table}
-
-
-
-
-
 
 \subsubsection{Scaling}
 
@@ -157,13 +105,14 @@ GPE is given as,
 
 First we define dimensionless potential, and then we make the length dimensionless,
 
-$$ \widetilde{V}(z) \equiv \frac{V(z)}{\gamma E_0} $$
+$$ \overline{V}(z) \equiv \frac{V(z)}{\gamma E_0}, \qquad \widetilde{z} \equiv \frac{z}{\beta L} $$
 
-$$ \widetilde{z} \equiv \frac{z}{\beta L} $$
+Here $\gamma$ and $\beta$ positive real numbers. $E_0$ is in energy unit and $L$ is in length and they are defined respectively as;
 
-The potentials are going to be generated according to the length transformation, thus; we can transform potential expression implicitly. 
+$$E_0 = \frac{\hbar^2}{2m} $$
 
-$$ \widetilde{V}(z) \rightarrow \widetilde{V}(\widetilde{z}) $$ 
+
+$$ \widetilde{V}(\widetilde{z}) \equiv \overline{V}(\beta L z) $$ 
 
 If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
 
@@ -174,15 +123,11 @@ If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
 
 To obtain final form, we define dimensionless energy, wave function and interaction parameter respectively. 
 
-$$\widetilde{\mu} \equiv \frac{\mu}{\gamma E_0}$$
-
-$$ \widetilde{\psi} \equiv \psi{\sqrt{\frac{\beta L}{N}}}  $$
-
-$$\widetilde{g} \equiv \frac{gN}{\gamma E_0 \beta L} $$
+$$\widetilde{\mu} \equiv \frac{\mu}{\gamma E_0}, \qquad \widetilde{\psi} \equiv \psi{\sqrt{\frac{\beta L}{N}}}, \qquad \widetilde{g} \equiv \frac{gN}{\gamma E_0 \beta L} $$
 
 To control scaling coefficients we set the coefficient of the kinetic term to an arbitrary positive real number $\alpha$  
 
-$$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha, $$
+$$ \alpha = \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} , $$
 
 and set $E_0 = \hbar^2 / 2m$. Now the scaling of GPE can be controlled by $\alpha$ and $\beta$ only.
 
@@ -201,69 +146,115 @@ We are going to change these scaling coefficients and see their effects by compa
     \begin{subfigure}[t]{0.45\textwidth}
 		%\centering
         \includegraphics[width=\linewidth]{dens}
-        \caption{g = 0}
-		\label{fig:a}
+		
     \end{subfigure}
     \begin{subfigure}[t]{0.45\textwidth}
 		%\centering
         \includegraphics[width=\linewidth]{energy}
-        \caption{g = 0}
-		\label{fig:a}
+		
     \end{subfigure}
-    \caption{}
-\label{fig:energy_dist}
+    \caption{Error in density and energy}
+\label{fig:dens_energy_error}
 \end{figure}
 
 
-
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{solutionswithinter}
+    \caption{Density under Double Inverted Gaussian Potential with different interaction parameter.}
+\label{fig:gaussian_pot_and_density}
+\end{figure}
 
 \subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
 \subsubsection{XMDS framerwork and other programs.}
 \subsubsection{Potential generation}
 
-We create an envelope function as a mask with the following expression,
+In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. The generated potentials are sent to another method supplied by module, and this method rescales, and applies a envelope functions to ensure that potential goes to numerical limit at boundaries.
+
+The envelope functions is defined as,
 \begin{equation}
 \label{eq:envelope_potential}
-    \tanh{(\beta(x + x_l))} + \tanh{(\beta(x + x_r))}
+    \text{env}(x) = \tanh{(\beta(x + x_l))} + \tanh{(\beta(x + x_r))}
 \end{equation}
 
-where $x_l$ and $x_r$ bounds are given in the \textbf{table}. We apply this mask to all potentials except harmonic to make sure that all potential goes to maximum value at numerical infinity.  
+where $x_l$ and $x_r$ bounds are given in the Table~\ref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}. As it is shown, envelope function goes to zero at values greater than $x_r$ or lower than $x_l$ and the rapidness is proportional with $\beta$.
 
-\graphicspath{{"../figs/numericanalyze/"}}
+\graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{envpot}
-		\label{fig:a}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{rndpotwithoutprocess}
-		\label{fig:b}
-    \end{subfigure}
-\caption{Envelope Potential and Random Potential Before Process}
+\centering
+\includegraphics[width=\linewidth]{env}
+\caption{Envelope Function}
 \label{fig:envelope_and_random_withot_pros}
 \end{figure}
 
 The two potential in Figure~\ref{fig:envelope_and_random_withot_pros} are combined and a gaussian filter applied. 
 
-
+\graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
 \centering
+\begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=0.5\linewidth]{rndpot}
-\caption{}
-\label{fig:a}
+\end{subfigure}
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{rndpotwithoutprocess}
+\end{subfigure}
 \end{figure}
 
 
+
+
+\subsubsection{Potential types (with analytic forms etc.)}
+
+We use \textbf{six} different types of potential in our study. The first three potential which have analytic form given in Table~\ref{tb:general_table}. are 1D version of potentials studied in \cite{mills2017deep}. We implement two more random potential generator to study effect of generation process. The generation processes of the random potentials are described in Section~\ref{sec:random_potential_gen}.
+
+\newcommand{\infinitewell}{$
+V(x) = 
+    \begin{cases}
+       0 &\quad\text{if } x_l < x < x_r  \\
+       \infty &\quad\text{if } \textit{otherwise} \\
+    \end{cases}
+$}
+
+\newcommand{\harmonicpot}{$ V(x) =  \frac{1}{2}m \omega^2 (x - x_0) ^2 $}
+
+\newcommand{\gaussianpot}{$ V(x) = -A_1 \exp(\frac{(x - \mu_1)^2}{\sigma_1^2}) -A_2 \exp(\frac{(x - \mu_2)^2}{\sigma_2^2})  $
+}
+
+\newcommand{\randomexplation}{Summation of sines and cosines with random coefficients}
+
+\begin{sidewaystable}
+\begin{table}[H]
+\centering
+\caption{Potentials}
+\label{tb:general_table}
+\begin{tabular}{|l|l|l|l|l|} \hline
+Potential                      & Analytic Form / Explanation         & Parameters           & Min   & Max  \\ \hline
+\multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & -9    & 4.5  \\ 
+                               &                                     & $x_r$                & -4.5  & 9    \\
+                               &                                     & $x_r - x_l$          & 1     & 8    \\ \hline
+\multirow{2}{*}{Harmonic}      & \multirow{2}{*}{\harmonicpot}       & $\omega$             & 0.01  & 3    \\ 
+                               &                                     & $x_0$                & -5    & 5    \\ \hline
+\multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & 1     & 10   \\ 
+                               &                                     & $\mu_1, \mu_2$       & -5    & 5    \\
+                               &                                     & $\sigma_1, \sigma_2$ & 0.5   & 4    \\ \hline
+Random1                        & Random walk with random step size   & Step Size (Y axis)   & -4    & 4    \\ \hline
+\multirow{4}{*}{Random2}       & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  \\ 
+                               &                                     & $A_1, A_2$           & -4    & 4    \\
+                               &                                     & $n_1, n_2$           & -6.30 & 6.30 \\
+                               &                                     & $\sigma$             & 0.1   & 10   \\ \hline 
+Random3                        & Substraction of two binary grid     & Scale Factor         & 8     & 8    \\ \hline
+Random4                        &                                     &                      &       &      \\ \hline 
+\end{tabular}
+\end{table}
+\end{sidewaystable}
 
 
 
 \subsubsection{Random potential generations with different method. (Reason)}
 \label{sec:random_potential_gen}
 
-To be able to observe the effect of random potential generation to the results we used three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. We applied a gaussian filter with a random sigma value to the potential array to make it smooth.    
+To be able to observe the effect of random potential generation to the results we use three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. Gaussian filter is applied with a random sigma value to the potential array to make it smooth.    
 
 \begin{algorithm}[H]
     \caption{RandomPotential1}\label{euclid}
@@ -273,7 +264,7 @@ To be able to observe the effect of random potential generation to the results w
         \State $Len = \textit{Length(Points)}$
         \State $Potential[0] = Points[0]$
         \For{$\text{i} = 0 \textbf{ to } Len - 1$}
-        \State $Potential[i + 1] = Pot[i] + Points[i]$
+        \State $Potential[i + 1] = Potential[i] + Points[i]$
         \EndFor
         \State $Potential = GaussianFilter(Potential, \sigma)$ 
     \EndProcedure
@@ -281,7 +272,26 @@ To be able to observe the effect of random potential generation to the results w
 \label{alg:random_potential_1}
 \end{algorithm}
 
-The second one is summation of sines and cosines with random coefficients. Firstly, the number of terms are determined, after that each coefficient of the terms are assigned and summed iteratively. The resultant sum is potential and a gaussian filter is applied. 
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-1-noproc}
+		
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-1-proc}
+		
+    \end{subfigure}
+\caption{RandomPotential1 Before and After Process}
+\label{fig:random1_before_after}
+\end{figure}
+
+
+
+The second one is summation of sines and cosines with random coefficients. Firstly, the number of terms are determined, after that each coefficient of the terms are assigned and summed iteratively.
 
 \begin{algorithm}[H]
     \caption{RandomPotential2}\label{euclid}
@@ -301,15 +311,31 @@ The second one is summation of sines and cosines with random coefficients. First
 \label{alg:random_potential_1}
 \end{algorithm}
 
-We use slight modificated version of the algorithm described in \cite{mills2017deep}. Our modification occurs in the masking part. In this part we use our envelope function rather than convex hull mask. 
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-2-noproc}
+		
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-2-proc}
+		
+    \end{subfigure}
+\caption{RandomPotential1 Before and After Process}
+\label{fig:random2_before_after}
+\end{figure}
 
+The third one is one dimensional version of the algorithm described in \cite{mills2017deep} with slight modification. First a binary array of length $16$ is generated by assigning random ones or zeros. Then the array is upscaled to $128$ by repeating each element of the array $8$ times. After that, another binary array of length $8$ is generated with the same procedure and upscaled to $64$ by repeating elements. Left and right paddings of length $32$ is added to the second binary array to be able to do element wise substraction between two binary array. Then, the second array is substracted from the first one to obtain the potential in binary form. Finally, a gaussian filter is applied to make the potential smooth. 
 
 \begin{algorithm}[H]
     \caption{RandomPotentia3}\label{euclid}
     \begin{algorithmic}[1]
     \Procedure{RandomPotential3}{}
-        \State $ ScaleFactor = 8$
-        \For{$\text{i} = 0 \textbf{ to } NumberOfPoints/ScaleFactor$}
+        \State $ \textit{ScaleFactor} = 8$
+        \For{$\text{i} = 0 \textbf{ to } \textit{NumberOfPoints/ScaleFactor}$}
         \State $BinaryGrid[i] = RandomInteger(0, 1)$
         \EndFor
         \State $BinaryGrid = RepeatElements(BinaryGrid, ScaleFactor)$
@@ -325,6 +351,51 @@ We use slight modificated version of the algorithm described in \cite{mills2017d
     \end{algorithmic}
 \label{alg:random_potential_1}
 \end{algorithm}
+
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-3-noproc}
+		
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+		%\centering
+        \includegraphics[width=\linewidth]{random-3-proc}
+		
+    \end{subfigure}
+\caption{RandomPotential1 Before and After Process}
+\label{fig:random3_before_after}
+\end{figure}
+
+\subsubsection{Density and Ground State Energy}
+
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-gaussian}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-harmonic}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-well}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-random}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-random2}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\linewidth]{potvsdensity-random3}
+    \end{subfigure}
+\caption{RandomPotential1 Before and After Process}
+\label{fig:random3_before_after}
+\end{figure}
+
 
 
 
@@ -343,7 +414,7 @@ We use slight modificated version of the algorithm described in \cite{mills2017d
 %		%\centering
 %        \includegraphics[width=\linewidth]{total}
 %        \caption{g = 0}
-%		\label{fig:a}
+%		
 %    \end{subfigure}
 %    \caption{Total energy distributions of the generated solution for different %interaction parameter values.}
 %\label{fig:energy_dist}
