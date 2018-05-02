@@ -20,6 +20,7 @@
 \makeatother
 
 \newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
 
 \setlength\parindent{0pt}
 
@@ -87,6 +88,59 @@ Ours difference.\\
 \subsection{Potential, kinetic and interaction energy expressions.}
 \subsection{Reduction of dimension.}
 \subsection{Analytic solution and approximation.}
+
+\subsubsection{Thomas Fermi Approximation}
+
+
+
+It is said that the second derivative term with respect to position represents the kinetic energy. When the potential and the interaction energy are dominant compared to the kinetic energy, the kinetic term can be neglected. This situation occurs when the condensate is large adequately and the interaction between bosons is repulsive. \textbf{REF dilute gases}. When the kinetic term is dropped, the new equation can be written as;
+
+\begin{equation}
+\label{eq:GPE_1D_thomas_fermi}
+    V(z)\psi(z) + g|\psi(z)|^2\psi(z) = \mu\psi(z)
+\end{equation}
+this equation is analytically solvable and the solution is given by,
+
+\begin{equation}
+\label{eq:thomas_fermi_solution}
+    n(z) = |\psi(z)|^2 = \frac{\mu - V}{g}
+\end{equation}
+
+Density cannot be negative, therefore; $ \mu > V(z) $ and $ \mu = V$ where $\psi = 0$. Later condition also represents the boundary condition. If we use harmonic trapping potential, boundary condition can be writte as,
+
+\begin{equation}
+    \mu = V(z_B) = \frac{1}{2}m\omega^2z_B^2    
+\end{equation}
+
+Now, if we apply normalization condition \textbf{EQREF}, such that,
+
+
+\begin{equation}
+\label{eq:thomas_fermi_mu}
+    \int |\psi|^2 \dif z = \frac{1}{g} \int (\mu - V) \dif z = N 
+\end{equation}
+
+\begin{equation}
+   \frac{1}{g} \left [ \int_{-z_B}^{z_B} \mu \dif z - \int_{-z_B}^{z_B} \frac{1}{2}m\omega^2z^2 \dif z \right ] = N
+\end{equation}
+
+
+\begin{equation}
+    \frac{2\mu z_B}{g} - \frac{m\omega^2 z_B^3}{3g} = N
+\end{equation}
+
+If we plug Eq.~\eqref{eq:thomas_fermi_mu} the equations reads,
+
+\begin{equation}
+    \frac{m\omega^2 z_B^3}{g} - \frac{m\omega^2 z_B^3}{3g} = N
+\end{equation}
+
+
+
+\begin{equation}
+    \frac{4}{3} \left( \frac{2\mu}{m\omega^2} \right)^{1/2} \frac{\mu}{g} = N
+\end{equation}
+
 
 \subsection{Numeric Solution and Dataset Generation}
 
@@ -182,7 +236,7 @@ where $x_l$ and $x_r$ bounds are given in the Table~\ref{tb:general_table} and t
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{env}
+\includegraphics[width=.8\linewidth]{env}
 \caption{Envelope Function}
 \label{fig:envelope_and_random_withot_pros}
 \end{figure}
@@ -191,11 +245,9 @@ The two potential in Figure~\ref{fig:envelope_and_random_withot_pros} are combin
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
-\centering
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=0.5\linewidth]{rndpot}
 \end{subfigure}
-\centering
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{rndpotwithoutprocess}
 \end{subfigure}
