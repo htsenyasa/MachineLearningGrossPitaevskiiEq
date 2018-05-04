@@ -18,32 +18,63 @@ class PotentialGenerator(object):
         self.g_exec_func = g_exec_func
         self.x = np.arange(-self.width, self.width, self.step_size)
         self.seed = seed; rnd.seed(seed)
+        self.proc_inf_val = 50
         if transform == None:
             transform = lambda x: x
         self.transform = transform
+        self.omega = []
 
-    def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -8, r_x0 = 8):
+    #def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -8, r_x0 = 8):
+    #    if beta == None:
+    #        beta = 1 + rnd.random() * 3
+    #    envelope = (np.tanh((self.x + l_x0) * beta) - np.tanh(beta * (self.x + r_x0)))
+#
+    #    return envelope
+
+    def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -6, r_x0 = 6):
         if beta == None:
             beta = 1 + rnd.random() * 3
-        envelope = (np.tanh((self.x + l_x0) * beta) - np.tanh(beta * (self.x + r_x0)))
+        a1 = (1 - np.tanh(beta * (self.x + r_x0)))/2
+        a2 = (1 + np.tanh(beta * (self.x + l_x0)))/2
+        a3 = 1 - a1 - a2
+        return a3, a1+a2
 
-        return envelope
+#    def potential_process(self, pot, procs = [], args = []):
+#        """ args: A list of len(procs) that involves arguments of procs as tuples"""
+#        tpot = pot
+#        Nprocs = len(procs)
+#        pot += np.abs(np.min(pot))
+#
+#        for i in range(Nprocs):
+#            pot = procs[i](*args[i])
+#
+#        pot *= self.create_envolope_pot(4)
+#
+#
+#        pot *= self.inf_val / np.max(np.abs(pot)) 
+#        pot += np.abs(np.min(pot))
+#
+#        #return tpot, pot
+#        return pot
 
     def potential_process(self, pot, procs = [], args = []):
         """ args: A list of len(procs) that involves arguments of procs as tuples"""
         tpot = pot
         Nprocs = len(procs)
         pot += np.abs(np.min(pot))
-        pot *= self.create_envolope_pot(2)
 
         for i in range(Nprocs):
             pot = procs[i](*args[i])
 
+        a3, a1a2 = self.create_envolope_pot(4)
+        Vmax = np.max(pot) * 2
+        pot = pot * a3 + a1a2 * Vmax
         pot *= self.inf_val / np.max(np.abs(pot)) 
-        pot += np.abs(np.min(pot))
+        #pot += np.abs(np.min(pot))
 
         #return tpot, pot
         return pot
+
 
     def generate_random_pot(self, sigma = 3, exec_func = None):
         points = np.array([rnd.gauss(0, 1) for i in range(self.Np)])
@@ -129,7 +160,9 @@ class PotentialGenerator(object):
         l, r = lc - lw/2, lc + lw/2
 
         #pot = np.array([0 if l < x < r else 100 for x in self.x])
-        pot = self.create_envolope_pot(beta = 15, l_x0 = l, r_x0 = r)
+        #pot, a1a2 = self.create_envolope_pot(beta = 15, l_x0 = l, r_x0 = r)
+        beta = 15
+        pot = (np.tanh((self.x + l) * beta) - np.tanh(beta * (self.x + r)))
         pot *= self.inf_val / np.max(np.abs(pot)) 
         pot += np.abs(np.min(pot))
 
@@ -145,13 +178,15 @@ class PotentialGenerator(object):
         x0 = rnd.uniform(-5, 5)
         x0 = 0
         omega = rnd.uniform(0.01, 4)
-        #omega = 3
+        omega = 1
+        self.omega.append(omega)
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
-        #pot =  0.5 * (self.transform(self.x - x0))**2
 
-        index = np.where(pot > self.inf_val)
-        pot[index] = self.inf_val
-        pot *= self.inf_val / np.max(np.abs(pot)) 
+        #pot = self.potential_process(pot)
+        #pot =  0.5 * (self.transform(self.x - x0))**2
+        #index = np.where(pot > self.inf_val)
+        #pot[index] = self.inf_val
+        #pot *= self.inf_val / np.max(np.abs(pot)) 
 
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot)

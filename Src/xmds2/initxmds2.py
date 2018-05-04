@@ -38,9 +38,7 @@ pot_generators = [pot_gen.generate_harmonic_pot,
 alpha = 0.5
 #pot_generators[pot_types[0]]()
 for pot_type in pot_types:
-    #inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
-    #inter_params = np.array([0, 5, 10 , 100, 300])
-    inter_params = np.array([5])
+    inter_params = np.array([i for i in range(N_of_ex)])
     for inter_param in inter_params:
 
         pot_generators[pot_type]()
@@ -55,6 +53,26 @@ for pot_type in pot_types:
         p = subprocess.Popen(args)
         p.wait()
 
+np.savetxt("inter.txt", inter_params)
+
 end = time.time()
 
 print("Total Time = {}".format(end - start))
+
+en = []
+for i in range(len(en)):
+    dens2 = np.zeros(128)
+    zz = mu[i] - pot[i]
+    ind = np.where(zz > 0)
+    dens2[ind] = zz[ind]
+    dens2 /= inter[i]
+    plt.plot(x, dens[i], label = "XMDS g = {}".format(inter[i]))
+    plt.plot(x, dens2, label="TF g = {}".format(inter[i]))
+    plt.legend()
+    file_path = "../../../../figs/numericanalyze/"
+    figure = plt.gcf()
+    figure.set_size_inches(8,6)
+    if i == 1 or i == 5 or i == 10 or i == 15:
+        plt.savefig(file_path + "thomas-fermi-{}".format(inter[i]) + ".png", format = "png", bbox_inches='tight') #, dpi=800)    
+    #plt.show()
+    plt.clf()

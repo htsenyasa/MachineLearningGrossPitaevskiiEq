@@ -1,4 +1,4 @@
-\documentclass[a4paper,times,12pt]{article}
+\documentclass[a4paper,times,hidelinks,12pt]{article}
 %\usepackage{indentfirst}
 \usepackage{amsmath}
 \usepackage{multirow}
@@ -10,7 +10,7 @@
 %\usepackage{minted}
 \onehalfspacing
 \usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
-%\usepackage{hyperref}
+\usepackage{hyperref}
 \usepackage{algorithm}
 \usepackage{rotating}
 \usepackage[noend]{algpseudocode}
@@ -136,10 +136,32 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu} the equations reads,
 \end{equation}
 
 
-
 \begin{equation}
     \frac{4}{3} \left( \frac{2\mu}{m\omega^2} \right)^{1/2} \frac{\mu}{g} = N
 \end{equation}
+
+\begin{equation}
+    \mu = \left(\frac{9}{32} (N\omega g)^2 m \right)^{1/3}
+\end{equation}
+
+\graphicspath{{"../figs/numericanalyze/"}}
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-1.0}}}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-5.0}}}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-10.0}}}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-15.0}}}
+\end{subfigure}
+\caption{Here error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increament in interaction energy.}
+\end{figure}
+
 
 
 \subsection{Numeric Solution and Dataset Generation}
@@ -196,18 +218,9 @@ We are going to change these scaling coefficients and see their effects by compa
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{dens}
-		
-    \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{energy}
-		
-    \end{subfigure}
-    \caption{Error in density and energy}
+\centering
+    \includegraphics[width=\linewidth]{comparison-energy}
+\caption{Error in density and energy}
 \label{fig:dens_energy_error}
 \end{figure}
 
@@ -223,15 +236,31 @@ We are going to change these scaling coefficients and see their effects by compa
 \subsubsection{XMDS framerwork and other programs.}
 \subsubsection{Potential generation}
 
-In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. The generated potentials are sent to another method supplied by module, and this method rescales, and applies a envelope functions to ensure that potential goes to numerical limit at boundaries.
+In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. The generated potentials are sent to another method supplied by module. This method rescales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries. 
 
-The envelope functions is defined as,
+The given potential must satisfy the following conditions;
+
 \begin{equation}
-\label{eq:envelope_potential}
-    \text{env}(x) = \tanh{(\beta(x + x_l))} + \tanh{(\beta(x + x_r))}
+\label{eq:potential_boundary_conditions}
+\begin{split}
+    V(x < x_l) = V_0 \\ 
+    V(x > x_r) = V_0
+\end{split}
 \end{equation}
 
-where $x_l$ and $x_r$ bounds are given in the Table~\ref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}. As it is shown, envelope function goes to zero at values greater than $x_r$ or lower than $x_l$ and the rapidness is proportional with $\beta$.
+To handle these two conditions, we define two envelope functions given by, 
+
+\begin{equation}
+\label{eq:envelope_potential_lr}
+    \text{Env}_{LR}(x) = [(1 + \tanh{(\beta(x + x_L))}) + (1 - \tanh{(\beta(x + x_R))})]/2
+\end{equation}
+
+\begin{equation}
+\label{eq:envelope_potential_m}
+    \text{Env}_{M}(x) = 1 - \text{Env}_{LR}(x)
+\end{equation}
+
+where $x_L$ and $x_R$ bounds are given in the Table~\ref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}.  
 
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
@@ -280,23 +309,23 @@ $}
 \centering
 \caption{Potentials}
 \label{tb:general_table}
-\begin{tabular}{|l|l|l|l|l|} \hline
-Potential                      & Analytic Form / Explanation         & Parameters           & Min   & Max  \\ \hline
-\multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & -9    & 4.5  \\ 
-                               &                                     & $x_r$                & -4.5  & 9    \\
-                               &                                     & $x_r - x_l$          & 1     & 8    \\ \hline
-\multirow{2}{*}{Harmonic}      & \multirow{2}{*}{\harmonicpot}       & $\omega$             & 0.01  & 3    \\ 
-                               &                                     & $x_0$                & -5    & 5    \\ \hline
-\multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & 1     & 10   \\ 
-                               &                                     & $\mu_1, \mu_2$       & -5    & 5    \\
-                               &                                     & $\sigma_1, \sigma_2$ & 0.5   & 4    \\ \hline
-Random1                        & Random walk with random step size   & Step Size (Y axis)   & -4    & 4    \\ \hline
-\multirow{4}{*}{Random2}       & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  \\ 
-                               &                                     & $A_1, A_2$           & -4    & 4    \\
-                               &                                     & $n_1, n_2$           & -6.30 & 6.30 \\
-                               &                                     & $\sigma$             & 0.1   & 10   \\ \hline 
-Random3                        & Substraction of two binary grid     & Scale Factor         & 8     & 8    \\ \hline
-Random4                        &                                     &                      &       &      \\ \hline 
+\begin{tabular}{|l|l|l|l|l|l|} \hline
+Potential                      & Analytic Form / Explanation         & Parameters           & Min   & Max  & Distribution \\ \hline
+\multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & -9    & 4.5  &              \\ 
+                               &                                     & $x_r$                & -4.5  & 9    &              \\
+                               &                                     & $x_r - x_l$          & 1     & 8    &              \\ \hline
+\multirow{2}{*}{Harmonic}      & \multirow{2}{*}{\harmonicpot}       & $\omega$             & 0.01  & 3    &              \\ 
+                               &                                     & $x_0$                & -5    & 5    &              \\ \hline
+\multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & 1     & 10   &              \\ 
+                               &                                     & $\mu_1, \mu_2$       & -5    & 5    &              \\
+                               &                                     & $\sigma_1, \sigma_2$ & 0.5   & 4    &              \\ \hline
+Random1                        & Random walk with random step size   & Step Size (Y axis)   & -4    & 4    &              \\ \hline
+\multirow{4}{*}{Random2}       & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  &              \\ 
+                               &                                     & $A_1, A_2$           & -4    & 4    &              \\
+                               &                                     & $n_1, n_2$           & -6.30 & 6.30 &              \\
+                               &                                     & $\sigma$             & 0.1   & 10   &              \\ \hline 
+Random3                        & Substraction of two binary grid     & Scale Factor         & 8     & 8    &              \\ \hline
+Random4                        &                                     &                      &       &      &              \\ \hline 
 \end{tabular}
 \end{table}
 \end{sidewaystable}

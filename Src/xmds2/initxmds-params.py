@@ -65,7 +65,7 @@ for pot_type in pot_types:
             rnd.seed(10)
             pot_generators[pot_type]()
             for inter_param in inter_params:
-                inter_param *= alpha * beta #if this line is open to execution, then it means that inter_param is physical one not the transformed and if it is closed vice versa.  
+                inter_param *= alpha * beta   
                 cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha_)
                 args = shlex.split(cmdline)
                 p = subprocess.Popen(args)
