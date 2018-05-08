@@ -298,11 +298,13 @@ V(x) =
 $}
 
 \newcommand{\harmonicpot}{$ V(x) =  \frac{1}{2}m \omega^2 (x - x_0) ^2 $}
-
-\newcommand{\gaussianpot}{$ V(x) = -A_1 \exp(\frac{(x - \mu_1)^2}{\sigma_1^2}) -A_2 \exp(\frac{(x - \mu_2)^2}{\sigma_2^2})  $
-}
-
+\newcommand{\gaussianpot}{$V(x) = -A_1 \exp(\frac{(x - \mu_1)^2}{\sigma_1^2}) -A_2 \exp(\frac{(x - \mu_2)^2}{\sigma_2^2})$}
 \newcommand{\randomexplation}{Summation of sines and cosines with random coefficients}
+\newcommand{\envelopepotLR}{$\text{Env}_{LR}(x) = [(1 + \tanh{(\beta(x + x_L))}) + (1 - \tanh{(\beta(x + x_R))})]/2$}
+\newcommand{\envelopepotM}{$\text{Env}_{M}(x) = 1 - \text{Env}_{LR}(x)$}
+\newcommand{\randompotONE}{$V(x_{i+1}) = V(x_i) + [X\sim\mathcal{N}(\mu, \sigma)$]}
+
+
 
 \begin{sidewaystable}
 \begin{table}[H]
@@ -311,6 +313,9 @@ $}
 \label{tb:general_table}
 \begin{tabular}{|l|l|l|l|l|l|} \hline
 Potential                      & Analytic Form / Explanation         & Parameters           & Min   & Max  & Distribution \\ \hline
+\multirow{3}{*}{Envelope}      & \multirow{2}{*}{\envelopepotLR}     & $x_L$                & -9    & 4.5  &              \\ 
+                               & \multirow{2}{*}{\envelopepotM}      & $x_R$                & -4.5  & 9    &              \\
+                               &                                     & $\beta$              & -4.5  & 9    &              \\ \hline
 \multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & -9    & 4.5  &              \\ 
                                &                                     & $x_r$                & -4.5  & 9    &              \\
                                &                                     & $x_r - x_l$          & 1     & 8    &              \\ \hline
@@ -319,13 +324,14 @@ Potential                      & Analytic Form / Explanation         & Parameter
 \multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & 1     & 10   &              \\ 
                                &                                     & $\mu_1, \mu_2$       & -5    & 5    &              \\
                                &                                     & $\sigma_1, \sigma_2$ & 0.5   & 4    &              \\ \hline
-Random1                        & Random walk with random step size   & Step Size (Y axis)   & -4    & 4    &              \\ \hline
-\multirow{4}{*}{Random2}       & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  &              \\ 
+\multirow{2}{*}{Random\#1}     & \multirow{2}{*}{\randompotONE}      & $\mu$                & -4    & 4    &              \\ 
+                               &                                     & $\sigma$             & 0.5   & 4    &              \\ \hline
+\multirow{4}{*}{Random\#2}     & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  &              \\ 
                                &                                     & $A_1, A_2$           & -4    & 4    &              \\
                                &                                     & $n_1, n_2$           & -6.30 & 6.30 &              \\
                                &                                     & $\sigma$             & 0.1   & 10   &              \\ \hline 
-Random3                        & Substraction of two binary grid     & Scale Factor         & 8     & 8    &              \\ \hline
-Random4                        &                                     &                      &       &      &              \\ \hline 
+Random\#3                      & Substraction of two binary grid     & Scale Factor         & 8     & 8    &              \\ \hline
+
 \end{tabular}
 \end{table}
 \end{sidewaystable}

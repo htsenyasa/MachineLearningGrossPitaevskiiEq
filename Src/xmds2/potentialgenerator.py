@@ -99,17 +99,17 @@ class PotentialGenerator(object):
     def generate_random_pot_2(self, sigma = None, exec_func = None):
         """ Create random potential by using sine and cosine series with random coeffs. """
 
-        pot = np.zeros(self.Np)
-        Nterms = rnd.randint(1, 100)
+        Vi = np.random.uniform(0,1,self.Np)
+        k = np.fft.rfftfreq(self.Np)
+        kc = .0125
+        kc = np.random.uniform(1,10)*k[1]
+        V0 = 3
+        M = 4
+        Vk = V0 * np.fft.rfft(Vi)
+        pot = np.fft.irfft(np.exp(-(k/kc)**M)*Vk)
+
         if sigma == None:
             sigma = rnd.uniform(0.1, 10)
-
-        for i in range(Nterms):
-            A = rnd.gauss(0, 1)
-            B = rnd.gauss(0, 1)
-            n1 = (rnd.gauss(0, 1) * sigma) * np.pi / self.total_width
-            n2 = (rnd.gauss(0, 1) * sigma) * np.pi / self.total_width
-            pot += A * np.sin(n1 * self.x) + B * np.cos(n2 * self.x)
 
         procs = [scipy.ndimage.filters.gaussian_filter1d]
         args = [(pot, sigma)]
@@ -268,3 +268,32 @@ def display_pot(x, pot):
 #    for pot_type in pot_types:
 #        plt.plot(x, pot_generators[pot_type]())
 #        plt.show()
+
+
+#    def generate_random_pot_2(self, sigma = None, exec_func = None):
+#        """ Create random potential by using sine and cosine series with random coeffs. """
+#
+#        pot = np.zeros(self.Np)
+#        Nterms = rnd.randint(1, 100)
+#        if sigma == None:
+#            sigma = rnd.uniform(0.1, 10)
+#
+#        for i in range(Nterms):
+#            A = rnd.gauss(0, 1)
+#            B = rnd.gauss(0, 1)
+#            n1 = (rnd.gauss(0, 1) * sigma) * np.pi / self.total_width
+#            n2 = (rnd.gauss(0, 1) * sigma) * np.pi / self.total_width
+#            pot += A * np.sin(n1 * self.x) + B * np.cos(n2 * self.x)
+#
+#        procs = [scipy.ndimage.filters.gaussian_filter1d]
+#        args = [(pot, sigma)]
+#
+#        pot = self.potential_process(pot, procs, args)
+#
+#        if self.g_exec_func != None:
+#            self.g_exec_func(self.x, pot)
+#
+#        if exec_func != None:
+#            exec_func(self.x, pot)    
+#
+#        return pot
