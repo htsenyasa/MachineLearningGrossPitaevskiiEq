@@ -48,7 +48,7 @@
     <geometry>
       <propagation_dimension> t </propagation_dimension>
       <transverse_dimensions>
-        <dimension name="x" lattice="128"  domain="(-10.0, 10.0)" />
+        <dimension name="x" lattice="256"  domain="(-10.0, 10.0)" />
       </transverse_dimensions>
     </geometry>
 

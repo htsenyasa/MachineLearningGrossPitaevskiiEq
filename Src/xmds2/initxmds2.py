@@ -36,12 +36,13 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]
 
 alpha = 0.5
-#pot_generators[pot_types[0]]()
+pot_generators[pot_type]()
 for pot_type in pot_types:
     inter_params = np.array([i for i in range(N_of_ex)])
+    inter_params = np.array([1, 5, 10, 15])
     for inter_param in inter_params:
 
-        pot_generators[pot_type]()
+        #pot_generators[pot_type]()
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)

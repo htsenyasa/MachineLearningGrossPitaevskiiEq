@@ -21,13 +21,13 @@ pot_type = args.pot_type
 N_of_ex = args.examples
 
 def transform_and_save(x, pot):
-    pot *= alpha * beta**2
+    pot *= alpha
     hf = h5py.File("func.h5", "w")
     hf.create_dataset("func", data=pot)
     hf.create_dataset("x", data=x)
     hf.close()
 
-beta_transform = lambda x: x / (alpha * beta)
+beta_transform = lambda x: x
 
 dirs = ["harmonic", "well", "gaussian", "random", "random2", "random3"]
 
@@ -38,7 +38,7 @@ if pot_type != -1:
 start = time.time()
 
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
-pot_gen = pg.PotentialGenerator(g_exec_func = transform_and_save, transform = beta_transform)
+pot_gen = pg.PotentialGenerator(g_exec_func = transform_and_save) #, transform = beta_transform)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -48,46 +48,40 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]    
 
 
-#alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
+alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
 #alphas = np.concatenate(([0.01, 0.1, 0.5], alphas), axis = 0)
-#alphas = np.concatenate(([0.001, 0.01, 0.1], alphas), axis = 0)
-alphas = np.array([0.5])
-#betas = np.arange(1, 10, (10 - 1) / 10)
-betas = np.array([1/10, 1])
-inter_params = [0., 0.5, 1, 10, 100, 300]
-inter_params = [0]
+alphas = np.concatenate(([0.001, 0.01, 0.1], alphas), axis = 0)
+alphas = np.array([0.1, 0.5, 1, 2, 5, 10])
+inter_params = [0., 0.5, 1, 10, 100]
+inter_params = [1]
 
 for pot_type in pot_types:
     for alpha_ in alphas:
         alpha = alpha_
-        for beta_ in betas:
-            beta = beta_
-            rnd.seed(10)
-            pot_generators[pot_type]()
-            for inter_param in inter_params:
-                inter_param *= alpha * beta   
-                cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha_)
-                args = shlex.split(cmdline)
-                p = subprocess.Popen(args)
-                p.wait()
+        pot_generators[pot_type]()
+        for inter_param in inter_params:
+            inter_param *= alpha
+            cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha_)
+            args = shlex.split(cmdline)
+            p = subprocess.Popen(args)
+            p.wait()
 
-                #cwd = os.getcwd()
-                #os.chdir("/home/user/Study/Src/APPL/Src/GPELab/Code 1D/Examples")
-                #cmdline = 'matlab -nodesktop -nosplash -nodesktop -r "runmatlab {} {}"'.format(inter_param, alpha_)
-                #args = shlex.split(cmdline)
-                #p = subprocess.Popen(args)
-                #p.wait()
-                #os.chdir(cwd)
+            #cwd = os.getcwd()
+            #os.chdir("/home/user/Study/Src/APPL/Src/GPELab/Code 1D/Examples")
+            #cmdline = 'matlab -nodesktop -nosplash -nodesktop -r "runmatlab {} {}"'.format(inter_param, alpha_)
+            #args = shlex.split(cmdline)
+            #p = subprocess.Popen(args)
+            #p.wait()
+            #os.chdir(cwd)
 
-                cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
-                args = shlex.split(cmdline)
-                p = subprocess.Popen(args)
-                p.wait()
-
-                #cmdline = "python gp1d_matlab.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
-                #args = shlex.split(cmdline)
-                #p = subprocess.Popen(args)
-                #p.wait()
+            cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+            args = shlex.split(cmdline)
+            p = subprocess.Popen(args)
+            p.wait()
+            #cmdline = "python gp1d_matlab.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+            #args = shlex.split(cmdline)
+            #p = subprocess.Popen(args)
+            #p.wait()
 
 
 end = time.time()

@@ -9,7 +9,7 @@ class PotentialGenerator(object):
     cur_pot_type = None
     type_of_pots = 0
 
-    def __init__(self, seed = 100, width = 10, Np = 128, inf_val = 30, g_exec_func = None, transform = None):
+    def __init__(self, seed = 10, width = 10, Np = 256, inf_val = 50, g_exec_func = None, transform = None):
         self.width = width
         self.total_width = 2 * width
         self.step_size = self.total_width / float(Np)
@@ -33,34 +33,20 @@ class PotentialGenerator(object):
 
     def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -6, r_x0 = 6):
         if beta == None:
-            beta = 1 + rnd.random() * 3
+            beta = 3
+            #beta = 1 + rnd.random() * 3
         a1 = (1 - np.tanh(beta * (self.x + r_x0)))/2
         a2 = (1 + np.tanh(beta * (self.x + l_x0)))/2
         a3 = 1 - a1 - a2
         return a3, a1+a2
 
-#    def potential_process(self, pot, procs = [], args = []):
-#        """ args: A list of len(procs) that involves arguments of procs as tuples"""
-#        tpot = pot
-#        Nprocs = len(procs)
-#        pot += np.abs(np.min(pot))
-#
-#        for i in range(Nprocs):
-#            pot = procs[i](*args[i])
-#
-#        pot *= self.create_envolope_pot(4)
-#
-#
-#        pot *= self.inf_val / np.max(np.abs(pot)) 
-#        pot += np.abs(np.min(pot))
-#
-#        #return tpot, pot
-#        return pot
 
     def potential_process(self, pot, procs = [], args = []):
         """ args: A list of len(procs) that involves arguments of procs as tuples"""
         tpot = pot
         Nprocs = len(procs)
+        #pot_min = np.min(pot)
+        #if pot_min < 0:
         pot += np.abs(np.min(pot))
 
         for i in range(Nprocs):
@@ -72,8 +58,8 @@ class PotentialGenerator(object):
         pot *= self.inf_val / np.max(np.abs(pot)) 
         #pot += np.abs(np.min(pot))
 
-        #return tpot, pot
         return pot
+        #return tpot, pot
 
 
     def generate_random_pot(self, sigma = 3, exec_func = None):
@@ -96,25 +82,26 @@ class PotentialGenerator(object):
 
         return pot
 
-    def generate_random_pot_2(self, sigma = None, exec_func = None):
+    def generate_random_pot_2(self, exec_func = None):
         """ Create random potential by using sine and cosine series with random coeffs. """
 
-        Vi = np.random.uniform(0,1,self.Np)
+        #Vi = np.random.uniform(0,1,self.Np)
+        Vi = np.array([rnd.uniform(0, 1) for i in range(self.Np)])
         k = np.fft.rfftfreq(self.Np)
         kc = .0125
-        kc = np.random.uniform(1,10)*k[1]
+        kc = rnd.uniform(1, 10) * k[1]
+        #kc = np.random.uniform(1,10) * k[1]
         V0 = 3
         M = 4
         Vk = V0 * np.fft.rfft(Vi)
         pot = np.fft.irfft(np.exp(-(k/kc)**M)*Vk)
 
-        if sigma == None:
-            sigma = rnd.uniform(0.1, 10)
+        #if sigma == None:
+        #    sigma = rnd.uniform(0.1, 10)
+        #procs = [scipy.ndimage.filters.gaussian_filter1d]
+        #args = [(pot, sigma)]
 
-        procs = [scipy.ndimage.filters.gaussian_filter1d]
-        args = [(pot, sigma)]
-
-        pot = self.potential_process(pot, procs, args)
+        pot = self.potential_process(pot)
 
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot)
@@ -127,7 +114,7 @@ class PotentialGenerator(object):
     def generate_random_pot_3(self, sigma = None, scale_fac = 8, exec_func = None):
         
         if sigma == None:
-            sigma = rnd.uniform(2.5, 10)
+            sigma = rnd.uniform(2.5, 10) * (self.Np / 128) 
 
         bin_grid = np.array([rnd.randint(0, 1) for i in range(self.Np // scale_fac)])
         bin_grid = np.repeat(bin_grid, scale_fac)
@@ -175,13 +162,19 @@ class PotentialGenerator(object):
         return pot
 
     def generate_harmonic_pot(self, exec_func = None):
-        x0 = rnd.uniform(-5, 5)
-        x0 = 0
-        omega = rnd.uniform(0.01, 4)
-        omega = 1
+        x0 = rnd.uniform(-1, 1)
+        #x0 = 0 
+        omega = rnd.uniform(0.5, 1.3) 
         self.omega.append(omega)
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
 
+        pot += np.abs(np.min(pot))
+        a3, a1a2 = self.create_envolope_pot(4, l_x0 = -6 + x0, r_x0 = 6 + x0)
+        #Vmax = np.max(pot) * 2
+        Vmax = self.inf_val
+        pot = pot * a3 + a1a2 * Vmax
+        #pot *= self.inf_val / np.max(np.abs(pot)) 
+        
         #pot = self.potential_process(pot)
         #pot =  0.5 * (self.transform(self.x - x0))**2
         #index = np.where(pot > self.inf_val)
@@ -296,4 +289,22 @@ def display_pot(x, pot):
 #        if exec_func != None:
 #            exec_func(self.x, pot)    
 #
+#        return pot
+
+#    def potential_process(self, pot, procs = [], args = []):
+#        """ args: A list of len(procs) that involves arguments of procs as tuples"""
+#        tpot = pot
+#        Nprocs = len(procs)
+#        pot += np.abs(np.min(pot))
+#
+#        for i in range(Nprocs):
+#            pot = procs[i](*args[i])
+#
+#        pot *= self.create_envolope_pot(4)
+#
+#
+#        pot *= self.inf_val / np.max(np.abs(pot)) 
+#        pot += np.abs(np.min(pot))
+#
+#        #return tpot, pot
 #        return pot
