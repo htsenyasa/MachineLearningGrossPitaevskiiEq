@@ -73,6 +73,8 @@ state density profile for a given harmonic trapping potential.
 
 \pagenumbering{arabic}
 \section{Introduction and Motivation}
+
+
 \label{sec:Intro}
 \noindent Machine learning.\\
 General usage area.\\
@@ -101,38 +103,45 @@ It is said that the second derivative term with respect to position represents t
 \end{equation}
 this equation is analytically solvable and the solution is given by,
 
+
 \begin{equation}
-\label{eq:thomas_fermi_solution}
-    n(z) = |\psi(z)|^2 = \frac{\mu - V}{g}
+\label{eq:thomas_fermi_solution}    
+n(z) = |\psi(z)|^2 =  
+    \begin{cases}
+        (\mu_{TF} - V)/g &\quad\text{if }  |z| \le z_{TF}  \\
+        0 &\quad \textit{otherwise} \\
+    \end{cases}
 \end{equation}
 
-Density cannot be negative, therefore; $ \mu > V(z) $ and $ \mu = V$ where $\psi = 0$. Later condition also represents the boundary condition. If we use harmonic trapping potential, boundary condition can be writte as,
+where $z_{TF}$ is called Thomas-Fermi Radius. The density defined in this range and cannot be negative, therefore; if the normalization condition \textbf{EQREF} is applied then the equation reads,  
 
 \begin{equation}
-    \mu = V(z_B) = \frac{1}{2}m\omega^2z_B^2    
+    \label{eq:thomas_fermi_mu_integral}
+        \int_{-\infty}^{\infty} |\psi|^2 \dif z = \int_{-z_{TF}}^{z_{TF}} \frac{(\mu - V)}{g} \dif z = N 
+    \end{equation}
+
+For an exact analytic expression, one dimensional harmonic potential can be used, 
+
+\begin{equation}
+   \frac{1}{g} \left [ \int_{-z_{TF}}^{z_{TF}} \mu \dif z - \int_{-z_{TF}}^{z_{TF}} \frac{1}{2}m\omega^2z^2 \dif z \right ] = N
 \end{equation}
 
-Now, if we apply normalization condition \textbf{EQREF}, such that,
-
-
 \begin{equation}
-\label{eq:thomas_fermi_mu}
-    \int |\psi|^2 \dif z = \frac{1}{g} \int (\mu - V) \dif z = N 
-\end{equation}
-
-\begin{equation}
-   \frac{1}{g} \left [ \int_{-z_B}^{z_B} \mu \dif z - \int_{-z_B}^{z_B} \frac{1}{2}m\omega^2z^2 \dif z \right ] = N
+    \frac{2\mu z_{TF}}{g} - \frac{m\omega^2 z_{TF}^3}{3g} = N
 \end{equation}
 
 
+From boundary conditions,
 \begin{equation}
-    \frac{2\mu z_B}{g} - \frac{m\omega^2 z_B^3}{3g} = N
+\label{eq:thomas_fermi_mu_bound}
+    \mu = V(z_{TF}) = \frac{1}{2}m\omega^2z_{TF}^2    
 \end{equation}
 
-If we plug Eq.~\eqref{eq:thomas_fermi_mu} the equations reads,
+
+If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 
 \begin{equation}
-    \frac{m\omega^2 z_B^3}{g} - \frac{m\omega^2 z_B^3}{3g} = N
+    \frac{m\omega^2 z_{TF}^3}{g} - \frac{m\omega^2 z_{TF}^3}{3g} = N
 \end{equation}
 
 
@@ -148,18 +157,18 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu} the equations reads,
 \begin{figure}[H]
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{{{thomas-fermi-1.0}}}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-random-15.0}}}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{{{thomas-fermi-5.0}}}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-random2-15.0}}}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{{{thomas-fermi-10.0}}}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-random3-15.0}}}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{{{thomas-fermi-15.0}}}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
 \end{subfigure}
-\caption{Here error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increament in interaction energy.}
+\caption{Here, the error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increament in interaction energy.}
 \end{figure}
 
 
@@ -260,7 +269,7 @@ To handle these two conditions, we define two envelope functions given by,
     \text{Env}_{M}(x) = 1 - \text{Env}_{LR}(x)
 \end{equation}
 
-where $x_L$ and $x_R$ bounds are given in the Table~\ref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}.  
+where $x_L$ and $x_R$ are bounds given in the Table~\eqref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}.  
 
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
@@ -272,14 +281,15 @@ where $x_L$ and $x_R$ bounds are given in the Table~\ref{tb:general_table} and t
 
 The two potential in Figure~\ref{fig:envelope_and_random_withot_pros} are combined and a gaussian filter applied. 
 
-\graphicspath{{"../figs/numericanalyze/"}}
+\graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
-\begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=0.5\linewidth]{rndpot}
-\end{subfigure}
-\begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{rndpotwithoutprocess}
-\end{subfigure}
+%\begin{subfigure}[t]{0.45\textwidth}
+
+    \includegraphics[width=\linewidth]{randombeforeafterproc}
+%\end{subfigure}
+%\begin{subfigure}[t]{0.45\textwidth}
+%    \includegraphics[width=\linewidth]{randomafterproc}
+%\end{subfigure}
 \end{figure}
 
 
@@ -362,17 +372,8 @@ To be able to observe the effect of random potential generation to the results w
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-1-noproc}
-		
-    \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-1-proc}
-		
-    \end{subfigure}
-\caption{RandomPotential1 Before and After Process}
+        \includegraphics[width=\linewidth]{random-1-noprocandproc}
+\caption{Random Potential 1 Before and After Process}
 \label{fig:random1_before_after}
 \end{figure}
 
@@ -401,17 +402,8 @@ The second one is summation of sines and cosines with random coefficients. First
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-2-noproc}
-		
-    \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-2-proc}
-		
-    \end{subfigure}
-\caption{RandomPotential1 Before and After Process}
+        \includegraphics[width=\linewidth]{random-2-noprocandproc}
+\caption{Random Potential 2 Before and After Process}
 \label{fig:random2_before_after}
 \end{figure}
 
@@ -442,17 +434,8 @@ The third one is one dimensional version of the algorithm described in \cite{mil
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-3-noproc}
-		
-    \end{subfigure}
-    \begin{subfigure}[t]{0.45\textwidth}
-		%\centering
-        \includegraphics[width=\linewidth]{random-3-proc}
-		
-    \end{subfigure}
-\caption{RandomPotential1 Before and After Process}
+        \includegraphics[width=\linewidth]{random-3-noprocandproc}
+\caption{Random Potential 3 Before and After Process}
 \label{fig:random3_before_after}
 \end{figure}
 
@@ -479,7 +462,7 @@ The third one is one dimensional version of the algorithm described in \cite{mil
     \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\linewidth]{potvsdensity-random3}
     \end{subfigure}
-\caption{RandomPotential1 Before and After Process}
+\caption{Potentials and Corresponding Ground State Densities}
 \label{fig:random3_before_after}
 \end{figure}
 
