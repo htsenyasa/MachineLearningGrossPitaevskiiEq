@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage[bottom]{footmisc}
 %\usepackage{svg}
 \usepackage{subcaption}
 %\usepackage{minted}
@@ -62,7 +63,7 @@
 \section*{Summary}
 
 We train an artificial neural network to estimate the ground state energy
-of a one-dimensional Bose-Einstein condensate in harmonic trapping potential.
+of a one-dimensional Bose-Einstein condensate in different type of potentials including random.
 Such a system can be described by the solution of a non-linear Schr{\"o}dinger equation also called a Gross-Pitaevskii equation. We also use the method for the inverse problem of predicting the non-linearity parameter using the ground
 state density profile for a given harmonic trapping potential.
 
@@ -83,6 +84,84 @@ ML\&SE article.\\
 Ours difference.\\
 
 \section{Gross Pitaevskii Equation}
+
+A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). It is mean field approximation of a quantum many body system which the hamiltonian of the system is given by;
+
+\begin{equation}
+\label{eq:GPE_hamiltonian}
+\hat{H} = \sum_{i = 1}^{N} \left(\frac{\boldsymbol{p}_i^2}{2m} + V(\boldsymbol{r}_i) \right) + \frac{1}{2} \sum_{i = 1}^{N} \sum_{j \neq i}^{N} U(|\boldsymbol{r}_i - \boldsymbol{r}_j|)
+\end{equation}
+
+where $\textbf{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. Also the free energy $F = E - \mu N$ which is a thermodynamic potential is introduced since we try to minimize energy while still satisfying the normalization condition that is given as, 
+
+\begin{equation}
+\label{eq:GPE_normalization}
+\int |\Psi(\boldsymbol{r})|^2 \dif^3 \boldsymbol{r} = N    
+\end{equation}
+
+where $N$ is the number of particles in the system. This condition equals to minimizing free energy such that $\delta E - \mu \delta N = 0$ \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
+
+\begin{equation}
+\label{eq:GPE_derivation_free_energy}
+F(\Psi) = \int \Psi^{*}\hat{H}\Psi \dif^3\boldsymbol{r} - \mu \int |\Psi|^2 \dif^3\boldsymbol{r}
+\end{equation}
+
+Therefore, the problem can be stated as minimization of the above equation \cite{rogel2013gross}. Applying variation method to this equation while treating $\Psi^{*}$
+and $\Psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = g\delta(\textbf{r}_i - \textbf{r}_j)$ one can obtain Gross Pitaevskii Equation (GPE) in stationary form as, 
+
+\begin{equation}
+\label{eq:GPE_time_indep}
+\frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi = \mu\psi
+\end{equation}
+
+%General form of GPE in three dimension is given as,
+%
+%\begin{equation}
+%\label{eq:GPE_3D}
+%i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar^2}{2m}\nabla^2
+%\Psi + V(\boldsymbol{r}, t)\Psi + g|\Psi|^2\ \Psi
+%\end{equation}
+
+\noindent where $\hbar$ is Planck constant, $t$ is time, $\Psi(\boldsymbol{r}, t)$ is the wave function, $m$ is mass, $\nabla^2$ is the Laplacian operator, $V$ is the potential, $g$ is interaction parameter and it is defined as 
+
+\begin{equation}
+\label{eq:GPE_inter_param}
+g=\frac{4\pi\hbar^2a_s}{m}
+\end{equation}
+
+\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\Psi|^2$ which represents the interactions between bosons. The $|\Psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions\cite{barenghi2016primer}. \\
+
+The ground state energy of the system can be obtained from the following expression, 
+
+\begin{equation}
+\label{GPE_total_energy_general}
+\langle E \rangle = \int \Psi^{*}\hat{H}\Psi \dif^3\boldsymbol{r}
+\end{equation}
+
+\begin{equation}
+\label{GPE_total_energy}
+E = \int \left(\frac {\hbar^2}{2m}|\nabla
+\Psi|^2 + V|\Psi|^2 + \frac{g}{2}|\Psi|^4 \right) d^3\boldsymbol{r}
+\end{equation}
+
+Here, the terms represent kinetic, potential and interaction energy respectively.\footnote{Contribition from the interaction energy is divided by two to eliminate double counting while pairing bosons.}  
+
+If the potential does not depend on time then the total energy of the system is conversed and a stationary form of GPE can be obtained by factorizing the wave function into spatial and time parts such that,
+
+\begin{equation}
+\label{eq:GPE_time_indep_wave_func}
+\Psi(\boldsymbol{r}, t) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar}
+\end{equation}
+
+where $\mu$ is chemical potential. In this case, by invoking separation of variables time independent GPE can be written as;
+
+\begin{equation}
+\label{eq:GPE_time_indep}
+\frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi = \mu\psi
+\end{equation}
+
+
+ 
 \subsection{General information about GPE}
 \subsection{Why and how nonlinearty is introduced.}
 \subsection{Physical and mathematical interpretation of interaction parameter. (phy: attractive, repulsive  math:dominance of the terms)}
@@ -90,6 +169,16 @@ Ours difference.\\
 \subsection{Potential, kinetic and interaction energy expressions.}
 \subsection{Reduction of dimension.}
 \subsection{Analytic solution and approximation.}
+
+There is no general solution for GPE and known analytic solutions exist only for few cases. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions. The ground state energies are given by
+
+\begin{equation}
+\label{eq:GPE_1D_solution_harmonic}
+    \mu = \frac{1}{2}\hbar\omega
+\end{equation}
+
+
+GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. \textbf{dilute}
 
 \subsubsection{Thomas Fermi Approximation}
 
@@ -168,12 +257,17 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
 \end{subfigure}
-\caption{Here, the error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increament in interaction energy.}
+\caption{Here, the error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
 \end{figure}
 
 
 
-\subsection{Numeric Solution and Dataset Generation}
+\subsection{Numerical Solution and Dataset Generation}
+
+The dataset generation step is divided into two main parts and implemented independently. The first one is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
+
+In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, even the scaling factors are supplied externally. Such a modularity has an huge advantage such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of file input output operations. By using this advantage, we also use another numerical solution framework called GPELab \textbf{GPELab Ref} implemented in Matlab to compare solutions' consistency and effect of scaling.
+
 
 \subsubsection{Scaling}
 
@@ -243,7 +337,7 @@ We are going to change these scaling coefficients and see their effects by compa
 
 \subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
 \subsubsection{XMDS framerwork and other programs.}
-\subsubsection{Potential generation}
+\subsubsection{Potential generation} \label{sec:potential_generation}
 
 In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. The generated potentials are sent to another method supplied by module. This method rescales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries. 
 

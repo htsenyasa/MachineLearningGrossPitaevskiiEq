@@ -18,5 +18,8 @@
             "**/*.out": true,
             "**/*.gz": true,
         },
+        "cSpell.words": [
+            "xmds"
+        ],
     },
 }
