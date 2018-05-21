@@ -77,37 +77,49 @@ state density profile for a given harmonic trapping potential.
 
 
 \label{sec:Intro}
-\noindent Machine learning.\\
-General usage area.\\
-ML in physics and Phyiscs in ML.\\
-ML\&SE article.\\
-Ours difference.\\
+%\noindent Machine learning.\\
+%General usage area.\\
+%ML in physics and Phyiscs in ML.\\
+%ML\&SE article.\\
+%Ours difference.\\
+
+
+
+In quantum mechanical systems one must obtain the wave function to determine physical properties of the system. For single particle systems, obtaining the wave function is easy compared to many body systems. The solution can be even harder if the described system involves interaction between particles because such differential equations may have nonlinear terms. In nonlinear case, there are no general rule to solve and they are treated individually in most cases. If there are no analytic solution exists and approximation is not on the table then the only chance is numerical solution of the equation to obtain the wave function, and then one can determine the physical properties of the system. However, machine learning applications in recent years showed that physical properties of the system can be predicted without solving these equations. \\
+
+The reason why machine learning has such a capability is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ (bold means vector) output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network that satisfies the relation $|\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and be exploited for their advantages. Approximate value of the quantity can be determined for different scenarios. \\
+
+Many different kind of applications of machine learning have already been implemented in physics\footnote{For a detailed list, see \cite{physicsml}}. For example, In \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problems. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. \\
+
+In \cite{mills2017deep}, machine learning approach is applied to a 2D Schr{\"o}dinger equation also known as Gross-Pitaevskii equation with random potentials. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different confining potentials including random potential. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation to predict ground state energy of a Bose-Einstein condensate with random interaction parameter at absolute zero temperature under six different one dimensional trapping potentials including random. 
+
 
 \section{Gross Pitaevskii Equation}
 
-A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitaevskii Equation (GPE) also known as non-linear Schrodinger Equation (NLSE). It is mean field approximation of a quantum many body system which the hamiltonian of the system is given by;
+A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitaevskii equation (GPE) also known as non-linear Schrodinger Equation (NLSE). It is mean field approximation of a quantum many body system which the hamiltonian of the system is given by;
 
 \begin{equation}
 \label{eq:GPE_hamiltonian}
 \hat{H} = \sum_{i = 1}^{N} \left(\frac{\boldsymbol{p}_i^2}{2m} + V(\boldsymbol{r}_i) \right) + \frac{1}{2} \sum_{i = 1}^{N} \sum_{j \neq i}^{N} U(|\boldsymbol{r}_i - \boldsymbol{r}_j|)
 \end{equation}
 
-where $\textbf{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. Also the free energy $F = E - \mu N$ which is a thermodynamic potential is introduced since we try to minimize energy while still satisfying the normalization condition that is given as, 
+where $\textbf{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. The constraint in the minimization step involves satisfying the normalization condition that is given as,
+
 
 \begin{equation}
 \label{eq:GPE_normalization}
-\int |\Psi(\boldsymbol{r})|^2 \dif^3 \boldsymbol{r} = N    
+\int |\psi(\boldsymbol{r})|^2 \dif^3 \boldsymbol{r} = N    
 \end{equation}
 
-where $N$ is the number of particles in the system. This condition equals to minimizing free energy such that $\delta E - \mu \delta N = 0$ \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
+where $N$ is the number of particles in the system. This condition equals to minimizing the thermodynamic potential, free energy $F = E - \mu N$ such that $\delta F = 0 = \delta E - \mu \delta N = 0$ where $\mu$ is chemical potential \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
 
 \begin{equation}
 \label{eq:GPE_derivation_free_energy}
-F(\Psi) = \int \Psi^{*}\hat{H}\Psi \dif^3\boldsymbol{r} - \mu \int |\Psi|^2 \dif^3\boldsymbol{r}
+F(\psi) = \int \psi^{*}\hat{H}\psi \dif^3\boldsymbol{r} - \mu \int |\psi|^2 \dif^3\boldsymbol{r}
 \end{equation}
 
-Therefore, the problem can be stated as minimization of the above equation \cite{rogel2013gross}. Applying variation method to this equation while treating $\Psi^{*}$
-and $\Psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = g\delta(\textbf{r}_i - \textbf{r}_j)$ one can obtain Gross Pitaevskii Equation (GPE) in stationary form as, 
+Therefore, the problem can be stated as minimization of the above equation \cite{rogel2013gross}. Applying variation method to this equation while treating $\psi^{*}$
+and $\psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = g\delta(\textbf{r}_i - \textbf{r}_j)$ one can obtain Gross Pitaevskii Equation in stationary form as, 
 
 \begin{equation}
 \label{eq:GPE_time_indep}
@@ -118,20 +130,32 @@ and $\Psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = 
 %
 %\begin{equation}
 %\label{eq:GPE_3D}
-%i \hbar \frac {\partial \Psi}{\partial t} = \frac {-\hbar^2}{2m}\nabla^2
-%\Psi + V(\boldsymbol{r}, t)\Psi + g|\Psi|^2\ \Psi
+%i \hbar \frac {\partial \psi}{\partial t} = \frac {-\hbar^2}{2m}\nabla^2
+%\psi + V(\boldsymbol{r}, t)\psi + g|\psi|^2\ \psi
 %\end{equation}
 
-\noindent where $\hbar$ is Planck constant, $t$ is time, $\Psi(\boldsymbol{r}, t)$ is the wave function, $m$ is mass, $\nabla^2$ is the Laplacian operator, $V$ is the potential, $g$ is interaction parameter and it is defined as 
+\noindent where $\hbar$ is Planck constant, $\psi(\boldsymbol{r})$ is the wave function, $\nabla^2$ is the Laplacian operator, $g$ is interaction parameter and it is defined as 
 
 \begin{equation}
 \label{eq:GPE_inter_param}
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
-\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\Psi|^2$ which represents the interactions between bosons. The $|\Psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions\cite{barenghi2016primer}. \\
+\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\psi|^2$ which represents the interactions between bosons. The $|\psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions \cite{barenghi2016primer}. The time evolution of the system must occur according to the Schr{\"o}dinger Equation, therefore; the time dependent GPE can be written as,
 
-The ground state energy of the system can be obtained from the following expression, 
+\begin{equation}
+\label{eq:GPE_time_evolution}
+i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = \hat{H}\Psi(\boldsymbol{r}, t)
+\end{equation}
+
+where $t$ is time and $\Psi(\boldsymbol{r}, t) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar} $. If it is rewritten in open form,
+
+\begin{equation}
+\label{eq:GPE_time_indep}
+i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = [\frac{-\hbar^2}{2m}\nabla^2 + V(\boldsymbol{r}) + g|\Psi(\boldsymbol{r}, t)|^2 ] \Psi(\boldsymbol{r}, t)
+\end{equation}
+
+The ground state energy of the system is given in Eq.~\eqref{eq:GPE_derivation_free_energy} which is,
 
 \begin{equation}
 \label{GPE_total_energy_general}
@@ -144,29 +168,14 @@ E = \int \left(\frac {\hbar^2}{2m}|\nabla
 \Psi|^2 + V|\Psi|^2 + \frac{g}{2}|\Psi|^4 \right) d^3\boldsymbol{r}
 \end{equation}
 
-Here, the terms represent kinetic, potential and interaction energy respectively.\footnote{Contribition from the interaction energy is divided by two to eliminate double counting while pairing bosons.}  
-
-If the potential does not depend on time then the total energy of the system is conversed and a stationary form of GPE can be obtained by factorizing the wave function into spatial and time parts such that,
-
-\begin{equation}
-\label{eq:GPE_time_indep_wave_func}
-\Psi(\boldsymbol{r}, t) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar}
-\end{equation}
-
-where $\mu$ is chemical potential. In this case, by invoking separation of variables time independent GPE can be written as;
-
-\begin{equation}
-\label{eq:GPE_time_indep}
-\frac{-\hbar^2}{2m}\nabla^2\psi + V(\boldsymbol{r})\psi + g|\psi|^2\psi = \mu\psi
-\end{equation}
-
+Here, the terms represent kinetic, potential and interaction energy respectively.\footnote{Contribution from the interaction energy is divided by two to eliminate double counting while pairing bosons.} The potential does not depend on time so the hamiltonian does not too which means the total energy of the system is conversed. 
 
  
-\subsection{General information about GPE}
-\subsection{Why and how nonlinearty is introduced.}
-\subsection{Physical and mathematical interpretation of interaction parameter. (phy: attractive, repulsive  math:dominance of the terms)}
-\subsection{Stationary form.}
-\subsection{Potential, kinetic and interaction energy expressions.}
+%\subsection{General information about GPE}
+%\subsection{Why and how nonlinearty is introduced.}
+%\subsection{Physical and mathematical interpretation of interaction parameter. (phy: attractive, %repulsive  math:dominance of the terms)}
+%\subsection{Stationary form.}
+%\subsection{Potential, kinetic and interaction energy expressions.}
 \subsection{Reduction of dimension.}
 \subsection{Analytic solution and approximation.}
 
@@ -184,53 +193,54 @@ GPE generally solved by numerically or by approximation such as variational calc
 
 
 
-It is said that the second derivative term with respect to position represents the kinetic energy. When the potential and the interaction energy are dominant compared to the kinetic energy, the kinetic term can be neglected. This situation occurs when the condensate is large adequately and the interaction between bosons is repulsive. \textbf{REF dilute gases}. When the kinetic term is dropped, the new equation can be written as;
+It is said that the second derivative term with respect to position represents the kinetic energy. When the potential and the interaction energy are dominant compared to the kinetic energy, the kinetic term can be neglected. This situation occurs when the condensate is large adequately and the interaction between bosons is repulsive \cite{pethick2002bose}. In another perspective, neglecting the kinetic term equivalent to making an assumption that there is no difference between the energy requirements to add a particle at arbitrary points \cite{rogel2013gross}. When the kinetic term is dropped, the new equation can be written as;
 
 \begin{equation}
 \label{eq:GPE_1D_thomas_fermi}
-    V(z)\psi(z) + g|\psi(z)|^2\psi(z) = \mu\psi(z)
+    V(x)\psi(x) + g|\psi(x)|^2\psi(x) = \mu\psi(x)
 \end{equation}
 this equation is analytically solvable and the solution is given by,
 
 
 \begin{equation}
 \label{eq:thomas_fermi_solution}    
-n(z) = |\psi(z)|^2 =  
+n(x) = |\psi(x)|^2 =  
     \begin{cases}
-        (\mu_{TF} - V)/g &\quad\text{if }  |z| \le z_{TF}  \\
+        (\mu_{TF} - V)/g &\quad\text{if }  |x| \le x_{TF}  \\
         0 &\quad \textit{otherwise} \\
     \end{cases}
 \end{equation}
 
-where $z_{TF}$ is called Thomas-Fermi Radius. The density defined in this range and cannot be negative, therefore; if the normalization condition \textbf{EQREF} is applied then the equation reads,  
+where $x_{TF}$ is called Thomas-Fermi Length and $n(x)$ is density. The density defined in this range and cannot be negative, therefore; if the normalization condition Eq.~\eqref{eq:GPE_normalization} is applied then the equation reads,  
 
 \begin{equation}
     \label{eq:thomas_fermi_mu_integral}
-        \int_{-\infty}^{\infty} |\psi|^2 \dif z = \int_{-z_{TF}}^{z_{TF}} \frac{(\mu - V)}{g} \dif z = N 
+        \int_{-\infty}^{\infty} |\psi|^2 \dif x = \int_{-x_{TF}}^{x_{TF}} \frac{(\mu - V)}{g} \dif x = N 
     \end{equation}
 
-For an exact analytic expression, one dimensional harmonic potential can be used, 
+With this equation, density of the system can be obtain via invoking boundary conditions. For an exact analytic expression example, one dimensional harmonic potential can be used, 
 
 \begin{equation}
-   \frac{1}{g} \left [ \int_{-z_{TF}}^{z_{TF}} \mu \dif z - \int_{-z_{TF}}^{z_{TF}} \frac{1}{2}m\omega^2z^2 \dif z \right ] = N
+   \frac{1}{g} \left [ \int_{-x_{TF}}^{x_{TF}} \mu \dif x - \int_{-x_{TF}}^{x_{TF}} \frac{1}{2}m\omega^2x^2 \dif x \right ] = N
 \end{equation}
 
 \begin{equation}
-    \frac{2\mu z_{TF}}{g} - \frac{m\omega^2 z_{TF}^3}{3g} = N
+\label{eq:thomas_fermi_integral_result}
+    \frac{2\mu x_{TF}}{g} - \frac{m\omega^2 x_{TF}^3}{3g} = N
 \end{equation}
 
 
 From boundary conditions,
 \begin{equation}
 \label{eq:thomas_fermi_mu_bound}
-    \mu = V(z_{TF}) = \frac{1}{2}m\omega^2z_{TF}^2    
+    \mu = V(x_{TF}) = \frac{1}{2}m\omega^2x_{TF}^2    
 \end{equation}
 
 
-If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
+If we combine Eq.~\eqref{eq:thomas_fermi_integral_result} and Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 
 \begin{equation}
-    \frac{m\omega^2 z_{TF}^3}{g} - \frac{m\omega^2 z_{TF}^3}{3g} = N
+    \frac{m\omega^2 x_{TF}^3}{g} - \frac{m\omega^2 x_{TF}^3}{3g} = N
 \end{equation}
 
 
@@ -241,6 +251,8 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 \begin{equation}
     \mu = \left(\frac{9}{32} (N\omega g)^2 m \right)^{1/3}
 \end{equation}
+
+Here we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
@@ -257,7 +269,7 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
 \end{subfigure}
-\caption{Here, the error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
+\caption{The upper left, right plots and the bottom left plot are random potentials with same interaction parameter. The bottom right is harmonic potential with different interaction parameters. The error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
 \end{figure}
 
 
@@ -266,38 +278,35 @@ If we plug Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 
 The dataset generation step is divided into two main parts and implemented independently. The first one is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
 
-In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, even the scaling factors are supplied externally. Such a modularity has an huge advantage such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of file input output operations. By using this advantage, we also use another numerical solution framework called GPELab \textbf{GPELab Ref} implemented in Matlab to compare solutions' consistency and effect of scaling.
+In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, even the scaling factors are supplied externally. Such a modularity has an huge advantage such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of input output operations. By using this advantage, we also use another numerical solution framework called GPELab \cite{antoine2014gpelab} implemented in Matlab to compare solutions' consistency and effect of scaling.
 
 
 \subsubsection{Scaling}
 
-The scaling of GPE is generally done according to potential type and there are more than one scaling conventions \textbf{REFS}. In our study, we use a more general scaling to investigate how different scalings affect the precision. To do that, we compare numerical solutions by representing same physical system with different scaling coefficients in both framework. Then we compare these results first internally and then we do a cross check. 
-
-We also compare numerical solutions of two different solvers implemented in different frameworks to show that the numerical solutions are \textbf{consistent}.\\ 
-
-GPE is given as,
-
-\begin{equation}
-    \label{eq:GPE_1D}
-    \frac{-\hbar^2}{2m}\frac{d^2\psi}{dz^2} + V(z)\psi + g|\psi|^2\psi = \mu\psi
-\end{equation}
+The scaling of GPE is generally done according to potential type and there are more than one scaling conventions \textbf{REFS}. In this section we use a more general approach to scale GPE since the solutions will be numerical and we briefly would like to investigate how different scalings affect the solutions' consistency. To do that, the dimensionless quantities are introduced with variables so that scaling coefficient controlled by these variables. 
 
 First we define dimensionless potential, and then we make the length dimensionless,
 
-$$ \overline{V}(z) \equiv \frac{V(z)}{\gamma E_0}, \qquad \widetilde{z} \equiv \frac{z}{\beta L} $$
+\begin{equation}
+    \label{eq:GPE_1D}
+    \frac{-\hbar^2}{2m}\frac{d^2\psi}{dz^2} + V(x)\psi + g|\psi|^2\psi = \mu\psi
+\end{equation}
+
+
+$$ \overline{V}(x) \equiv \frac{V(x)}{\gamma E_0}, \qquad \widetilde{x} \equiv \frac{x}{\beta L} $$
 
 Here $\gamma$ and $\beta$ positive real numbers. $E_0$ is in energy unit and $L$ is in length and they are defined respectively as;
 
 $$E_0 = \frac{\hbar^2}{2m} $$
 
 
-$$ \widetilde{V}(\widetilde{z}) \equiv \overline{V}(\beta L z) $$ 
+$$ \widetilde{V}(\widetilde{x}) \equiv \overline{V}(\beta L x) $$ 
 
 If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
 
 \begin{equation}
     \label{eq:GPE_1D_dimensionless_en_len}
-    \frac{-\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2}  \frac{d^2\psi}{d \widetilde{z}^2} + \widetilde{V}(\widetilde{z})\psi + \frac{g}{\gamma E_0}|\psi|^2\psi = \frac{\mu}{\gamma E_0}\psi
+    \frac{-\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2}  \frac{d^2\psi}{d \widetilde{x}^2} + \widetilde{V}(\widetilde{x})\psi + \frac{g}{\gamma E_0}|\psi|^2\psi = \frac{\mu}{\gamma E_0}\psi
 \end{equation}
 
 To obtain final form, we define dimensionless energy, wave function and interaction parameter respectively. 
@@ -312,7 +321,7 @@ and set $E_0 = \hbar^2 / 2m$. Now the scaling of GPE can be controlled by $\alph
 
 \begin{equation}
 \label{eq:GPE_dimensionless}
-    -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \widetilde{V}(\widetilde{z})\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
+    -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{x}^2} + \widetilde{V}(\widetilde{x})\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
 \end{equation}
     
 We are going to change these scaling coefficients and see their effects by comparing results. An example of setting the scale coefficients is shown in appendix~\ref{ap:scale}.
@@ -336,13 +345,10 @@ We are going to change these scaling coefficients and see their effects by compa
 \end{figure}
 
 \subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
-\subsubsection{XMDS framerwork and other programs.}
+%\subsubsection{XMDS framerwork and other programs.}
 \subsubsection{Potential generation} \label{sec:potential_generation}
 
-In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. The generated potentials are sent to another method supplied by module. This method rescales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries. 
-
-The given potential must satisfy the following conditions;
-
+In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. A python class object responsible for handling this process. This class is constructed with suitable parameters such as "number of points", "width" etc. The generated potentials are sent to another method supplied by class. This method re-scales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries which is given as,
 \begin{equation}
 \label{eq:potential_boundary_conditions}
 \begin{split}
@@ -351,7 +357,7 @@ The given potential must satisfy the following conditions;
 \end{split}
 \end{equation}
 
-To handle these two conditions, we define two envelope functions given by, 
+To handle these conditions, we define two envelope functions given by the following expressions, 
 
 \begin{equation}
 \label{eq:envelope_potential_lr}
@@ -373,18 +379,16 @@ where $x_L$ and $x_R$ are bounds given in the Table~\eqref{tb:general_table} and
 \label{fig:envelope_and_random_withot_pros}
 \end{figure}
 
-The two potential in Figure~\ref{fig:envelope_and_random_withot_pros} are combined and a gaussian filter applied. 
+As shown in Fig.~\ref{fig:envelope_and_random_withot_pros} $Env_{M}$ neutralizes the values while $x$ goes to boundaries and only the region in the middle survives. For $Env_{LR}$ the scenario is vice versa. Simultaneous application of these functions plus re-scaling brings the potential desired form shown in Fig.~\ref{fig:random_plus_envelope}
+
 
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
-%\begin{subfigure}[t]{0.45\textwidth}
-
     \includegraphics[width=\linewidth]{randombeforeafterproc}
-%\end{subfigure}
-%\begin{subfigure}[t]{0.45\textwidth}
-%    \includegraphics[width=\linewidth]{randomafterproc}
-%\end{subfigure}
+\caption{Envelope functions are applied to a random potential. After that, a gaussian filter is applied for smoothness.}
+\label{fig:random_plus_envelope}
 \end{figure}
+
 
 
 
@@ -623,32 +627,32 @@ The third one is one dimensional version of the algorithm described in \cite{mil
 
 \begin{equation}
 \label{eq:GPESCALE_harmonic_potential_transform}
-    V(z) \rightarrow V(\widetilde{z}) \rightarrow \widetilde{V}(\widetilde{z})
+    V(x) \rightarrow V(\widetilde{x}) \rightarrow \widetilde{V}(\widetilde{x})
 \end{equation}
 
 \begin{equation}
 \label{eq:GPESCALE_dimensionless_harmonic_potential}
-    \widetilde{V}(z) \equiv \frac{V(z)}{\gamma E_0}
+    \widetilde{V}(x) \equiv \frac{V(x)}{\gamma E_0}
 \end{equation}
 
 \begin{equation}
 \label{eq:GPESCALE_dimensionless_length}
-    \widetilde{z} \equiv \frac{z}{\beta L} 
+    \widetilde{x} \equiv \frac{x}{\beta L} 
 \end{equation}
 
 \begin{equation}
 \label{eq:GPESCALE_harmonic_potential}
-    V(z) = \frac{1}{2}m\omega^2 (z-z_0)^2
+    V(x) = \frac{1}{2}m\omega^2 (x-z_0)^2
 \end{equation}
 
 \begin{equation}
 \label{eq:GPESCALE_harmonic_length_transform}
-    V(\widetilde{z}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{z}-\widetilde{z_0})^2
+    V(\widetilde{x}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{x}-\widetilde{z_0})^2
 \end{equation}
 
 \begin{equation}
 \label{eq:GPESCALE_harmonic_energy_transform}
-    \widetilde{V}(\widetilde{z}) = \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} (\widetilde{z}-\widetilde{z_0})^2  
+    \widetilde{V}(\widetilde{x}) = \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} (\widetilde{x}-\widetilde{z_0})^2  
 \end{equation}
 
 The coefficient of this equation must be dimensionless, therefore;
@@ -701,7 +705,7 @@ $$ \widetilde{g} = \frac{g}{\hbar \omega \ell} $$
 
 Finally, dimensionless GPE scaled for harmonic trapping potential can be written as,
 
-$$\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{z}^2} + \frac{1}{2}\widetilde{z}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} $$
+$$\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{x}^2} + \frac{1}{2}\widetilde{x}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} $$
 
 
 \end{document}
