@@ -262,21 +262,29 @@ Here we give comparison of densities obtained by numerical solution and Thomas-F
 \centering
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-random-15.0}}}
+    \caption{Random Potential Type 1}
+    \label{fig:a}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-random2-15.0}}}
+    \caption{Random Potential Type 2}
+    \label{fig:b}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-random3-15.0}}}
+    \caption{Random Potential Type 3}
+    \label{fig:c}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
+    \caption{Harmonic Potential}
+    \label{fig:d}
 \end{subfigure}
-\caption{The upper left, right plots and the bottom left plot are random potentials with same interaction parameter. The bottom right is harmonic potential with different interaction parameters. The error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
+\caption{Here the potential types given in labels. The interaction parameter $g$ of the random potentials is 15. The error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
 \label{fig:comp_thomas_num}
 \end{figure}
 
-As shown in Fig~\ref{fig:comp_thomas_num} even for the large interaction parameter, Thomas-Fermi approximation may fail.  
+As shown in Fig~\ref{fig:comp_thomas_num}d, the interaction parameter is great enough to use Thomas-Fermi approximation but since the density is determined by the Eq~\eqref{eq:thomas_fermi_mu_integral} the characteristic must be same with the potential used. This situation can be seen vividly in Fig~\ref{fig:comp_thomas_num}c.
 
 \subsection{Numerical Solution and Dataset Generation}
 
