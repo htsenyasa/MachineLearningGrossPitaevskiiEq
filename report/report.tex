@@ -179,15 +179,18 @@ Here, the terms represent kinetic, potential and interaction energy respectively
 \subsection{Reduction of dimension.}
 \subsection{Analytic solution and approximation.}
 
-There is no general solution for GPE and known analytic solutions exist only for few cases. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions. The ground state energies are given by
+There is no general solution of GPE. Known analytic solutions exist only for few cases and lack of analytic solution is also one of the main motivation of the application of machine learning technique. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions and the ground states energies are given by, \textbf{WELL}
+
+
 
 \begin{equation}
 \label{eq:GPE_1D_solution_harmonic}
     \mu = \frac{1}{2}\hbar\omega
 \end{equation}
 
+respectively. 
 
-GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. \textbf{dilute}
+GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. \textbf{dilute} In the following section we briefly introduce Thomas-Fermi approximation and then we add comparison with numerical solutions. 
 
 \subsubsection{Thomas Fermi Approximation}
 
@@ -270,9 +273,10 @@ Here we give comparison of densities obtained by numerical solution and Thomas-F
     \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
 \end{subfigure}
 \caption{The upper left, right plots and the bottom left plot are random potentials with same interaction parameter. The bottom right is harmonic potential with different interaction parameters. The error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
+\label{fig:comp_thomas_num}
 \end{figure}
 
-
+As shown in Fig~\ref{fig:comp_thomas_num} even for the large interaction parameter, Thomas-Fermi approximation may fail.  
 
 \subsection{Numerical Solution and Dataset Generation}
 
