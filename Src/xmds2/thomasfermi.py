@@ -22,28 +22,38 @@ plt.rcParams.update(params)
 pot_type = "gaussian"
 os.chdir("../../data/nonlinearSE/generic_dataset/" + pot_type + "/")
 
-N = -1
-V = np.loadtxt("potential-generic.dat")
-inter = np.loadtxt("/home/user/Study/Src/APPL/Src/xmds2/inter.txt")
-pot = V[N]
 x = np.arange(-10, 10, 20/256)
-dens = np.loadtxt("dens-generic.dat")
 dx = np.abs(x[0] - x[1])
 
 def ptl_num(mu, pot, gg):
     return np.clip((mu - pot) / gg, a_min=0, a_max=None)
 
 
-def fmu(mu):
+def fmu(mu, pot, gg):
     from scipy.integrate import trapz
-    gg = inter[N]
     return trapz(ptl_num(mu, pot, gg)) * dx - 1
     #return mu**2-mu
 
 
-def calc_fmu(val):
-    mu = newton(fmu, val)
+def calc_fmu(val, pot, gg):
+    mu = newton(fmu, val, args=(pot, gg))
     return mu
+
+
+def thom_vs_comp_mu():
+    pot = np.loadtxt("potential-generic.dat")
+    en = np.loadtxt("energy-generic.dat")
+    eint = np.loadtxt("eint-generic.dat")
+    gg = np.loadtxt("gg-generic.dat")
+    mu = np.zeros(len(en))
+
+    for i in range(len(en)):
+        mu[i] = calc_fmu((min(pot[i]) + max(pot[i]))/2, pot[i], gg[i])
+
+    mu_num = en + eint # FROM DIRECT INTEGRATION
+
+    return mu, mu_num
+
 
 
 def display_tf_mu():

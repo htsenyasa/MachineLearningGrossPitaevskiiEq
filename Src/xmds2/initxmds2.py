@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 import potentialgenerator as pg
 
 parser = argparse.ArgumentParser(description='XMDS initializer')
-parser.add_argument('--examples',            type=int,             default=10,      help = 'Number of examples to solve (Default: 10)')
-parser.add_argument('--pot-type',            type=int,             default=-1,      help = 'Type of potential 0:Harmonic, 1:Well, 2: DI Gaussian 3 & 4 & 5: Random (Default : -1:all)')
+parser.add_argument('--examples',   type=int,   default=10,     help = 'Number of examples to solve (Default: 10)')
+parser.add_argument('--pot-type',   type=int,   default=-1,     help = 'Type of potential 0:Harmonic, 1:Well, 2: DI Gaussian 3 & 4 & 5: Random (Default : -1 (all))')
 
 args = parser.parse_args()
 
@@ -36,13 +36,13 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]
 
 alpha = 0.5
-pot_generators[pot_type]()
+#pot_generators[pot_type]()
 for pot_type in pot_types:
-    inter_params = np.array([i for i in range(N_of_ex)])
-    inter_params = np.array([1, 5, 10, 15])
+    inter_params = np.array([rnd.uniform(0, 50) for i in range(N_of_ex)])
+    inter_params = [0]
     for inter_param in inter_params:
 
-        #pot_generators[pot_type]()
+        pot_generators[pot_type]()
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)
@@ -53,8 +53,7 @@ for pot_type in pot_types:
         args = shlex.split(cmdline)
         p = subprocess.Popen(args)
         p.wait()
-
-np.savetxt("inter.txt", inter_params)
+    np.savetxt("inter-{}.txt".format(pot_type), inter_params)
 
 end = time.time()
 

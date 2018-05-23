@@ -55,6 +55,7 @@ class PotentialGenerator(object):
         a3, a1a2 = self.create_envolope_pot(4)
         Vmax = np.max(pot) * 2
         pot = pot * a3 + a1a2 * Vmax
+        pot -= np.min(pot)
         pot *= self.inf_val / np.max(np.abs(pot)) 
         #pot += np.abs(np.min(pot))
 
@@ -62,12 +63,15 @@ class PotentialGenerator(object):
         #return tpot, pot
 
 
-    def generate_random_pot(self, sigma = 3, exec_func = None):
+    def generate_random_pot(self, sigma = None, exec_func = None):
         points = np.array([rnd.gauss(0, 1) for i in range(self.Np)])
         pot = np.zeros(self.Np)
         pot[0] = points[0]
         for i in range(self.Np - 1):
             pot[i+1] = pot[i] + points[i]
+
+        if sigma == None:
+            sigma = 8 + 3 * rnd.random() + self.Np/128
 
         procs = [scipy.ndimage.filters.gaussian_filter1d]
         args = [(pot, sigma)]
@@ -163,8 +167,9 @@ class PotentialGenerator(object):
 
     def generate_harmonic_pot(self, exec_func = None):
         x0 = rnd.uniform(-1, 1)
-        #x0 = 0 
-        omega = rnd.uniform(0.5, 1.3) 
+        x0 = 0 
+        omega = rnd.uniform(0.5, 1.3)
+        omega = 1
         self.omega.append(omega)
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
 

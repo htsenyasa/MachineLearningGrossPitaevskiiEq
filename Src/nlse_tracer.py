@@ -7,8 +7,17 @@ from scipy.optimize import curve_fit
 from decimal import Decimal
 import time as time
 
-#matplotlib.use("pgf")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
+from matplotlib import rc
+
+plt.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
+params = {'text.usetex' : True,
+          'font.size' : 11,
+          'font.family' : 'lmodern',
+          'text.latex.unicode': True,
+          }
+plt.rcParams.update(params) 
 
 class Tracer(object):
     test_dataset = None
@@ -48,11 +57,8 @@ class Tracer(object):
     def plot_figure(self, file_name = None, inter = False):
         err = self.test_dataset - self.predicted
         relative_err = ((self.test_dataset - self.predicted) / (self.test_dataset)) * 100
+
         fig, ax1 = plt.subplots()
-        left, bottom, width, height = [0.65, 0.20, .2, .2]
-        inset = fig.add_axes([left, bottom, width, height])
-        left2, bottom2, width2, height2 = [0.19, 0.60, .2, .2]
-        inset2 = fig.add_axes([left2, bottom2, width2, height2])
         ax1.plot(self.test_dataset, self.test_dataset, "--r", label=None, linewidth = 1, alpha=0.5)
         #ax1.scatter(self.testdataset, self.predicted, c = np.abs(err), s = 4)
         ax1.plot(self.test_dataset, self.predicted, ".", label = None, markersize = 4)
@@ -66,21 +72,36 @@ class Tracer(object):
 
         ax1.set_xlabel(x_label, fontsize = 20)
         ax1.set_ylabel(y_label, fontsize = 20)
+        #fig.tight_layout()
         ax1.tick_params(labelsize = 18)
         ax1.legend()
-        ax1.grid()
+
+        left, bottom, width, height = [0.685, 0.135, .2, .2]
+        inset = fig.add_axes([left, bottom, width, height])
+        left2, bottom2, width2, height2 = [0.135, 0.66, .2, .2]
+        inset2 = fig.add_axes([left2, bottom2, width2, height2])
+
+        #ax1.grid()
         #props = dict(boxstyle='square', facecolor='white', alpha=0.5)
         #textstr = "MSE:{:.4E}\nTraining Length:{}\nEpoch:{}\nBatch:{}".format(Decimal(float(self.error)), self.training_len, self.cur_epoch, self.batch_size)
         #ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
         #ax1.text(, , "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
 
         inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
-        inset2.hist(relative_err, range=[-np.amax(np.abs(relative_err)), np.amax(np.abs(relative_err))], bins=20)
-        inset.set_title("Error", fontsize = 18)
+        #inset2.hist(relative_err, range=[-np.amax(np.abs(relative_err)), np.amax(np.abs(relative_err))], bins=20)
+        inset2.hist(relative_err, range=[0, 100], bins=20)
+        inset.xaxis.tick_top()
+        inset.xaxis.set_label_position('top')
+        inset.set_xlabel("Error", fontsize = 18)
+        inset.set_ylabel("\# of Examples", fontsize = 18)
         inset.tick_params(labelsize=12)
-        inset2.set_title("Rel.Error (%)", fontsize = 18)
+        #inset2.set_title("Rel.Error (\%)", fontsize = 18)
+        inset2.set_xlabel("Rel.Error (\%)", fontsize = 18)
+        inset2.set_ylabel("\# of Examples", fontsize = 18)
         inset2.tick_params(labelsize=12)
-
+        inset2.yaxis.tick_right()
+        inset2.yaxis.set_label_position("right")
+        
         figure = plt.gcf()
         figure.set_size_inches(8,6)
         plt.show()        
@@ -138,6 +159,15 @@ class Tracer(object):
         if file_name == None:
             plt.show()
             plt.clf()
+
+    def plot_loss(self):
+        fig, ax1 = plt.subplots()
+        ax1.plot(self.loss, "--")
+        ax1.set_xlabel("Epoch", fontsize = 20)
+        ax1.set_ylabel("Loss", fontsize = 20)
+        ax1.set_yscale("log")
+        ax1.legend()
+        plt.show()
 
 
     def step(self, loss_val):

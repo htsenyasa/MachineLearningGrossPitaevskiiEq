@@ -5,9 +5,6 @@ import scipy.ndimage
 import matplotlib.pyplot as plt
 from matplotlib import rc
 
-#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-#rc('text', usetex=True)
-
 plt.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
 params = {'text.usetex' : True,
           'font.size' : 11,

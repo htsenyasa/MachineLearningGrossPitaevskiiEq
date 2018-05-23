@@ -20,5 +20,7 @@ def process_parsing(arch, desc = "Artifical Neural Network for Non-linear Schrod
     parser.add_argument('--label-filename',    type=str,             default="energy-g-20-.dat",                                 help='Label file name to read (default = "energy.dat")')
     parser.add_argument('--inter-param',       type=float,           default=0.0,                                                help='Interaction parameter program uses this parameter to choose which file to open (default: 0)')
     parser.add_argument('--test-case',         action='store_true',  default=False,                                              help='Test Case: Run-time for test network. No information will be saved. (default : False)')
-    
+    parser.add_argument('--cross-test',        action='store_true',  default=arch["cross_test"],                                 help='Cross Test (Train with A. Test with B). (default : False)')
+    parser.add_argument('--data-filename2',    type=str,             default="datafilename2",                                    help='Data file name to read (default = "potential.dat")')
+    parser.add_argument('--label-filename2',   type=str,             default="testfilename2",                                    help='Label file name to read (default = "energy.dat")')
     return parser
