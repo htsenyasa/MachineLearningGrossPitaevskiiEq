@@ -35,7 +35,6 @@ learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
 
-
 data_filename, label_filename = nlse_common.get_filenames(args)
 
 tl = loader.Dataloader(data_filename, label_filename, training_len, test_len, unsqueeze = False)
@@ -44,9 +43,7 @@ res = tracer.Tracer(args)
 
 if args.cross_test == True:
     print("Cross Test is Enabled")
-    data_filename2  = "generic_dataset_MAIN/gaussian/pot_inter.dat.npy"
-    label_filename2 = "generic_dataset_MAIN/gaussian/energy-generic.dat"    
-    cs_tl = loader.Dataloader(data_filename2, label_filename2, training_len, test_len, unsqueeze = False)
+    cs_tl = loader.Dataloader(args.data_filename2, args.label_filename2, training_len, test_len, unsqueeze = False)
     cs_train_dataset, cs_test_dataset = cs_tl.init_tensor_dataset()
     test_dataset = cs_test_dataset
 
@@ -103,7 +100,8 @@ def train(epoch):
     res.step(loss.data[0])
 
 
-info_file_name = "../figs/CNN/" + os.path.splitext(data_filename)[0]
+info_file_name = "../figs/CNN/" + args.info_file
+print(info_file_name)
 
 def test():
     model.eval()

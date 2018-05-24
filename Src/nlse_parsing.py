@@ -16,6 +16,7 @@ def process_parsing(arch, desc = "Artifical Neural Network for Non-linear Schrod
     parser.add_argument('--test-len',          type=int,             default=arch["test_len"],                                   help='Test len (default: {})'.format(arch["test_len"]))
     parser.add_argument('--runtime-count',     type=int,             default=0,                                                  help='This parameter counts that how many times the program is runned')
     parser.add_argument('--display-progress',  action='store_true',  default=False,                                              help='Display Progress (default:False)')
+    parser.add_argument('--info-file',         type=str,             default="gaussian",                                         help='Name of file that information will be saved (default: gaussian)')
     parser.add_argument('--data-filename',     type=str,             default="potential-g-20-.dat",                              help='Data file name to read (default = "potential.dat")')
     parser.add_argument('--label-filename',    type=str,             default="energy-g-20-.dat",                                 help='Label file name to read (default = "energy.dat")')
     parser.add_argument('--inter-param',       type=float,           default=0.0,                                                help='Interaction parameter program uses this parameter to choose which file to open (default: 0)')
