@@ -32,6 +32,7 @@ file_ex = args.pos_file_ex
 dire = args.dir
 pot = args.pot
 root = "../../data/nonlinearSE/generic_dataset/" + dire + "/"
+root = "../../data/nonlinearSE/generic_dataset_distro/" + dire + "/"
 pot_file_name = root + "potential" + file_ex
 en_file_name = root + "energy" + file_ex
 ekin_file_name = root + "ekin" + file_ex

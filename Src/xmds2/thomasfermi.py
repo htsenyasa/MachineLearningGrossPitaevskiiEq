@@ -6,10 +6,10 @@ from matplotlib import rc
 from scipy.optimize import newton
 
 #matplotlib.rcParams.update({'axes': 16})
-matplotlib.rc('axes', titlesize=16)
-matplotlib.rc('axes', labelsize=16)    # fontsize of the x and y labels
-matplotlib.rc('xtick', labelsize=14)    # fontsize of the tick labels
-matplotlib.rc('ytick', labelsize=14)    # fontsize of the tick labels
+matplotlib.rc('axes', titlesize=20)
+matplotlib.rc('axes', labelsize=22)    # fontsize of the x and y labels
+matplotlib.rc('xtick', labelsize=20)    # fontsize of the tick labels
+matplotlib.rc('ytick', labelsize=20)    # fontsize of the tick labels
 
 plt.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
 params = {'text.usetex' : True,
@@ -18,9 +18,6 @@ params = {'text.usetex' : True,
           'text.latex.unicode': True,
           }
 plt.rcParams.update(params) 
-
-pot_type = "gaussian"
-os.chdir("../../data/nonlinearSE/generic_dataset/" + pot_type + "/")
 
 x = np.arange(-10, 10, 20/256)
 dx = np.abs(x[0] - x[1])
@@ -98,33 +95,45 @@ def display_tf_mu():
     #plt.show()
     plt.clf()
 
-def calc_tf_ntf():
-    mu = calc_fmu((min(pot) + max(pot))/2)
-    n_tf = ptl_num(mu, pot, inter[N])
+def calc_tf_ntf(pot_type):
+    if pot_type == None:
+        pot_type = "random"
+    
+    cwd = os.getcwd()
+    os.chdir("../../data/nonlinearSE/generic_dataset_TF/" + pot_type + "/")
+    pot = np.loadtxt("potential-generic.dat")
+    en = np.loadtxt("energy-generic.dat")
+    gg = np.loadtxt("gg-generic.dat")
+    dens = np.loadtxt("dens-generic.dat")
+    mu = calc_fmu((min(pot) + max(pot))/2, pot, gg)
+    n_tf = ptl_num(mu, pot, gg)
 
     fig, ax1 = plt.subplots()
-    ax1.plot(x, pot)
-    ax1.set_xlabel('$x$', fontsize = 16)
-    ax1.set_ylabel('Potential', fontsize = 16)
+    ax1.plot(x, pot, "black")
+    ax1.set_xlabel('$x$')
+    ax1.set_ylabel('Potential')
     ax1.set_ylim(0, None)
     ax1.tick_params('$y$')
-    ax1.tick_params(labelsize = 18)
+    #ax1.tick_params(labelsize = 18)
 
     ax2 = ax1.twinx()
-    ax2.plot(x, dens[N], label = "XMDS")
+    ax2.plot(x, dens, label = "XMDS")
     ax2.plot(x, n_tf, label = "TF")
-    ax2.set_ylabel('$|\psi(x)|^2$', fontsize = 16)
+    ax2.set_ylabel('$|\psi(x)|^2$')
     ax2.tick_params('$y$')
+    ax2.yaxis.set_label_position("right")
+
     ax2.set_ylim(0, None)
-    ax2.tick_params(labelsize = 18)
+    #ax2.tick_params(labelsize = 18)
     fig.tight_layout()
     plt.legend()
 
-    file_path = "../../../../figs/numericanalyze/"
+    file_path = "../../../../figs/numericanalyze/"  
     figure = plt.gcf()
     figure.set_size_inches(8,6)
-    plt.savefig(file_path + "thomas-fermi-{}-{}".format(pot_type, inter[N]) + ".png", format = "png", bbox_inches='tight') #, dpi=800)    
+    plt.savefig(file_path + "thomas-fermi-{}-{}".format(pot_type, gg) + ".png", format = "png", bbox_inches='tight') #, dpi=800)    
     #plt.show()
     plt.clf()
+    os.chdir(cwd)
 
 #calc_tf_ntf()

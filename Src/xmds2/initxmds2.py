@@ -22,11 +22,11 @@ dirs = ["harmonic", "well", "gaussian", "random", "random2", "random3"]
 pot_types = [0, 1, 2, 3, 4, 5]    # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random 4:Random2 5:Random5
 if pot_type != -1:
     pot_types = [pot_type]
-#pot_types = [2]
 
 start = time.time()
 
-pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
+#pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
+pot_gen = pg.PotentialGenerator(seed = 30, g_exec_func = pg.save_as_h5)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -37,12 +37,19 @@ pot_generators = [pot_gen.generate_harmonic_pot,
 
 alpha = 0.5
 #pot_generators[pot_type]()
+
+gg = lambda mu: ((5/3) * (32/9)**(1/3) * mu)**(3/5)
+mu = np.array([rnd.uniform(4, 9) for i in range(N_of_ex)])
+
+
+pot_types = [4]
 for pot_type in pot_types:
-    inter_params = np.array([rnd.uniform(0, 50) for i in range(N_of_ex)])
-    inter_params = [0]
+    #inter_params = np.array([rnd.uniform(0, 50) for i in range(N_of_ex)])
+    #inter_params = [0, 5, 10, 100]
+    inter_params = gg(mu)
     for inter_param in inter_params:
 
-        pot_generators[pot_type]()
+        #pot_generators[pot_type]()
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)

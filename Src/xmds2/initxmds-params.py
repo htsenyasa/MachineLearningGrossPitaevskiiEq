@@ -21,7 +21,7 @@ pot_type = args.pot_type
 N_of_ex = args.examples
 
 def transform_and_save(x, pot):
-    pot *= alpha
+    #pot *= alpha
     hf = h5py.File("func.h5", "w")
     hf.create_dataset("func", data=pot)
     hf.create_dataset("x", data=x)
@@ -48,41 +48,44 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]    
 
 
-alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
+#alphas = np.arange(1, 10, (10-1)/(N_of_ex-3))
 #alphas = np.concatenate(([0.01, 0.1, 0.5], alphas), axis = 0)
-alphas = np.concatenate(([0.001, 0.01, 0.1], alphas), axis = 0)
-alphas = np.array([0.1, 0.5, 1, 2, 5, 10])
-inter_params = [0., 0.5, 1, 10, 100]
-inter_params = [1]
+#alphas = np.concatenate(([0.001, 0.01, 0.1], alphas), axis = 0)
+#alphas = np.array([0.1, 0.5, 1, 2, 5, 10])
+#alphas = np.array([0.5])
+alphas = np.arange(0.1, 10, (10 - 0.1) / 100)
+inter_params = [3]
+pot_types = [0]
 
 for pot_type in pot_types:
     for alpha_ in alphas:
         alpha = alpha_
-        pot_generators[pot_type]()
+        pot_generators[rnd.randint(0,5)]()
+
         for inter_param in inter_params:
             inter_param *= alpha
             cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha_)
             args = shlex.split(cmdline)
             p = subprocess.Popen(args)
             p.wait()
-
-            #cwd = os.getcwd()
-            #os.chdir("/home/user/Study/Src/APPL/Src/GPELab/Code 1D/Examples")
-            #cmdline = 'matlab -nodesktop -nosplash -nodesktop -r "runmatlab {} {}"'.format(inter_param, alpha_)
-            #args = shlex.split(cmdline)
-            #p = subprocess.Popen(args)
-            #p.wait()
-            #os.chdir(cwd)
-
-            cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+#
+            cwd = os.getcwd()
+            os.chdir("/home/user/Study/Src/APPL/Src/GPELab/Code 1D/Examples")
+            cmdline = 'matlab -nodesktop -nosplash -nodesktop -r "runmatlab {} {}"'.format(inter_param, alpha_)
             args = shlex.split(cmdline)
             p = subprocess.Popen(args)
             p.wait()
-            #cmdline = "python gp1d_matlab.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+            os.chdir(cwd)
+
+            #cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
             #args = shlex.split(cmdline)
             #p = subprocess.Popen(args)
             #p.wait()
 
+            cmdline = "python gp1d_matlab.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+            args = shlex.split(cmdline)
+            p = subprocess.Popen(args)
+            p.wait()
 
 end = time.time()
 
