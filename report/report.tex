@@ -1,5 +1,5 @@
 \documentclass[a4paper,times,hidelinks,12pt]{article}
-%\usepackage{indentfirst}
+\usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{graphicx}
@@ -9,23 +9,27 @@
 %\usepackage{svg}
 \usepackage{subcaption}
 %\usepackage{minted}
-\onehalfspacing
-\usepackage[top=2.5 cm, bottom=2.5 cm, left=4 cm, right=2.5 cm]{geometry}
+\usepackage{indentfirst}
 \usepackage{hyperref}
 \usepackage{algorithm}
 \usepackage{rotating}
 \usepackage[noend]{algpseudocode}
 
-\makeatletter
-\def\BState{\State\hskip-\ALG@thistlm}
-\makeatother
+
+
+
+%\makeatletter
+%\def\BState{\State\hskip-\ALG@thistlm}
+%\makeatother
 
 \newcommand\tab[1][0.5cm]{\hspace*{#1}}
 \newcommand*\dif{\mathop{}\!\mathrm{d}}
 
-\setlength\parindent{0pt}
+%\setlength\parindent{0pt}
 
 \begin{document}
+%\linespread{1.5}
+\onehalfspacing
 
 \begin{titlepage}
 \begin{center}
@@ -87,11 +91,11 @@ state density profile for a given harmonic trapping potential.
 
 In quantum mechanical systems one must obtain the wave function to determine physical properties of the system. For single particle systems, obtaining the wave function is easy compared to many body systems. The solution can be even harder if the described system involves interaction between particles because such differential equations may have nonlinear terms. In nonlinear case, there are no general rule to solve and they are treated individually in most cases. If there are no analytic solution exists and approximation is not on the table then the only chance is numerical solution of the equation to obtain the wave function, and then one can determine the physical properties of the system. However, machine learning applications in recent years showed that physical properties of the system can be predicted without solving these equations. \\
 
-The reason why machine learning has such a capability is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ (bold means vector) output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network that satisfies the relation $|\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and be exploited for their advantages. Approximate value of the quantity can be determined for different scenarios. \\
+The reason why machine learning has such a capability is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ (bold means vector) output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network that satisfies the relation $||\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})|| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and be exploited for their advantages. Approximate value of the quantity can be determined for different scenarios. \\
 
 Many different kind of applications of machine learning have already been implemented in physics\footnote{For a detailed list, see \cite{physicsml}}. For example, In \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problems. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. \\
 
-In \cite{mills2017deep}, machine learning approach is applied to a 2D Schr{\"o}dinger equation also known as Gross-Pitaevskii equation with random potentials. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different confining potentials including random potential. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation to predict ground state energy of a Bose-Einstein condensate with random interaction parameter at absolute zero temperature under six different one dimensional trapping potentials including random. 
+In \cite{mills2017deep}, machine learning approach is applied to a 2D Schr{\"o}dinger equation. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different confining potentials including random potential. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation also known as Gross-Pitaevskii equation to predict ground state energy of a Bose-Einstein condensate with random interaction parameter at absolute zero temperature under six different one dimensional trapping potentials including random. 
 
 
 \section{Gross Pitaevskii Equation}
@@ -103,7 +107,7 @@ A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitae
 \hat{H} = \sum_{i = 1}^{N} \left(\frac{\boldsymbol{p}_i^2}{2m} + V(\boldsymbol{r}_i) \right) + \frac{1}{2} \sum_{i = 1}^{N} \sum_{j \neq i}^{N} U(|\boldsymbol{r}_i - \boldsymbol{r}_j|)
 \end{equation}
 
-where $\textbf{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. The constraint in the minimization step involves satisfying the normalization condition that is given as,
+\noindent where $\boldsymbol{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. The constraint in the minimization step involves satisfying the normalization condition that is given as,
 
 
 \begin{equation}
@@ -111,15 +115,15 @@ where $\textbf{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vect
 \int |\psi(\boldsymbol{r})|^2 \dif^3 \boldsymbol{r} = N    
 \end{equation}
 
-where $N$ is the number of particles in the system. This condition equals to minimizing the thermodynamic potential, free energy $F = E - \mu N$ such that $\delta F = 0 = \delta E - \mu \delta N = 0$ where $\mu$ is chemical potential \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
+\noindent where $N$ is the number of particles in the system. This condition equals to minimizing the thermodynamic potential, free energy $F = E - \mu N$ such that $\delta F = 0 = \delta E - \mu \delta N = 0$ where $\mu$ is chemical potential \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
 
 \begin{equation}
 \label{eq:GPE_derivation_free_energy}
 F(\psi) = \int \psi^{*}\hat{H}\psi \dif^3\boldsymbol{r} - \mu \int |\psi|^2 \dif^3\boldsymbol{r}
 \end{equation}
 
-Therefore, the problem can be stated as minimization of the above equation \cite{rogel2013gross}. Applying variation method to this equation while treating $\psi^{*}$
-and $\psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = g\delta(\textbf{r}_i - \textbf{r}_j)$ one can obtain Gross Pitaevskii Equation in stationary form as, 
+\noindent Therefore, the problem can be stated as minimization of the above equation \cite{rogel2013gross}. Applying variation method to this equation while treating $\psi^{*}$
+and $\psi$ as independent objects and using $U(|\boldsymbol{r}_i - \boldsymbol{r}_j|) = g\delta(\boldsymbol{r}_i - \boldsymbol{r}_j)$ one can obtain Gross Pitaevskii Equation in stationary form as, 
 
 \begin{equation}
 \label{eq:GPE_time_indep}
@@ -141,21 +145,32 @@ and $\psi$ as independent objects and using $U(|\textbf{r}_i - \textbf{r}_j|) = 
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
-\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\psi|^2$ which represents the interactions between bosons. The $|\psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions \cite{barenghi2016primer}. The time evolution of the system must occur according to the Schr{\"o}dinger Equation, therefore; the time dependent GPE can be written as,
+\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\psi|^2$ which represents the interactions between bosons. The $|\psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions \cite{pitaevskii2016bose}.
+
+\graphicspath{{"../figs/potentials/"}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{solutionswithinter}
+    \caption{Density under one dimensional double inverted gaussian potential with different interaction parameters. Here density becomes more flatten as the interaction parameter increases.}
+\label{fig:gaussian_pot_and_density}
+\end{figure}
+
+
+\noindent The time evolution of the system must occur according to the Schr{\"o}dinger Equation, therefore; the time dependent GPE can be written as,
 
 \begin{equation}
 \label{eq:GPE_time_evolution}
 i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = \hat{H}\Psi(\boldsymbol{r}, t)
 \end{equation}
 
-where $t$ is time and $\Psi(\boldsymbol{r}, t) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar} $. If it is rewritten in open form,
+\noindent  where $t$ is time and $\Psi(\boldsymbol{r}, t) = \psi(\boldsymbol{r})e^{-i\mu t/\hbar} $. If it is rewritten in open form,
 
 \begin{equation}
 \label{eq:GPE_time_indep}
-i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = [\frac{-\hbar^2}{2m}\nabla^2 + V(\boldsymbol{r}) + g|\Psi(\boldsymbol{r}, t)|^2 ] \Psi(\boldsymbol{r}, t)
+i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = \left[\frac{-\hbar^2}{2m}\nabla^2 + V(\boldsymbol{r}) + g|\Psi(\boldsymbol{r}, t)|^2 \right] \Psi(\boldsymbol{r}, t)
 \end{equation}
 
-The ground state energy of the system is given in Eq.~\eqref{eq:GPE_derivation_free_energy} which is,
+\noindent The ground state energy of the system is given in Eq.~\eqref{eq:GPE_derivation_free_energy} which is,
 
 \begin{equation}
 \label{GPE_total_energy_general}
@@ -165,10 +180,17 @@ The ground state energy of the system is given in Eq.~\eqref{eq:GPE_derivation_f
 \begin{equation}
 \label{GPE_total_energy}
 E = \int \left(\frac {\hbar^2}{2m}|\nabla
-\Psi|^2 + V|\Psi|^2 + \frac{g}{2}|\Psi|^4 \right) d^3\boldsymbol{r}
+\Psi|^2 + V|\Psi|^2 + \frac{g}{2}|\Psi|^4 \right) \dif^3 \boldsymbol{r}
 \end{equation}
 
-Here, the terms represent kinetic, potential and interaction energy respectively.\footnote{Contribution from the interaction energy is divided by two to eliminate double counting while pairing bosons.} The potential does not depend on time so the hamiltonian does not too which means the total energy of the system is conversed. 
+\noindent Here, the terms represent kinetic, potential and interaction energy respectively.\footnote{Contribution from the interaction energy is divided by two to eliminate double counting while pairing bosons.} Direct relation between chemical potential and energy can be obtain from integration of the Eq~\eqref{eq:GPE_time_indep}, 
+
+\begin{equation}
+\label{eq:mu_and_total_en}
+\mu = \frac{E_{kin} + E_{pot} + 2E_{int}}{N}
+\end{equation}
+
+\noindent In the non-interacting case this expression leads to energy per particle and if the potential does not depend on time the total energy of the system is conversed. 
 
  
 %\subsection{General information about GPE}
@@ -176,21 +198,92 @@ Here, the terms represent kinetic, potential and interaction energy respectively
 %\subsection{Physical and mathematical interpretation of interaction parameter. (phy: attractive, %repulsive  math:dominance of the terms)}
 %\subsection{Stationary form.}
 %\subsection{Potential, kinetic and interaction energy expressions.}
-\subsection{Reduction of dimension.}
-\subsection{Analytic solution and approximation.}
+\subsection{Reduction of Dimension}
 
-There is no general solution of GPE. Known analytic solutions exist only for few cases and lack of analytic solution is also one of the main motivation of the application of machine learning technique. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions and the ground states energies are given by, \textbf{WELL}
+Since we are going to work in one dimension, we must express 1D GPE by reducing the dimensionality of the 3D GPE. This reduction of dimension step is done under anisotropic harmonic trapping potential given by;
+
+\begin{equation}
+\label{eq:GPE_harmonic_potential}
+V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
+\end{equation}
 
 
+\noindent where $\omega_x$,$\omega_y$,$\omega_z$ are angular frequencies. The confinement of the physical dynamics of the system can be performed by making angular frequencies asymmetric such that $\omega_z, \omega_y \gg \omega_x$ and keeping their energy order much greater than condensate's energy $ \hbar(\omega_z \omega_y)^{1/2} \gg \mu $. Now the dynamics of the system only develop in one dimension and it can be described with a corresponding one dimensional GPE equation \cite{barenghi2016primer}. To obtain one dimensional GPE one can rewrite wave function,
+
+\begin{equation}
+\label{eq:GPE_time_indep_wave_func_seperated}
+\psi(x, y, z, t) = \psi_x(x, t)\psi_y(y)\psi_z(z)
+\end{equation}
+
+\noindent $\psi_y$ and $\psi_z$ are the ground state solution of the transverse potentials;
+
+\begin{equation}
+\begin{split}
+\label{eq:GPE_x_y_wave}
+& \psi_y(y) = \frac{1}{{(\pi l_y^2)}^{1/4}}e^{-y^2/2l_y^2} \\
+& \psi_z(z) = \frac{1}{{(\pi l_z^2)}^{1/4}}e^{-z^2/2l_z^2}
+\end{split}
+\end{equation}
+
+\noindent where $l_y = \sqrt{\hbar/m\omega_y}$ and $l_z = \sqrt{\hbar/m\omega_z}$ are the harmonic oscillator lengths that related to the density distribution of the condensate. Normalization of the wave function is chosen such that $\int \psi_y(y) \dif y = \int \psi_z(z) \dif z = 1$, and $\int \psi_x(x, t) = N$. If we plug in the factorized wave function to Eq.~\eqref{eq:GPE_time_indep}, then, the equation becomes;
+
+\begin{equation}
+\label{eq:GPE_1D_harmonic}
+\mu^{\prime}\psi_x = \frac{-\hbar^2}{2m}\frac{\dif^2\psi_x}{\dif x^2} + \frac{1}{2}m\omega_x^2 x^2\psi_x + g^{\prime}|\psi_x|^2\psi_x 
+\end{equation}
+
+\noindent where $\mu^{\prime}$ and $g^{\prime}$ one dimensional effective chemical potential and interaction strength respectively
+
+\begin{equation}
+\label{eq:GPE_1D_chem_inter}
+\mu^{\prime} = \mu - \frac{\hbar}{2}(\omega_y - \omega_z), \quad g^{\prime} = \frac{g}{2\pi l_y l_z}
+\end{equation}
+
+\noindent Here we showed that how interaction parameter and chemical potential are effected when dimension of the 3D GPE is reduced. We are going to use these effective quantities in our study. We also directly used the harmonic potential for simplicity but Eq~\eqref{eq:GPE_harmonic_potential} can be replaced by another equation such as,
+
+\begin{equation}
+\label{eq:GPE_harmonic_potential_plus_pot}
+V(x, y, z) = V(x) + \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
+\end{equation}
+
+\noindent where $V(z)$ can be optical potential for instance \cite{zheng2013dynamics}. Since relation between potential and dimension reduction is not in our scope, we directly change the potential expression with a generic one and accept the one dimensional GPE as,
+
+\begin{equation}
+    \label{eq:GPE_1D}
+    \frac{-\hbar^2}{2m}\frac{\dif^2\psi_x}{\dif x^2} + V(x)\psi + g|\psi|^2\psi = \mu\psi
+\end{equation}
+
+\noindent and from now on, we refer to Eq.~\eqref{eq:GPE_1D} as GPE.
+
+\subsection{Analytic Solution and Approximation}
+
+There is no general solution of GPE. Known analytic solutions exist only for few cases and lack of analytic solution is also one of the main motivation of the application of machine learning technique. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions. Here we give the ground state wave solution and energy of the harmonic potential in non-interacting case which is also solution of the SE,
+
+\begin{equation}
+\label{eq:harmonic_ground_state_wave}
+    \psi(x) = (\frac{m\omega}{\pi\hbar})^{1/4}\exp^{-m\omega x^2/\hbar}
+\end{equation}
 
 \begin{equation}
 \label{eq:GPE_1D_solution_harmonic}
-    \mu = \frac{1}{2}\hbar\omega
+    E = \mu = \frac{1}{2}\hbar\omega
 \end{equation}
 
-respectively. 
+\noindent respectively. Comparison of the numerical solution and analytic solution in given in the figure.
 
-GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. \textbf{dilute} In the following section we briefly introduce Thomas-Fermi approximation and then we add comparison with numerical solutions. 
+\graphicspath{{"../figs/numericanalyze/"}}
+\begin{figure}[H]
+\centering
+    \includegraphics[width=0.5\linewidth]{sol-comp}
+\caption{\textbf{COMMENT}}
+\label{fig:dens_energy_error}
+\end{figure}
+
+
+
+
+
+GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. In the following section we briefly introduce Thomas-Fermi approximation and then we add comparison with numerical solutions. 
 
 \subsubsection{Thomas Fermi Approximation}
 
@@ -202,7 +295,7 @@ It is said that the second derivative term with respect to position represents t
 \label{eq:GPE_1D_thomas_fermi}
     V(x)\psi(x) + g|\psi(x)|^2\psi(x) = \mu\psi(x)
 \end{equation}
-this equation is analytically solvable and the solution is given by,
+\noindent this equation is analytically solvable and the solution is given by,
 
 
 \begin{equation}
@@ -214,14 +307,14 @@ n(x) = |\psi(x)|^2 =
     \end{cases}
 \end{equation}
 
-where $x_{TF}$ is called Thomas-Fermi Length and $n(x)$ is density. The density defined in this range and cannot be negative, therefore; if the normalization condition Eq.~\eqref{eq:GPE_normalization} is applied then the equation reads,  
+\noindent where $x_{TF}$ is called Thomas-Fermi Length and $n(x)$ is density. The density defined in this range and cannot be negative, therefore; if the normalization condition Eq.~\eqref{eq:GPE_normalization} is applied then the equation reads,  
 
 \begin{equation}
     \label{eq:thomas_fermi_mu_integral}
         \int_{-\infty}^{\infty} |\psi|^2 \dif x = \int_{-x_{TF}}^{x_{TF}} \frac{(\mu - V)}{g} \dif x = N 
     \end{equation}
 
-With this equation, density of the system can be obtain via invoking boundary conditions. For an exact analytic expression example, one dimensional harmonic potential can be used, 
+\noindent With this equation, density of the system can be obtain via invoking boundary conditions. For an exact analytic expression example, one dimensional harmonic potential can be used, 
 
 \begin{equation}
    \frac{1}{g} \left [ \int_{-x_{TF}}^{x_{TF}} \mu \dif x - \int_{-x_{TF}}^{x_{TF}} \frac{1}{2}m\omega^2x^2 \dif x \right ] = N
@@ -233,14 +326,14 @@ With this equation, density of the system can be obtain via invoking boundary co
 \end{equation}
 
 
-From boundary conditions,
+\noindent From boundary conditions,
 \begin{equation}
 \label{eq:thomas_fermi_mu_bound}
     \mu = V(x_{TF}) = \frac{1}{2}m\omega^2x_{TF}^2    
 \end{equation}
 
 
-If we combine Eq.~\eqref{eq:thomas_fermi_integral_result} and Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
+\noindent If we combine Eq.~\eqref{eq:thomas_fermi_integral_result} and Eq.~\eqref{eq:thomas_fermi_mu_bound} the equations reads,
 
 \begin{equation}
     \frac{m\omega^2 x_{TF}^3}{g} - \frac{m\omega^2 x_{TF}^3}{3g} = N
@@ -255,7 +348,7 @@ If we combine Eq.~\eqref{eq:thomas_fermi_integral_result} and Eq.~\eqref{eq:thom
     \mu = \left(\frac{9}{32} (N\omega g)^2 m \right)^{1/3}
 \end{equation}
 
-Here we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
+\noindent Here we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
@@ -276,91 +369,84 @@ Here we give comparison of densities obtained by numerical solution and Thomas-F
     \label{fig:c}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
-    \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-gen}}}
+    \includegraphics[width=\linewidth]{{{thomas-fermi-harmonic-15.0}}}
     \caption{Harmonic Potential}
     \label{fig:d}
 \end{subfigure}
-\caption{Here the potential types given in labels. The interaction parameter $g$ of the random potentials is 15. The error between the numerical solution and approximation shrinks as the interaction parameter increases which corresponds to increment in interaction energy.}
+\caption{Here the potential types are labeled. The interaction parameter $g$ is 15.}
 \label{fig:comp_thomas_num}
 \end{figure}
 
-As shown in Fig~\ref{fig:comp_thomas_num}d, the interaction parameter is great enough to use Thomas-Fermi approximation but since the density is determined by the Eq~\eqref{eq:thomas_fermi_mu_integral} the characteristic must be same with the potential used. This situation can be seen vividly in Fig~\ref{fig:comp_thomas_num}c.
+\textbf{As shown in Fig~\ref{fig:comp_thomas_num}d, the interaction parameter is great enough to use Thomas-Fermi approximation but since the density is determined by the Eq~\eqref{eq:thomas_fermi_mu_integral} the characteristic must be same with the potential used. This situation can be seen vividly in Fig~\ref{fig:comp_thomas_num}c at near zero region.}
 
-\subsection{Numerical Solution and Dataset Generation}
+\subsection{Numerical Solution and Potential Generation Process}
 
-The dataset generation step is divided into two main parts and implemented independently. The first one is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
+The dataset -which will be defined in detail later- generation step is divided into two main parts and implemented independently. The first one is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
 
 In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, even the scaling factors are supplied externally. Such a modularity has an huge advantage such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of input output operations. By using this advantage, we also use another numerical solution framework called GPELab \cite{antoine2014gpelab} implemented in Matlab to compare solutions' consistency and effect of scaling.
 
 
 \subsubsection{Scaling}
 
-The scaling of GPE is generally done according to potential type and there are more than one scaling conventions \textbf{REFS}. In this section we use a more general approach to scale GPE since the solutions will be numerical and we briefly would like to investigate how different scalings affect the solutions' consistency. To do that, the dimensionless quantities are introduced with variables so that scaling coefficient controlled by these variables. 
+The scaling of GPE is generally done according to potential type and there are more than one scaling conventions \textbf{REFS}. In this section we use a more general approach to scale GPE since the solutions will be numerical and we briefly would like to investigate how different scalings affect the solutions' consistency. To do that, the dimensionless quantities are introduced with variable coefficients so that scaling coefficient controlled by these variables. 
 
 First we define dimensionless potential, and then we make the length dimensionless,
 
-\begin{equation}
-    \label{eq:GPE_1D}
-    \frac{-\hbar^2}{2m}\frac{d^2\psi}{dz^2} + V(x)\psi + g|\psi|^2\psi = \mu\psi
-\end{equation}
+%\begin{equation}
+%%    \label{eq:GPE_1D}
+%    \frac{-\hbar^2}{2m}\frac{d^2\psi}{dz^2} + V(x)\psi + g|\psi|^2\psi = \mu\psi
+%\end{equation}
 
 
 $$ \overline{V}(x) \equiv \frac{V(x)}{\gamma E_0}, \qquad \widetilde{x} \equiv \frac{x}{\beta L} $$
 
-Here $\gamma$ and $\beta$ positive real numbers. $E_0$ is in energy unit and $L$ is in length and they are defined respectively as;
+\noindent Here $\gamma$ and $\beta$ positive real numbers. $E_0$ is in energy unit and $L$ is in length and they are defined respectively as;
 
 $$E_0 = \frac{\hbar^2}{2m} $$
 
+\noindent The potential can also be transformed in length scale such that; 
 
 $$ \widetilde{V}(\widetilde{x}) \equiv \overline{V}(\beta L x) $$ 
 
-If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
+\noindent If these transformations are pluged into the Eq.~\eqref{eq:GPE_1D} it becomes,
 
 \begin{equation}
     \label{eq:GPE_1D_dimensionless_en_len}
     \frac{-\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2}  \frac{d^2\psi}{d \widetilde{x}^2} + \widetilde{V}(\widetilde{x})\psi + \frac{g}{\gamma E_0}|\psi|^2\psi = \frac{\mu}{\gamma E_0}\psi
 \end{equation}
 
-To obtain final form, we define dimensionless energy, wave function and interaction parameter respectively. 
+\noindent To obtain final form, we define dimensionless chemical potential, wave function and interaction parameter respectively. 
 
 $$\widetilde{\mu} \equiv \frac{\mu}{\gamma E_0}, \qquad \widetilde{\psi} \equiv \psi{\sqrt{\frac{\beta L}{N}}}, \qquad \widetilde{g} \equiv \frac{gN}{\gamma E_0 \beta L} $$
 
-To control scaling coefficients we set the coefficient of the kinetic term to an arbitrary positive real number $\alpha$  
+\noindent To control scaling coefficients we set the coefficient of the kinetic term to an arbitrary positive real number $\alpha$  
 
-$$ \alpha = \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} , $$
+$$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha  , $$
 
-and set $E_0 = \hbar^2 / 2m$. Now the scaling of GPE can be controlled by $\alpha$ and $\beta$ only.
+\noindent Now the scaling of GPE can be controlled by $\alpha$ and $\beta$ only.
 
 \begin{equation}
 \label{eq:GPE_dimensionless}
     -\alpha\frac{d^2\widetilde{\psi}}{d\widetilde{x}^2} + \widetilde{V}(\widetilde{x})\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} = \widetilde{\mu} \widetilde{\psi}
 \end{equation}
     
-We are going to change these scaling coefficients and see their effects by comparing results. An example of setting the scale coefficients is shown in appendix~\ref{ap:scale}.
-
+Changing $\beta$ directly effects the length scale and it requires extra transformations in potential generation steps, therefore; we are going to change only $\alpha$ to see the effect of scaling by comparing results. An example of setting the scale coefficients is shown in appendix~\ref{ap:scale}.
 
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
 \centering
-    \includegraphics[width=\linewidth]{comparison-energy}
-\caption{Error in density and energy}
+    \includegraphics[width=0.5\linewidth]{comparison-energy}
+\caption{Energy results comparison of different frameworks, XMDS and GPELab}
 \label{fig:dens_energy_error}
 \end{figure}
 
 
-\graphicspath{{"../figs/potentials/"}}
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{solutionswithinter}
-    \caption{Density under Double Inverted Gaussian Potential with different interaction parameter.}
-\label{fig:gaussian_pot_and_density}
-\end{figure}
-
-\subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
+%\subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
 %\subsubsection{XMDS framerwork and other programs.}
 \subsubsection{Potential generation} \label{sec:potential_generation}
 
-In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. A python class object responsible for handling this process. This class is constructed with suitable parameters such as "number of points", "width" etc. The generated potentials are sent to another method supplied by class. This method re-scales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries which is given as,
+In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. A python class object responsible for handling this process. This class is constructed with suitable parameters such as "number of points", "width" etc. The generated potentials are sent to another method supplied by class which re-scales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries which is given as,
 \begin{equation}
 \label{eq:potential_boundary_conditions}
 \begin{split}
@@ -381,7 +467,7 @@ To handle these conditions, we define two envelope functions given by the follow
     \text{Env}_{M}(x) = 1 - \text{Env}_{LR}(x)
 \end{equation}
 
-where $x_L$ and $x_R$ are bounds given in the Table~\eqref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}.  
+\noindent where $x_L$ and $x_R$ are bounds given in the Table~\eqref{tb:general_table} and the plot is given in Fig.~\ref{fig:envelope_and_random_withot_pros}.  
 
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
@@ -405,9 +491,9 @@ As shown in Fig.~\ref{fig:envelope_and_random_withot_pros} $Env_{M}$ neutralizes
 
 
 
-\subsubsection{Potential types (with analytic forms etc.)}
+\subsubsection{Potential Types}
 
-We use \textbf{six} different types of potential in our study. The first three potential which have analytic form given in Table~\ref{tb:general_table}. are 1D version of potentials studied in \cite{mills2017deep}. We implement two more random potential generator to study effect of generation process. The generation processes of the random potentials are described in Section~\ref{sec:random_potential_gen}.
+Bose-Einstein condensates are generally worked with harmonic trapping potential, but we use six different types of potential in our study. The first three potentials are infinite well, harmonic, and double inverted gaussian potential. Their parametric details are given in Table~\ref{tb:general_table}. and the other three are random potentials generated by different algorithms. We investigate training results first individually so that type of the potential in both training and prediction process are same, then we do a cross scenario in that case the type of the potential in training and prediction are different.
 
 \newcommand{\infinitewell}{$
 V(x) = 
@@ -431,26 +517,26 @@ $}
 \centering
 \caption{Potentials}
 \label{tb:general_table}
-\begin{tabular}{|l|l|l|l|l|l|} \hline
-Potential                      & Analytic Form / Explanation         & Parameters           & Min   & Max  & Distribution \\ \hline
-\multirow{3}{*}{Envelope}      & \multirow{2}{*}{\envelopepotLR}     & $x_L$                & -9    & 4.5  &              \\ 
-                               & \multirow{2}{*}{\envelopepotM}      & $x_R$                & -4.5  & 9    &              \\
-                               &                                     & $\beta$              & -4.5  & 9    &              \\ \hline
-\multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & -9    & 4.5  &              \\ 
-                               &                                     & $x_r$                & -4.5  & 9    &              \\
-                               &                                     & $x_r - x_l$          & 1     & 8    &              \\ \hline
-\multirow{2}{*}{Harmonic}      & \multirow{2}{*}{\harmonicpot}       & $\omega$             & 0.01  & 3    &              \\ 
-                               &                                     & $x_0$                & -5    & 5    &              \\ \hline
-\multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & 1     & 10   &              \\ 
-                               &                                     & $\mu_1, \mu_2$       & -5    & 5    &              \\
-                               &                                     & $\sigma_1, \sigma_2$ & 0.5   & 4    &              \\ \hline
-\multirow{2}{*}{Random\#1}     & \multirow{2}{*}{\randompotONE}      & $\mu$                & -4    & 4    &              \\ 
-                               &                                     & $\sigma$             & 0.5   & 4    &              \\ \hline
-\multirow{4}{*}{Random\#2}     & \multirow{4}{*}{\randomexplation}   & Number of Terms      & 1     & 100  &              \\ 
-                               &                                     & $A_1, A_2$           & -4    & 4    &              \\
-                               &                                     & $n_1, n_2$           & -6.30 & 6.30 &              \\
-                               &                                     & $\sigma$             & 0.1   & 10   &              \\ \hline 
-Random\#3                      & Substraction of two binary grid     & Scale Factor         & 8     & 8    &              \\ \hline
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline
+Potential                      & Analytic Form / Explanation         & Parameters           & Description    & Min   & Max  \\ \hline
+\multirow{3}{*}{Envelope}      & \multirow{2}{*}{\envelopepotLR}     & $x_L$                & Left           & -9    & 4.5  \\ 
+                               & \multirow{2}{*}{\envelopepotM}      & $x_R$                & Right          & -4.5  & 9    \\
+                               &                                     & $\beta$              & Rapidness      & -4.5  & 9    \\ \hline
+\multirow{3}{*}{Infinite Well} & \multirow{3}{*}{\infinitewell}      & $x_l$                & Left Well      & -9    & 4.5  \\ 
+                               &                                     & $x_r$                & Right Well     & -4.5  & 9    \\
+                               &                                     & $x_r - x_l$          & Width          & 1     & 8    \\ \hline
+\multirow{2}{*}{Harmonic}      & \multirow{2}{*}{\harmonicpot}       & $\omega$             & Angular Freq.  & 0.01  & 3    \\ 
+                               &                                     & $x_0$                & Equilibrium    & -5    & 5    \\ \hline
+\multirow{3}{*}{DI Gaussian}   & \multirow{3}{*}{\gaussianpot}       & $A_1, A_2$           & Amplitude      & 1     & 10   \\ 
+                               &                                     & $\mu_1, \mu_2$       & Mean           & -5    & 5    \\
+                               &                                     & $\sigma_1, \sigma_2$ & Standard Dev.  & 0.5   & 4    \\ \hline
+\multirow{2}{*}{Random\#1}     & \multirow{2}{*}{\randompotONE}      & $\mu$                & Mean           & -4    & 4    \\ 
+                               &                                     & $\sigma$             & Standard Dev.  & 0.5   & 4    \\ \hline
+\multirow{4}{*}{Random\#2}     & \multirow{4}{*}{\randomexplation}   & Number of Terms      &                & 1     & 100  \\ 
+                               &                                     & $A_1, A_2$           & Amplitude      & -4    & 4    \\
+                               &                                     & $n_1, n_2$           &                & -6.30 & 6.30 \\
+                               &                                     & $\sigma$             &                & 0.1   & 10   \\ \hline 
+Random\#3                      & Subtraction of two binary grid      & Scale Factor         &                & 8     & 8    \\ \hline
 
 \end{tabular}
 \end{table}
@@ -458,7 +544,7 @@ Random\#3                      & Substraction of two binary grid     & Scale Fac
 
 
 
-\subsubsection{Random potential generations with different method. (Reason)}
+\subsubsection{Random Potential Generation}
 \label{sec:random_potential_gen}
 
 To be able to observe the effect of random potential generation to the results we use three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. Gaussian filter is applied with a random sigma value to the potential array to make it smooth.    
@@ -487,9 +573,8 @@ To be able to observe the effect of random potential generation to the results w
 \label{fig:random1_before_after}
 \end{figure}
 
+The second algorithm  
 
-
-The second one is summation of sines and cosines with random coefficients. Firstly, the number of terms are determined, after that each coefficient of the terms are assigned and summed iteratively.
 
 \begin{algorithm}[H]
     \caption{RandomPotential2}\label{euclid}
@@ -602,6 +687,128 @@ The third one is one dimensional version of the algorithm described in \cite{mil
 
 
 \section{Machine Learning}
+\label{sec:machine_learning}
+
+Our aim is to show that the machine learning methods can be used to bypass GPE equation and physical features of the BEC can be predicted within high accuracy. To do that, we implemented a special type of artificial neural network called convolutional neural network (CNN). It is developed to handle data which have grid-like topology \cite{goodfellow2016deep} such as an image. Its strength occurs at when the subject has geometrical translation symmetry for instance the shape of a harmonic potential. Since In this section, we briefly introduce notions and mechanisms used in machine learning such as neuron, gradient descent etc. After that, we describe how these are used in our study.  
+
+An artificial neural network is made of layers and these layers contain simple units called neurons. These neurons were inspired by the neurons in the human brain. A neuron takes one or more input and generates an output. To do this, it uses its internal variables which are called weights and biases. In general, the number of weights in a neuron is equal to the size of the input and there is one bias value. There is no restriction on the range of weights and biases except computational, they can even take on complex values \cite{zimmermann2011comparison}. Input output relation of a neuron can be described in the following way; if we represent the input of the neuron by $\boldsymbol{x} = [x_1, x_2, x_3, ..., x_n]$ and the function $f$ that describes behavior of the neuron can be written as, 
+
+\begin{equation}
+\label{eq:NU_neuron}
+f(\boldsymbol{x}, \boldsymbol{\omega}, b) = \sum\limits_{i = 1}^n \omega_i x_i + b
+\end{equation}
+
+\noindent Here, $\omega_i$ are the weights and $b$ is the bias. A layer of a network involves neurons that implement with this function. In our example, $x_n$ \textbf{inputs represent the potential expression respect to the position} or represents density in the case of inverse problem. The range of the function $f$ is infinite and it can be used directly. However, there are various ways to interpret result of the function $f$. The most primitive version of interpretation is sending the result of $f$ as an argument to unit step function to generate 0 (False) or 1 (True). In this case, 
+
+\begin{equation}
+\label{eq:NU_step_function}
+a(f) = u_1(f(\boldsymbol{x}, \boldsymbol{\omega}, b))
+\end{equation}
+
+\noindent where $a$ is called as the activation function of the neuron and it is a unit step function in this case. However, the usage of the step function introduces discontinuity and does not allow to use differential methods to calculate behavior of the neurons when a small change in weights or biases is applied. To handle this problem there are different activation functions. 
+One of the most common activation function is sigmoid function denoted by $\sigma$ which is continuous version of the step function and it is defined as,
+
+\begin{equation}
+\label{eq:NU_sigma_function}
+\sigma(f) = \frac{1}{1 + e^{-f}}
+\end{equation}
+
+\noindent If a neuron defined in this way such that its output given by Eq.~\eqref{eq:NU_sigma_function}, then it is called a sigmoid neuron. In the former case which is the step function, the neuron is called as perceptron. 
+
+If we denote $j^{th}$ neuron in the $l^{th}$ layer with $f_j^l$, and the weight from $k^{th}$ neuron in the $(l-1)^{th}$ layer to the $j^{th}$ neuron in the layer $l^{th}$ with $\omega_{jk}^l$, finally the bias of the $j^{th}$ neuron in the $l^{th}$ layer with ${b_j^l}$, then, the output of the $j^{th}$ neuron in the $l^{th}$ layer will be;
+
+\begin{equation}
+\label{eq:NU_neuron_connection}
+f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omega_{jk}^{l}\sigma(f_k^{l-1}) + b_j^l
+\end{equation}
+
+\noindent and the activation of the output can be written as;
+
+\begin{equation}
+\sigma(f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b)
+\end{equation}
+
+
+\noindent Here we use sigmoid function as activation function but it can be any suitable activation function such as hyperbolic tangent $\tanh(f)$ or Rectified Linear Unit (ReLU).
+
+Connection complexity of the neurons may vary. Output of each neuron in one layer can be input of every neuron in next layer. Such networks are called Fully Connected Networks (FCN) or multilayer perceptrons (MLP). If the result of one layer is directly sent to the next layer without any circulation or feedback, then the network is called as Feed Forward Network \cite{nielsen2015neural}.
+
+We are going to change these weights and biases in such a way that the difference between output generated by network and real value of the corresponding quantity will be minimized. To do that, we are going to use a proxy relation between output and real value which is called as Cost Function \cite{nielsen2015neural}. There are different kind of cost functions such as quadratic cost function, cross entropy cost function etc. We are going to use quadratic cost function also called as mean squared error to show the general mechanism and to introduce few notions that directly effects the behavior of the network. 
+
+
+The quadratic cost function is defined as;
+
+\begin{equation}
+\label{eq:NT_Quadratic}
+C(\omega, b) = \frac{1}{2n} \sum\limits_{x} || \boldsymbol{y} - a(f_L(\boldsymbol{x})) ||{^2} 
+\end{equation}
+
+\noindent where $n$, $\omega$, $b$ are number of examples in the training set, weights and biases, respectively. The subscript $L$ indicates the last layer which is the output, so $f_L(\boldsymbol{x})$ output produced by network and $\boldsymbol{y}$ is real value of the quantity. To minimize $C$, we can take derivative of the function and can find extremum values, but this method is extremely costly because the total number of neurons in the network is enormous \cite{nielsen2015neural}. This problem can be overcame by an iterative algorithm called Gradient Descent. Since $C$ is also a scalar field the algorithm tries to determine a direction which points to the decrement and moves in that direction with small steps. In each iteration, algorithm repeats itself to reach minimum value. 
+
+A small displacement in arbitrary direction which corresponds to a small change in weight or bias or both can be written as;
+\begin{equation}
+\label{eq:NT_Quadratic_min}
+\Delta{C} = \frac{\partial{C}}{\partial{\omega}}\Delta{\omega} + \frac{\partial{C}}{\partial{b}}\Delta{b}
+\end{equation}
+
+\noindent This expression gives information about what happens when small displacement is made. In order to the determine direction of decrement we can rewrite this expression in terms of the gradient since it points to direction of maximum rate of increase. We can define gradient operator as;
+
+\begin{equation}
+\label{eq:gradient}
+\boldsymbol{\nabla}{C} = \left(\frac{\partial{C}}{\partial{\omega}},\frac{\partial{C}}{\partial{b}} \right)^T
+\end{equation}
+
+\noindent In this case, Eq.~\eqref{eq:NT_Quadratic_min} can be written as;
+
+\begin{equation}
+\label{eq:NT_Quadratic_min_gradient_form}
+\Delta{C} = \boldsymbol{\nabla}{C} \cdot \Delta \boldsymbol{l}
+\end{equation}
+
+\noindent where $\boldsymbol{l} = (\omega, b)^T$. We want to minimize the cost function, thus; in each iteration value of the $C$ must be smaller than the previous one which means that $\Delta{C}$ must be smaller than zero. Therefore, the direction of displacement must be in the opposite direction of the gradient. Rather than calculating the opposite direction for each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
+
+\begin{equation}
+\label{eq:NT_learning_rate}
+\Delta{\boldsymbol{l}} = -\eta\boldsymbol{\nabla}C
+\end{equation}
+
+\noindent In this case, Eq.~\eqref{eq:NT_Quadratic_min_gradient_form} becomes;
+
+\begin{equation}
+\label{eq:NT_Displacement}
+\Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
+\end{equation}
+
+\noindent where $\eta$ is positive definite number and it is called the learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\eqref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.
+
+Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase the speed of training process. It is assumed that gradient of  $m$ randomly selected examples in the dataset is nearly equal to gradient of the whole dataset and it can be expressed as;
+
+\begin{equation}
+\label{eq:NT_Stochastic}
+\frac{1}{m} \sum\limits_{k = 1}^{m} \nabla{C_{X_j}} \approx \frac{1}{n}\sum\limits_{x = 1}^{n} \nabla{C_{x}} = \nabla{C}
+\end{equation}
+
+\noindent where $\nabla{C_x}$ is the gradient of a single training input and $m$ is also called as mini-batch size.
+
+It is worth noting that approaching a minimum value is proportional to the number of iterations which equals to number of examples in the dataset, therefore; it is a corollary that there can be two situations\footnote{The third case is that algorithm may diverge but we ignore this situation here.}. First, the algorithm cannot reach the minimum point due to lack of training examples, and secondly, the algorithm reaches a global or local minimum point and starts to oscillate around it \cite{zeiler2012adadelta}. There are mechanisms to prevent such cases and other optimization problems like direction sensitivity and they are called as adaptive learning rate \cite{mills2017deep}. In our network we used an algorithm called Adam \cite{kingma2014adam} provided by the framework we used.  
+
+The final step in the gradient descent is updating the weights and biases. We use Eq.~\eqref{eq:NT_Displacement} to perform this task. If we combine Eq.~\eqref{eq:NT_Displacement} with Eq.~\eqref{eq:NT_Stochastic} and write it in open form, the expression to update the weight and bias can be written as;
+
+\begin{equation}
+\label{eq:NT_weight_bias_update}
+\begin{split}
+& \omega^{\prime} = \omega - \frac{\eta}{m} \sum\limits_{j = 1}^{m} \frac{\partial{C_{X_j}}}{\partial{\omega}} \\
+& b^{\prime} = b- \frac{\eta}{m} \sum\limits_{j = 1}^{m} \frac{\partial{C_{X_j}}}{\partial{b}}
+\end{split}
+\end{equation}
+
+\noindent Numerical calculation of the partial derivatives in the equation is one of the costliest computational operation in the training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}. We use the framework we used it provides similar mechanism called automatic differentiation. 
+
+\subsection{Machine Learning Framework}
+
+We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes to work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Machine Learning code has three main parts, first one is dataloaders; it reads train and test data from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also includes a forward method which is responsible for how data will be sent to the next layer. The last part is training and testing. In the training part, the network is iterated with training dataset and loss (result of cost function) is calculated at the end of each iteration. After that, weights and bias are updated accordingly by framework.
+
+
 \subsection{Network architecture}
 \noindent Architecture of the network.\\
     A general figure like in the ML\&SE article that describes the work done.\\

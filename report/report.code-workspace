@@ -19,6 +19,7 @@
             "**/*.gz": true,
         },
         "cSpell.words": [
+            "anisotropic",
             "xmds"
         ],
     },
