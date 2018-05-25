@@ -99,8 +99,7 @@ def train(epoch):
                 100. * batch_idx / len(train_loader), loss.data[0]))
     res.step(loss.data[0])
 
-
-info_file_name = "../figs/CNN/" + args.info_file
+info_file_name = "../figs/training/" + args.info_file
 print(info_file_name)
 
 def test():
@@ -120,10 +119,10 @@ def test():
     res.analyze(real, predicted)
 
     if not args.test_case:
-        res.plot_figure()
+        #res.plot_figure()
         #global info_file_name
-        #file_name = info_file_name + "conv1d-epoch-{}-.inf".format(res.cur_epoch)
-        #an.save_info(res, file_name)
+        file_name = "{}.inf".format(info_file_name)
+        tracer.save_info(res, file_name)
 
     return predicted
 
@@ -142,7 +141,7 @@ res.cur_epoch = res.epochs
 res.chrono_point("train_end")
 test()
 
-res.plot_loss()
+#res.plot_loss()
 print(res.chrono_points["train_end"] - res.chrono_points["train_start"])
 print(res.chrono_points)
 

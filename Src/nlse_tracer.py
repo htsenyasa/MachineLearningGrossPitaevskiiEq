@@ -104,17 +104,12 @@ class Tracer(object):
         
         figure = plt.gcf()
         figure.set_size_inches(8,6)
-        plt.show()        
         
-        #if file_name == None:
-        #    figure = plt.gcf()
-        #    figure.set_size_inches(8,6)
-        #    plt.show()
-        #else:
-        #    figure = plt.gcf()
-        #    figure.set_size_inches(8,6)
-        #    plt.savefig(file_name + ".svg", format = "svg", dpi=1200)
-        #    plt.clf()
+        if file_name == None:
+            plt.show()
+        else:
+            plt.savefig(file_name + ".png", format = "png")#, dpi=1200)
+            plt.clf()
 
 
     def plot_figure2(self, file_name = None):
@@ -160,15 +155,41 @@ class Tracer(object):
             plt.show()
             plt.clf()
 
-    def plot_loss(self):
-        fig, ax1 = plt.subplots()
-        ax1.plot(self.loss, "--")
-        ax1.set_xlabel("Epoch", fontsize = 20)
-        ax1.set_ylabel("Loss", fontsize = 20)
-        ax1.set_yscale("log")
-        ax1.legend()
-        plt.show()
+    def plot_loss(self, file_name = None):
+        #fig, ax1 = plt.subplots()
+        #ax1.plot(self.loss, "--")
+        #ax1.set_xlabel("Epoch", fontsize = 20)
+        #ax1.set_ylabel("Loss", fontsize = 20)
+        #ax1.set_yscale("log")
+        #ax1.legend()
+        epochs = np.arange(1, self.epochs + 1, 1)
 
+        fig, ax1 = plt.subplots()
+        ax1.plot(epochs, self.loss, "--b", label = "Loss")
+        plt.locator_params(axis='x', nbins=len(epochs)/5)
+        #ax1.set_xticks(epochs)
+        ax1.set_xlabel("Epochs", fontsize=20)
+        ax1.set_ylabel("Loss", fontsize=20)
+        ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        #ax1.grid()
+        ax1.legend()
+        ax1.set_yscale("log")
+        ax1.tick_params(labelsize=18)
+        figure = plt.gcf()
+        figure.set_size_inches(8,6)
+
+        #props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+        #textstr = "MSE(20):{:.2E}\nMSE(40):{:.2E}\nMSE(60):{:.2E}".format(Decimal(float(info.loss[19])), Decimal(float(info.loss[39])), Decimal(float(info.loss[-1])))
+        #ax1.text(0.718, 0.9, textstr, transform=ax1.transAxes, fontsize=14, verticalalignment='top', bbox=props)
+
+        figure = plt.gcf()
+        figure.set_size_inches(8,6)
+        
+        if file_name == None:
+            plt.show()
+        else:
+            plt.savefig(file_name + ".png", format = "png")#, dpi=1200)
+            plt.clf()
 
     def step(self, loss_val):
         #self.cur_epoch += 1

@@ -2,7 +2,7 @@ import shlex, subprocess, time
 
 dirs = ["harmonic", "well", "gaussian", "random", "random2", "random3"]
 
-dirs = ["gaussian", "random"]
+dirs = ["gaussian"]
 
 root =  "generic_dataset_MAIN/"
 data = "pot_inter.dat.npy"
@@ -36,4 +36,4 @@ def cross_init():
             p = subprocess.Popen(args)
             p.wait()
 
-cross_init()
+normal_init()

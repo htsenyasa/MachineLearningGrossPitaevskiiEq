@@ -23,8 +23,8 @@ Stop_crit = {'Energy',1e-12};
 Method = Method_Var1d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 xmin = -10;
 xmax = 10;
-Nx = 128 + 1;
-Geometry1D = Geometry1D_Var1d(xmin,xmax,Nx);
+Nx = 256 + 1;
+Geometry1D = Geometry1D_Var1d(xmin, xmax, Nx);
 
 %% Setting the physical problem
 Delta = alpha;
@@ -56,7 +56,7 @@ dens = phi .* phi;
 en = Outputs.Energy{1};
 en = en(length(en));
 
-file_name = "/home/user/Study/Src/APPL/data/nonlinearSE/generic_dataset/matlab/";
+file_name = "/home/user/Study/Src/APPL/data/nonlinearSE/generic_dataset_matlab/matlab/";
 dlmwrite(file_name + "dens.txt", dens);
 dlmwrite(file_name + "energy.txt", en);
 exit;

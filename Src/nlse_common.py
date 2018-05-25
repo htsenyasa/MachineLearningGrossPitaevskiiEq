@@ -17,11 +17,11 @@ FCN = { "batch_size": 30,
 
 CNN = { "batch_size": 50,
         "test_batch_size": 25,
-        "epoch": 2,
+        "epoch": 100,
         "lr": 0.003,
         "seed": nlse_seed,  
         "network_arch": "CNN",
-        "training_len": 40000,
+        "training_len": 45000,
         "test_len" : 5000,
         "cross_test" : False,
       }
