@@ -4,6 +4,8 @@ import numpy as np
 import scipy.ndimage
 import matplotlib.pyplot as plt
 from matplotlib import rc
+from matplotlib import rc
+import matplotlib
 
 plt.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
 params = {'text.usetex' : True,
@@ -12,6 +14,11 @@ params = {'text.usetex' : True,
           'text.latex.unicode': True,
           }
 plt.rcParams.update(params) 
+
+matplotlib.rc('axes', titlesize=20)
+matplotlib.rc('axes', labelsize=24)    # fontsize of the x and y labels
+matplotlib.rc('xtick', labelsize=22)    # fontsize of the tick labels
+matplotlib.rc('ytick', labelsize=22)    # fontsize of the tick labels
 
 import potentialgenerator as pg
 
@@ -73,11 +80,11 @@ def raw_pot_and_proc():
     ax1.plot(x, pot, label = "Before Process")
     #ax1.plot(x, tpot)
     #ax1.set_ylim(0, 50)
-    ax1.set_xlabel('$x$', fontsize = 16)
-    ax1.set_ylabel('Potential', fontsize = 16)
+    ax1.set_xlabel('$x$')
+    ax1.set_ylabel('Potential')
     ax1.set_ylim(0, None)
     ax1.tick_params('$y$')
-    ax1.tick_params(labelsize = 18)
+    #ax1.tick_params(labelsize = 18)
 
     ax2 = ax1.twinx()
     ax2.plot(x, a3, 'r')
@@ -85,16 +92,16 @@ def raw_pot_and_proc():
     #ax2.set_ylabel('Amplitude', fontsize = 16)
     ax2.tick_params('$y$')
     ax2.set_ylim(0, None)
-    ax2.tick_params(labelsize = 18)
+    #ax2.tick_params(labelsize = 18)
 
     #ax3 = plt.subplot(122)
     ax3.plot(x, tpot, label = "After Process")
     #ax3.plot(x, tpot)
-    ax3.set_xlabel('$x$', fontsize = 16)
+    ax3.set_xlabel('$x$')
     #ax3.set_ylabel('Potential', fontsize = 16)
     ax3.set_ylim(0, None)
     ax3.tick_params('$y$')
-    ax3.tick_params(labelsize = 18)
+    #ax3.tick_params(labelsize = 18)
     plt.legend()
     figure = plt.gcf()
     figure.set_size_inches(16,6)
@@ -107,18 +114,18 @@ def before_after_pot(x, bpot, apot, type, posfix):
     
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2)
     ax1.plot(x, bpot, label = "Before Process")
-    ax1.set_xlabel('$x$', fontsize = 16)
-    ax1.set_ylabel('Potential', fontsize = 16)
+    ax1.set_xlabel('$x$')
+    ax1.set_ylabel('Potential')
     #ax1.set_ylim(0, None)
     ax1.tick_params('$y$')
-    ax1.tick_params(labelsize = 18)
+    #ax1.tick_params(labelsize = 18)
 
     ax2.plot(x, apot, label = "After Process")
-    ax2.set_xlabel('$x$', fontsize = 16)
-    ax2.set_ylabel('Potential', fontsize = 16)
+    ax2.set_xlabel('$x$')
+    #ax2.set_ylabel('Potential')
     #ax2.set_ylim(0, None)
     ax2.tick_params('$y$')
-    ax2.tick_params(labelsize = 18)
+    #ax2.tick_params(labelsize = 18)
 
     plt.legend()
 #    plt.tick_params(labelsize = 18)
@@ -139,12 +146,12 @@ random_pot_generators = [potgen.generate_random_pot,
                          potgen.generate_random_pot_2, 
                          potgen.generate_random_pot_3]    
 
-rpots = []
-prpots = []
-for i, pot in enumerate(random_pot_generators):
-    rpot, prpot = pot()
-    rpots.append(rpot)
-    prpots.append(prpot)
-    before_after_pot(x, rpot, prpot, pot_types[i], "noprocandproc")
+#rpots = []
+#prpots = []
+#for i, pot in enumerate(random_pot_generators):
+#    rpot, prpot = pot()
+#    rpots.append(rpot)
+#    prpots.append(prpot)
+#    before_after_pot(x, rpot, prpot, pot_types[i], "noprocandproc")
 
-#raw_pot_and_proc()
+raw_pot_and_proc()

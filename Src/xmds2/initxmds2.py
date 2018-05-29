@@ -1,6 +1,7 @@
 import shlex, subprocess, time
 import random as rnd
 import time as time
+import os
 import argparse
 
 import numpy as np
@@ -26,7 +27,7 @@ if pot_type != -1:
 start = time.time()
 
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
-pot_gen = pg.PotentialGenerator(seed = 30, g_exec_func = pg.save_as_h5)
+pot_gen = pg.PotentialGenerator(seed = 20, g_exec_func = pg.save_as_h5)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -38,18 +39,25 @@ pot_generators = [pot_gen.generate_harmonic_pot,
 alpha = 0.5
 #pot_generators[pot_type]()
 
-gg = lambda mu: ((5/3) * (32/9)**(1/3) * mu)**(3/5)
-mu = np.array([rnd.uniform(4, 9) for i in range(N_of_ex)])
+#gg = lambda mu: ((5/3) * (32/9)**(1/3) * mu)**(3/5)
+#
+#g_high = 30
+#g_low = 15
+#gg = lambda mu: g_low + (mu / (g_high**(5/3) - g_low**(5/3)))**(3/5) * g_high   
+#
+#mu = np.array([rnd.uniform(0, 35) for i in range(N_of_ex)])
 
+cwd = os.getcwd()
+pot_types = [int(cwd[cwd.find("_") + 1])]
 
-pot_types = [4]
+pot_types = [0, 1, 2, 3, 5]
 for pot_type in pot_types:
-    #inter_params = np.array([rnd.uniform(0, 50) for i in range(N_of_ex)])
+    inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
     #inter_params = [0, 5, 10, 100]
-    inter_params = gg(mu)
+    #inter_params = gg(mu)
     for inter_param in inter_params:
 
-        #pot_generators[pot_type]()
+        pot_generators[pot_type]()
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)

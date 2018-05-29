@@ -1,11 +1,11 @@
 import os
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc
 from scipy.optimize import newton
 
 #matplotlib.rcParams.update({'axes': 16})
+import matplotlib
 matplotlib.rc('axes', titlesize=20)
 matplotlib.rc('axes', labelsize=22)    # fontsize of the x and y labels
 matplotlib.rc('xtick', labelsize=20)    # fontsize of the tick labels

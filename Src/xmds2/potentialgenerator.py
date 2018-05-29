@@ -43,7 +43,7 @@ class PotentialGenerator(object):
 
     def potential_process(self, pot, procs = [], args = []):
         """ args: A list of len(procs) that involves arguments of procs as tuples"""
-        tpot = pot
+        #tpot = pot
         Nprocs = len(procs)
         #pot_min = np.min(pot)
         #if pot_min < 0:
@@ -118,7 +118,7 @@ class PotentialGenerator(object):
     def generate_random_pot_3(self, sigma = None, scale_fac = 8, exec_func = None):
         
         if sigma == None:
-            sigma = rnd.uniform(2.5, 10) * (self.Np / 128) 
+            sigma = rnd.uniform(2.5, 10) * (self.Np / 64) 
 
         bin_grid = np.array([rnd.randint(0, 1) for i in range(self.Np // scale_fac)])
         bin_grid = np.repeat(bin_grid, scale_fac)

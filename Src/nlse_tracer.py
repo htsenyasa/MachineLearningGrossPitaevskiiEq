@@ -56,12 +56,14 @@ class Tracer(object):
 
     def plot_figure(self, file_name = None, inter = False):
         err = self.test_dataset - self.predicted
-        relative_err = ((self.test_dataset - self.predicted) / (self.test_dataset)) * 100
+        relative_err = (np.abs(self.test_dataset - self.predicted) / (self.test_dataset)) * 100
 
         fig, ax1 = plt.subplots()
-        ax1.plot(self.test_dataset, self.test_dataset, "--r", label=None, linewidth = 1, alpha=0.5)
         #ax1.scatter(self.testdataset, self.predicted, c = np.abs(err), s = 4)
         ax1.plot(self.test_dataset, self.predicted, ".", label = None, markersize = 4)
+        ax1.plot(self.test_dataset, self.test_dataset, "--r", label=None, linewidth = 1, alpha=0.5)
+        #yticks = ax1.get_yticks()
+        #ax1.set_xticks(yticks)
         #ax1.set_title("FNN{}".format(self.arch))
         if inter == True:
             x_label = "True Interaction Parameter"
@@ -70,15 +72,15 @@ class Tracer(object):
             x_label = "True Energy"
             y_label = "Predicted Energy"
 
-        ax1.set_xlabel(x_label, fontsize = 20)
-        ax1.set_ylabel(y_label, fontsize = 20)
+        ax1.set_xlabel(x_label, fontsize = 26)
+        ax1.set_ylabel(y_label, fontsize = 26)
         #fig.tight_layout()
         ax1.tick_params(labelsize = 18)
         ax1.legend()
 
-        left, bottom, width, height = [0.685, 0.135, .2, .2]
+        left, bottom, width, height = [0.635, 0.135, .25, .25]
         inset = fig.add_axes([left, bottom, width, height])
-        left2, bottom2, width2, height2 = [0.135, 0.66, .2, .2]
+        left2, bottom2, width2, height2 = [0.135, 0.61, .25, .25]
         inset2 = fig.add_axes([left2, bottom2, width2, height2])
 
         #ax1.grid()
@@ -87,20 +89,37 @@ class Tracer(object):
         #ax1.text(0.03, 0.85, textstr, transform=ax1.transAxes, fontsize=11, verticalalignment='top', bbox=props)
         #ax1.text(, , "{}\nlr={}\nepoch={}\ntrain_len={}\ntest_len={}\nerror={}".format(self.arch, self.learning_rate, self.cur_epoch, self.training_len, self.test_len, self.error))
 
-        inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
+        #inset.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
         #inset2.hist(relative_err, range=[-np.amax(np.abs(relative_err)), np.amax(np.abs(relative_err))], bins=20)
-        inset2.hist(relative_err, range=[0, 100], bins=20)
+        inset_fontsize = 16
+        inset_ticksize = 14
+        epochs = np.arange(1, self.epochs + 1, 1)
+        inset.plot(epochs, self.loss)
+        inset.set_xlabel("Epochs", fontsize=20)
+        inset.set_ylabel("Loss", fontsize=20)
+        inset.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        inset.legend()
+        inset.set_yscale("log")
         inset.xaxis.tick_top()
         inset.xaxis.set_label_position('top')
-        inset.set_xlabel("Error", fontsize = 18)
-        inset.set_ylabel("\# of Examples", fontsize = 18)
-        inset.tick_params(labelsize=12)
+        inset.set_xlabel("Epoch", fontsize = inset_fontsize)
+        inset.set_ylabel("Loss", fontsize = inset_fontsize)
+        inset.tick_params(labelsize=inset_ticksize)
+
         #inset2.set_title("Rel.Error (\%)", fontsize = 18)
-        inset2.set_xlabel("Rel.Error (\%)", fontsize = 18)
-        inset2.set_ylabel("\# of Examples", fontsize = 18)
-        inset2.tick_params(labelsize=12)
+        #inset2.hist(err, range=[-np.amax(np.abs(err)), np.amax(np.abs(err))], bins=20)
+        inset2_legend = "{:.2F}".format(float(sum(np.abs(relative_err))/self.test_len)) # FIX # Generalize
+        inset2.hist(relative_err, range=[0, 100], bins=20, label = inset2_legend)
+        #inset2.hist(relative_err, range=[0, max(np.abs(relative_err))], bins=20, label = inset2_legend)
+        #inset2.hist(relative_err, bins=20)
+        #inset2.set_xlabel("Error $E_T - E_P$", fontsize = inset_fontsize)
+        inset2.set_xlabel("Rel.Error (\%)", fontsize = inset_fontsize)
+        inset2.set_ylabel("\# of Examples", fontsize = inset_fontsize)
+        inset2.tick_params(labelsize=inset_ticksize)
         inset2.yaxis.tick_right()
         inset2.yaxis.set_label_position("right")
+        inset2.legend(fontsize = 16)
+        #inset2.legend("{}".format(sum(np.abs(relative_err))/self.test_len)) # FIX # Generalize
         
         figure = plt.gcf()
         figure.set_size_inches(8,6)

@@ -35,9 +35,9 @@ learning_rate = args.lr
 training_len = args.training_len
 test_len = args.test_len
 
-data_filename, label_filename = nlse_common.get_filenames(args)
+#data_filename, label_filename = nlse_common.get_filenames(args)
 
-tl = loader.Dataloader(data_filename, label_filename, training_len, test_len, unsqueeze = False)
+tl = loader.Dataloader(args.data_filename, args.label_filename, training_len, test_len, unsqueeze = False)
 train_dataset, test_dataset = tl.init_tensor_dataset()
 res = tracer.Tracer(args)
 
@@ -99,7 +99,7 @@ def train(epoch):
                 100. * batch_idx / len(train_loader), loss.data[0]))
     res.step(loss.data[0])
 
-info_file_name = "../figs/training/" + args.info_file
+info_file_name = "../figs/training/combined/" + args.info_file
 print(info_file_name)
 
 def test():
