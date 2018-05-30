@@ -82,6 +82,11 @@ if args.cuda:
 criterion = F.mse_loss
 optimizer = optim.Adam(model.parameters(), lr = args.lr)
 
+if args.load_state == True:
+    inf = tracer.load_info(args.info_file)
+    tracer.update_state(model, optimizer, inf, res, *tracer.get_state(args.load_state_file))
+
+
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -99,8 +104,7 @@ def train(epoch):
                 100. * batch_idx / len(train_loader), loss.data[0]))
     res.step(loss.data[0])
 
-info_file_name = "../figs/training/combined/" + args.info_file
-print(info_file_name)
+print(args.info_file)
 
 def test():
     model.eval()
@@ -120,9 +124,7 @@ def test():
 
     if not args.test_case:
         #res.plot_figure()
-        #global info_file_name
-        file_name = "{}.inf".format(info_file_name)
-        tracer.save_info(res, file_name)
+        tracer.save_info(res, args.info_file)
 
     return predicted
 
@@ -137,9 +139,11 @@ while res.cur_epoch != res.epochs + 1:
     res.cur_epoch +=1
     
 
-res.cur_epoch = res.epochs
+#res.cur_epoch = res.epochs
 res.chrono_point("train_end")
 test()
+
+tracer.save_state(model, optimizer, res.cur_epoch, args.save_state_file)
 
 #res.plot_loss()
 print(res.chrono_points["train_end"] - res.chrono_points["train_start"])

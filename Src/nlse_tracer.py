@@ -222,3 +222,28 @@ def save_info(obj, file_name):
 def load_info(file_name):
     f = open(file_name, "rb")
     return pickle.load(f)
+
+def save_state(model, optimizer, epoch, file_name):
+    state = {'epoch': epoch,
+             'model_state_dict': model.state_dict(),
+             'optim_state_dict': optimizer.state_dict() }
+    torch.save(state, file_name)
+
+
+def get_state(file_name):
+    state = torch.load(file_name)
+    epoch = state['epoch']
+    mst = (state['model_state_dict'])
+    ost = (state['optim_state_dict'])
+    return epoch, mst, ost
+
+def update_state(model, optimizer, inf_s, inf_d, epoch, mst, ost):
+    inf_d.loss = inf_s.loss
+    inf_d.cur_epoch = inf_s.cur_epoch
+    inf_d.epochs += epoch - 1
+    model.load_state_dict(mst)
+    optimizer.load_state_dict(ost)
+
+
+
+

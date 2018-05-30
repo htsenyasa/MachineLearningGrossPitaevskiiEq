@@ -24,4 +24,8 @@ def process_parsing(arch, desc = "Artifical Neural Network for Non-linear Schrod
     parser.add_argument('--cross-test',        action='store_true',  default=arch["cross_test"],                                 help='Cross Test (Train with A. Test with B). (default : False)')
     parser.add_argument('--data-filename2',    type=str,             default="datafilename2",                                    help='Data file name to read (default = "potential.dat")')
     parser.add_argument('--label-filename2',   type=str,             default="testfilename2",                                    help='Label file name to read (default = "energy.dat")')
+    parser.add_argument('--load-state',        action='store_true',  default=False,                                              help='Load exist state and continue training (default : False)')
+    parser.add_argument('--load-state-file',   type=str,             default="loadstatefile",                                    help='Name of state to load')
+    parser.add_argument('--save-state-file',   type=str,             default="savestatefile",                                    help='Name of state to load')
+
     return parser
