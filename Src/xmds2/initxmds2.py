@@ -48,13 +48,15 @@ alpha = 0.5
 #mu = np.array([rnd.uniform(0, 35) for i in range(N_of_ex)])
 
 cwd = os.getcwd()
-pot_types = [int(cwd[cwd.find("_") + 1])]
+#pot_types = [int(cwd[cwd.find("_") + 1])]
 
-pot_types = [0, 1, 2, 3, 5]
+pot_types = [0]
 for pot_type in pot_types:
-    inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
+    rnd.seed(pot_type + 50)
+    #inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
     #inter_params = [0, 5, 10, 100]
     #inter_params = gg(mu)
+    inter_params = np.arange(0, 30, 0.5)
     for inter_param in inter_params:
 
         pot_generators[pot_type]()

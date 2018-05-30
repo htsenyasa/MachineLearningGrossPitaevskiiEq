@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
 from scipy.optimize import newton
+import scipy.optimize as spo
 
 #matplotlib.rcParams.update({'axes': 16})
 import matplotlib
@@ -107,6 +108,7 @@ def calc_tf_ntf(pot_type):
     dens = np.loadtxt("dens-generic.dat")
     mu = calc_fmu((min(pot) + max(pot))/2, pot, gg)
     n_tf = ptl_num(mu, pot, gg)
+    #n_tf = ptl_num(mu[i], pot[i], gg[i])
 
     fig, ax1 = plt.subplots()
     ax1.plot(x, pot, "black")
@@ -135,5 +137,20 @@ def calc_tf_ntf(pot_type):
     #plt.show()
     plt.clf()
     os.chdir(cwd)
+
+def variation():
+    cf = 1 / (np.sqrt(2 * np.pi))
+    f = lambda x,g: x**2 + cf * g * x**(3/2) - 1
+    en_f = lambda x, g: x/2 + 1/(2*x) + cf * g * x**(1/2)
+    dg = 0.1
+    g = np.arange(0, 5, dx)
+    sols = np.array([float(spo.fsolve(f, 1.1, args=(arg))) for arg in g])
+    en = en_f(sols, g)
+
+def thomas_fermi_en(mu, g):
+    cf = (20 * np.sqrt(2)) / (21 * g)
+    return cf * mu**(5/2)
+
+
 
 #calc_tf_ntf()
