@@ -187,12 +187,12 @@ i \hbar \frac{\partial\Psi(\boldsymbol{r}, t)}{\partial t} = \left[\frac{-\hbar^
 \noindent The ground state energy of the system is given in Eq.~\eqref{eq:GPE_derivation_free_energy} which is,
 
 \begin{equation}
-\label{GPE_total_energy_general}
+\label{eq:GPE_total_energy_general}
 \langle E \rangle = \int \Psi^{*}\hat{H}\Psi \dif^3\boldsymbol{r}
 \end{equation}
 
 \begin{equation}
-\label{GPE_total_energy}
+\label{eq:GPE_total_energy}
 E = \int \left(\frac {\hbar^2}{2m}|\nabla
 \Psi|^2 + V|\Psi|^2 + \frac{g}{2}|\Psi|^4 \right) \dif^3 \boldsymbol{r}
 \end{equation}
@@ -280,7 +280,7 @@ There is no general solution of GPE. Known analytic solutions exist only for few
 
 \begin{equation}
 \label{eq:GPE_1D_solution_harmonic}
-    E = \mu = \frac{1}{2}\hbar\omega
+    E = \frac{\mu}{N} = \frac{1}{2}\hbar\omega
 \end{equation}
 
 \noindent respectively. Comparison of the numerical solution and analytic solution in given in the figure.
@@ -321,7 +321,7 @@ n(x) = |\psi(x)|^2 =
 
 \begin{equation}
     \label{eq:thomas_fermi_mu_integral}
-        \int_{-\infty}^{\infty} |\psi|^2 \dif x = \int_{-x_{TF}}^{x_{TF}} \frac{(\mu - V)}{g} \dif x = N 
+        \int_{-\infty}^{\infty} |\psi|^2 \dif x = \int_{-x_{TF}}^{x_{TF}} \frac{\mu - V}{g} \dif x = N 
     \end{equation}
 
 \noindent With this equation, density of the system can be obtain via invoking boundary conditions. For an exact analytic expression example, one dimensional harmonic potential can be used, 
@@ -357,6 +357,27 @@ n(x) = |\psi(x)|^2 =
 \begin{equation}
     \mu = \left(\frac{9}{32} (N\omega g)^2 m \right)^{1/3}
 \end{equation}
+
+\noindent To obtain energy expression, the Eq.~\eqref{eq:mu_and_total_en} can be used such that,
+
+\begin{equation}
+\label{eq:thomas_fermi_energy_general}
+E = \mu N - E_{int}
+\end{equation}
+
+\noindent and from the total energy expression given by the Eq.~\eqref{eq:GPE_total_energy}, the equation reads,
+
+\begin{equation}
+E = \mu N - \int \frac{g}{2}|\psi|^4 \dif x = \mu N - \frac{1}{2g}\int (\mu - V)^2 \dif x
+\end{equation}
+
+For harmonic potential, this expression leads to,
+
+\begin{equation}
+\label{eq:thomas_fermi_energy}
+E = \frac{8\sqrt{2}}{15g}\frac{\mu^{5/2}}{(m\omega^2)^{1/2}}    
+\end{equation}
+
 
 \noindent Here we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
 
@@ -920,7 +941,7 @@ In the inverse problem, we train the neural network with potential and density t
 \graphicspath{{"../figs/training/interaction/"}}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth]{gaussian-inter}
+    %\includegraphics[width=0.6\linewidth]{gaussian-inter}
 \caption{Results of inverse problem, predicting interaction parameter. The number of epochs is increased to the 200. }
 \label{fig:inverse_results}
 \end{figure}
@@ -943,93 +964,93 @@ The cross training results can be improved by fixing the problems we mentioned. 
 \bibliographystyle{ieeetr}
 \bibliography{references}
 
+
+
+
+\appendix
+\section{APPENDIX A}
+\label{ap:scale}
+
+Obtaining harmonic trap potential scaling from Eq.~\eqref{eq:GPE_dimensionless}
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_potential_transform}
+    V(x) \rightarrow V(\widetilde{x}) \rightarrow \widetilde{V}(\widetilde{x})
+\end{equation}
+
+\begin{equation}
+\label{eq:GPESCALE_dimensionless_harmonic_potential}
+    \widetilde{V}(x) \equiv \frac{V(x)}{\gamma E_0}
+\end{equation}
+
+\begin{equation}
+\label{eq:GPESCALE_dimensionless_length}
+    \widetilde{x} \equiv \frac{x}{\beta L} 
+\end{equation}
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_potential}
+    V(x) = \frac{1}{2}m\omega^2 (x-x_0)^2
+\end{equation}
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_length_transform}
+    V(\widetilde{x}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{x}-\widetilde{x_0})^2
+\end{equation}
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_energy_transform}
+    \widetilde{V}(\widetilde{x}) = \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} (\widetilde{x}-\widetilde{x_0})^2  
+\end{equation}
+
+\noindent The coefficient of this equation must be dimensionless, therefore;
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_coeff}
+    \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} = C
+\end{equation}
+
+\noindent Where $C$ is a positive constant. We know that $E_0 = \frac{\hbar^2}{2m}$ and the definition of $\alpha$ is given as,
+
+\begin{equation}
+\label{eq:GPESCALE_alpha}
+    \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha
+\end{equation}
+thus;
+
+\begin{equation}
+\label{eq:GPESCALE_gamma}
+     \frac{1}{\gamma} = \alpha \beta^2 L^2
+\end{equation}
+
+\noindent if we plug Eq.~\eqref{eq:GPESCALE_gamma} in to Eq.~\eqref{eq:GPESCALE_harmonic_coeff}, then equation becomes,
+
+\begin{equation}
+\label{eq:GPESCALE_harmonic_coeff_2}
+    \frac{m^2\omega^2}{\hbar^2} \alpha \beta^4 L^4 = C 
+\end{equation} 
+
+\noindent In this case, $\alpha$ becomes
+
+$$ \alpha =  \frac{1}{2} \left(\frac{\hbar \omega}{\gamma E_0}\right)^2 $$
+
+\noindent Conventionally, $\alpha$ is set to $1/2$, therefore;
+
+$$ \hbar \omega = \gamma E_0 $$
+
+$$ \beta L = \sqrt{\frac{\hbar}{m\omega}} $$ 
+
+\noindent $ \beta L $ is generally defined as harmonic oscillator length $\ell$
+
+$$ \ell = \sqrt{\frac{\hbar}{m\omega}} $$ 
+
+$$ \widetilde{\mu} = \frac{\mu}{\hbar \omega} $$ 
+
+$$ \widetilde{g} = \frac{g}{\hbar \omega \ell} $$
+
+\noindent Finally, dimensionless GPE scaled for harmonic trapping potential can be written as,
+
+$$\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{x}^2} + \frac{1}{2}\widetilde{x}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} $$
+
+
 \end{document}
-
-%
-%
-%\appendix
-%\section{APPENDIX A}
-%\label{ap:scale}
-%
-%Obtaining harmonic trap potential scaling from Eq.~\eqref{eq:GPE_dimensionless}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_potential_transform}
-%    V(x) \rightarrow V(\widetilde{x}) \rightarrow \widetilde{V}(\widetilde{x})
-%\end{equation}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_dimensionless_harmonic_potential}
-%    \widetilde{V}(x) \equiv \frac{V(x)}{\gamma E_0}
-%\end{equation}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_dimensionless_length}
-%    \widetilde{x} \equiv \frac{x}{\beta L} 
-%\end{equation}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_potential}
-%    V(x) = \frac{1}{2}m\omega^2 (x-z_0)^2
-%\end{equation}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_length_transform}
-%    V(\widetilde{x}) = \frac{1}{2}m\omega^2 \beta^2 L^2 (\widetilde{x}-\widetilde{z_0})^2
-%\end{equation}
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_energy_transform}
-%    \widetilde{V}(\widetilde{x}) = \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} (\widetilde%{x}-\widetilde{z_0})^2  
-%\end{equation}
-%
-%\noindent The coefficient of this equation must be dimensionless, therefore;
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_coeff}
-%    \frac{1}{2} m\omega^2 \frac{\beta^2 L^2}{\gamma E_0} = C
-%\end{equation}
-%
-%\noindent Where $C$ is a positive constant. We know that $E_0 = \frac{\hbar^2}{2m}$ and the %definition of $\alpha$ is given as,
-%
-%\begin{equation}
-%\label{eq:GPESCALE_alpha}
-%    \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha
-%\end{equation}
-%thus;
-%
-%\begin{equation}
-%\label{eq:GPESCALE_gamma}
-%     \frac{1}{\gamma} = \alpha \beta^2 L^2
-%\end{equation}
-%
-%\noindent if we plug Eq.~\eqref{eq:GPESCALE_gamma} in to Eq.~\eqref{eq:GPESCALE_harmonic_coeff}, %then equation becomes,
-%
-%\begin{equation}
-%\label{eq:GPESCALE_harmonic_coeff_2}
-%    \frac{m^2\omega^2}{\hbar^2} \alpha \beta^4 L^4 = C 
-%\end{equation} 
-%
-%\noindent In this case, $\alpha$ becomes
-%
-%$$ \alpha =  \frac{1}{2} \left(\frac{\hbar \omega}{\gamma E_0}\right)^2 $$
-%
-%\noindent Conventionally, $\alpha$ is set to $1/2$, therefore;
-%
-%$$ \hbar \omega = \gamma E_0 $$
-%
-%$$ \beta L = \sqrt{\frac{\hbar}{m\omega}} $$ 
-%
-%\noindent $ \beta L $ is generally defined as harmonic oscillator length $\ell$
-%
-%$$ \ell = \sqrt{\frac{\hbar}{m\omega}} $$ 
-%
-%$$ \widetilde{\mu} = \frac{\mu}{\hbar \omega} $$ 
-%
-%$$ \widetilde{g} = \frac{g}{\hbar \omega \ell} $$
-%
-%\noindent Finally, dimensionless GPE scaled for harmonic trapping potential can be written as,
-%
-%$$\widetilde{\mu} \widetilde{\psi} = -\frac{1}{2}\frac{d^2\widetilde{\psi}}{d\widetilde{x}^2} + %\frac{1}{2}\widetilde{x}^2\widetilde{\psi} + \widetilde{g}|\widetilde{\psi}|^2 \widetilde{\psi} $$
-%
-
