@@ -107,8 +107,9 @@ def calc_tf_ntf(pot_type):
     gg = np.loadtxt("gg-generic.dat")
     dens = np.loadtxt("dens-generic.dat")
     mu = calc_fmu((min(pot) + max(pot))/2, pot, gg)
+    #mu = np.array([calc_fmu((min(pot[i]) + max(pot[i]))/2, pot[i], gg[i]) for i in range(len(pot))])
     n_tf = ptl_num(mu, pot, gg)
-    #n_tf = ptl_num(mu[i], pot[i], gg[i])
+    #n_tf = np.array([ptl_num(mu[i], pot[i], gg[i]) for i in range(len(pot))])
 
     fig, ax1 = plt.subplots()
     ax1.plot(x, pot, "black")
@@ -138,14 +139,13 @@ def calc_tf_ntf(pot_type):
     plt.clf()
     os.chdir(cwd)
 
-def variation():
-    cf = 1 / (np.sqrt(2 * np.pi))
-    f = lambda x,g: x**2 + cf * g * x**(3/2) - 1
-    en_f = lambda x, g: x/2 + 1/(2*x) + cf * g * x**(1/2)
-    dg = 0.1
-    g = np.arange(0, 5, dx)
+def variation(g):
+    cf = 1 / (2 * np.sqrt(2 * np.pi))
+    f = lambda a, g: (a**2) + (cf * g * a**(3/2)) - 1/2
+    en_f = lambda a, g: a/2 + 1/(2*a) + cf * g * a**(1/2)
     sols = np.array([float(spo.fsolve(f, 1.1, args=(arg))) for arg in g])
-    en = en_f(sols, g)
+    en_var = en_f(sols, g)
+    return en_var
 
 def thomas_fermi_en(mu, g):
     cf = (20 * np.sqrt(2)) / (21 * g)
