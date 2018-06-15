@@ -45,4 +45,6 @@ for file in files:
     info = an.load_info(file + ".inf")
     info.plot_figure(file, inter=True)
     #info.plot_loss(file + "-loss")
+    #print(file)
+    #print("{:.4f}".format(info.loss[-1]))
 os.chdir("../")

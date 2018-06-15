@@ -40,7 +40,7 @@
 \includegraphics[scale=1.2]{itu_logo.pdf} \\
 \vspace{1.8 cm}
 %\textbf{\large Machine Learning and Nonlinear Schr{\"o}dinger Equation} \\[5 pt]
-\textbf{\large Machine Learning and Non-linear Schr{\"o}dinger Equation} \\[5 pt]
+\textbf{\large Machine Learning and the Non-linear Schr{\"o}dinger Equation} \\[5 pt]
 \textbf{H{\"u}seyin Talha \c{S}enya\c{s}a}\\
 \vspace{1.5 cm}
 \end{center}
@@ -64,10 +64,9 @@
 \addcontentsline{toc}{section}{Summary}
 \section*{Summary}
 
-We train an artificial neural network to estimate the ground state energy
-of a one-dimensional Bose-Einstein condensate in different type of potentials including random.
-Such a system can be described by the solution of a non-linear Schr{\"o}dinger equation also called a Gross-Pitaevskii equation. We also use the method for the inverse problem of predicting the non-linearity parameter using the ground
-state density profile for a given harmonic trapping potential.
+We train a convolutional neural network to estimate the ground state energy
+of a one-dimensional Bose-Einstein condensate in different type of random potentials.
+Such a system can be described by the solution of a non-linear Schr{\"o}dinger equation also called a Gross-Pitaevskii equation. We also use the method for the inverse problem of predicting the non-linearity parameter using the ground state density profile and the trapping potential.
 \vspace*{\fill}
 
 
@@ -103,25 +102,25 @@ I would like to express my sincere gratitude to my advisor  Assoc. Prof. A. Leve
 
 
 
-In quantum mechanical systems one must obtain the wave function to determine physical properties of the system. For single particle systems, obtaining the wave function is easy compared to many body systems. The solution can be even harder if the described system involves interactions between particles because such differential equations may have nonlinear terms. In nonlinear case, there are no general rule to solve the equation and they are treated individually in most cases. If there is no analytic solution and approximation is not on the table then the only chance is numerical solution of the equation to obtain the wave function. However, machine learning applications in recent years showed that physical properties of the system can be predicted without solving these equations. \\
+In quantum mechanical systems one must obtain the wave function to determine physical properties of the system. For single particle systems, obtaining the wave function is easy compared to many body systems. The solution can be even harder when the described system involves interactions between particles because such differential equations may have nonlinear terms. In the nonlinear case, there are no general rule to solve the equation and they are treated individually in most cases. If there is no analytic solution and no approximation is on the table then the only chance is numerical solution of the equation to obtain the wave function. However, machine learning applications in recent years showed that physical properties of the system can be predicted without solving these equations. \\
 
-The reason why machine learning has such a capability is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ (bold means vector) output of the network and $\boldsymbol{g}(\boldsymbol{x})$ real value of the function, then it is guaranteed that there exists a network that satisfies the relation $||\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})|| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and be exploited for their advantages. Approximate value of the quantity can be determined for different scenarios. \\
+The reason why machine learning has such a capability is that artificial neural networks used in machine learning can approximate any continuous function within desired accuracy. This means that if we take $\epsilon > 0$ as desired accuracy,  $\boldsymbol{y} = \boldsymbol{f}(\boldsymbol{x})$ (boldface denotes vectors) output of the network and $\boldsymbol{g}(\boldsymbol{x})$ is the real value of the function, then it is guaranteed that there exists a network that satisfies the relation $||\boldsymbol{g}(\boldsymbol{x}) - \boldsymbol{f}(\boldsymbol{x})|| < \epsilon $. From this point of view, a process or calculation that can be thought of as a function can be represented by a corresponding neural network that mimics this function in desired accuracy \cite{nielsen2015neural}. With this in mind, neural networks have the potential to learn general functions and can be exploited for their advantages. Approximate values of a quantity can be determined for different scenarios. \\
 
-Many different kind of applications of machine learning have already been implemented in physics\footnote{For a detailed list, see \cite{physicsml}}. For example, In \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problems. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. \\
+Many different kind of applications of machine learning have already been implemented in physics\footnote{For a detailed list, see \cite{physicsml}}. For example, in \cite{carleo2017solving, cai2017approximating} machine learning is applied to quantum many body problems. A machine learning method called Unsupervised Learning to detect patterns in big datasets is used for discovering phase transitions \cite{wang2016discovering}. There are also developed techniques in machine learning inspired from physics such as quantum tensor networks \cite{stoudenmire2016supervised}. Relation between physics and machine learning also caused foundation of a new branch called Quantum Machine Learning which aims to implement a quantum software to make machine learning faster than its classical version \cite{biamonte1611quantum}. \\
 
-In \cite{mills2017deep}, machine learning approach is applied to a 2D Schr{\"o}dinger equation. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different confining potentials including random potential. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation also known as Gross-Pitaevskii equation to predict ground state energy of a Bose-Einstein condensate with random interaction parameter at absolute zero temperature under six different one dimensional trapping potentials including random. 
+In \cite{mills2017deep}, machine learning approach is applied to the 2D Schr{\"o}dinger equation. The authors built a convolutional deep neural network, and trained it to predict ground state energy of the system under four different confining potentials including random potential. Their study showed that machine learning is a promising alternative in electronic structure calculations of quantum systems. In our study inspired from the article mentioned above, we apply machine learning method to the nonlinear Schr{\"o}dinger equation also known as Gross-Pitaevskii equation to predict ground state energy of a Bose-Einstein condensate with random interaction parameter at absolute zero temperature under six different one dimensional trapping potentials including random potentials. Because this problem is non-linear we limit our 
 
 
 \section{Gross-Pitaevskii Equation}
 
-A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitaevskii equation (GPE) also known as non-linear Schrodinger Equation (NLSE). It is mean field approximation of a quantum many body system which the hamiltonian of the system is given by;
+A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitaevskii equation (GPE) also known as a non-linear Schr\"{o}dinger Equation (NLSE). It is a mean field approximation of a quantum many body system for which the hamiltonian of the system is given by;
 
 \begin{equation}
 \label{eq:GPE_hamiltonian}
 \hat{H} = \sum_{i = 1}^{N} \left(\frac{\boldsymbol{p}_i^2}{2m} + V(\boldsymbol{r}_i) \right) + \frac{1}{2} \sum_{i = 1}^{N} \sum_{j \neq i}^{N} U(|\boldsymbol{r}_i - \boldsymbol{r}_j|)
 \end{equation}
 
-\noindent where $\boldsymbol{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}$ is position vector, $m$ is mass, $V$ is external potential and $U$ is interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the only possible minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. To do that, the mean field approximation is utilized to represent all bosons with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. The constraint in the minimization step involves satisfying the normalization condition that is given as,
+\noindent where $\boldsymbol{p}_i$ $i^{th}$ atom's momentum, $\boldsymbol{r}_i$ is $i^{th}$ atom's position vector, $m$ denotes mass, $V(\boldsymbol{r}_i)$ is the external potential and $U$ is the interaction between $i^{th}$ and $j^{th}$  atoms. Since the ground state energy is the (only possible) minimum energy, one can minimize this hamiltonian in order to obtain ground state energy. Within the mean field approximation all bosons are represented with the same wave function since the condensate is at zero temperature which allows to assume that all bosons are at the ground state \cite{pethick2002bose}. The constraint in the minimization step involves satisfying the normalization condition,
 
 
 \begin{equation}
@@ -129,7 +128,7 @@ A Bose-Einstein Condensate (BEC) at zero temperature is described by Gross Pitae
 \int |\psi(\boldsymbol{r})|^2 \dif^3 \boldsymbol{r} = N    
 \end{equation}
 
-\noindent where $N$ is the number of particles in the system. This condition equals to minimizing the thermodynamic potential, free energy $F = E - \mu N$ such that $\delta F = 0 = \delta E - \mu \delta N = 0$ where $\mu$ is chemical potential \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
+\noindent where $N$ is the number of particles in the system. This condition equals to minimizing the thermodynamic potential, free energy $F = E - \mu N$ such that $\delta F = 0 = \delta E - \mu \delta N = 0$ where $\mu$ is the chemical potential and enters as a Lagrange multiplier \cite{pethick2002bose}. If we plug in the corresponding equations to this expression it becomes,  
 
 \begin{equation}
 \label{eq:GPE_derivation_free_energy}
@@ -159,13 +158,13 @@ and $\psi$ as independent objects and using $U(|\boldsymbol{r}_i - \boldsymbol{r
 g=\frac{4\pi\hbar^2a_s}{m}
 \end{equation}
 
-\noindent where, $a_s$ is the s wave scattering length. Nonlinearity of the equation is caused by the cubic term $g|\psi|^2$ which represents the interactions between bosons. The $|\psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. By definition, $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions \cite{pitaevskii2016bose}.
+\noindent where, $a_s$ is the s wave scattering length. Non-linearity of the equation is caused by the term $g|\psi|^2$ which represents the interaction energy between bosons. The $|\psi|^2$ term is interpreted as density, thus; there occurs an energy contribution caused by the mean field interactions. If there is no interaction GPE reduces to the Schr{\"o}dinger Equation (SE) and becomes a linear equation. $g$ can be positive or negative. If $g > 0$, it represents repulsive interaction, and if $g < 0$, it represents attractive interactions \cite{pitaevskii2016bose}.
 
 \graphicspath{{"../figs/potentials/"}}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{solutionswithinter}
-    \caption{Density under one dimensional double inverted gaussian potential with different interaction parameters. Here density becomes more flatten as the interaction parameter increases.}
+    \caption{Density under one dimensional double inverted gaussian potential with different interaction parameters. Here density becomes more flattened as the interaction parameter increases.}
 \label{fig:gaussian_pot_and_density}
 \end{figure}
 
@@ -226,7 +225,7 @@ V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 
 \begin{equation}
 \label{eq:GPE_time_indep_wave_func_seperated}
-\psi(x, y, z, t) = \psi_x(x, t)\psi_y(y)\psi_z(z)
+\psi(x, y, z) = \psi_x(x)\psi_y(y)\psi_z(z)
 \end{equation}
 
 \noindent $\psi_y$ and $\psi_z$ are the ground state solution of the transverse potentials;
@@ -253,25 +252,25 @@ V(x, y, z) = \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \mu^{\prime} = \mu - \frac{\hbar}{2}(\omega_y - \omega_z), \quad g^{\prime} = \frac{g}{2\pi l_y l_z}
 \end{equation}
 
-\noindent Here we showed that how interaction parameter and chemical potential are effected when dimension of the 3D GPE is reduced. We are going to use these effective quantities in our study. We also directly used the harmonic potential for simplicity but Eq~\eqref{eq:GPE_harmonic_potential} can be replaced by another equation such as,
+\noindent Here we showed that how interaction parameter and chemical potential are affected when dimension of the 3D GPE is reduced. We are going to use these effective quantities in our study. We also directly used the harmonic potential for simplicity but Eq~\eqref{eq:GPE_harmonic_potential} can be replaced by another equation such as,
 
 \begin{equation}
 \label{eq:GPE_harmonic_potential_plus_pot}
 V(x, y, z) = V(x) + \frac{1}{2}m(\omega_x^2 x^2 + \omega_y^2y^2 + \omega_z^2z^2)
 \end{equation}
 
-\noindent where $V(z)$ can be optical potential for instance \cite{zheng2013dynamics}. Since relation between potential and dimension reduction is not in our scope, we directly change the potential expression with a generic one and accept the one dimensional GPE as,
+\noindent where $V(x)$ can be another potential \cite{zheng2013dynamics}. Since relation between potential and dimension reduction is not in our scope, we directly change the potential expression with a generic one and accept the one dimensional GPE as,
 
 \begin{equation}
     \label{eq:GPE_1D}
-    \frac{-\hbar^2}{2m}\frac{\dif^2\psi_x}{\dif x^2} + V(x)\psi + g|\psi|^2\psi = \mu\psi
+    \frac{-\hbar^2}{2m}\frac{\dif^2\psi_x}{\dif x^2} + V(x)\psi_x + g|\psi_x|^2\psi_x = \mu\psi_x
 \end{equation}
 
 \noindent and from now on, we refer to Eq.~\eqref{eq:GPE_1D} as GPE.
 
 \subsection{Analytic Solution and Thomas-Fermi Approximation}
 
-There is no general solution of GPE. Known analytic solutions exist only for few cases and lack of analytic solution is also one of the main motivation of the application of machine learning technique. In our study, infinite well and harmonic potential with zero interaction parameter has analytic solutions. Here we give the ground state wave solution and energy of the harmonic potential in non-interacting case which is also solution of the SE,
+There is no general solution of GPE. Known analytic solutions exist only for few cases and the lack of analytic solution is also one of the main motivation of the application of a machine learning technique. In our study, infinite well and harmonic potential problems with zero interaction parameter have analytic solutions. Here we give the ground state solution and energy of the harmonic potential in the non-interacting case (which is also solution of the SE),
 
 \begin{equation}
 \label{eq:harmonic_ground_state_wave}
@@ -280,7 +279,7 @@ There is no general solution of GPE. Known analytic solutions exist only for few
 
 \begin{equation}
 \label{eq:GPE_1D_solution_harmonic}
-    E = \frac{\mu}{N} = \frac{1}{2}\hbar\omega
+    \frac{E}{N} = \mu = \frac{1}{2}\hbar\omega
 \end{equation}
 
 \noindent respectively. Comparison of the numerical solution and analytic solution in given in the figure.
@@ -294,18 +293,18 @@ There is no general solution of GPE. Known analytic solutions exist only for few
 \end{figure}
 
 
-GPE generally solved by numerically or by approximation such as variational calculation or Thomas-Fermi approximation. In the following section we briefly introduce Thomas-Fermi approximation and then we add comparison with numerical solutions. \\
+GPE is generally solved numerically or by approximation such as variational calculation or Thomas-Fermi approximation. In the following section we briefly introduce Thomas-Fermi approximation and then we add comparison with numerical solutions. \\
 
 \textbf{Thomas Fermi Approximation}\\
 
 
-It is said that the second derivative term with respect to position represents the kinetic energy. When the potential and the interaction energy are dominant compared to the kinetic energy, the kinetic term can be neglected. This situation occurs when the condensate is large adequately and the interaction between bosons is repulsive \cite{pethick2002bose}. In another perspective, neglecting the kinetic term equivalent to making an assumption that there is no difference between the energy requirements to add a particle at arbitrary points \cite{rogel2013gross}. When the kinetic term is dropped, the new equation can be written as;
+It is said that the second derivative term with respect to position represents the kinetic energy. When the potential and the interaction energy are dominant compared to the kinetic energy, the kinetic term can be neglected. This situation occurs when the condensate is adequately large and the interaction between bosons is repulsive \cite{pethick2002bose}. In another perspective, neglecting the kinetic term equivalent to making an assumption that there is no difference between the energy requirements to add a particle at arbitrary points \cite{rogel2013gross}. When the kinetic term is dropped, the new equation can be written as;
 
 \begin{equation}
 \label{eq:GPE_1D_thomas_fermi}
     V(x)\psi(x) + g|\psi(x)|^2\psi(x) = \mu\psi(x)
 \end{equation}
-\noindent this equation is analytically solvable and the solution is given by,
+\noindent this algebraic equation is analytically solvable and the solution is given by,
 
 
 \begin{equation}
@@ -317,7 +316,7 @@ n(x) = |\psi(x)|^2 =
     \end{cases}
 \end{equation}
 
-\noindent where $x_{TF}$ is called Thomas-Fermi Length and $n(x)$ is density. The density defined in this range and cannot be negative, therefore; if the normalization condition Eq.~\eqref{eq:GPE_normalization} is applied then the equation reads,  
+\noindent where $x_{TF}$ is called Thomas-Fermi Length and $n(x)$ is the density. The density defined in this range and cannot be negative, therefore; if the normalization condition Eq.~\eqref{eq:GPE_normalization} is applied then the equation reads,  
 
 \begin{equation}
     \label{eq:thomas_fermi_mu_integral}
@@ -379,7 +378,7 @@ E = \frac{8\sqrt{2}}{15g}\frac{\mu^{5/2}}{(m\omega^2)^{1/2}}
 \end{equation}
 
 
-\noindent Here we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
+\noindent In Fig.~\ref{fig:comp_thomas_num} we give comparison of densities obtained by numerical solution and Thomas-Fermi approximation for different potential types. 
 
 \graphicspath{{"../figs/numericanalyze/"}}
 \begin{figure}[H]
@@ -404,22 +403,22 @@ E = \frac{8\sqrt{2}}{15g}\frac{\mu^{5/2}}{(m\omega^2)^{1/2}}
     \caption{Harmonic Potential}
     \label{fig:d}
 \end{subfigure}
-\caption{Here the potential types are labeled. The interaction parameter $g$ is 15.}
+\caption{Here the potential types are labeled. The interaction parameter $g$ is chosen as 15.}
 \label{fig:comp_thomas_num}
 \end{figure}
 
-As shown in Fig~\ref{fig:comp_thomas_num}d, the interaction parameter is great enough to use Thomas-Fermi approximation but it is known that it starts to fail as $g$ goes to lower values.
+As shown in Fig~\ref{fig:comp_thomas_num}(d), the interaction parameter is large enough to use Thomas-Fermi approximation but it is known that it starts to fail as $g$ goes to lower values.
 
 \subsection{Numerical Solution and Potential Generation Process}
 
-The dataset -which will be defined in detail later- generation step is divided into two main parts and implemented independently. The first one is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
+The dataset -which will be defined in detail later- generation step is divided into two main parts and implemented independently. The first step is generating desired potential and the second one is numerical solution of the GPE under this potential by giving the generated potential to the numerical solution framework. The detailed description of the potential generation process is given in section~\ref{sec:potential_generation}. \\
 
-In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, even the scaling factors are supplied externally. Such a modularity has an huge advantage such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of input output operations. By using this advantage, we also use another numerical solution framework called GPELab \cite{antoine2014gpelab} implemented in Matlab to compare solutions' consistency and effect of scaling.
+In numerical solution part, we use a framework called XMDS \cite{dennis2013xmds2}, implemented specifically to solve differential equation systems with well optimized numerical methods. In this framework partial differential equation systems can be described by a markup language called XML.  When the equation system is declared properly, XMDS produces a source code written in C++ that solves the equation with specified numerical method. Because of modularity in our implementation, the framework only solves the equation by supplied parameters, the framework does not generate anything internally such as potential, the scaling factors are supplied externally as well. Such a modularity has advantages such that changing numerical solution framework does not effect potential generation step, therefore; the work to change numerical solution framework is minimized. The only requirement is implementation of input output operations. By using this advantage, we also use another numerical solution framework called GPELab \cite{antoine2014gpelab} implemented in Matlab to compare solutions' consistency and effect of scaling.
 
 
 \subsubsection{Scaling}
 
-The scaling of GPE is generally done according to potential type and there are more than one scaling conventions. In this section we use a more general approach to scale GPE since the solutions will be numerical and we briefly would like to investigate how different scalings affect the solutions' consistency. To do that, the dimensionless quantities are introduced with variable coefficients so that scaling coefficient controlled by these variables. 
+The scaling of GPE is generally done according to potential type and there are more than one scaling conventions. In this section we use a more general approach to scale GPE since the solutions will be numerical and we briefly would like to investigate how different scalings affect the solutions' consistency. To do so, the dimensionless quantities are introduced with variable coefficients so that scaling coefficient controlled by these variables. 
 
 First we define dimensionless potential, and then we make the length dimensionless,
 
@@ -446,11 +445,11 @@ $$ \widetilde{V}(\widetilde{x}) \equiv \overline{V}(\beta L x) $$
     \frac{-\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2}  \frac{d^2\psi}{d \widetilde{x}^2} + \widetilde{V}(\widetilde{x})\psi + \frac{g}{\gamma E_0}|\psi|^2\psi = \frac{\mu}{\gamma E_0}\psi
 \end{equation}
 
-\noindent To obtain final form, we define dimensionless chemical potential, wave function and interaction parameter respectively. 
+\noindent To obtain the final form, we define dimensionless chemical potential, wave function and interaction parameter respectively. 
 
 $$\widetilde{\mu} \equiv \frac{\mu}{\gamma E_0}, \qquad \widetilde{\psi} \equiv \psi{\sqrt{\frac{\beta L}{N}}}, \qquad \widetilde{g} \equiv \frac{gN}{\gamma E_0 \beta L} $$
 
-\noindent To control scaling coefficients we set the coefficient of the kinetic term to an arbitrary positive real number $\alpha$  
+\noindent To control scaling coefficients we set the coefficient of the kinetic term to an positive real number $\alpha$  
 
 $$ \frac{\hbar^2}{2m\gamma E_0} \frac{1}{\beta^2 L^2} = \alpha  , $$
 
@@ -475,9 +474,9 @@ Changing $\beta$ directly effects the length scale and it requires extra transfo
 
 %\subsubsection{Brief info about imaginary time evolution. (detailed in APPENDIX)}
 %\subsubsection{XMDS framerwork and other programs.}
-\subsubsection{Potential generation} \label{sec:potential_generation}
+\subsubsection{Random Potential Generation Process} \label{sec:potential_generation}
 
-In potential generation, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. A python class object responsible for handling this process. This class is constructed with suitable parameters such as "number of points", "width" etc. The generated potentials are sent to another method supplied by class which re-scales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries which is given as,
+In the potential generation process, we built a modular structure such that the algorithms to generate potentials are independent from the restrictions forced by numerical techniques such as boundary conditions or scaling. A python class object is responsible for handling this process. This class is constructed with suitable parameters such as "number of points", "width" etc. The generated potentials are sent to another method supplied by class which re-scales, and applies an envelope function to ensure that potential goes to numerical limit at boundaries which is given as,
 \begin{equation}
 \label{eq:potential_boundary_conditions}
 \begin{split}
@@ -508,7 +507,7 @@ To handle these conditions, we define two envelope functions given by the follow
 \label{fig:envelope_and_random_withot_pros}
 \end{figure}
 
-As shown in Fig.~\ref{fig:envelope_and_random_withot_pros} $Env_{M}$ neutralizes the values while $x$ goes to boundaries and only the region in the middle survives. For $Env_{LR}$ the scenario is vice versa. Simultaneous application of these functions plus re-scaling brings the potential desired form shown in Fig.~\ref{fig:random_plus_envelope}
+As shown in Fig.~\ref{fig:envelope_and_random_withot_pros} $Env_{M}$ neutralizes the values when $x$ goes to boundaries and only the region in the middle survives. For $Env_{LR}$ the scenario is reversed. Simultaneous application of these functions plus re-scaling brings the potential to the desired form shown in Fig.~\ref{fig:random_plus_envelope}
 
 
 \graphicspath{{"../figs/potentials/"}}
@@ -575,7 +574,7 @@ Random\#3                      & Subtraction of two binary grid      & Scale Fac
 \subsubsection{Random Potential Generation}
 \label{sec:random_potential_gen}
 
-To be able to observe the effect of random potential generation to the results we use three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. Gaussian filter is applied with a random sigma value to the potential array to make it smooth.    
+To be able to observe the effect of random potential generation to the results we use three different random potential generation algorithms. The first one is random walk with random step size such that the first value of the potential array is initialized with a random number. After that, another random number is added to this value to obtain the next element of the array and so on. The distribution of the random numbers is gaussian in this process. The resultant array is not guaranteed to be smooth. Gaussian filter is applied with a random $\sigma$ value to the potential array to make it smooth.    
 
 \begin{algorithm}[H]
     \caption{RandomPotential1}\label{euclid}
@@ -601,7 +600,7 @@ To be able to observe the effect of random potential generation to the results w
 \label{fig:random1_before_after}
 \end{figure}
 
-The second algorithm is based on Fourier transformation described in \cite{akkermans2008numerical}. We uniformly select random numbers in real space and apply Fourier transformation to switch Fourier space. After that, an exponential term with great enough coefficient is applied to the high frequencies to absorb them. With this way the smoothness and rapidness of the potential is set without applying gaussian filter.
+The second algorithm is based on Fourier transformation described in \cite{akkermans2008numerical}. We uniformly select random numbers in real space and apply Fourier transformation to switch to the Fourier space. After that, an exponential term with great enough coefficient is applied to the high frequencies to absorb them. In this way the smoothness and rapidness of the potential is set without applying gaussian filter.
 
 \begin{algorithm}[H]
     \caption{RandomPotential2}\label{euclid}
@@ -626,7 +625,7 @@ The second algorithm is based on Fourier transformation described in \cite{akker
 \label{fig:random2_before_after}
 \end{figure}
 
-The third one is one dimensional version of the algorithm described in \cite{mills2017deep} with slight modification. First a binary array of length $16$ is generated by assigning random ones or zeros. Then the array is upscaled to $128$ by repeating each element of the array $8$ times. After that, another binary array of length $8$ is generated with the same procedure and upscaled to $64$ by repeating elements. Left and right paddings of length $32$ is added to the second binary array to be able to do element wise substraction between two binary array. Then, the second array is substracted from the first one to obtain the potential in binary form. Finally, a gaussian filter is applied to make the potential smooth. 
+The third one is one dimensional version of the algorithm described in \cite{mills2017deep} with slight modification. First a binary array of length $16$ is generated by assigning random ones or zeros. Then the array is upscaled to $128$ by repeating each element of the array $8$ times. After that, another binary array of length $8$ is generated with the same procedure and upscaled to $64$ by repeating elements. Left and right paddings (zeros) of length $32$ is added to the second binary array to be able to do element wise substraction between two binary array. Then, the second array is substracted from the first one to obtain the potential in binary form. Finally, a gaussian filter is applied to make the potential smooth. 
 
 \begin{algorithm}[H]
     \caption{RandomPotentia3}\label{euclid}
@@ -681,7 +680,7 @@ The third one is one dimensional version of the algorithm described in \cite{mil
     \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\linewidth]{potvsdensity-random3}
     \end{subfigure}
-\caption{Potentials and Corresponding Ground State Densities}
+\caption{Random Potentials and Corresponding Ground State Densities}
 \label{fig:random3_before_after}
 \end{figure}
 
@@ -728,7 +727,7 @@ f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b) = \sum\limits_{k=1}^{n} \omeg
 \noindent and the activation of the output can be written as;
 
 \begin{equation}
-\sigma(f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b)
+x_L = \sigma(f_j^{l}(\sigma(f_k^{l-1}), \boldsymbol{\omega}, b)
 \end{equation}
 
 
@@ -768,7 +767,7 @@ A small displacement in arbitrary direction which corresponds to a small change 
 \Delta{C} = \boldsymbol{\nabla}{C} \cdot \Delta \boldsymbol{l}
 \end{equation}
 
-\noindent where $\boldsymbol{l} = (\omega, b)^T$. We want to minimize the cost function, thus; in each iteration value of the $C$ must be smaller than the previous one which means that $\Delta{C}$ must be smaller than zero. Therefore, the direction of displacement must be in the opposite direction of the gradient. Rather than calculating the opposite direction for each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
+\noindent where $\boldsymbol{l} = (\omega, b)^T$. We want to minimize the cost function, thus; in each iteration value of $C$ must be smaller than the previous one which means that $\Delta{C}$ must be smaller than zero. Therefore, the direction of displacement must be in the opposite direction of the gradient. Rather than calculating the opposite direction for each iteration we can define $\Delta{\boldsymbol{l}}$ in such a way so that it always points to opposite direction of the gradient.
 
 \begin{equation}
 \label{eq:NT_learning_rate}
@@ -782,7 +781,7 @@ A small displacement in arbitrary direction which corresponds to a small change 
 \Delta{C} = -\eta ||\boldsymbol{\nabla}{C}||^2
 \end{equation}
 
-\noindent where $\eta$ is positive definite number and it is called the learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\eqref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. This situation also brings up the subject that gradient descent does not give guarantee to find the minimum point.
+\noindent where $\eta$ is positive definite number and it is called the learning rate. Since it is guaranteed that $||\boldsymbol{\nabla}{C}||^2 \geq 0$, therefore; $\Delta{C} \leq 0$. In this situation, learning rate is the step size in each iteration. From Eq.~\eqref{eq:NT_Displacement} it is intuitive that $\eta$ can not be a large number because in such a case, the algorithm can miss the minimum point. This situation also brings up the subject that gradient descent does not guarantee to find the minimum point.
 
 Gradient Descent algorithm has an statistical version called Stochastic Gradient Descent to increase the speed of training process. It is assumed that gradient of  $m$ randomly selected examples in the dataset is nearly equal to gradient of the whole dataset and it can be expressed as;
 
@@ -805,7 +804,7 @@ The final step in the gradient descent is updating the weights and biases. We us
 \end{split}
 \end{equation}
 
-\noindent Numerical calculation of the partial derivatives in the equation is one of the costliest computational operation in the training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}. We use the framework we used it provides similar mechanism called automatic differentiation. 
+\noindent Numerical calculation of the partial derivatives in the equation is one of the costliest computational operation in the training process. To reduce computational cost, there is a well known algorithm called backpropagation \cite{goodfellow2016deep}. The framework we used provides similar mechanism called automatic differentiation. 
 
 \subsection{Network Architecture and Hyperparameters}
 
@@ -854,7 +853,7 @@ We use ReLU as activation function and it is applied at each forward but no oper
 
 An element of a dataset has three components; the ground state energy of the system, an array containing potential respect to the position and interaction parameter. The interaction parameter is also included as an array same size with the potential to the dataset to make the input homogenous by increasing the channel number of the CNN. The interaction parameter can be introduced to the network with more sophisticated method to reduce computational cost but since we are working on 1D, the expense of not using such a method is relatively small.
 
-The array containing potential is generated by one of the methods given in the section \ref{sec:potential_generation} and the interaction parameter is selected from a set of uniformly distributed numbers between 0 and 30. The energy values are obtained by the numeric solution framework. The total length of the dataset is 50000 for each potential type and 45000 of them are used as training dataset and 5000 of them as test dataset. 
+The array containing potential is generated by one of the methods given in sec. \ref{sec:potential_generation} and the interaction parameter is selected from a set of uniformly distributed numbers between 0 and 30. The energy values are obtained by the numeric solution framework. The total length of the dataset is 50000 for each potential type and 45000 of them are used as training dataset and 5000 of them as test dataset. 
 
 \graphicspath{{"../figs/dataresults/"}}
 \begin{figure}[H]
@@ -869,7 +868,7 @@ Here in Fig.~\ref{fig:energy_dist} we give energy distribution histogram of the 
 
 \subsection{Machine Learning Framework}
 
-We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes to work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Machine Learning code has three main parts, first one is dataloaders; it reads train and test data from corresponding file and generates tensor dataset object. In this part, manipulation on dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also includes a forward method which is responsible for how data will be sent to the next layer. The last part is training and testing. In the training part, the network is iterated with training dataset and loss (result of cost function) is calculated at the end of each iteration. After that, weights and bias are updated accordingly by framework.
+We used Pytorch Framework \cite{paszke2017automatic} to build our neural networks. It allows the client codes to work on both CPU and GPU via its internal python object called Tensor. If any CUDA supported GPU is available then Pytorch can use GPU without any change in the code. Machine Learning code has three main parts, first one is dataloaders; it reads train and test data from corresponding file and generates tensor dataset object. In this part, manipulations on the dataset can be applied such as normalization, shuffling etc. Second part is implementation of the network. Architecture of the network is represented with a python class inherited from Pytorch's base class for networks called Module. This class also includes a forward method which is responsible for how data will be sent to the next layer. The last part is training and testing. In the training part, the network is iterated with training dataset and loss (result of cost function) is calculated at the end of each iteration. After that, weights and bias are updated accordingly by framework.
 
 \subsection{Training Results}
 \label{sec:training_results}
@@ -907,7 +906,7 @@ In the training process, we investigate three different scenarios. The first one
 \label{fig:training_results}
 \end{figure}
 
-The energy distribution given in Fig.~\ref{fig:energy_dist} shows itself in results. Except harmonic potential, the number of examples in lower or higher energies are rare compared to the mean. The mean of relative errors are lower than $3\%$ and the smallest case is harmonic potential with $0.05\%$
+The energy distribution given in Fig.~\ref{fig:energy_dist} shows itself in the results. Except harmonic potential, the number of examples in lower or higher energies are rare compared to the mean. The mean of relative errors are lower than $3\%$ and the smallest case is harmonic potential with $0.05\%$
 
 The second case's results are not satisfactory. The mean of relative errors are up to $100\%$ and more. Here we give the most successful result in the following figure. 
 
@@ -936,7 +935,7 @@ Here we give last scenario in Fig~\ref{fig:comb_training_results}. The network i
 
 \section{Inverse Problem}
 
-In the inverse problem, we train the neural network with potential and density to predict interaction parameter of the system. The neural network used in this scenario is identical to the previous one. The only change is what input and output represents. In this time, input channels represents potential and density, the output channel represents the interaction parameter. The dataset of the inverse problem is made by concatenating all previous datasets and selecting one hundred thousand random elements. 
+In the inverse problem, we train the neural network with potential and density to predict interaction parameter of the system. The neural network used in this scenario is identical to the previous one. The only change is what input and output represents. This time, input channels represents potential and density, the output channel represents the interaction parameter. The dataset of the inverse problem is made by concatenating all previous datasets and selecting one hundred thousand random elements. 
 
 \graphicspath{{"../figs/training/interaction/"}}
 \begin{figure}[H]
@@ -949,7 +948,7 @@ In the inverse problem, we train the neural network with potential and density t
 \clearpage
 \section{Conclusion and Discussion}
 
-In this study, we applied machine learning technique to the non-linear Schr\"{o}dinger equation also known as Gross-Pitaevskii equation. In section~\ref{sec:training_results} it is shown that an artificial neural network can predict ground state energy of a Bose-Einstein condensate that involves repulsive interaction with $2.24\%$ mean relative error. However, this situation only holds when the training and test examples are same type potentials. In Fig.~\ref{fig:cross_training_results} it is obvious that the neural network is not able to make prediction with high precision in the case of cross training. This situation brings another subject which is the effect of the random potential generation process. We implemented three different random potential generators to investigate this effect. In all cross training scenarios the neural network is not able to make prediction with an acceptable precision. We suspect from two reasons why such poor predictions occurred. The first one is energy spectrum; the three of the random potential solutions nearly does not share a common energy spectrum. The second one is energy distribution; the neural network does not see uniformly distributed examples and because of this reason it becomes biased. In the third scenario, the network showed the same success as in the first one. The relative mean error is $2.41\%$ but again the number of examples in the higher energies are low.  
+In this study, we applied machine learning technique to the non-linear Schr\"{o}dinger equation also known as Gross-Pitaevskii equation. In section~\ref{sec:training_results} it is shown that an artificial neural network can predict ground state energy of a Bose-Einstein condensate that involves repulsive interaction with $2.24\%$ mean relative error. However, this situation only holds when the training and test examples are same type potentials. In Fig.~\ref{fig:cross_training_results} it is obvious that the neural network is not able to make predictions with high precision in the case of cross training. This situation brings another subject which is the effect of the random potential generation process. We implemented three different random potential generators to investigate this effect. In all cross training scenarios the neural network is not able to make predictions with an acceptable precision. We suspect from two reasons why such poor predictions occurred. The first one is energy spectrum; the three of the random potential solutions do not share a common energy spectrum. The second one is energy distribution; the neural network does not see uniformly distributed examples and because of this reason it becomes biased. In the third scenario, the network showed the same success as in the first one. The relative mean error is $2.41\%$ but again the number of examples in the higher energies are low.  
 
 In the inverse problem, we used the identical network to predict interaction parameter. The network is supplied with potential and density as input and the mean relative error of the predictions is $35.36\%$. To overcome this precision problem, the total number of layers can be increased since we used identical networks but density array contains much more information than interaction parameter. The neural network's degree of freedom must be enough to handle this amount of information. 
 

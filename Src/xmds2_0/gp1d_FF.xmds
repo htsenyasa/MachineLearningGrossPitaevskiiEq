@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation xmds-version="2">
+  <name>xgp1d</name>
+  <author>H.T.S</author>
+  <description>
+    Calculate the ground state of the non-linear Schrodinger equation in a harmonic magnetic trap.
+    This is done by evolving it in imaginary time while re-normalising each timestep.
+    Adapted from xmds2 examples.
+  </description>
+  
+  <features>
+    <auto_vectorise />
+    <benchmark />
+    <diagnostics />
+    <bing />
+    <fftw plan="exhaustive" />
+    <globals>
+      <![CDATA[
+        real Uint; // interaction parameter
+        real Nparticles;
+        int pt_type; //type of potential
+        int id;
+      ]]>
+    </globals>
+
+    <arguments>  
+      <argument name="interaction_param" type="real" default_value="0"/>
+      <![CDATA[
+      Uint = interaction_param;
+      ]]>
+      <argument name="num_particles" type="real" default_value="1"/>
+      <![CDATA[
+      Nparticles = num_particles;
+      ]]>
+      <argument name="pot_type" type="real" default_value="0"/>
+      <![CDATA[
+      pt_type = pot_type;
+      ]]>
+      <argument name="runtime_id" type="integer" default_value="5"/>
+      <![CDATA[
+      id = runtime_id;
+      ]]>
+      <argument name="alpha" type="real" default_value="0.5"/>
+    </arguments>
+ </features>
+
+
+    <geometry>
+      <propagation_dimension> t </propagation_dimension>
+      <transverse_dimensions>
+        <dimension name="x" lattice="256"  domain="(-10.0, 10.0)" />
+      </transverse_dimensions>
+    </geometry>
+
+    <vector type="real" name="gen_function_x" dimensions="x">
+      <components> func </components>
+      <initialisation kind="hdf5">
+        <filename> func.h5 </filename>
+      </initialisation>
+    </vector>
+
+  <vector name="potential" initial_basis="x" type="real">
+    <components> V1 </components>
+    <initialisation>
+     <dependencies basis="x"> gen_function_x</dependencies>
+      <![CDATA[
+          V1 = func;
+      ]]>
+    </initialisation>
+  </vector>
+
+  <vector name="wavefunction" initial_basis="x" type="complex">
+    <components> phi </components>
+    <initialisation>
+      <![CDATA[
+      phi = 1; //exp(-(x*x)/2);
+      ]]>
+    </initialisation>
+  </vector>
+
+  <computed_vector name="gradphi" dimensions="x" type="complex">
+    <components> dphix </components>
+    <evaluation>
+      <dependencies basis="kx">wavefunction</dependencies>
+      <![CDATA[
+        dphix=i*kx*phi;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <computed_vector name="normalisation" dimensions="" type="real">
+    <components>Ncalc EN Ekin Epot Eint Virial mu</components>
+    <evaluation>
+      <dependencies basis="x">wavefunction gradphi potential</dependencies>
+      <![CDATA[
+        // Calculate the current normalisation of the wave function.
+        // Ncalc = mod2(phi);
+        // EN = 0.5 * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
+        // Ekin = 0.5 * mod2(dphix);
+        // Epot = V1 * mod2(phi);
+        // Eint = 0.5 * Uint * mod2(phi) * mod2(phi);
+		// Virial = Ekin - Epot + Eint;
+		// mu = Ekin + Epot + 2 * Eint;
+        Ncalc = mod2(phi);
+        EN = alpha * mod2(dphix) + (V1 + 0.5 * Uint * mod2(phi)) * mod2(phi);
+        Ekin = alpha * mod2(dphix);
+        Epot = V1 * mod2(phi);
+        Eint = 0.5 * Uint * mod2(phi) * mod2(phi);
+		Virial = Ekin - Epot + Eint;
+		mu = Ekin + Epot + 2 * Eint;
+      ]]>
+    </evaluation>
+  </computed_vector>
+
+  <sequence>
+      <filter>
+        <![CDATA[
+          printf("Hello world from a filter segment!\n");
+        ]]>
+      </filter>
+
+    <filter>
+        <dependencies>normalisation wavefunction</dependencies>
+      <![CDATA[
+        phi *= sqrt(Nparticles/Ncalc);
+      ]]>
+    </filter>
+
+    <integrate algorithm="ARK45" interval="20.0" steps="1000" tolerance="1e-6">
+      <samples>10 1 1</samples>
+      <filters where="step end">
+        <filter>
+          <dependencies>wavefunction normalisation</dependencies>
+          <![CDATA[
+            // Correct normalisation of the wavefunction
+            phi *= sqrt(Nparticles/Ncalc);
+          ]]>
+        </filter>
+      </filters>
+      <operators>
+        <operator kind="ex" dimensions="x">
+          <operator_names>T2</operator_names>
+          <![CDATA[
+            T2 = -alpha*kx*kx;
+          ]]>
+        </operator>
+        <integration_vectors>wavefunction</integration_vectors>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+        dphi_dt = T2[phi] - (V1 + Uint * mod2(phi))*phi;
+        ]]>
+      </operators>
+    </integrate>
+
+  </sequence>
+
+  <output filename="gp1d.xsil">
+      <sampling_group basis="x" initial_sample="yes">
+        <moments>dens phiR phiI</moments>
+        <dependencies>wavefunction normalisation</dependencies>
+        <![CDATA[
+          dens = mod2(phi);
+          _SAMPLE_COMPLEX(phi);
+        ]]>
+      </sampling_group>
+      <sampling_group basis="" initial_sample="yes">
+        <moments>norm e1 e1kin e1pot e1int vir1 mu1 gg</moments>
+        <dependencies>normalisation</dependencies>
+        <![CDATA[
+            norm = Ncalc;
+	        e1 = EN;
+	        e1kin = Ekin;
+	        e1pot = Epot;
+	        e1int = Eint;
+	        vir1  = Virial;
+	        mu1   = mu;
+            gg = Uint;
+        ]]>
+      </sampling_group>
+      <sampling_group basis="x" initial_sample="no">
+        <moments>v1</moments>
+        <dependencies>potential</dependencies>
+        <![CDATA[
+		  v1 = V1;
+        ]]>
+      </sampling_group>
+  </output>
+</simulation>

@@ -1,0 +1,11 @@
+\select@language {english}
+\beamer@sectionintoc {1}{Gross-Pitaevskii Equation in Random 1D Potentials}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Random Potential Generation}{4}{0}{1}
+\beamer@sectionintoc {2}{Machine Learning and Differential/Eigenvalue Equations}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Machine Learning with Neural Networks}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Deep Learning and Schr{\"o}dinger Equation}{8}{0}{2}
+\beamer@sectionintoc {3}{Convolutional Neural Networks}{9}{0}{3}
+\beamer@sectionintoc {4}{Results}{10}{0}{4}
+\beamer@subsectionintoc {4}{1}{Ground State Energy Predictions}{10}{0}{4}
+\beamer@subsectionintoc {4}{2}{Inverse Problem: Interaction Parameter Prediction}{16}{0}{4}
+\beamer@sectionintoc {5}{Conclusion and Future Plans}{22}{0}{5}

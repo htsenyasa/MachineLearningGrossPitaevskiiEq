@@ -3,14 +3,28 @@ import time
 
 dirs = ["harmonic", "well", "gaussian", "random", "random2", "random3"]
 
-dirs = ["gaussian", "random"]
-dirs = ["gaussian"]
+#dirs = ["gaussian", "random"]
+#dirs = ["gaussian"]
 
-root =  "generic_dataset_MAIN/"
+root =  "generic_dataset_inter_comb_2/"
 data = "pot_inter-comb.dat.npy"
 label = "en-generic-comb.dat"
 
 def inter_init(load_state = False):
+    for dir in dirs:
+        info_file_name = "../figs/training/interaction/" + "inter-{}.inf".format(dir)
+        inter_data_filename   = root + dir + "/" + "pot_dens.dat.npy"
+        inter_label_filename  = root + dir + "/" + "gg-generic.dat"
+        save_state_file = "/home/user/Study/Src/APPL/network/states/inter-state-{}.sf".format(dir)
+        cmdline = "python nlse_cnnnetwork1d-inter.py  --display-progress --data-filename={} --label-filename={} --info-file={} --save-state-file={}".format(inter_data_filename, inter_label_filename, info_file_name, save_state_file)
+        if load_state == True:
+            load_state_file = "/home/user/Study/Src/APPL/network/states/inter-state-new.sf"
+            cmdline += " --load-state --load-state-file={}".format(load_state_file)
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()    
+
+def comb_inter_init(load_state = False):
     info_file_name = "../figs/training/interaction/" + "internew2.inf"
     inter_data_filename   = root + "pot_dens-inter.dat.npy"
     inter_label_filename  = root + "gg-generic-inter.dat"

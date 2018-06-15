@@ -35,6 +35,7 @@ dirs = ["harmonic", "well", "gaussian", "random"]
 
 rnd.seed(34)
 inter_params = np.array([rnd.uniform(0, 10) for i in range(N_of_ex)])
+inter_params = np.array([0, 0.1, 1, 10, 20, 100])
 pot_types = [0, 1, 2, 3] # 0:Harmonic, 1:Infinite Well 2:Double Inverted Gaussian 3:Random
 pot_types = [3]
 

@@ -1,0 +1,74 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Gross-Pitaevskii Equation in Random 1D Potentials}{3}{Gross-Pitaevskii Equation in Random 1D Potentials}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{4}{Random Potential Generation}}
+\headcommand {\slideentry {1}{1}{1}{4/4}{Random Potential Generation}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{1}{2}{5/5}{Random Potential Generation}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{1}{3}{6/6}{Random Potential Generation}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@sectionpages {3}{6}}
+\headcommand {\beamer@subsectionpages {4}{6}}
+\headcommand {\sectionentry {2}{Machine Learning and Differential/Eigenvalue Equations}{7}{Machine Learning and Differential/Eigenvalue Equations}{0}}
+\headcommand {\beamer@subsectionpages {7}{6}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{7}{Machine Learning with Neural Networks}}
+\headcommand {\slideentry {2}{1}{1}{7/7}{Machine Learning with Neural Networks}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{8}{Deep Learning and Schr{\"o}dinger Equation}}
+\headcommand {\slideentry {2}{2}{1}{8/8}{Deep Learning and Schr{\"o}dinger Equation}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@sectionpages {7}{8}}
+\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\sectionentry {3}{Convolutional Neural Networks}{9}{Convolutional Neural Networks}{0}}
+\headcommand {\slideentry {3}{0}{1}{9/9}{}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@sectionpages {9}{9}}
+\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\sectionentry {4}{Results}{10}{Results}{0}}
+\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{10}{Ground State Energy Predictions}}
+\headcommand {\slideentry {4}{1}{1}{10/10}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {4}{1}{2}{11/11}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\slideentry {4}{1}{3}{12/12}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {4}{1}{4}{13/13}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {4}{1}{5}{14/14}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {4}{1}{6}{15/15}{Ground State Energy Predictions}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@subsectionpages {10}{15}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{16}{Inverse Problem: Interaction Parameter Prediction}}
+\headcommand {\slideentry {4}{2}{1}{16/16}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {4}{2}{2}{17/17}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {4}{2}{3}{18/18}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {4}{2}{4}{19/19}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {4}{2}{5}{20/20}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {4}{2}{6}{21/21}{Inverse Problem: Interaction Parameter Prediction}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\beamer@sectionpages {10}{21}}
+\headcommand {\beamer@subsectionpages {16}{21}}
+\headcommand {\sectionentry {5}{Conclusion and Future Plans}{22}{Conclusion and Future Plans}{0}}
+\headcommand {\slideentry {5}{0}{1}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\beamer@partpages {1}{22}}
+\headcommand {\beamer@subsectionpages {22}{22}}
+\headcommand {\beamer@sectionpages {22}{22}}
+\headcommand {\beamer@documentpages {22}}
+\headcommand {\def \inserttotalframenumber {22}}
