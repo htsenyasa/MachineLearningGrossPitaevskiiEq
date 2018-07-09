@@ -23,6 +23,13 @@ class PotentialGenerator(object):
             transform = lambda x: x
         self.transform = transform
         self.omega = []
+        self.num_of_generators = 6
+        self.generator_types = {"harmonic": 0, 
+                                "well":     1, 
+                                "gaussian": 2, 
+                                "random":   3, 
+                                "random2":  4, 
+                                "random3":  5,}
 
     #def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -8, r_x0 = 8):
     #    if beta == None:
@@ -78,11 +85,12 @@ class PotentialGenerator(object):
 
         pot = self.potential_process(pot, procs, args)
 
+        params = {"sigma": sigma}
         if self.g_exec_func != None:
-            self.g_exec_func(self.x, pot)
-
+            self.g_exec_func(self.x, pot, params)
         if exec_func != None:
-            exec_func(self.x, pot)
+            exec_func(self.x, pot, params)
+
 
         return pot
 
@@ -92,7 +100,6 @@ class PotentialGenerator(object):
         #Vi = np.random.uniform(0,1,self.Np)
         Vi = np.array([rnd.uniform(0, 1) for i in range(self.Np)])
         k = np.fft.rfftfreq(self.Np)
-        kc = .0125
         kc = rnd.uniform(1, 10) * k[1]
         #kc = np.random.uniform(1,10) * k[1]
         V0 = 3
@@ -107,11 +114,11 @@ class PotentialGenerator(object):
 
         pot = self.potential_process(pot)
 
+        params = {"kc": kc, "V_0": V0, "M": M}
         if self.g_exec_func != None:
-            self.g_exec_func(self.x, pot)
-
+            self.g_exec_func(self.x, pot, params)
         if exec_func != None:
-            exec_func(self.x, pot)    
+            exec_func(self.x, pot, params)    
 
         return pot
 
@@ -137,6 +144,7 @@ class PotentialGenerator(object):
         args = [(pot, sigma)]
         pot = self.potential_process(pot, procs, args)
 
+        params = {"sigma": sigma, "scale_fac": scale_fac}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot)
 
@@ -157,11 +165,11 @@ class PotentialGenerator(object):
         pot *= self.inf_val / np.max(np.abs(pot)) 
         pot += np.abs(np.min(pot))
 
+        params = {"l": l, "r": r, "width": np.abs(l - r)}
         if self.g_exec_func != None:
-            self.g_exec_func(self.x, pot)
-
+            self.g_exec_func(self.x, pot, params)
         if exec_func != None:
-            exec_func(self.x, pot)    
+            exec_func(self.x, pot, params)    
 
         return pot
 
@@ -184,11 +192,11 @@ class PotentialGenerator(object):
         #pot[index] = self.inf_val
         #pot *= self.inf_val / np.max(np.abs(pot)) 
 
+        params = {"x0": x0, "omega": omega}
         if self.g_exec_func != None:
-            self.g_exec_func(self.x, pot)
-
+            self.g_exec_func(self.x, pot, params)
         if exec_func != None:
-            exec_func(self.x, pot)    
+            exec_func(self.x, pot, params)    
 
         return pot
 
@@ -208,11 +216,11 @@ class PotentialGenerator(object):
         pot += np.abs(np.min(pot))
         pot *= self.inf_val / np.max(np.abs(pot)) 
 
+        params = {"amplitudes" : (l_1, l_2), "means": (mu_1, mu_2), "sigmas": (s_1, s_2)}
         if self.g_exec_func != None:
-            self.g_exec_func(self.x, pot)
-
+            self.g_exec_func(self.x, pot, params)
         if exec_func != None:
-            exec_func(self.x, pot)    
+            exec_func(self.x, pot, params)    
 
         return pot
 
@@ -220,13 +228,17 @@ class PotentialGenerator(object):
         self.seed = seed;
         rnd.seed(seed)
 
-def save_as_h5(x, pot):
+    def get_generator_params(self, generator_type):
+        return generator_type
+
+
+def save_as_h5(x, pot, params):
     hf = h5py.File("func.h5", "w")
     hf.create_dataset("func", data=pot)
     hf.create_dataset("x", data=x)
     hf.close()
 
-def display_pot(x, pot):
+def display_pot(x, pot, params):
     plt.plot(x, pot)
     plt.show()
 

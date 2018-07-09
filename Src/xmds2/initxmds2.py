@@ -50,17 +50,15 @@ alpha = 0.5
 #cwd = os.getcwd()
 #pot_types = [int(cwd[cwd.rfind("_") + 1])]
 
-pot_types = [0]
-pot_generators[0]()
-
 for pot_type in pot_types:
     #rnd.seed(pot_type + 50)
     #rnd.seed(pot_type + 30)
     #inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
-    inter_params = [0, 10, 100]
+    inter_params = np.arange(0, 30, 30/30) 
+    inter_params = np.repeat(inter_params, 1000)
     for inter_param in inter_params:
 
-        #pot_generators[pot_type]()
+        pot_generators[pot_type]()
 
         cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
         args = shlex.split(cmdline)
