@@ -27,7 +27,7 @@ if pot_type != -1:
 start = time.time()
 
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
-pot_gen = pg.PotentialGenerator(seed = 22, g_exec_func = pg.save_as_h5)
+pot_gen = pg.PotentialGenerator(seed = 20, g_exec_func = pg.save_as_h5)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -37,44 +37,33 @@ pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_random_pot_3]
 
 alpha = 0.5
-#pot_generators[pot_type]()
-
-#gg = lambda mu: ((5/3) * (32/9)**(1/3) * mu)**(3/5)
-#
-#g_high = 30
-#g_low = 15
-#gg = lambda mu: g_low + (mu / (g_high**(5/3) - g_low**(5/3)))**(3/5) * g_high   
-#
-#mu = np.array([rnd.uniform(0, 35) for i in range(N_of_ex)])
+pot_generators[pot_type]()
 
 #cwd = os.getcwd()
-#pot_types = [int(cwd[cwd.rfind("_") + 1])] 
-gg_new = lambda g: 0.105 * g**(2/3)
+#pot_types = [int(cwd[cwd.rfind("_") + 1])]
 
+pot_params = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
-for pot_type in pot_types:
-    #rnd.seed(pot_type + 50)
-    #rnd.seed(pot_type + 30)
-    inter_params = np.array([rnd.uniform(10, 30) for i in range(N_of_ex)])
-    #inter_params = np.arange(0, 30, 30/30) 
-    #inter_params = np.repeat(inter_params, 1000)
+for pot_param in pot_params:
+    pot_gen.reset_seed(20)
+    #inter_params = np.arange(0, 30, 30/30)
+    inter_params = [10] 
     for inter_param in inter_params:
 
-        pot_generators[pot_type]()
+        pot_generators[pot_type](pot_param)
 
-        #cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
-        #args = shlex.split(cmdline)
-        #p = subprocess.Popen(args)
-        #p.wait()
+        cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
 
-        #cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
-        #args = shlex.split(cmdline)
-        #p = subprocess.Popen(args)
-        #p.wait()
+        cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
+    np.savetxt("inter-{}.txt".format(pot_type), inter_params)
 
 end = time.time()
-
-#np.savetxt("omega.txt", pot_gen.omega)
 
 print("Total Time = {}".format(end - start))
 

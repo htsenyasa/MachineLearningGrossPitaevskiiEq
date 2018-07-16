@@ -1,9 +1,20 @@
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.ndimage
-import h5py
 import random as rnd
 
+
+
+g_generator_types = {"harmonic": 0, 
+                     "well":     1, 
+                     "gaussian": 2, 
+                     "random":   3, 
+                     "random2":  4, 
+                     "random3":  5,}
+
+
+g_inv_generator_types = {value: key for key, value in g_generator_types.items()}
 
 class PotentialGenerator(object):
     cur_pot_type = None
@@ -24,12 +35,7 @@ class PotentialGenerator(object):
         self.transform = transform
         self.omega = []
         self.num_of_generators = 6
-        self.generator_types = {"harmonic": 0, 
-                                "well":     1, 
-                                "gaussian": 2, 
-                                "random":   3, 
-                                "random2":  4, 
-                                "random3":  5,}
+
 
     #def create_envolope_pot(self, beta = None, width = 10,  l_x0 = -8, r_x0 = 8):
     #    if beta == None:
@@ -85,7 +91,7 @@ class PotentialGenerator(object):
 
         pot = self.potential_process(pot, procs, args)
 
-        params = {"sigma": sigma}
+        params = {"type": g_generator_types["random"], "sigma": sigma}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot, params)
         if exec_func != None:
@@ -114,7 +120,7 @@ class PotentialGenerator(object):
 
         pot = self.potential_process(pot)
 
-        params = {"kc": kc, "V_0": V0, "M": M}
+        params = {"type": g_generator_types["random2"], "kc": kc, "V_0": V0, "M": M}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot, params)
         if exec_func != None:
@@ -144,7 +150,7 @@ class PotentialGenerator(object):
         args = [(pot, sigma)]
         pot = self.potential_process(pot, procs, args)
 
-        params = {"sigma": sigma, "scale_fac": scale_fac}
+        params = {"type": g_generator_types["random3"], "sigma": sigma, "scale_fac": scale_fac}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot)
 
@@ -165,7 +171,7 @@ class PotentialGenerator(object):
         pot *= self.inf_val / np.max(np.abs(pot)) 
         pot += np.abs(np.min(pot))
 
-        params = {"l": l, "r": r, "width": np.abs(l - r)}
+        params = {"type": g_generator_types["well"], "l": l, "r": r, "width": np.abs(l - r)}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot, params)
         if exec_func != None:
@@ -175,24 +181,24 @@ class PotentialGenerator(object):
 
     def generate_harmonic_pot(self, exec_func = None):
         x0 = rnd.uniform(-1, 1)
-        omega = rnd.uniform(0.5, 1.3)
+        omega = rnd.uniform(0.5, 3)
         self.omega.append(omega)
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
 
         pot += np.abs(np.min(pot))
-        a3, a1a2 = self.create_envolope_pot(4, l_x0 = -6 + x0, r_x0 = 6 + x0)
-        #Vmax = np.max(pot) * 2
-        Vmax = self.inf_val
-        pot = pot * a3 + a1a2 * Vmax
-        #pot *= self.inf_val / np.max(np.abs(pot)) 
+        #  a3, a1a2 = self.create_envolope_pot(4, l_x0 = -6 + x0, r_x0 = 6 + x0)
+        #  #Vmax = np.max(pot) * 2
+        #  Vmax = self.inf_val
+        #  pot = pot * a3 + a1a2 * Vmax
+        #  #pot *= self.inf_val / np.max(np.abs(pot)) 
         
         #pot = self.potential_process(pot)
         #pot =  0.5 * (self.transform(self.x - x0))**2
-        #index = np.where(pot > self.inf_val)
-        #pot[index] = self.inf_val
-        #pot *= self.inf_val / np.max(np.abs(pot)) 
+        index = np.where(pot > self.inf_val)
+        pot[index] = self.inf_val
+        pot *= self.inf_val / np.max(np.abs(pot)) 
 
-        params = {"x0": x0, "omega": omega}
+        params = {"type": g_generator_types["harmonic"], "x0": x0, "omega": omega}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot, params)
         if exec_func != None:
@@ -216,7 +222,7 @@ class PotentialGenerator(object):
         pot += np.abs(np.min(pot))
         pot *= self.inf_val / np.max(np.abs(pot)) 
 
-        params = {"amplitudes" : (l_1, l_2), "means": (mu_1, mu_2), "sigmas": (s_1, s_2)}
+        params = {"type": g_generator_types["gaussian"], "amplitudes" : (l_1, l_2), "means": (mu_1, mu_2), "sigmas": (s_1, s_2)}
         if self.g_exec_func != None:
             self.g_exec_func(self.x, pot, params)
         if exec_func != None:
@@ -228,19 +234,34 @@ class PotentialGenerator(object):
         self.seed = seed;
         rnd.seed(seed)
 
-    def get_generator_params(self, generator_type):
-        return generator_type
 
+def display_pot(x, pot, params):
+    plt.plot(x, pot)
+    plt.show()
 
 def save_as_h5(x, pot, params):
+    import h5py
     hf = h5py.File("func.h5", "w")
     hf.create_dataset("func", data=pot)
     hf.create_dataset("x", data=x)
     hf.close()
 
-def display_pot(x, pot, params):
-    plt.plot(x, pot)
-    plt.show()
+    pot_type = g_inv_generator_types[params["type"]]
+    save_file = "../../figs/../figs/dataresults/potparams/" + pot_type + "-params" + ".dat"
+    f = open(save_file, "ab")
+    pickle.dump(params, f)
+    f.close()
+
+def get_generator_params(file_name):
+    f = open(file_name, "rb")
+    objs = []
+    while 1:
+        try:
+            objs.append(pickle.load(f))
+        except EOFError:
+            break
+        
+
 
 
 #        index = (self.Np // self.total_width) * (self.width // 2)
