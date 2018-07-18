@@ -27,7 +27,7 @@ if pot_type != -1:
 start = time.time()
 
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
-pot_gen = pg.PotentialGenerator(seed = 22, g_exec_func = pg.save_as_h5)
+pot_gen = pg.PotentialGenerator(seed = 30, g_exec_func = pg.save_as_h5)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -49,28 +49,29 @@ alpha = 0.5
 
 #cwd = os.getcwd()
 #pot_types = [int(cwd[cwd.rfind("_") + 1])] 
-gg_new = lambda g: 0.105 * g**(2/3)
+gg_new = lambda g: (g/0.2 + 6.08 )**(3/2)
 
 
 for pot_type in pot_types:
     #rnd.seed(pot_type + 50)
     #rnd.seed(pot_type + 30)
-    inter_params = np.array([rnd.uniform(10, 30) for i in range(N_of_ex)])
-    #inter_params = np.arange(0, 30, 30/30) 
+    #inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
+    #inter_params = gg_new(inter_params)
+    inter_params = np.arange(0, 30, 30/N_of_ex) 
     #inter_params = np.repeat(inter_params, 1000)
     for inter_param in inter_params:
 
         pot_generators[pot_type]()
 
-        #cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
-        #args = shlex.split(cmdline)
-        #p = subprocess.Popen(args)
-        #p.wait()
-
-        #cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
-        #args = shlex.split(cmdline)
-        #p = subprocess.Popen(args)
-        #p.wait()
+        cmdline = "./xgp1d --interaction_param={} --alpha={}".format(inter_param, alpha)
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
+           
+        cmdline = "python gp1d_auto.py --pos-file-ex=-generic.dat --dir={}".format(dirs[pot_type])
+        args = shlex.split(cmdline)
+        p = subprocess.Popen(args)
+        p.wait()
 
 end = time.time()
 

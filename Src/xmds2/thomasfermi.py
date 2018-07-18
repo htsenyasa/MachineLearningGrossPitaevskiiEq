@@ -119,7 +119,7 @@ def calc_tf_ntf(pot_type):
     ax1.tick_params('$y$')
     #ax1.tick_params(labelsize = 18)
 
-    ax2 = ax1.twinx()   
+    ax2 = ax1.twinx()
     ax2.plot(x, dens, label = "XMDS")
     ax2.plot(x, n_tf, label = "TF")
     ax2.set_ylabel('$|\psi(x)|^2$')

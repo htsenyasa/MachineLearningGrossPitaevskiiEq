@@ -182,6 +182,7 @@ class PotentialGenerator(object):
     def generate_harmonic_pot(self, exec_func = None):
         x0 = rnd.uniform(-1, 1)
         omega = rnd.uniform(0.5, 3)
+        omega = 1
         self.omega.append(omega)
         pot =  0.5 * omega**2 * (self.transform(self.x - x0))**2
 
