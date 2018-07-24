@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import potentialgenerator as pg
+import dist
 
 parser = argparse.ArgumentParser(description='XMDS initializer')
 parser.add_argument('--examples',   type=int,   default=10,     help = 'Number of examples to solve (Default: 10)')
@@ -27,7 +28,7 @@ if pot_type != -1:
 start = time.time()
 
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.save_as_h5)
-pot_gen = pg.PotentialGenerator(seed = 30, g_exec_func = pg.save_as_h5)
+pot_gen = pg.PotentialGenerator(seed = 42, g_exec_func = pg.save_as_h5)
 #pot_gen = pg.PotentialGenerator(g_exec_func = pg.display_pot)
 pot_generators = [pot_gen.generate_harmonic_pot,
                   pot_gen.generate_well_pot, 
@@ -50,16 +51,21 @@ alpha = 0.5
 #cwd = os.getcwd()
 #pot_types = [int(cwd[cwd.rfind("_") + 1])] 
 
-
-
+#en = np.loadtxt("../../data/nonlinearSE/generic_dataset_var/harmonic_gg/energy-generic.dat")
+#gg = np.loadtxt("../../data/nonlinearSE/generic_dataset_var/harmonic_gg/gg-generic.dat")
+gg = np.loadtxt("../../data/nonlinearSE/generic_dataset/gaussian/gg-uniq.dat")
+en = np.loadtxt("../../data/nonlinearSE/generic_dataset/gaussian/en_mean.dat")
+en_std = np.loadtxt("../../data/nonlinearSE/generic_dataset/gaussian/en_std.dat")
+gg_dist = dist.inv_dist_2(gg, en, en_std, a = 0, b = max(gg))
 
 
 for pot_type in pot_types:
     #rnd.seed(pot_type + 50)
     #rnd.seed(pot_type + 30)
     #inter_params = np.array([rnd.uniform(0, 30) for i in range(N_of_ex)])
-    #inter_params = gg_new(inter_params)
-    inter_params = np.arange(0, 30, 30/N_of_ex) 
+    inter_params = np.array([rnd.uniform(0, 1) for i in range(N_of_ex)])
+    inter_params = gg_dist(inter_params)
+    #inter_params = np.arange(0, 30, 30/N_of_ex) 
     #inter_params = np.repeat(inter_params, 1000)
     for inter_param in inter_params:
 
