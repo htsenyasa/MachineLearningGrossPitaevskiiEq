@@ -8,4 +8,4 @@ inverse problem of predicting the non-linearity parameter using the ground state
 density proﬁle and the trapping potential.
 
 # Notes
-This is a project from 2017-2018, in the context of machine learning it does not involves anything fancy but the project has a relatively good random potential generator. 
+This is a project from 2017-2018.
